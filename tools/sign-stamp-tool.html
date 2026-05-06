@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Sign & Stamp Tool — KC Shah & Associates</title>
+<script defer src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script defer src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+    }
+  });
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2e4a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #1a2e4a;
+    --muted: #6b7a8d;
+    --border: #dde3ea;
+    --success: #2e7d52;
+    --error: #c0392b;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  header .logo { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.5px; }
+  header .logo span { color: var(--gold); }
+  header .subtitle { font-size: 0.85rem; color: #a0b0c0; margin-left: auto; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* Step indicator */
+  .steps {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    gap: 0;
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+  .step-item:last-child { flex: 0; }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+  }
+  .step-num.active { background: var(--gold); color: var(--navy); }
+  .step-num.done { background: var(--success); color: white; }
+  .step-label { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  .step-label.active { color: var(--navy); font-weight: 600; }
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin: 0 8px;
+  }
+  .step-connector.done { background: var(--success); }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(26,46,74,0.07);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title .badge {
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .card-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+
+  /* Image upload zones */
+  .image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media(max-width: 600px){ .image-pair { grid-template-columns: 1fr; } }
+
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .upload-zone:hover { border-color: var(--gold); background: #fdf9f0; }
+  .upload-zone.has-file { border-color: var(--success); border-style: solid; }
+  .upload-zone input[type=file] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+  .upload-label { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+  .upload-hint { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  /* Preview panels */
+  .preview-panel {
+    display: none;
+    margin-top: 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid var(--border);
+  }
+  .preview-panel.visible { display: block; }
+  .preview-title { font-size: 0.8rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+  .preview-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .preview-box {
+    background: #e8e8e8;
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 3/2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .preview-box.transparent-bg {
+    background-image: linear-gradient(45deg,#ccc 25%,transparent 25%),
+      linear-gradient(-45deg,#ccc 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#ccc 75%),
+      linear-gradient(-45deg,transparent 75%,#ccc 75%);
+    background-size: 14px 14px;
+    background-position: 0 0,0 7px,7px -7px,-7px 0;
+    background-color: #f0f0f0;
+  }
+  .preview-box canvas, .preview-box img {
+    max-width: 100%; max-height: 100%; object-fit: contain; display: block;
+  }
+  .preview-label { font-size: 0.7rem; color: var(--muted); text-align: center; margin-top: 4px; }
+
+  .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .slider-row label { font-size: 0.8rem; color: var(--navy); white-space: nowrap; min-width: 100px; }
+  .slider-row input[type=range] { flex: 1; accent-color: var(--gold); }
+  .slider-val { font-size: 0.8rem; font-weight: 600; color: var(--navy); min-width: 30px; text-align: right; }
+
+  .btn-confirm {
+    background: var(--success);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-confirm:hover { opacity: 0.88; }
+  .confirmed-badge {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--success);
+    font-weight: 600;
+  }
+  .confirmed-badge.visible { display: flex; }
+
+  /* PDF upload */
+  .pdf-upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .pdf-upload-zone:hover { border-color: var(--gold); background: #fdf9f0; }
+  .pdf-upload-zone.has-file { border-color: var(--success); border-style: solid; }
+  .pdf-upload-zone input[type=file] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .pdf-info {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: #edf7f1;
+    border-radius: 8px;
+    border: 1px solid #b6dfc9;
+  }
+  .pdf-info.visible { display: flex; }
+  .pdf-info-icon { font-size: 1.8rem; }
+  .pdf-info-text .pdf-name { font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+  .pdf-info-text .pdf-pages { font-size: 0.8rem; color: var(--muted); }
+
+  /* Page selection */
+  .radio-group { display: flex; flex-direction: column; gap: 12px; }
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .radio-option:hover { border-color: var(--gold); background: #fdf9f0; }
+  .radio-option input[type=radio] { accent-color: var(--gold); width: 16px; height: 16px; }
+  .radio-option.selected { border-color: var(--gold); background: #fdf9f0; }
+  .radio-text { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+  .radio-sub { font-size: 0.78rem; color: var(--muted); }
+  .custom-range-input {
+    display: none;
+    margin-top: 10px;
+    margin-left: 26px;
+  }
+  .custom-range-input.visible { display: block; }
+  .custom-range-input input {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    width: 240px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .custom-range-input input:focus { border-color: var(--gold); }
+  .custom-range-input .hint { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  /* Placement canvas */
+  .placement-area {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .canvas-wrapper {
+    position: relative;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  #placementCanvas { display: block; cursor: default; }
+  .draggable-overlay {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: border-color 0.1s;
+  }
+  .draggable-overlay:hover { border-color: var(--gold); }
+  .draggable-overlay.dragging { cursor: grabbing; border-color: var(--gold); box-shadow: 0 4px 16px rgba(201,168,76,0.4); }
+  .draggable-overlay img { display: block; pointer-events: none; }
+  .drag-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .controls-panel { flex: 1; min-width: 220px; }
+  .control-group { margin-bottom: 18px; }
+  .control-group label { font-size: 0.82rem; font-weight: 600; color: var(--navy); display: block; margin-bottom: 6px; }
+  .control-group input[type=range] { width: 100%; accent-color: var(--gold); }
+  .control-group .val { font-size: 0.78rem; color: var(--muted); }
+  .canvas-hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ── Step 4 grid ── */
+  .global-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .size-row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--navy); font-weight: 600; }
+  .size-row input[type=range] { width: 110px; accent-color: var(--gold); }
+  .size-row span.val { font-weight: 700; min-width: 28px; }
+  .btn-copy {
+    background: var(--navy); color: white; border: none;
+    border-radius: 6px; padding: 8px 16px; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; transition: opacity 0.15s; white-space: nowrap;
+  }
+  .btn-copy:hover { opacity: 0.85; }
+
+  .pages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    max-height: 72vh;
+    overflow-y: auto;
+    padding: 2px 2px 8px;
+  }
+  .page-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: visible;
+    background: #fafafa;
+    box-shadow: 0 1px 4px rgba(26,46,74,0.06);
+  }
+  .page-card-label {
+    padding: 7px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--navy);
+    background: #eef2f7;
+    border-bottom: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+  }
+  .page-canvas-wrapper {
+    position: relative;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  .page-canvas { display: block; }
+  .page-overlay {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    border: 1.5px solid transparent;
+    border-radius: 3px;
+    transition: border-color 0.1s;
+    touch-action: none;
+  }
+  .page-overlay:hover { border-color: var(--gold); }
+  .page-overlay.dragging { cursor: grabbing; border-color: var(--gold); box-shadow: 0 2px 12px rgba(201,168,76,0.45); z-index: 10; }
+  .page-overlay img { display: block; pointer-events: none; border-radius: 2px; }
+  .page-overlay-label {
+    position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+    font-size: 9px; color: var(--muted); white-space: nowrap; pointer-events: none;
+    background: white; padding: 1px 4px; border-radius: 3px; border: 1px solid var(--border);
+  }
+
+  /* ── Step 4 professional layout (3-column) ── */
+  /* When Step 4 is active, expand the container to the full viewport */
+  body.step4-active .container { max-width: 1700px; padding: 20px 24px 40px; }
+  body.step4-active .steps { max-width: 920px; margin-left: auto; margin-right: auto; }
+  .step4-card { max-width: none; padding: 20px 24px; }
+
+  .step4-toolbar {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+    padding: 12px 16px; margin: 4px 0 18px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(26,46,74,0.05);
+  }
+  .step4-toolbar .size-row { font-size: 0.82rem; }
+  .step4-toolbar input[type=range] { width: 130px; }
+  .step4-toolbar .val { font-weight: 700; min-width: 26px; display: inline-block; text-align: right; }
+  .preset-select {
+    padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 0.82rem; color: var(--navy); font-weight: 500; background: white;
+    cursor: pointer; outline: none;
+  }
+  .preset-select:focus { border-color: var(--gold); }
+
+  .step4-layout {
+    display: grid;
+    grid-template-columns: 160px 1fr 220px;
+    gap: 16px;
+    align-items: start;
+  }
+  @media (max-width: 1100px) {
+    .step4-layout { grid-template-columns: 130px 1fr 200px; gap: 12px; }
+  }
+  @media (max-width: 860px) {
+    .step4-layout { grid-template-columns: 1fr; }
+    .step4-thumbs { flex-direction: row; overflow-x: auto; max-height: none; }
+    .step4-rail { order: 3; }
+  }
+
+  /* Thumbnails sidebar */
+  .step4-thumbs {
+    display: flex; flex-direction: column; gap: 10px;
+    max-height: 78vh; overflow-y: auto;
+    padding: 4px;
+    background: #f0f3f7;
+    border-radius: 8px;
+  }
+  .thumbs-loading {
+    padding: 20px; text-align: center; font-size: 0.8rem; color: var(--muted);
+  }
+  .thumb-item {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: white;
+    padding: 4px;
+    transition: border-color 0.12s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .thumb-item:hover { border-color: var(--gold-light); }
+  .thumb-item.active { border-color: var(--gold); box-shadow: 0 2px 8px rgba(201,168,76,0.35); }
+  .thumb-item img { display: block; width: 100%; border-radius: 3px; }
+  .thumb-label {
+    font-size: 0.72rem; color: var(--muted); text-align: center; padding: 3px 0 1px;
+    font-weight: 600;
+  }
+  .thumb-item.active .thumb-label { color: var(--navy); }
+
+  /* Main canvas viewport */
+  .step4-main {
+    background: #e9edf2;
+    border-radius: 10px;
+    padding: 18px;
+    display: flex; align-items: flex-start; justify-content: center;
+    min-height: 500px;
+    overflow: auto;
+    max-height: 78vh;
+  }
+  .main-canvas-wrap {
+    position: relative;
+    background: white;
+    box-shadow: 0 3px 14px rgba(26,46,74,0.18);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  #mainCanvas { display: block; max-width: 100%; }
+  .main-overlay { z-index: 2; }
+  #mainStp { z-index: 2; }
+  #mainSig { z-index: 3; }  /* signature always on top — needed for "sign over stamp" */
+  .snap-guide {
+    position: absolute; background: rgba(201,168,76,0.7);
+    pointer-events: none; display: none; z-index: 3;
+  }
+  .snap-guide-v { width: 1px; top: 0; bottom: 0; }
+  .snap-guide-h { height: 1px; left: 0; right: 0; }
+  .snap-guide.visible { display: block; }
+
+  /* Right rail */
+  .step4-rail {
+    display: flex; flex-direction: column; gap: 12px;
+    padding: 14px 16px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    position: sticky; top: 90px;
+  }
+  .rail-header {
+    font-size: 0.95rem; font-weight: 700; color: var(--navy);
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .rail-section { padding: 6px 0; }
+  .rail-title { font-size: 0.78rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .rail-coord { font-size: 0.78rem; color: var(--muted); font-family: 'Courier New', monospace; }
+  .rail-coord span { color: var(--navy); font-weight: 600; }
+  .rail-toggle {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; color: var(--navy); font-weight: 500;
+    padding: 8px 0; cursor: pointer;
+    border-top: 1px solid var(--border);
+  }
+  .rail-toggle input { accent-color: var(--gold); }
+  .rail-hint {
+    font-size: 0.72rem; color: var(--muted); line-height: 1.4;
+    padding: 8px 10px; background: #fff; border-radius: 6px; border: 1px solid var(--border);
+  }
+  .rail-process {
+    width: 100%; justify-content: center;
+    padding: 12px 16px; font-size: 0.92rem;
+  }
+
+  /* Process button */
+  .process-section { text-align: center; margin-top: 24px; }
+  .btn-process {
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 40px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-process:hover:not(:disabled) { background: #243d61; transform: translateY(-1px); }
+  .btn-process:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-process .spinner {
+    width: 18px; height: 18px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  .btn-process.processing .spinner { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-msg {
+    display: none;
+    background: #fdecea;
+    border: 1px solid #f5c6c6;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--error);
+    margin-top: 14px;
+    text-align: left;
+  }
+  .error-msg.visible { display: block; }
+
+  .success-msg {
+    display: none;
+    background: #edf7f1;
+    border: 1px solid #b6dfc9;
+    border-radius: 8px;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    color: var(--success);
+    font-weight: 600;
+    margin-top: 14px;
+    text-align: center;
+  }
+  .success-msg.visible { display: block; }
+
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
+  }
+
+  .step-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    gap: 12px;
+  }
+  .btn-nav {
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid var(--navy);
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-nav.primary { background: var(--navy); color: white; }
+  .btn-nav.primary:hover { background: #243d61; }
+  .btn-nav.secondary { background: white; color: var(--navy); }
+  .btn-nav.secondary:hover { background: #f0f4f8; }
+  .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .step-section { display: none; }
+  .step-section.active { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">KC <span>Shah</span> &amp; Associates</div>
+  <div class="subtitle">PDF Sign &amp; Stamp Tool</div>
+</header>
+
+<div class="container">
+
+  <!-- Step Indicator -->
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num active" id="sn1">1</div>
+      <div class="step-label active" id="sl1">Images</div>
+    </div>
+    <div class="step-connector" id="sc1"></div>
+    <div class="step-item">
+      <div class="step-num" id="sn2">2</div>
+      <div class="step-label" id="sl2">PDF</div>
+    </div>
+    <div class="step-connector" id="sc2"></div>
+    <div class="step-item">
+      <div class="step-num" id="sn3">3</div>
+      <div class="step-label" id="sl3">Pages</div>
+    </div>
+    <div class="step-connector" id="sc3"></div>
+    <div class="step-item">
+      <div class="step-num" id="sn4">4</div>
+      <div class="step-label" id="sl4">Position &amp; Export</div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 1: Images ===== -->
+  <div class="step-section active" id="step1">
+    <div class="card">
+      <div class="card-title"><span class="badge">1</span>Upload Signature &amp; Stamp</div>
+      <div class="card-sub">Upload JPG or PNG images. The white background will be automatically removed.</div>
+
+      <div class="image-pair">
+        <!-- Signature -->
+        <div>
+          <div class="upload-zone" id="sigZone">
+            <input type="file" id="sigInput" accept="image/jpeg,image/png,image/jpg">
+            <div class="upload-icon">✍️</div>
+            <div class="upload-label">Click to upload Signature</div>
+            <div class="upload-hint">JPG / PNG</div>
+          </div>
+          <div class="preview-panel" id="sigPreview">
+            <div class="preview-title">Signature — Background Removal</div>
+            <div class="preview-images">
+              <div>
+                <div class="preview-box"><img id="sigOrig" alt="Original"></div>
+                <div class="preview-label">Original</div>
+              </div>
+              <div>
+                <div class="preview-box transparent-bg"><canvas id="sigCanvas"></canvas></div>
+                <div class="preview-label">Transparent</div>
+              </div>
+            </div>
+            <div class="slider-row">
+              <label for="sigThresh">Sensitivity</label>
+              <input type="range" id="sigThresh" min="150" max="254" value="220">
+              <span class="slider-val" id="sigThreshVal">220</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <button class="btn-confirm" id="sigConfirm" onclick="confirmImage('sig')">✔ Use This</button>
+              <div class="confirmed-badge" id="sigConfirmed">✔ Signature confirmed</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stamp -->
+        <div>
+          <div class="upload-zone" id="stpZone">
+            <input type="file" id="stpInput" accept="image/jpeg,image/png,image/jpg">
+            <div class="upload-icon">🔴</div>
+            <div class="upload-label">Click to upload Stamp</div>
+            <div class="upload-hint">JPG / PNG</div>
+          </div>
+          <div class="preview-panel" id="stpPreview">
+            <div class="preview-title">Stamp — Background Removal</div>
+            <div class="preview-images">
+              <div>
+                <div class="preview-box"><img id="stpOrig" alt="Original"></div>
+                <div class="preview-label">Original</div>
+              </div>
+              <div>
+                <div class="preview-box transparent-bg"><canvas id="stpCanvas"></canvas></div>
+                <div class="preview-label">Transparent</div>
+              </div>
+            </div>
+            <div class="slider-row">
+              <label for="stpThresh">Sensitivity</label>
+              <input type="range" id="stpThresh" min="150" max="254" value="220">
+              <span class="slider-val" id="stpThreshVal">220</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <button class="btn-confirm" id="stpConfirm" onclick="confirmImage('stp')">✔ Use This</button>
+              <div class="confirmed-badge" id="stpConfirmed">✔ Stamp confirmed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-msg" id="step1Error"></div>
+      <div class="step-nav">
+        <div></div>
+        <button class="btn-nav primary" onclick="goStep(2)">Next: Upload PDF →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 2: PDF Upload ===== -->
+  <div class="step-section" id="step2">
+    <div class="card">
+      <div class="card-title"><span class="badge">2</span>Upload PDF Document</div>
+      <div class="card-sub">Select the PDF file you want to sign and stamp.</div>
+
+      <div class="pdf-upload-zone" id="pdfZone">
+        <input type="file" id="pdfInput" accept=".pdf,application/pdf">
+        <div class="upload-icon">📄</div>
+        <div class="upload-label">Click to upload PDF</div>
+        <div class="upload-hint">PDF files only</div>
+      </div>
+
+      <div class="pdf-info" id="pdfInfo">
+        <div class="pdf-info-icon">📋</div>
+        <div class="pdf-info-text">
+          <div class="pdf-name" id="pdfName">—</div>
+          <div class="pdf-pages" id="pdfPages">—</div>
+        </div>
+      </div>
+
+      <div class="error-msg" id="step2Error"></div>
+      <div class="step-nav">
+        <button class="btn-nav secondary" onclick="goStep(1)">← Back</button>
+        <button class="btn-nav primary" onclick="goStep(3)">Next: Select Pages →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 3: Page Selection ===== -->
+  <div class="step-section" id="step3">
+    <div class="card">
+      <div class="card-title"><span class="badge">3</span>Select Pages to Sign</div>
+      <div class="card-sub">Choose which pages the signature and stamp will be placed on.</div>
+
+      <div class="radio-group">
+        <label class="radio-option selected" id="ro_last">
+          <input type="radio" name="pageMode" value="last" checked onchange="updatePageMode(this)">
+          <div>
+            <div class="radio-text">Last page only</div>
+            <div class="radio-sub">Most common for CA certificates, audit reports, financial statements</div>
+          </div>
+        </label>
+        <label class="radio-option" id="ro_all">
+          <input type="radio" name="pageMode" value="all" onchange="updatePageMode(this)">
+          <div>
+            <div class="radio-text">All pages</div>
+            <div class="radio-sub">Every page gets the signature and stamp</div>
+          </div>
+        </label>
+        <label class="radio-option" id="ro_first">
+          <input type="radio" name="pageMode" value="first" onchange="updatePageMode(this)">
+          <div>
+            <div class="radio-text">First page only</div>
+            <div class="radio-sub">Cover page / letter format documents</div>
+          </div>
+        </label>
+        <label class="radio-option" id="ro_custom">
+          <input type="radio" name="pageMode" value="custom" onchange="updatePageMode(this)">
+          <div>
+            <div class="radio-text">Custom page range</div>
+            <div class="radio-sub">Specify exact pages</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="custom-range-input" id="customRangeInput">
+        <input type="text" id="customRange" placeholder="e.g. 1, 3, 5-8" autocomplete="off">
+        <div class="hint">Enter page numbers separated by commas. Use hyphens for ranges.</div>
+      </div>
+
+      <div class="error-msg" id="step3Error"></div>
+      <div class="step-nav">
+        <button class="btn-nav secondary" onclick="goStep(2)">← Back</button>
+        <button class="btn-nav primary" onclick="goStep(4)">Next: Position →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 4: Position & Export ===== -->
+  <div class="step-section" id="step4">
+    <div class="card step4-card">
+      <div class="card-title"><span class="badge">4</span>Position &amp; Export</div>
+      <div class="card-sub">Click a page on the left to view it large. Drag the signature and stamp directly on the document.</div>
+
+      <!-- Sticky toolbar -->
+      <div class="step4-toolbar">
+        <div class="size-row">✍️ Sig
+          <input type="range" id="sigSize" min="20" max="220" value="80" oninput="updateAllSizes('sig', this.value)">
+          <span class="val" id="sigSizeVal">80</span>
+        </div>
+        <div class="size-row">🔴 Stamp
+          <input type="range" id="stpSize" min="20" max="220" value="70" oninput="updateAllSizes('stp', this.value)">
+          <span class="val" id="stpSizeVal">70</span>
+        </div>
+        <select id="presetSelect" class="preset-select" onchange="applyPreset(this.value)">
+          <option value="">⚡ Quick layout…</option>
+          <option value="sig-over-stamp">✍️ Sign over stamp (CA standard)</option>
+          <option value="ca-default">Sig left, Stamp right</option>
+          <option value="bottom-right">Both bottom-right</option>
+          <option value="bottom-center">Both bottom-center</option>
+        </select>
+        <button class="btn-copy" onclick="copyPage0ToAll()">📋 Copy Page 1 → all</button>
+      </div>
+
+      <!-- 3-column layout -->
+      <div class="step4-layout">
+        <div class="step4-thumbs" id="step4Thumbs">
+          <div class="thumbs-loading">Loading pages…</div>
+        </div>
+
+        <div class="step4-main">
+          <div class="main-canvas-wrap" id="mainCanvasWrap">
+            <canvas id="mainCanvas"></canvas>
+            <div class="page-overlay main-overlay" id="mainSig"><img id="mainSigImg"><span class="page-overlay-label">Signature</span></div>
+            <div class="page-overlay main-overlay" id="mainStp"><img id="mainStpImg"><span class="page-overlay-label">Stamp</span></div>
+            <div class="snap-guide snap-guide-v" id="snapGuideV"></div>
+            <div class="snap-guide snap-guide-h" id="snapGuideH"></div>
+          </div>
+        </div>
+
+        <div class="step4-rail">
+          <div class="rail-header" id="railActiveLabel">Page 1</div>
+
+          <div class="rail-section">
+            <div class="rail-title">✍️ Signature</div>
+            <div class="rail-coord">X: <span id="sigCoordX">—</span> pt</div>
+            <div class="rail-coord">Y: <span id="sigCoordY">—</span> pt</div>
+          </div>
+
+          <div class="rail-section">
+            <div class="rail-title">🔴 Stamp</div>
+            <div class="rail-coord">X: <span id="stpCoordX">—</span> pt</div>
+            <div class="rail-coord">Y: <span id="stpCoordY">—</span> pt</div>
+          </div>
+
+          <label class="rail-toggle">
+            <input type="checkbox" id="snapToggle" checked onchange="state.snap=this.checked">
+            Snap to margins
+          </label>
+
+          <div class="rail-hint">💡 Arrow keys nudge the last-clicked overlay (Shift+Arrow = ×10)</div>
+
+          <button class="btn-process rail-process" id="processBtn" onclick="processPDF()">
+            <span class="spinner" id="processSpinner"></span>
+            <span id="processBtnText">⬇ Process &amp; Download</span>
+          </button>
+          <div class="error-msg" id="step4Error"></div>
+          <div class="success-msg" id="step4Success"></div>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn-nav secondary" onclick="goStep(3)">← Back</button>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── State ────────────────────────────────────────────────────────────────────
+const state = {
+  sig: { imgEl: null, origData: null, cleanDataURL: null, confirmed: false, threshold: 220 },
+  stp: { imgEl: null, origData: null, cleanDataURL: null, confirmed: false, threshold: 220 },
+  pdf: { bytes: null, name: null, pageCount: 0, pageW: 595, pageH: 842 },
+  pageMode: 'last',
+  customRange: '',
+  currentStep: 1,
+  overlays: { sig: { w: 75 }, stp: { w: 65 } }, // global sizes only
+};
+
+// Per-page overlay positions stored as PERCENTAGES (0–1) of page width/height.
+// This makes positions size-agnostic across pages of different sizes.
+// pageOverlays[i] = { sig: { xp, yp }, stp: { xp, yp } }
+let pageOverlays = [];
+let activeI = 0;
+let pdfjsDoc = null;
+let targetPagesCache = [];          // [{idx, ptW, ptH, mainW, mainH}, ...]
+let lastSelectedKey = 'sig';        // for keyboard nudging
+
+// ─── Step Navigation ──────────────────────────────────────────────────────────
+function goStep(n) {
+  // Validate before leaving current step
+  if (n > state.currentStep) {
+    const err = validateStep(state.currentStep);
+    if (err) { showStepError(state.currentStep, err); return; }
+    hideStepError(state.currentStep);
+  }
+  // Update step indicators
+  for (let i = 1; i <= 4; i++) {
+    const num = document.getElementById('sn' + i);
+    const lbl = document.getElementById('sl' + i);
+    const con = document.getElementById('sc' + i);
+    num.className = 'step-num' + (i < n ? ' done' : i === n ? ' active' : '');
+    if (i < n) num.textContent = '✓';
+    else num.textContent = i;
+    lbl.className = 'step-label' + (i === n ? ' active' : '');
+    if (con) con.className = 'step-connector' + (i < n ? ' done' : '');
+  }
+  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+  document.body.classList.toggle('step4-active', n === 4);
+  state.currentStep = n;
+  if (n === 4) initStep4();
+}
+
+function validateStep(n) {
+  if (n === 1) {
+    if (!state.sig.confirmed && !state.sig.cleanDataURL) return 'Please upload and confirm your Signature.';
+    if (!state.stp.confirmed && !state.stp.cleanDataURL) return 'Please upload and confirm your Stamp.';
+    if (!state.sig.confirmed) return 'Please click "Use This" to confirm the Signature.';
+    if (!state.stp.confirmed) return 'Please click "Use This" to confirm the Stamp.';
+  }
+  if (n === 2) {
+    if (!state.pdf.bytes) return 'Please upload a PDF file.';
+  }
+  if (n === 3) {
+    if (state.pageMode === 'custom') {
+      const pages = parsePageRange(document.getElementById('customRange').value, state.pdf.pageCount);
+      if (!pages || pages.length === 0) return 'Please enter a valid page range.';
+    }
+  }
+  return null;
+}
+
+function showStepError(n, msg) {
+  const el = document.getElementById('step' + n + 'Error');
+  el.textContent = msg;
+  el.classList.add('visible');
+}
+function hideStepError(n) {
+  const el = document.getElementById('step' + n + 'Error');
+  if (el) { el.textContent = ''; el.classList.remove('visible'); }
+}
+
+// ─── Image Processing ─────────────────────────────────────────────────────────
+function setupImageUpload(key) {
+  const input = document.getElementById(key + 'Input');
+  const zone = document.getElementById(key + 'Zone');
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (!file) return;
+    zone.classList.add('has-file');
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        state[key].imgEl = img;
+        document.getElementById(key + 'Orig').src = e.target.result;
+        document.getElementById(key + 'Preview').classList.add('visible');
+        state[key].confirmed = false;
+        document.getElementById(key + 'Confirmed').classList.remove('visible');
+        removeBackground(key);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById(key + 'Thresh').addEventListener('input', function() {
+    state[key].threshold = parseInt(this.value);
+    document.getElementById(key + 'ThreshVal').textContent = this.value;
+    if (state[key].imgEl) {
+      state[key].confirmed = false;
+      document.getElementById(key + 'Confirmed').classList.remove('visible');
+      removeBackground(key);
+    }
+  });
+}
+
+function removeBackground(key) {
+  const img = state[key].imgEl;
+  const thresh = state[key].threshold;
+  const canvas = document.getElementById(key + 'Canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  // Min-channel thresholding: a pixel is "background" only if its darkest channel
+  // is still above the threshold. This handles pure white AND JPEG off-white artifacts
+  // (e.g. 248,245,240) while naturally preserving all colored ink (blue/purple stamp,
+  // black signature) whose darkest channel is always well below threshold.
+  const feather = 8;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const minCh = Math.min(data[i], data[i+1], data[i+2]);
+    if (minCh >= thresh) {
+      data[i+3] = 0;
+    } else if (minCh >= thresh - feather) {
+      const t = (minCh - (thresh - feather)) / feather;
+      data[i+3] = Math.round((1 - t) * data[i+3]);
+    }
+  }
+  ctx.putImageData(imageData, 0, 0);
+  state[key].cleanDataURL = canvas.toDataURL('image/png');
+}
+
+function confirmImage(key) {
+  if (!state[key].cleanDataURL) return;
+  state[key].confirmed = true;
+  document.getElementById(key + 'Confirmed').classList.add('visible');
+  hideStepError(1);
+}
+
+// ─── PDF Upload ───────────────────────────────────────────────────────────────
+function setupPDFUpload() {
+  const input = document.getElementById('pdfInput');
+  const zone = document.getElementById('pdfZone');
+  input.addEventListener('change', async () => {
+    const file = input.files[0];
+    if (!file) return;
+    zone.classList.add('has-file');
+    const buf = await file.arrayBuffer();
+    state.pdf.bytes = new Uint8Array(buf);
+    state.pdf.name = file.name;
+    try {
+      const pdf = await PDFLib.PDFDocument.load(state.pdf.bytes, { ignoreEncryption: true });
+      state.pdf.pageCount = pdf.getPageCount();
+      // Store visual page dimensions of page 1, accounting for rotation metadata
+      const p0 = pdf.getPage(0);
+      let { width: pw, height: ph } = p0.getSize();
+      const rot = p0.getRotation().angle;
+      if (rot === 90 || rot === 270) { [pw, ph] = [ph, pw]; }
+      state.pdf.pageW = pw;
+      state.pdf.pageH = ph;
+      // Reset Step-4 caches so new PDF gets re-rendered
+      pdfjsDoc = null;
+      pageOverlays = [];
+      targetPagesCache = [];
+      document.getElementById('pdfName').textContent = file.name;
+      document.getElementById('pdfPages').textContent = state.pdf.pageCount + ' page' + (state.pdf.pageCount !== 1 ? 's' : '');
+      document.getElementById('pdfInfo').classList.add('visible');
+      hideStepError(2);
+    } catch(e) {
+      showStepError(2, 'Could not read PDF. Please make sure it is a valid, unlocked PDF file.');
+    }
+  });
+}
+
+// ─── Page Mode ────────────────────────────────────────────────────────────────
+function updatePageMode(radio) {
+  state.pageMode = radio.value;
+  document.querySelectorAll('.radio-option').forEach(el => el.classList.remove('selected'));
+  radio.closest('.radio-option').classList.add('selected');
+  document.getElementById('customRangeInput').classList.toggle('visible', radio.value === 'custom');
+}
+
+function parsePageRange(str, total) {
+  const pages = new Set();
+  const parts = str.split(',');
+  for (let p of parts) {
+    p = p.trim();
+    if (!p) continue;
+    if (p.includes('-')) {
+      const [a, b] = p.split('-').map(x => parseInt(x.trim()));
+      if (isNaN(a) || isNaN(b) || a < 1 || b > total || a > b) return null;
+      for (let i = a; i <= b; i++) pages.add(i - 1); // 0-indexed
+    } else {
+      const n = parseInt(p);
+      if (isNaN(n) || n < 1 || n > total) return null;
+      pages.add(n - 1);
+    }
+  }
+  return [...pages].sort((a,b) => a-b);
+}
+
+function getTargetPages() {
+  const n = state.pdf.pageCount;
+  if (state.pageMode === 'all') return Array.from({length: n}, (_, i) => i);
+  if (state.pageMode === 'first') return [0];
+  if (state.pageMode === 'last') return [n - 1];
+  if (state.pageMode === 'custom') {
+    return parsePageRange(document.getElementById('customRange').value, n) || [];
+  }
+  return [n - 1];
+}
+
+// ─── Placement Canvas ─────────────────────────────────────────────────────────
+// ─── Step 4: Per-page placement grid ──────────────────────────────────────────
+
+function getSigAR() { const c = document.getElementById('sigCanvas'); return (c.width / c.height) || 3; }
+function getStpAR() { const c = document.getElementById('stpCanvas'); return (c.width / c.height) || 1; }
+
+// ─── Step 4 Pipeline: PDF.js rendering + 3-column editor ──────────────────────
+
+const MAIN_W_TARGET = 720;          // target main canvas width (px)
+const THUMB_W = 130;                // thumbnail width (px)
+
+state.snap = true;
+
+async function initStep4() {
+  const targets = getTargetPages();
+  if (!targets.length) return;
+
+  // Open PDF.js doc (cache across re-entries unless PDF changed)
+  if (!pdfjsDoc || pdfjsDoc.__bytesRef !== state.pdf.bytes) {
+    try {
+      pdfjsDoc = await pdfjsLib.getDocument({ data: state.pdf.bytes.slice() }).promise;
+      pdfjsDoc.__bytesRef = state.pdf.bytes;
+    } catch (e) {
+      const tWrap = document.getElementById('step4Thumbs');
+      tWrap.innerHTML = '<div class="thumbs-loading">⚠ ' + e.message + '</div>';
+      return;
+    }
+  }
+
+  // Build target page cache (visual page sizes in pt, accounting for rotation)
+  targetPagesCache = [];
+  for (const idx of targets) {
+    const page = await pdfjsDoc.getPage(idx + 1);
+    const vp = page.getViewport({ scale: 1 });
+    targetPagesCache.push({ idx, page, ptW: vp.width, ptH: vp.height });
+  }
+
+  // Initialise pageOverlays in PERCENTAGE coordinates if not already set
+  if (pageOverlays.length !== targets.length) {
+    pageOverlays = targets.map(() => ({
+      sig: { xp: 0.05, yp: 0.92 },                  // ~5% from left, ~92% from top
+      stp: { xp: 0.78, yp: 0.92 },
+    }));
+  }
+
+  activeI = 0;
+  await renderAllThumbnails();
+  await renderMainPage(0);
+  attachKeyboardNudge();
+}
+
+async function renderAllThumbnails() {
+  const wrap = document.getElementById('step4Thumbs');
+  wrap.innerHTML = '';
+
+  for (let i = 0; i < targetPagesCache.length; i++) {
+    const tp = targetPagesCache[i];
+    const scale = THUMB_W / tp.ptW;
+    const vp = tp.page.getViewport({ scale });
+    const c = document.createElement('canvas');
+    c.width = vp.width; c.height = vp.height;
+    await tp.page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+
+    const item = document.createElement('div');
+    item.className = 'thumb-item' + (i === 0 ? ' active' : '');
+    item.dataset.i = i;
+    item.onclick = () => switchToPage(i);
+    const img = document.createElement('img');
+    img.src = c.toDataURL('image/png');
+    item.appendChild(img);
+    const lbl = document.createElement('div');
+    lbl.className = 'thumb-label';
+    lbl.textContent = 'Page ' + (tp.idx + 1);
+    item.appendChild(lbl);
+    wrap.appendChild(item);
+  }
+}
+
+async function renderMainPage(i) {
+  const tp = targetPagesCache[i];
+  if (!tp) return;
+  // Pick the best scale that fits both width and height of the available viewport area
+  const mainEl = document.querySelector('.step4-main');
+  const availW = (mainEl?.clientWidth || 900) - 40;
+  const availH = Math.max(420, window.innerHeight * 0.78);
+  const scale = Math.min(availW / tp.ptW, availH / tp.ptH, 2.0);
+  const vp = tp.page.getViewport({ scale });
+  const canvas = document.getElementById('mainCanvas');
+  canvas.width = vp.width; canvas.height = vp.height;
+  const wrap = document.getElementById('mainCanvasWrap');
+  wrap.style.width = vp.width + 'px';
+  wrap.style.height = vp.height + 'px';
+  await tp.page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+  tp.mainW = vp.width; tp.mainH = vp.height;
+  positionMainOverlays(i);
+}
+
+function positionMainOverlays(i) {
+  const tp = targetPagesCache[i];
+  ['sig', 'stp'].forEach(key => {
+    const el = document.getElementById('main' + (key === 'sig' ? 'Sig' : 'Stp'));
+    const img = document.getElementById('main' + (key === 'sig' ? 'SigImg' : 'StpImg'));
+    img.src = state[key].cleanDataURL;
+    const ar = key === 'sig' ? getSigAR() : getStpAR();
+    // Width slider value is in "% of main view width" indirectly — we treat slider as "px at MAIN_W_TARGET"
+    const w = state.overlays[key].w * (tp.mainW / MAIN_W_TARGET);
+    const h = w / ar;
+    img.style.width = w + 'px'; img.style.height = h + 'px';
+    el.style.width = w + 'px'; el.style.height = h + 'px';
+    const po = pageOverlays[i][key];
+    el.style.left = (po.xp * tp.mainW) + 'px';
+    el.style.top  = (po.yp * tp.mainH) + 'px';
+  });
+  attachMainDragHandlers();
+  updateCoordReadout();
+  document.getElementById('railActiveLabel').textContent = 'Page ' + (tp.idx + 1);
+}
+
+let _dragHandlersAttached = false;
+function attachMainDragHandlers() {
+  if (_dragHandlersAttached) return;
+  _dragHandlersAttached = true;
+  ['sig', 'stp'].forEach(key => {
+    const el = document.getElementById('main' + (key === 'sig' ? 'Sig' : 'Stp'));
+    let active = false, sx, sy, ox, oy;
+
+    function start(cx, cy) {
+      lastSelectedKey = key;
+      const tp = targetPagesCache[activeI];
+      active = true; sx = cx; sy = cy;
+      ox = pageOverlays[activeI][key].xp * tp.mainW;
+      oy = pageOverlays[activeI][key].yp * tp.mainH;
+      el.classList.add('dragging');
+    }
+    function move(cx, cy) {
+      if (!active) return;
+      const tp = targetPagesCache[activeI];
+      const w = parseFloat(el.style.width), h = parseFloat(el.style.height);
+      let nx = Math.max(0, Math.min(ox + cx - sx, tp.mainW - w));
+      let ny = Math.max(0, Math.min(oy + cy - sy, tp.mainH - h));
+      // Snap to margins
+      if (state.snap) {
+        const snapPx = 8;
+        const guideV = document.getElementById('snapGuideV');
+        const guideH = document.getElementById('snapGuideH');
+        guideV.classList.remove('visible'); guideH.classList.remove('visible');
+        const leftMargin = tp.mainW * 0.05, rightMargin = tp.mainW * 0.95;
+        const bottomMargin = tp.mainH * 0.95;
+        if (Math.abs(nx - leftMargin) < snapPx) { nx = leftMargin; guideV.style.left = leftMargin + 'px'; guideV.classList.add('visible'); }
+        else if (Math.abs(nx + w - rightMargin) < snapPx) { nx = rightMargin - w; guideV.style.left = rightMargin + 'px'; guideV.classList.add('visible'); }
+        if (Math.abs(ny + h - bottomMargin) < snapPx) { ny = bottomMargin - h; guideH.style.top = bottomMargin + 'px'; guideH.classList.add('visible'); }
+      }
+      pageOverlays[activeI][key].xp = nx / tp.mainW;
+      pageOverlays[activeI][key].yp = ny / tp.mainH;
+      el.style.left = nx + 'px'; el.style.top = ny + 'px';
+      updateCoordReadout();
+    }
+    function end() {
+      active = false; el.classList.remove('dragging');
+      document.getElementById('snapGuideV').classList.remove('visible');
+      document.getElementById('snapGuideH').classList.remove('visible');
+    }
+
+    el.addEventListener('mousedown', e => { e.preventDefault(); start(e.clientX, e.clientY); });
+    document.addEventListener('mousemove', e => move(e.clientX, e.clientY));
+    document.addEventListener('mouseup', end);
+    el.addEventListener('touchstart', e => { e.preventDefault(); const t = e.touches[0]; start(t.clientX, t.clientY); }, { passive: false });
+    document.addEventListener('touchmove', e => { if (active) { const t = e.touches[0]; move(t.clientX, t.clientY); } }, { passive: true });
+    document.addEventListener('touchend', end);
+  });
+}
+
+async function switchToPage(i) {
+  if (i === activeI) return;
+  activeI = i;
+  document.querySelectorAll('.thumb-item').forEach(el => el.classList.toggle('active', +el.dataset.i === i));
+  await renderMainPage(i);
+}
+
+function updateCoordReadout() {
+  const tp = targetPagesCache[activeI];
+  if (!tp) return;
+  ['sig', 'stp'].forEach(key => {
+    const po = pageOverlays[activeI][key];
+    const xPt = Math.round(po.xp * tp.ptW);
+    const yPt = Math.round(po.yp * tp.ptH);
+    document.getElementById(key + 'CoordX').textContent = xPt;
+    document.getElementById(key + 'CoordY').textContent = yPt;
+  });
+}
+
+function updateAllSizes(key, val) {
+  state.overlays[key].w = parseInt(val);
+  document.getElementById(key + 'SizeVal').textContent = val;
+  // Re-position only the main overlay; thumbnails don't show overlays
+  if (targetPagesCache[activeI]) {
+    const tp = targetPagesCache[activeI];
+    const el = document.getElementById('main' + (key === 'sig' ? 'Sig' : 'Stp'));
+    const img = document.getElementById('main' + (key === 'sig' ? 'SigImg' : 'StpImg'));
+    const ar = key === 'sig' ? getSigAR() : getStpAR();
+    const w = parseInt(val) * (tp.mainW / MAIN_W_TARGET);
+    const h = w / ar;
+    img.style.width = w + 'px'; img.style.height = h + 'px';
+    el.style.width = w + 'px'; el.style.height = h + 'px';
+    // Clamp percentage so overlay stays within page
+    const po = pageOverlays[activeI][key];
+    po.xp = Math.max(0, Math.min(po.xp, 1 - w / tp.mainW));
+    po.yp = Math.max(0, Math.min(po.yp, 1 - h / tp.mainH));
+    el.style.left = (po.xp * tp.mainW) + 'px';
+    el.style.top  = (po.yp * tp.mainH) + 'px';
+    updateCoordReadout();
+  }
+}
+
+function copyPage0ToAll() {
+  if (pageOverlays.length < 2) return;
+  const src = pageOverlays[0];
+  for (let i = 1; i < pageOverlays.length; i++) {
+    pageOverlays[i] = { sig: { ...src.sig }, stp: { ...src.stp } };
+  }
+  // Refresh active page view
+  if (activeI > 0) positionMainOverlays(activeI);
+  updateCoordReadout();
+  flashToolbar('Copied page 1 layout to all pages ✓');
+}
+
+function applyPreset(name) {
+  if (!name) return;
+  const sigAR = getSigAR(), stpAR = getStpAR();
+
+  for (let i = 0; i < pageOverlays.length; i++) {
+    const tp = targetPagesCache[i];
+    if (!tp) continue;
+
+    // Compute sig/stamp size as fractions of THIS page's width and height
+    // The slider value is in "px @ MAIN_W_TARGET reference width"
+    const sigW_pctW = state.overlays.sig.w / MAIN_W_TARGET;             // width as % of page width
+    const stpW_pctW = state.overlays.stp.w / MAIN_W_TARGET;
+    const sigH_pt   = (state.overlays.sig.w * tp.ptW / MAIN_W_TARGET) / sigAR;
+    const stpH_pt   = (state.overlays.stp.w * tp.ptW / MAIN_W_TARGET) / stpAR;
+    const sigH_pctH = sigH_pt / tp.ptH;
+    const stpH_pctH = stpH_pt / tp.ptH;
+
+    let sig, stp;
+
+    if (name === 'sig-over-stamp') {
+      // Stamp: 5% from right edge, 5% from bottom edge
+      const stp_xp = 1 - stpW_pctW - 0.05;
+      const stp_yp = 1 - stpH_pctH - 0.05;
+      // Sig: right end crosses 30% INTO stamp from its left edge
+      // Sig vertical center sits 30% down into stamp (upper portion)
+      const sig_xp = stp_xp + (stpW_pctW * 0.30) - sigW_pctW;
+      const sig_yp = stp_yp + (stpH_pctH * 0.30) - (sigH_pctH / 2);
+      sig = { xp: clamp01(sig_xp), yp: clamp01(sig_yp) };
+      stp = { xp: clamp01(stp_xp), yp: clamp01(stp_yp) };
+    }
+    else if (name === 'ca-default') {
+      sig = { xp: 0.05, yp: 1 - sigH_pctH - 0.05 };
+      stp = { xp: 1 - stpW_pctW - 0.05, yp: 1 - stpH_pctH - 0.05 };
+    }
+    else if (name === 'bottom-right') {
+      stp = { xp: 1 - stpW_pctW - 0.05, yp: 1 - stpH_pctH - 0.05 };
+      sig = { xp: stp.xp - sigW_pctW - 0.02, yp: 1 - sigH_pctH - 0.05 };
+    }
+    else if (name === 'bottom-center') {
+      const totalW = sigW_pctW + 0.02 + stpW_pctW;
+      const startX = (1 - totalW) / 2;
+      sig = { xp: startX, yp: 1 - sigH_pctH - 0.05 };
+      stp = { xp: startX + sigW_pctW + 0.02, yp: 1 - stpH_pctH - 0.05 };
+    }
+    else continue;
+
+    pageOverlays[i] = { sig, stp };
+  }
+  positionMainOverlays(activeI);
+  updateCoordReadout();
+  document.getElementById('presetSelect').value = '';
+}
+
+function clamp01(x) { return Math.max(0, Math.min(1, x)); }
+
+function attachKeyboardNudge() {
+  if (window._kbAttached) return;
+  window._kbAttached = true;
+  document.addEventListener('keydown', e => {
+    const inField = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName);
+    if (inField) return;
+    if (!document.getElementById('step4').classList.contains('active')) return;
+    if (!targetPagesCache[activeI]) return;
+    const tp = targetPagesCache[activeI];
+    const step = e.shiftKey ? 10 : 1;
+    const po = pageOverlays[activeI][lastSelectedKey];
+    let dx = 0, dy = 0;
+    if (e.key === 'ArrowLeft')  dx = -step;
+    if (e.key === 'ArrowRight') dx =  step;
+    if (e.key === 'ArrowUp')    dy = -step;
+    if (e.key === 'ArrowDown')  dy =  step;
+    if (!dx && !dy) return;
+    e.preventDefault();
+    po.xp = Math.max(0, Math.min(1, po.xp + dx / tp.mainW));
+    po.yp = Math.max(0, Math.min(1, po.yp + dy / tp.mainH));
+    const el = document.getElementById('main' + (lastSelectedKey === 'sig' ? 'Sig' : 'Stp'));
+    el.style.left = (po.xp * tp.mainW) + 'px';
+    el.style.top  = (po.yp * tp.mainH) + 'px';
+    updateCoordReadout();
+  });
+}
+
+function flashToolbar(msg) {
+  const tb = document.querySelector('.step4-toolbar');
+  const old = tb.style.background;
+  tb.style.background = '#dff5e7';
+  setTimeout(() => { tb.style.background = old; }, 600);
+}
+
+// ─── LEGACY STUB ─────────────────────────────────────────────────────────────
+function initPlacementCanvas() { /* no-op, replaced by initStep4 */ }
+
+// ─── PDF Processing ───────────────────────────────────────────────────────────
+async function processPDF() {
+  const errEl = document.getElementById('step4Error');
+  const sucEl = document.getElementById('step4Success');
+  const btn   = document.getElementById('processBtn');
+  const btnText = document.getElementById('processBtnText');
+  errEl.classList.remove('visible');
+  sucEl.classList.remove('visible');
+
+  const targetPages = getTargetPages();
+  if (!targetPages.length || pageOverlays.length !== targetPages.length) {
+    errEl.textContent = 'No pages configured. Please go back to step 3 and re-enter step 4.';
+    errEl.classList.add('visible');
+    return;
+  }
+
+  btn.classList.add('processing'); btn.disabled = true;
+  btnText.textContent = 'Processing…';
+
+  try {
+    const pdfDoc   = await PDFLib.PDFDocument.load(state.pdf.bytes);
+    const sigImage = await pdfDoc.embedPng(dataURLtoBytes(state.sig.cleanDataURL));
+    const stpImage = await pdfDoc.embedPng(dataURLtoBytes(state.stp.cleanDataURL));
+
+    const sigAR = getSigAR(), stpAR = getStpAR();
+
+    const toRad = d => d * Math.PI / 180;
+    function drawCentered(page, img, x, y, w, h, deg) {
+      if (Math.abs(deg) < 0.05) { page.drawImage(img, { x, y, width: w, height: h }); return; }
+      const r = toRad(deg), cx = x + w/2, cy = y + h/2;
+      const nx = cx - (w/2)*Math.cos(r) + (h/2)*Math.sin(r);
+      const ny = cy - (h/2)*Math.cos(r) - (w/2)*Math.sin(r);
+      page.drawImage(img, { x: nx, y: ny, width: w, height: h, rotate: PDFLib.degrees(deg) });
+    }
+
+    for (let i = 0; i < targetPages.length; i++) {
+      const pageIdx = targetPages[i];
+      const po = pageOverlays[i];
+      const page = pdfDoc.getPage(pageIdx);
+
+      let { width: pW_raw, height: pH_raw } = page.getSize();
+      const rot = page.getRotation().angle;
+      const pW = (rot === 90 || rot === 270) ? pH_raw : pW_raw;
+      const pH = (rot === 90 || rot === 270) ? pW_raw : pH_raw;
+
+      // Slider value is "px at MAIN_W_TARGET reference width" → convert to actual page pt
+      // Uniform scale (W and H from same factor) preserves stamp circularity
+      const refScale = pW / MAIN_W_TARGET;
+      const sigPdfW = state.overlays.sig.w * refScale;
+      const sigPdfH = sigPdfW / sigAR;
+      const stpPdfW = state.overlays.stp.w * refScale;
+      const stpPdfH = stpPdfW / stpAR;
+
+      // Small natural jitter so multi-page docs don't look machine-stamped
+      const jSigX = (Math.random() - 0.5) * 6, jSigY = (Math.random() - 0.5) * 5;
+      const jStpX = (Math.random() - 0.5) * 6, jStpY = (Math.random() - 0.5) * 5;
+      const sigRot = (Math.random() - 0.5) * 4;   // ±2°
+      const stpRot = (Math.random() - 0.5) * 3;   // ±1.5°
+
+      // Map percentage position → PDF points (flip Y: PDF origin is bottom-left)
+      const sigPdfX = po.sig.xp * pW + jSigX;
+      const sigPdfY = pH - po.sig.yp * pH - sigPdfH + jSigY;
+      const stpPdfX = po.stp.xp * pW + jStpX;
+      const stpPdfY = pH - po.stp.yp * pH - stpPdfH + jStpY;
+
+      // Stamp drawn first, signature on top — matches "sign over stamp" CA standard
+      drawCentered(page, stpImage, stpPdfX, stpPdfY, stpPdfW, stpPdfH, stpRot);
+      drawCentered(page, sigImage, sigPdfX, sigPdfY, sigPdfW, sigPdfH, sigRot);
+    }
+
+    const pdfBytes = await pdfDoc.save();
+    downloadBytes(pdfBytes, 'signed_' + (state.pdf.name || 'document.pdf'));
+    sucEl.textContent = '✔ PDF processed and downloaded successfully!';
+    sucEl.classList.add('visible');
+  } catch(e) {
+    errEl.textContent = 'Error: ' + e.message;
+    errEl.classList.add('visible');
+  } finally {
+    btn.classList.remove('processing'); btn.disabled = false;
+    btnText.textContent = '⬇ Process & Download PDF';
+  }
+}
+
+function dataURLtoBytes(dataURL) {
+  const base64 = dataURL.split(',')[1];
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
+function downloadBytes(bytes, filename) {
+  const blob = new Blob([bytes], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+setupImageUpload('sig');
+setupImageUpload('stp');
+setupPDFUpload();
+
+// Re-fit main canvas on window resize when Step 4 is active
+let _resizeTimer = null;
+window.addEventListener('resize', () => {
+  if (!document.getElementById('step4').classList.contains('active')) return;
+  if (!targetPagesCache.length) return;
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => renderMainPage(activeI), 200);
+});
+</script>
+</body>
+</html>

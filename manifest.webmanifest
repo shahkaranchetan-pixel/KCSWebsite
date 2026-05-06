@@ -1,0 +1,21 @@
+{
+  "name": "KC Shah & Associates — Chartered Accountants",
+  "short_name": "KC Shah",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1D3A",
+  "theme_color": "#0B1D3A",
+  "description": "Premium Chartered Accountancy firm in Mumbai — Accounting, Valuation, Tax & Advisory",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
