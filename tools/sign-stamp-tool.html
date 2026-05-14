@@ -1,9 +1,35 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDF Sign & Stamp Tool — KC Shah & Associates</title>
+<meta name="description" content="Free PDF Sign &amp; Stamp Tool — Apply digital signature and rubber stamp on PDFs without printing. Auto-removes white background, page-wise placement, CA-standard layouts. No upload required.">
+<link rel="canonical" href="https://kcshah.com/tools/sign-stamp-tool.html">
+<meta property="og:title" content="PDF Sign &amp; Stamp Tool | KC Shah &amp; Associates">
+<meta property="og:description" content="Apply digital signature and rubber stamp on PDFs without printing. Free tool by KC Shah &amp; Associates, Mumbai.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kcshah.com/tools/sign-stamp-tool.html">
+<meta property="og:image" content="https://kcshah.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PDF Sign &amp; Stamp Tool | KC Shah &amp; Associates">
+<meta name="twitter:description" content="Apply digital signature and rubber stamp on PDFs without printing. Free tool by KC Shah &amp; Associates.">
+<meta name="twitter:image" content="https://kcshah.com/og-image.png">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#0B1D3A">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PDF Sign & Stamp Tool","url":"https://kcshah.com/tools/sign-stamp-tool.html","description":"Apply digital signature and rubber stamp on PDFs. Auto-removes white background, page-wise placement, CA-standard layouts.","applicationCategory":"FinanceApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"provider":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com"}}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2XB5VRL6X7');
+</script>
 <script defer src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script defer src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script>
@@ -661,6 +687,7 @@
             <div class="upload-label">Click to upload Signature</div>
             <div class="upload-hint">JPG / PNG</div>
           </div>
+          <button id="sigRestore" onclick="restoreImage('sig')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">↺ Restore Previous Signature</button>
           <div class="preview-panel" id="sigPreview">
             <div class="preview-title">Signature — Background Removal</div>
             <div class="preview-images">
@@ -678,6 +705,14 @@
               <input type="range" id="sigThresh" min="150" max="254" value="220">
               <span class="slider-val" id="sigThreshVal">220</span>
             </div>
+            <div class="slider-row">
+              <label for="sigDarken">Darken</label>
+              <input type="range" id="sigDarken" min="0" max="100" value="0">
+              <span class="slider-val" id="sigDarkenVal">0</span>
+            </div>
+            <label style="font-size:0.8rem; display:flex; align-items:center; gap:6px; margin-bottom:12px; cursor:pointer;">
+              <input type="checkbox" id="sigBlue"> Make Official Blue
+            </label>
             <div style="display:flex;align-items:center;gap:12px;">
               <button class="btn-confirm" id="sigConfirm" onclick="confirmImage('sig')">✔ Use This</button>
               <div class="confirmed-badge" id="sigConfirmed">✔ Signature confirmed</div>
@@ -693,6 +728,7 @@
             <div class="upload-label">Click to upload Stamp</div>
             <div class="upload-hint">JPG / PNG</div>
           </div>
+          <button id="stpRestore" onclick="restoreImage('stp')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">↺ Restore Previous Stamp</button>
           <div class="preview-panel" id="stpPreview">
             <div class="preview-title">Stamp — Background Removal</div>
             <div class="preview-images">
@@ -710,6 +746,14 @@
               <input type="range" id="stpThresh" min="150" max="254" value="220">
               <span class="slider-val" id="stpThreshVal">220</span>
             </div>
+            <div class="slider-row">
+              <label for="stpDarken">Darken</label>
+              <input type="range" id="stpDarken" min="0" max="100" value="0">
+              <span class="slider-val" id="stpDarkenVal">0</span>
+            </div>
+            <label style="font-size:0.8rem; display:flex; align-items:center; gap:6px; margin-bottom:12px; cursor:pointer;">
+              <input type="checkbox" id="stpBlue"> Make Official Blue
+            </label>
             <div style="display:flex;align-items:center;gap:12px;">
               <button class="btn-confirm" id="stpConfirm" onclick="confirmImage('stp')">✔ Use This</button>
               <div class="confirmed-badge" id="stpConfirmed">✔ Stamp confirmed</div>
@@ -814,12 +858,12 @@
       <!-- Sticky toolbar -->
       <div class="step4-toolbar">
         <div class="size-row">✍️ Sig
-          <input type="range" id="sigSize" min="20" max="220" value="80" oninput="updateAllSizes('sig', this.value)">
-          <span class="val" id="sigSizeVal">80</span>
+          <input type="range" id="sigSize" min="20" max="220" value="140" oninput="updateAllSizes('sig', this.value)">
+          <span class="val" id="sigSizeVal">140</span>
         </div>
         <div class="size-row">🔴 Stamp
-          <input type="range" id="stpSize" min="20" max="220" value="70" oninput="updateAllSizes('stp', this.value)">
-          <span class="val" id="stpSizeVal">70</span>
+          <input type="range" id="stpSize" min="20" max="220" value="110" oninput="updateAllSizes('stp', this.value)">
+          <span class="val" id="stpSizeVal">110</span>
         </div>
         <select id="presetSelect" class="preset-select" onchange="applyPreset(this.value)">
           <option value="">⚡ Quick layout…</option>
@@ -829,6 +873,11 @@
           <option value="bottom-center">Both bottom-center</option>
         </select>
         <button class="btn-copy" onclick="copyPage0ToAll()">📋 Copy Page 1 → all</button>
+        <div class="zoom-controls" style="display:flex; gap:6px; align-items:center; margin-left:auto;">
+          <button onclick="changeZoom(-0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">➖</button>
+          <span id="zoomLabel" style="font-size:0.8rem; width:40px; text-align:center; font-weight:600;">100%</span>
+          <button onclick="changeZoom(0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">➕</button>
+        </div>
       </div>
 
       <!-- 3-column layout -->
@@ -842,6 +891,7 @@
             <canvas id="mainCanvas"></canvas>
             <div class="page-overlay main-overlay" id="mainSig"><img id="mainSigImg"><span class="page-overlay-label">Signature</span></div>
             <div class="page-overlay main-overlay" id="mainStp"><img id="mainStpImg"><span class="page-overlay-label">Stamp</span></div>
+            <div class="page-overlay main-overlay" id="mainTxt" style="color:rgba(20,20,20,0.85); font-weight:600; font-size:12px; white-space:nowrap; pointer-events:none;"></div>
             <div class="snap-guide snap-guide-v" id="snapGuideV"></div>
             <div class="snap-guide snap-guide-h" id="snapGuideH"></div>
           </div>
@@ -866,7 +916,16 @@
             <input type="checkbox" id="snapToggle" checked onchange="state.snap=this.checked">
             Snap to margins
           </label>
-
+          <label class="rail-toggle" style="border-top:none; padding-top:0;">
+            <input type="checkbox" id="jitterToggle" checked onchange="state.jitter=this.checked">
+            Realistic Jitter (Slight variation)
+          </label>
+          <div class="rail-section" style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 12px;">
+            <div class="rail-title">📝 Additional Text</div>
+            <input type="text" id="pdfText" placeholder="e.g. Certified True Copy" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; margin-bottom:4px; font-size:0.8rem;" oninput="updateTextOverlay()">
+            <input type="date" id="pdfDate" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; font-size:0.8rem;" onchange="updateTextOverlay()">
+          </div>
+          <div class="rail-hint" style="color:#a94442; background:#f2dede; border-color:#ebccd1; margin-bottom:8px;">⚠️ Warning: The signature is an image overlay and can be extracted from the final PDF.</div>
           <div class="rail-hint">💡 Arrow keys nudge the last-clicked overlay (Shift+Arrow = ×10)</div>
 
           <button class="btn-process rail-process" id="processBtn" onclick="processPDF()">
@@ -896,7 +955,8 @@ const state = {
   pageMode: 'last',
   customRange: '',
   currentStep: 1,
-  overlays: { sig: { w: 75 }, stp: { w: 65 } }, // global sizes only
+  overlays: { sig: { w: 140 }, stp: { w: 110 } }, // global sizes only
+  jitter: true
 };
 
 // Per-page overlay positions stored as PERCENTAGES (0–1) of page width/height.
@@ -987,33 +1047,52 @@ function setupImageUpload(key) {
     reader.readAsDataURL(file);
   });
 
-  document.getElementById(key + 'Thresh').addEventListener('input', function() {
-    state[key].threshold = parseInt(this.value);
-    document.getElementById(key + 'ThreshVal').textContent = this.value;
+  const updateBg = () => {
     if (state[key].imgEl) {
       state[key].confirmed = false;
       document.getElementById(key + 'Confirmed').classList.remove('visible');
       removeBackground(key);
     }
+  };
+  document.getElementById(key + 'Thresh').addEventListener('input', function() {
+    state[key].threshold = parseInt(this.value);
+    document.getElementById(key + 'ThreshVal').textContent = this.value;
+    updateBg();
   });
+  const darkenEl = document.getElementById(key + 'Darken');
+  if(darkenEl) {
+      darkenEl.addEventListener('input', function() {
+        document.getElementById(key + 'DarkenVal').textContent = this.value;
+        updateBg();
+      });
+  }
+  const blueEl = document.getElementById(key + 'Blue');
+  if(blueEl) blueEl.addEventListener('change', updateBg);
 }
 
 function removeBackground(key) {
   const img = state[key].imgEl;
+  let tW = img.naturalWidth, tH = img.naturalHeight;
+  const MAX_SIZE = 800;
+  if (tW > MAX_SIZE || tH > MAX_SIZE) {
+    const ratio = Math.min(MAX_SIZE / tW, MAX_SIZE / tH);
+    tW = Math.round(tW * ratio);
+    tH = Math.round(tH * ratio);
+  }
   const thresh = state[key].threshold;
   const canvas = document.getElementById(key + 'Canvas');
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
+  canvas.width = tW;
+  canvas.height = tH;
   const ctx = canvas.getContext('2d');
-  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0, tW, tH);
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
 
-  // Min-channel thresholding: a pixel is "background" only if its darkest channel
-  // is still above the threshold. This handles pure white AND JPEG off-white artifacts
-  // (e.g. 248,245,240) while naturally preserving all colored ink (blue/purple stamp,
-  // black signature) whose darkest channel is always well below threshold.
   const feather = 8;
+  const darkenEl = document.getElementById(key + 'Darken');
+  const blueEl = document.getElementById(key + 'Blue');
+  const darken = (darkenEl ? darkenEl.value : 0) / 100;
+  const makeBlue = blueEl ? blueEl.checked : false;
 
   for (let i = 0; i < data.length; i += 4) {
     const minCh = Math.min(data[i], data[i+1], data[i+2]);
@@ -1022,6 +1101,20 @@ function removeBackground(key) {
     } else if (minCh >= thresh - feather) {
       const t = (minCh - (thresh - feather)) / feather;
       data[i+3] = Math.round((1 - t) * data[i+3]);
+    }
+    
+    if (data[i+3] > 0) {
+      if (darken > 0) {
+        data[i] = Math.max(0, data[i] - (data[i] * darken));
+        data[i+1] = Math.max(0, data[i+1] - (data[i+1] * darken));
+        data[i+2] = Math.max(0, data[i+2] - (data[i+2] * darken));
+      }
+      if (makeBlue) {
+        const avg = (data[i] + data[i+1] + data[i+2]) / 3;
+        data[i] = avg * 0.2;
+        data[i+1] = avg * 0.3;
+        data[i+2] = Math.min(255, avg + 100);
+      }
     }
   }
   ctx.putImageData(imageData, 0, 0);
@@ -1032,7 +1125,54 @@ function confirmImage(key) {
   if (!state[key].cleanDataURL) return;
   state[key].confirmed = true;
   document.getElementById(key + 'Confirmed').classList.add('visible');
+  localStorage.setItem('saved_' + key, state[key].cleanDataURL);
   hideStepError(1);
+}
+
+function restoreImage(key) {
+  const data = localStorage.getItem('saved_' + key);
+  if (data) {
+    state[key].cleanDataURL = data;
+    state[key].confirmed = true;
+    const img = new Image();
+    img.onload = () => {
+      state[key].imgEl = img;
+      document.getElementById(key + 'Orig').src = data;
+      document.getElementById(key + 'Preview').classList.add('visible');
+      document.getElementById(key + 'Confirmed').classList.add('visible');
+      document.getElementById(key + 'Zone').classList.add('has-file');
+      hideStepError(1);
+    };
+    img.src = data;
+  }
+}
+
+let currentZoom = 1;
+function changeZoom(delta) {
+  currentZoom = Math.max(0.4, Math.min(3, currentZoom + delta));
+  document.getElementById('zoomLabel').textContent = Math.round(currentZoom * 100) + '%';
+  document.getElementById('mainCanvasWrap').style.transform = `scale(${currentZoom})`;
+  document.getElementById('mainCanvasWrap').style.transformOrigin = 'top left';
+}
+
+function updateTextOverlay() {
+  const txt = document.getElementById('pdfText').value;
+  const dateVal = document.getElementById('pdfDate').value;
+  let finalTxt = txt;
+  if (dateVal) finalTxt += (finalTxt ? ' - ' : '') + dateVal;
+  
+  const txtEl = document.getElementById('mainTxt');
+  txtEl.textContent = finalTxt;
+  
+  const tp = targetPagesCache[activeI];
+  if (!tp) return;
+  const stpEl = document.getElementById('mainStp');
+  const stpTop = parseFloat(stpEl.style.top || 0);
+  const stpLeft = parseFloat(stpEl.style.left || 0);
+  const stpHeight = parseFloat(stpEl.style.height || 0);
+  
+  txtEl.style.top = (stpTop + stpHeight + 10) + 'px';
+  txtEl.style.left = stpLeft + 'px';
 }
 
 // ─── PDF Upload ───────────────────────────────────────────────────────────────
@@ -1157,6 +1297,15 @@ async function initStep4() {
   await renderAllThumbnails();
   await renderMainPage(0);
   attachKeyboardNudge();
+  
+  if (pageOverlays.length === targets.length) {
+    // Apply default on first load
+    const isP0Sig = pageOverlays[0].sig.xp === 0.05;
+    if (isP0Sig) {
+      document.getElementById('presetSelect').value = 'sig-over-stamp';
+      applyPreset('sig-over-stamp');
+    }
+  }
 }
 
 async function renderAllThumbnails() {
@@ -1223,6 +1372,7 @@ function positionMainOverlays(i) {
   });
   attachMainDragHandlers();
   updateCoordReadout();
+  updateTextOverlay();
   document.getElementById('railActiveLabel').textContent = 'Page ' + (tp.idx + 1);
 }
 
@@ -1357,10 +1507,9 @@ function applyPreset(name) {
       // Stamp: 5% from right edge, 5% from bottom edge
       const stp_xp = 1 - stpW_pctW - 0.05;
       const stp_yp = 1 - stpH_pctH - 0.05;
-      // Sig: right end crosses 30% INTO stamp from its left edge
-      // Sig vertical center sits 30% down into stamp (upper portion)
-      const sig_xp = stp_xp + (stpW_pctW * 0.30) - sigW_pctW;
-      const sig_yp = stp_yp + (stpH_pctH * 0.30) - (sigH_pctH / 2);
+      // Sig: center left of stamp
+      const sig_xp = stp_xp - sigW_pctW + (stpW_pctW * 0.20);
+      const sig_yp = stp_yp + (stpH_pctH / 2) - (sigH_pctH / 2);
       sig = { xp: clamp01(sig_xp), yp: clamp01(sig_yp) };
       stp = { xp: clamp01(stp_xp), yp: clamp01(stp_yp) };
     }
@@ -1452,14 +1601,7 @@ async function processPDF() {
 
     const sigAR = getSigAR(), stpAR = getStpAR();
 
-    const toRad = d => d * Math.PI / 180;
-    function drawCentered(page, img, x, y, w, h, deg) {
-      if (Math.abs(deg) < 0.05) { page.drawImage(img, { x, y, width: w, height: h }); return; }
-      const r = toRad(deg), cx = x + w/2, cy = y + h/2;
-      const nx = cx - (w/2)*Math.cos(r) + (h/2)*Math.sin(r);
-      const ny = cy - (h/2)*Math.cos(r) - (w/2)*Math.sin(r);
-      page.drawImage(img, { x: nx, y: ny, width: w, height: h, rotate: PDFLib.degrees(deg) });
-    }
+    // drawImgOp is defined below inside the loop
 
     for (let i = 0; i < targetPages.length; i++) {
       const pageIdx = targetPages[i];
@@ -1479,11 +1621,21 @@ async function processPDF() {
       const stpPdfW = state.overlays.stp.w * refScale;
       const stpPdfH = stpPdfW / stpAR;
 
-      // Small natural jitter so multi-page docs don't look machine-stamped
-      const jSigX = (Math.random() - 0.5) * 6, jSigY = (Math.random() - 0.5) * 5;
-      const jStpX = (Math.random() - 0.5) * 6, jStpY = (Math.random() - 0.5) * 5;
-      const sigRot = (Math.random() - 0.5) * 4;   // ±2°
-      const stpRot = (Math.random() - 0.5) * 3;   // ±1.5°
+      // Grouped Jitter: Stamp and Signature move together around the page (up to 30pt)
+      // Micro Jitter: They move relative to each other very slightly (up to 5pt)
+      const macroAmt = state.jitter ? 30 : 0;
+      const microAmt = state.jitter ? 5 : 0;
+      
+      const groupJitterX = state.jitter ? (Math.random() - 0.5) * macroAmt : 0;
+      const groupJitterY = state.jitter ? (Math.random() - 0.5) * macroAmt : 0;
+      
+      const jSigX = groupJitterX + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
+      const jSigY = groupJitterY + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
+      const jStpX = groupJitterX + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
+      const jStpY = groupJitterY + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
+      
+      const sigRot = state.jitter ? (Math.random() - 0.5) * 8 : 0;
+      const stpRot = state.jitter ? (Math.random() - 0.5) * 6 : 0;
 
       // Map percentage position → PDF points (flip Y: PDF origin is bottom-left)
       const sigPdfX = po.sig.xp * pW + jSigX;
@@ -1491,9 +1643,33 @@ async function processPDF() {
       const stpPdfX = po.stp.xp * pW + jStpX;
       const stpPdfY = pH - po.stp.yp * pH - stpPdfH + jStpY;
 
-      // Stamp drawn first, signature on top — matches "sign over stamp" CA standard
-      drawCentered(page, stpImage, stpPdfX, stpPdfY, stpPdfW, stpPdfH, stpRot);
-      drawCentered(page, sigImage, sigPdfX, sigPdfY, sigPdfW, sigPdfH, sigRot);
+      // Helper with opacity
+      const toRad = d => d * Math.PI / 180;
+      function drawImgOp(page, img, x, y, w, h, deg, op) {
+        if (Math.abs(deg) < 0.05) { page.drawImage(img, { x, y, width: w, height: h, opacity: op }); return; }
+        const r = toRad(deg), cx = x + w/2, cy = y + h/2;
+        const nx = cx - (w/2)*Math.cos(r) + (h/2)*Math.sin(r);
+        const ny = cy - (h/2)*Math.cos(r) - (w/2)*Math.sin(r);
+        page.drawImage(img, { x: nx, y: ny, width: w, height: h, rotate: PDFLib.degrees(deg), opacity: op });
+      }
+
+      // Stamp drawn first, signature on top. Opacity 0.85 for realistic wet ink blending.
+      drawImgOp(page, stpImage, stpPdfX, stpPdfY, stpPdfW, stpPdfH, stpRot, 0.85);
+      drawImgOp(page, sigImage, sigPdfX, sigPdfY, sigPdfW, sigPdfH, sigRot, 0.85);
+
+      const txt = document.getElementById('pdfText').value;
+      const dateVal = document.getElementById('pdfDate').value;
+      let finalTxt = txt;
+      if (dateVal) finalTxt += (finalTxt ? ' - ' : '') + dateVal;
+      
+      if (finalTxt) {
+         page.drawText(finalTxt, {
+           x: stpPdfX,
+           y: stpPdfY - 18,
+           size: 11,
+           color: PDFLib.rgb(0.1, 0.1, 0.1)
+         });
+      }
     }
 
     const pdfBytes = await pdfDoc.save();
@@ -1529,10 +1705,32 @@ function downloadBytes(bytes, filename) {
   URL.revokeObjectURL(url);
 }
 
+function setupDragDrop(zoneId, inputId) {
+  const zone = document.getElementById(zoneId);
+  const input = document.getElementById(inputId);
+  if (!zone) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.style.borderColor = 'var(--gold)'; });
+  zone.addEventListener('dragleave', e => { e.preventDefault(); zone.style.borderColor = ''; });
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.style.borderColor = '';
+    if (e.dataTransfer.files.length) {
+      input.files = e.dataTransfer.files;
+      input.dispatchEvent(new Event('change'));
+    }
+  });
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 setupImageUpload('sig');
 setupImageUpload('stp');
 setupPDFUpload();
+setupDragDrop('sigZone', 'sigInput');
+setupDragDrop('stpZone', 'stpInput');
+setupDragDrop('pdfZone', 'pdfInput');
+
+if (localStorage.getItem('saved_sig')) document.getElementById('sigRestore').style.display = 'block';
+if (localStorage.getItem('saved_stp')) document.getElementById('stpRestore').style.display = 'block';
 
 // Re-fit main canvas on window resize when Step 4 is active
 let _resizeTimer = null;

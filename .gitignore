@@ -1,0 +1,17 @@
+# Dev/scratch files — never push to GitHub or deploy to server
+scratch/
+dev_scripts/
+*.zip
+*.py
+tds.pdf
+tds_parsed.txt
+tds_web.html
+
+# Editor/system files
+.claude/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Keep the blog template local only
+blog-post-template.html

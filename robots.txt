@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
+Disallow: /scratch/
+Disallow: /.git/
+Disallow: /dev_scripts/
+Disallow: /blog-post-template.html
+
+# Block AI training crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
 
 Sitemap: https://kcshah.com/sitemap.xml

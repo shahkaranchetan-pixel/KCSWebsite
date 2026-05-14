@@ -1,0 +1,971 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Compliance Calendar FY 2025-26 — ROC, GST, TDS, PF, ESIC Due Dates | KC Shah & Associates</title>
+<meta name="description" content="Complete statutory compliance calendar for Indian businesses FY 2025-26. ROC, Income Tax, GST, TDS, PF, ESIC, Professional Tax & LWF due dates in one place — with branded PDF download.">
+<link rel="canonical" href="https://kcshah.com/tools/compliance-calendar.html">
+<meta property="og:title" content="Compliance Calendar FY 2025-26 | KC Shah &amp; Associates">
+<meta property="og:description" content="All statutory due dates in one place — ROC, Income Tax, GST, TDS, PF, ESIC, PT &amp; LWF for FY 2025-26. Filter by category, by month, and download a branded PDF.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kcshah.com/tools/compliance-calendar.html">
+<meta property="og:image" content="https://kcshah.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compliance Calendar FY 2025-26 | KC Shah &amp; Associates">
+<meta name="twitter:description" content="All statutory due dates in one place — ROC, Income Tax, GST, TDS, PF, ESIC, PT &amp; LWF for FY 2025-26.">
+<meta name="twitter:image" content="https://kcshah.com/og-image.png">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#0B1D3A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="../style.css?v=8">
+<link rel="stylesheet" href="../tools.css?v=4">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2XB5VRL6X7');
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Compliance Calendar FY 2025-26","url":"https://kcshah.com/tools/compliance-calendar.html","description":"Complete statutory compliance due dates for Indian businesses — ROC, Income Tax, GST, TDS, PF, ESIC, PT & LWF for FY 2025-26.","applicationCategory":"FinanceApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"provider":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com"}}</script>
+<style>
+/* ── Sticky filter bar ── */
+.compliance-sticky { position: sticky; top: 0; z-index: 50; background: #fff; padding: 14px 24px 0; border-bottom: 1px solid var(--light-grey); }
+.cat-tabs { overflow-x: auto; flex-wrap: nowrap !important; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 2px; }
+.cat-tabs::-webkit-scrollbar { display: none; }
+.cat-tabs .tool-tab { white-space: nowrap; flex-shrink: 0; }
+.gst-sub-bar { display: none; padding: 8px 0 10px; }
+.gst-sub-bar .tool-tabs { background: transparent; padding: 0; gap: 6px; margin-bottom: 0; }
+.action-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 10px 0 12px; border-top: 1px solid var(--light-grey); margin-top: 6px; }
+.deadline-count-badge { font-size: 0.78rem; color: var(--text-grey); font-weight: 600; }
+
+/* ── Month chips ── */
+.month-filter-bar { display: flex; gap: 6px; overflow-x: auto; flex-wrap: nowrap; padding: 8px 0 10px; scrollbar-width: none; -ms-overflow-style: none; align-items: center; }
+.month-filter-bar::-webkit-scrollbar { display: none; }
+.month-chip { flex-shrink: 0; font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 50px; border: 1.5px solid var(--light-grey); background: #fff; color: var(--text-grey); cursor: pointer; white-space: nowrap; transition: all .15s; font-family: inherit; line-height: 1.4; }
+.month-chip:hover { border-color: var(--navy); color: var(--navy); }
+.month-chip.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+.month-chip.highlight { border-color: var(--gold); color: var(--navy); font-weight: 800; }
+.month-chip.active.highlight { background: var(--navy); color: #fff; }
+.month-bar-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-grey); white-space: nowrap; padding-right: 4px; flex-shrink: 0; }
+
+/* ── Color legend ── */
+.color-legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 10px 24px; background: rgba(248,249,250,0.6); border-bottom: 1px solid var(--light-grey); font-size: 0.72rem; }
+.color-legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-grey); font-weight: 600; }
+.color-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.color-legend-dot.it,.color-legend-dot.tds { background: #1D4ED8; }
+.color-legend-dot.gst { background: #6D28D9; }
+.color-legend-dot.roc { background: #059669; }
+.color-legend-dot.pay { background: #B91C1C; }
+
+/* ── Compliance table ── */
+.compliance-body { padding: 20px 24px 24px; }
+.month-section { margin-bottom: 24px; }
+.month-section:last-child { margin-bottom: 0; }
+.month-section-header { background: linear-gradient(135deg, var(--navy) 0%, #14305c 100%); color: #fff; padding: 14px 20px; border-radius: 10px 10px 0 0; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(11,29,58,0.10); }
+.month-section-header h3 { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: 0.3px; display: flex; align-items: center; gap: 8px; color: #fff !important; }
+.month-section-header h3::before { content: ''; display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+.month-section-header .badge-count { font-size: 0.68rem; background: var(--gold); color: var(--navy); padding: 3px 10px; border-radius: 50px; font-weight: 700; letter-spacing: 0.5px; }
+.compliance-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; background: #fff; border: 1px solid var(--light-grey); border-top: 0; border-radius: 0 0 10px 10px; overflow: hidden; }
+.compliance-table th { background: rgba(248,249,250,0.7); color: var(--navy); padding: 10px 14px; text-align: left; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 800; border-bottom: 2px solid var(--light-grey); }
+.compliance-table td { padding: 11px 14px; border-bottom: 1px solid var(--light-grey); vertical-align: middle; }
+.compliance-table tr:last-child td { border-bottom: 0; }
+.compliance-table tbody tr:hover { background: rgba(201,168,76,0.04); }
+
+.date-pill { font-weight: 800; color: var(--navy); background: rgba(201,168,76,0.18); border-radius: 6px; padding: 5px 9px; display: inline-block; min-width: 36px; text-align: center; font-size: 0.86rem; }
+.act-pill { font-weight: 700; font-size: 0.78rem; letter-spacing: 0.3px; }
+.act-pill.it,.act-pill.tds { color: #1D4ED8; }
+.act-pill.gst { color: #6D28D9; }
+.act-pill.roc { color: #059669; }
+.act-pill.pay { color: #B91C1C; }
+.period-text { font-size: 0.78rem; color: var(--text-grey); font-weight: 600; }
+.desc-text { font-weight: 600; color: var(--navy); line-height: 1.4; }
+.applicable-text { font-size: 0.7rem; color: var(--text-grey); }
+
+.empty-state { padding: 40px 20px; text-align: center; color: var(--text-grey); font-size: 0.9rem; background: rgba(248,249,250,0.5); border-radius: 10px; border: 1px dashed var(--light-grey); }
+.empty-state i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; display: block; }
+
+/* ── Mobile: switch table to card layout ── */
+@media (max-width: 600px) {
+  .compliance-body { padding: 16px 12px 20px; }
+  .compliance-table { border: 0; background: transparent; }
+  .compliance-table thead { display: none; }
+  .compliance-table tr { display: block; background: #fff; border: 1px solid var(--light-grey); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+  .compliance-table td { display: flex; justify-content: space-between; padding: 4px 0; border: 0; gap: 12px; }
+  .compliance-table td::before { content: attr(data-label); font-weight: 700; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-grey); flex-shrink: 0; align-self: center; }
+  .compliance-table td > * { text-align: right; }
+  .month-section-header { border-radius: 8px; }
+  .month-section-header h3 { font-size: 0.88rem; }
+}
+</style>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://kcshah.com/tools/"},{"@type":"ListItem","position":3,"name":"Compliance Calendar","item":"https://kcshah.com/tools/compliance-calendar.html"}]}</script></head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="top-bar"><div class="container"><div class="top-bar-left">
+<a href="mailto:karan@kcshah.com"><i class="fa-solid fa-envelope"></i> karan@kcshah.com</a>
+<a href="tel:+917666638995"><i class="fa-solid fa-phone"></i> +91 7666638995</a>
+</div><div class="top-bar-right">
+<a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+<a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C+need+help" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+</div></div></div>
+<header><div class="container nav-wrapper">
+<a href="../index.html" class="logo"><div><div class="logo-text">KC Shah <span>&amp; Associates</span></div><span class="logo-sub">Chartered Accountants</span></div></a>
+<ul class="nav-links">
+<li><a href="../index.html">Home</a></li>
+<li><a href="#">Services <i class="fa-solid fa-chevron-down" style="font-size:.65rem;margin-left:4px"></i></a>
+<div class="dropdown-menu">
+<a href="../zoho-books-outsourcing.html"><i class="fa-solid fa-cloud"></i> Zoho Books Outsourcing</a>
+<a href="../zoho-books-implementation.html"><i class="fa-solid fa-gear"></i> Zoho Implementation</a>
+<a href="../business-valuation.html"><i class="fa-solid fa-chart-line"></i> Business Valuation</a>
+<a href="../virtual-cfo.html"><i class="fa-solid fa-user-tie"></i> Virtual CFO</a>
+<a href="../company-incorporation.html"><i class="fa-solid fa-building"></i> Company Incorporation</a>
+<a href="../gst-filing.html"><i class="fa-solid fa-file-invoice"></i> GST Filing</a>
+<a href="../income-tax.html"><i class="fa-solid fa-calculator"></i> Income Tax Filing</a>
+<a href="../audit-assurance.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Audit & Assurance</a>
+<a href="../corporate-finance.html"><i class="fa-solid fa-hand-holding-dollar"></i> Corporate Finance</a>
+<a href="../fema-compliance.html"><i class="fa-solid fa-globe"></i> FEMA Compliance</a>
+</div></li>
+<li><a href="index.html" class="active">Free Tools <i class="fa-solid fa-chevron-down" style="font-size:.65rem;margin-left:4px"></i></a>
+<div class="dropdown-menu">
+<a href="income-tax-calculator.html"><i class="fa-solid fa-calculator"></i> Income Tax Calculator</a>
+<a href="advance-tax-calculator.html"><i class="fa-solid fa-calendar-check"></i> Advance Tax Calculator</a>
+<a href="capital-gain-calculator.html"><i class="fa-solid fa-chart-line"></i> Capital Gain Calculator</a>
+<a href="emi-calculator.html"><i class="fa-solid fa-landmark"></i> EMI Calculator</a>
+<a href="tds-rate-chart.html"><i class="fa-solid fa-table"></i> TDS Rate Chart</a>
+<a href="compliance-calendar.html"><i class="fa-solid fa-calendar-check"></i> Compliance Calendar</a>
+<a href="index.html"><i class="fa-solid fa-grip"></i> View All Tools</a>
+</div></li>
+<li><a href="../about.html">About</a></li>
+<li><a href="../blog.html">Insights</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+<a href="../contact.html" class="btn btn-primary btn-sm nav-cta">Book Free Consultation</a>
+<div class="hamburger" aria-label="Toggle navigation" role="button" tabindex="0"><span></span><span></span><span></span></div>
+</div></header>
+
+<section class="tool-page-header">
+<div class="container" style="position:relative;z-index:2">
+<div class="breadcrumb"><a href="../index.html">Home</a><span>—</span><a href="index.html">Free Tools</a><span>—</span><span style="color:rgba(255,255,255,.7)">Compliance Calendar</span></div>
+<h1>Compliance Calendar FY 2025-26</h1>
+<p>All statutory due dates in one place — ROC, Income Tax, GST, TDS, PF, ESIC, PT &amp; LWF. Filter by category &amp; month, then download a branded PDF to share with clients.</p>
+</div>
+</section>
+
+<div class="tool-container" id="main-content" style="padding-top:0;padding-bottom:40px">
+<div class="tool-card" style="padding:0;overflow:visible">
+
+<!-- ── Sticky filter bar ── -->
+<div class="compliance-sticky">
+  <div class="tool-tabs cat-tabs" id="cat-tabs">
+    <button class="tool-tab active" data-cat="all"     onclick="filterCal('all')">All</button>
+    <button class="tool-tab"        data-cat="it"      onclick="filterCal('it')">Income Tax</button>
+    <button class="tool-tab"        data-cat="tds"     onclick="filterCal('tds')">TDS / TCS</button>
+    <button class="tool-tab"        data-cat="gst"     onclick="filterCal('gst')">GST</button>
+    <button class="tool-tab"        data-cat="roc"     onclick="filterCal('roc')">ROC / MCA</button>
+    <button class="tool-tab"        data-cat="pay"     onclick="filterCal('pay')">Payroll</button>
+  </div>
+  <!-- GST sub-filter -->
+  <div class="gst-sub-bar" id="gst-sub-bar">
+    <div class="tool-tabs">
+      <button class="tool-tab active" data-sub="regular" onclick="filterGSTSub('regular')">Regular (Monthly)</button>
+      <button class="tool-tab"        data-sub="qrmp"    onclick="filterGSTSub('qrmp')">QRMP Scheme</button>
+      <button class="tool-tab"        data-sub="comp"    onclick="filterGSTSub('comp')">Composition</button>
+    </div>
+  </div>
+  <!-- Month chips -->
+  <div class="month-filter-bar" id="month-filter-bar">
+    <span class="month-bar-label"><i class="fa-regular fa-calendar" style="margin-right:4px"></i>Month:</span>
+    <button class="month-chip active" data-month="all"    onclick="filterMonth('all')">All Months</button>
+    <button class="month-chip" data-month="apr_25" onclick="filterMonth('apr_25')">Apr '25</button>
+    <button class="month-chip" data-month="may_25" onclick="filterMonth('may_25')">May '25</button>
+    <button class="month-chip" data-month="jun_25" onclick="filterMonth('jun_25')">Jun '25</button>
+    <button class="month-chip" data-month="jul_25" onclick="filterMonth('jul_25')">Jul '25</button>
+    <button class="month-chip" data-month="aug_25" onclick="filterMonth('aug_25')">Aug '25</button>
+    <button class="month-chip" data-month="sep_25" onclick="filterMonth('sep_25')">Sep '25</button>
+    <button class="month-chip" data-month="oct_25" onclick="filterMonth('oct_25')">Oct '25</button>
+    <button class="month-chip" data-month="nov_25" onclick="filterMonth('nov_25')">Nov '25</button>
+    <button class="month-chip" data-month="dec_25" onclick="filterMonth('dec_25')">Dec '25</button>
+    <button class="month-chip" data-month="jan_26" onclick="filterMonth('jan_26')">Jan '26</button>
+    <button class="month-chip" data-month="feb_26" onclick="filterMonth('feb_26')">Feb '26</button>
+    <button class="month-chip" data-month="mar_26" onclick="filterMonth('mar_26')">Mar '26</button>
+    <button class="month-chip" data-month="apr_26" onclick="filterMonth('apr_26')">Apr '26</button>
+  </div>
+  <!-- Action bar -->
+  <div class="action-bar">
+    <span class="deadline-count-badge" id="cal-count">Loading…</span>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="downloadImage()" class="btn btn-primary btn-sm"><i class="fa-solid fa-image" style="margin-right:6px"></i>Download as Image</button>
+      <button onclick="downloadPDF()" class="btn btn-secondary btn-sm" style="font-size:0.78rem"><i class="fa-solid fa-file-pdf" style="margin-right:4px"></i>PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- Color legend -->
+<div class="color-legend">
+  <span class="color-legend-item"><span class="color-legend-dot it"></span>Income Tax / TDS</span>
+  <span class="color-legend-item"><span class="color-legend-dot gst"></span>GST</span>
+  <span class="color-legend-item"><span class="color-legend-dot roc"></span>ROC / MCA</span>
+  <span class="color-legend-item"><span class="color-legend-dot pay"></span>PF · ESIC · PT · LWF</span>
+</div>
+
+<!-- ── Compliance table area (rendered by JS) ── -->
+<div class="compliance-body" id="compliance-body">
+  <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i>Loading compliance calendar…</div>
+</div>
+
+<!-- Notes box -->
+<div style="padding:0 24px 24px">
+  <div class="tool-info-box"><i class="fa-solid fa-info-circle"></i><p><strong>Notes:</strong> AOC-4, MGT-7 &amp; ADT-1 dates assume AGM is held on 30 Sep 2025 (last permissible date — please adjust if your AGM is held earlier). PT &amp; LWF deadlines shown are for <strong>Maharashtra only</strong>; other states differ. Monthly TDS deposit is due 7th of next month — exception: TDS on March deductions is due 30 April. The "Apr '26" tab covers FY 2025-26 trailing compliances filed in April 2026 (e.g., March 2026 GST returns, MSME-1, GSTR-4 annual). All dates are indicative and subject to extension circulars by CBDT, GSTN, MCA, EPFO &amp; ESIC.</p></div>
+</div>
+
+</div><!-- /tool-card -->
+</div><!-- /tool-container -->
+
+<section class="cta-banner">
+<div class="container">
+<h2>Need Expert Help with Compliance?</h2>
+<p>Our CA team in Mumbai offers end-to-end compliance management — GST filings, TDS returns, ROC forms, PF/ESIC, and more. Never miss a deadline again.</p>
+<div class="btn-group">
+<a href="../contact.html" class="btn btn-primary">Book Free Consultation</a>
+<a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20used%20the%20Compliance%20Calendar%20on%20your%20website%20and%20need%20help%20with%20compliance%20management." target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+</div></div></section>
+
+<footer><div class="container">
+<div class="footer-grid">
+<div class="footer-widget"><div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">&amp; Associates</span></div><p>Free financial tools for Indian businesses — built by Chartered Accountants with verified formulas and FY 2025-26 compliance data.</p>
+<div class="footer-social"><a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://api.whatsapp.com/send/?phone=917666638995" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a><a href="mailto:karan@kcshah.com"><i class="fa-solid fa-envelope"></i></a></div></div>
+<div class="footer-widget"><h4>Tax Tools</h4><ul><li><a href="income-tax-calculator.html">Income Tax Calculator</a></li><li><a href="advance-tax-calculator.html">Advance Tax Calculator</a></li><li><a href="capital-gain-calculator.html">Capital Gain Calculator</a></li><li><a href="tds-rate-chart.html">TDS Rate Chart</a></li><li><a href="compliance-calendar.html">Compliance Calendar</a></li></ul></div>
+<div class="footer-widget"><h4>Business Tools</h4><ul><li><a href="emi-calculator.html">EMI Calculator</a></li><li><a href="loan-eligibility-calculator.html">Loan Eligibility</a></li><li><a href="loan-tenure-calculator.html">Loan Tenure</a></li><li><a href="sign-stamp-tool.html">PDF Sign &amp; Stamp</a></li></ul></div>
+<div class="footer-widget"><h4>Our Services</h4><ul><li><a href="../income-tax.html">Income Tax Filing</a></li><li><a href="../gst-filing.html">GST Filing</a></li><li><a href="../virtual-cfo.html">Virtual CFO</a></li><li><a href="../business-valuation.html">Business Valuation</a></li><li><a href="../contact.html">Contact Us</a></li></ul></div>
+</div>
+<div class="footer-bottom">&copy; 2026 KC Shah &amp; Associates. All rights reserved. | Chartered Accountants, Mumbai</div>
+</div></footer>
+
+<a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C+need+help+with+finance+or+tax." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<div class="mobile-sticky-cta">
+<a href="tel:+917666638995" class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><i class="fa-solid fa-phone"></i> Call CA</a>
+<a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi" class="btn btn-sm" style="flex:1;justify-content:center;background:#25D366;color:white;border-color:#25D366"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+</div>
+
+<script src="../scripts.js?v=4" defer></script>
+<script src="../tools-shared.js?v=4"></script>
+<!-- jsPDF + autoTable for branded PDF download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<!-- html2canvas for branded PNG image download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   COMPLIANCE CALENDAR FY 2025-26 — KC Shah & Associates
+   ═══════════════════════════════════════════════════════════════ */
+
+// ── Month metadata ─────────────────────────────────────
+const MONTH_INFO = {
+  apr_25: { name: 'April 2025',     short: "Apr '25", order: 1,  days: 30 },
+  may_25: { name: 'May 2025',       short: "May '25", order: 2,  days: 31 },
+  jun_25: { name: 'June 2025',      short: "Jun '25", order: 3,  days: 30 },
+  jul_25: { name: 'July 2025',      short: "Jul '25", order: 4,  days: 31 },
+  aug_25: { name: 'August 2025',    short: "Aug '25", order: 5,  days: 31 },
+  sep_25: { name: 'September 2025', short: "Sep '25", order: 6,  days: 30 },
+  oct_25: { name: 'October 2025',   short: "Oct '25", order: 7,  days: 31 },
+  nov_25: { name: 'November 2025',  short: "Nov '25", order: 8,  days: 30 },
+  dec_25: { name: 'December 2025',  short: "Dec '25", order: 9,  days: 31 },
+  jan_26: { name: 'January 2026',   short: "Jan '26", order: 10, days: 31 },
+  feb_26: { name: 'February 2026',  short: "Feb '26", order: 11, days: 28 },
+  mar_26: { name: 'March 2026',     short: "Mar '26", order: 12, days: 31 },
+  apr_26: { name: 'April 2026',     short: "Apr '26", order: 13, days: 30 }
+};
+
+// Period text for the "previous month" of each month
+const PREV_MONTH_NAME = {
+  apr_25: 'Mar 2025', may_25: 'Apr 2025', jun_25: 'May 2025', jul_25: 'Jun 2025',
+  aug_25: 'Jul 2025', sep_25: 'Aug 2025', oct_25: 'Sep 2025', nov_25: 'Oct 2025',
+  dec_25: 'Nov 2025', jan_26: 'Dec 2025', feb_26: 'Jan 2026', mar_26: 'Feb 2026',
+  apr_26: 'Mar 2026'
+};
+
+// ── Compliance dataset ─────────────────────────────────
+// Each entry: { month, day, cat, sub?, period, title, tag }
+//   cat: 'it' | 'tds' | 'gst' | 'roc' | 'pay'
+//   sub (GST only): 'regular' | 'qrmp' | 'comp' | space-sep combos
+const RAW_COMPLIANCES = [
+  // ════════ APRIL 2025 ════════
+  { month:'apr_25', day:7,  cat:'tds', period:'Mar 2025', title:'TCS Payment', tag:'TCS Collectors' },
+  { month:'apr_25', day:13, cat:'gst', sub:'qrmp', period:'Q4 FY 24-25', title:'GSTR-1 / IFF (QRMP)', tag:'QRMP Taxpayers' },
+  { month:'apr_25', day:18, cat:'gst', sub:'comp', period:'Q4 FY 24-25', title:'CMP-08 (Composition)', tag:'Composition Dealers' },
+  { month:'apr_25', day:22, cat:'gst', sub:'qrmp', period:'Q4 FY 24-25', title:'GSTR-3B QRMP — Group A', tag:'MH, Guj, Kar, TN, AP &c.' },
+  { month:'apr_25', day:24, cat:'gst', sub:'qrmp', period:'Q4 FY 24-25', title:'GSTR-3B QRMP — Group B', tag:'Delhi, UP, WB, Pun &c.' },
+  { month:'apr_25', day:30, cat:'tds', period:'Mar 2025', title:'TDS Payment for March (extended)', tag:'All Deductors' },
+  { month:'apr_25', day:30, cat:'roc', period:'Oct \'24 – Mar \'25', title:'Form MSME-1 (Half-Yearly)', tag:'Companies' },
+  { month:'apr_25', day:30, cat:'gst', sub:'comp', period:'FY 2024-25', title:'GSTR-4 (Composition Annual)', tag:'Composition Dealers' },
+
+  // ════════ MAY 2025 ════════
+  { month:'may_25', day:11, cat:'pay', period:'Oct \'24 – Mar \'25', title:'ESIC Half-Yearly Return', tag:'Employers (>=10)' },
+  { month:'may_25', day:15, cat:'tds', period:'Q4 FY 24-25', title:'Form 16A (TDS Certificate)', tag:'All Deductors' },
+  { month:'may_25', day:15, cat:'tds', period:'Q4 FY 24-25', title:'TCS Return — Form 27EQ', tag:'TCS Collectors' },
+  { month:'may_25', day:25, cat:'gst', sub:'qrmp', period:'Apr 2025', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+  { month:'may_25', day:30, cat:'roc', period:'FY 2024-25', title:'Form 11 — LLP Annual Return', tag:'LLP' },
+  { month:'may_25', day:30, cat:'roc', period:'Oct \'24 – Mar \'25', title:'PAS-6 (Half-Yearly)', tag:'Unlisted Public Cos' },
+  { month:'may_25', day:31, cat:'tds', period:'Q4 FY 24-25', title:'TDS Return (24Q / 26Q / 27Q)', tag:'All Deductors' },
+
+  // ════════ JUNE 2025 ════════
+  { month:'jun_25', day:15, cat:'it',  period:'FY 2025-26', title:'Advance Tax — Q1 (15%)', tag:'All Assessees' },
+  { month:'jun_25', day:15, cat:'tds', period:'FY 2024-25', title:'Form 16 (Salary TDS Certificate)', tag:'Employers' },
+  { month:'jun_25', day:25, cat:'gst', sub:'qrmp', period:'May 2025', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+  { month:'jun_25', day:30, cat:'roc', period:'FY 2024-25', title:'DPT-3 (Return of Deposits)', tag:'Companies' },
+  { month:'jun_25', day:30, cat:'pay', period:'FY 2024-25', title:'Maharashtra PT Annual Return (Form III-B)', tag:'MH Employers' },
+
+  // ════════ JULY 2025 ════════
+  { month:'jul_25', day:13, cat:'gst', sub:'qrmp', period:'Q1 FY 25-26 (Apr–Jun)', title:'GSTR-1 / IFF (QRMP)', tag:'QRMP Taxpayers' },
+  { month:'jul_25', day:15, cat:'pay', period:'Jan – Jun 2025', title:'Maharashtra LWF (Half-Yearly)', tag:'MH Employers (>=5)' },
+  { month:'jul_25', day:15, cat:'tds', period:'Q1 FY 25-26', title:'Form 16A (TDS Certificate)', tag:'All Deductors' },
+  { month:'jul_25', day:15, cat:'tds', period:'Q1 FY 25-26', title:'TCS Return — Form 27EQ', tag:'TCS Collectors' },
+  { month:'jul_25', day:18, cat:'gst', sub:'comp', period:'Q1 FY 25-26', title:'CMP-08 (Composition)', tag:'Composition Dealers' },
+  { month:'jul_25', day:22, cat:'gst', sub:'qrmp', period:'Q1 FY 25-26', title:'GSTR-3B QRMP — Group A', tag:'MH, Guj, Kar, TN &c.' },
+  { month:'jul_25', day:24, cat:'gst', sub:'qrmp', period:'Q1 FY 25-26', title:'GSTR-3B QRMP — Group B', tag:'Delhi, UP, WB, Pun &c.' },
+  { month:'jul_25', day:31, cat:'it',  period:'AY 2025-26', title:'ITR Filing — Non-Audit', tag:'Individual / HUF / Firm' },
+  { month:'jul_25', day:31, cat:'tds', period:'Q1 FY 25-26', title:'TDS Return (24Q / 26Q / 27Q)', tag:'All Deductors' },
+
+  // ════════ AUGUST 2025 ════════
+  { month:'aug_25', day:25, cat:'gst', sub:'qrmp', period:'Jul 2025', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+
+  // ════════ SEPTEMBER 2025 ════════
+  { month:'sep_25', day:15, cat:'it',  period:'FY 2025-26', title:'Advance Tax — Q2 (45% cumulative)', tag:'All Assessees' },
+  { month:'sep_25', day:25, cat:'gst', sub:'qrmp', period:'Aug 2025', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+  { month:'sep_25', day:30, cat:'roc', period:'FY 2024-25', title:'DIR-3 KYC', tag:'All Directors' },
+  { month:'sep_25', day:30, cat:'it',  period:'AY 2025-26', title:'Tax Audit Report (Sec 44AB)', tag:'Audit Cases' },
+
+  // ════════ OCTOBER 2025 ════════
+  { month:'oct_25', day:13, cat:'gst', sub:'qrmp', period:'Q2 FY 25-26 (Jul–Sep)', title:'GSTR-1 / IFF (QRMP)', tag:'QRMP Taxpayers' },
+  { month:'oct_25', day:15, cat:'roc', period:'FY 2025-26', title:'ADT-1 (Auditor Appointment)', tag:'Companies' },
+  { month:'oct_25', day:15, cat:'tds', period:'Q2 FY 25-26', title:'Form 16A (TDS Certificate)', tag:'All Deductors' },
+  { month:'oct_25', day:15, cat:'tds', period:'Q2 FY 25-26', title:'TCS Return — Form 27EQ', tag:'TCS Collectors' },
+  { month:'oct_25', day:18, cat:'gst', sub:'comp', period:'Q2 FY 25-26', title:'CMP-08 (Composition)', tag:'Composition Dealers' },
+  { month:'oct_25', day:22, cat:'gst', sub:'qrmp', period:'Q2 FY 25-26', title:'GSTR-3B QRMP — Group A', tag:'MH, Guj, Kar, TN &c.' },
+  { month:'oct_25', day:24, cat:'gst', sub:'qrmp', period:'Q2 FY 25-26', title:'GSTR-3B QRMP — Group B', tag:'Delhi, UP, WB, Pun &c.' },
+  { month:'oct_25', day:30, cat:'roc', period:'FY 2024-25', title:'AOC-4 (Financial Statements)', tag:'Companies' },
+  { month:'oct_25', day:30, cat:'roc', period:'FY 2024-25', title:'Form 8 — LLP Statement of Accounts', tag:'LLP' },
+  { month:'oct_25', day:31, cat:'it',  period:'AY 2025-26', title:'ITR Filing — Audit Cases', tag:'Companies / 44AB' },
+  { month:'oct_25', day:31, cat:'roc', period:'Apr – Sep 2025', title:'Form MSME-1 (Half-Yearly)', tag:'Companies' },
+  { month:'oct_25', day:31, cat:'tds', period:'Q2 FY 25-26', title:'TDS Return (24Q / 26Q / 27Q)', tag:'All Deductors' },
+
+  // ════════ NOVEMBER 2025 ════════
+  { month:'nov_25', day:11, cat:'pay', period:'Apr – Sep 2025', title:'ESIC Half-Yearly Return', tag:'Employers (>=10)' },
+  { month:'nov_25', day:25, cat:'gst', sub:'qrmp', period:'Oct 2025', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+  { month:'nov_25', day:29, cat:'roc', period:'FY 2024-25', title:'MGT-7 / MGT-7A (Annual Return)', tag:'Companies' },
+  { month:'nov_25', day:29, cat:'roc', period:'Apr – Sep 2025', title:'PAS-6 (Half-Yearly)', tag:'Unlisted Public Cos' },
+  { month:'nov_25', day:30, cat:'it',  period:'AY 2025-26', title:'ITR Filing — Transfer Pricing (Sec 92E)', tag:'TP Cases' },
+
+  // ════════ DECEMBER 2025 ════════
+  { month:'dec_25', day:15, cat:'it',  period:'FY 2025-26', title:'Advance Tax — Q3 (75% cumulative)', tag:'All Assessees' },
+  { month:'dec_25', day:25, cat:'gst', sub:'qrmp', period:'Nov 2025', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+  { month:'dec_25', day:31, cat:'it',  period:'AY 2025-26', title:'Belated / Revised ITR', tag:'All Assessees' },
+  { month:'dec_25', day:31, cat:'gst', sub:'regular qrmp', period:'FY 2024-25', title:'GSTR-9 / GSTR-9C (Annual)', tag:'Regular & QRMP Taxpayers' },
+
+  // ════════ JANUARY 2026 ════════
+  { month:'jan_26', day:13, cat:'gst', sub:'qrmp', period:'Q3 FY 25-26 (Oct–Dec)', title:'GSTR-1 / IFF (QRMP)', tag:'QRMP Taxpayers' },
+  { month:'jan_26', day:15, cat:'pay', period:'Jul – Dec 2025', title:'Maharashtra LWF (Half-Yearly)', tag:'MH Employers (>=5)' },
+  { month:'jan_26', day:15, cat:'tds', period:'Q3 FY 25-26', title:'Form 16A (TDS Certificate)', tag:'All Deductors' },
+  { month:'jan_26', day:15, cat:'tds', period:'Q3 FY 25-26', title:'TCS Return — Form 27EQ', tag:'TCS Collectors' },
+  { month:'jan_26', day:18, cat:'gst', sub:'comp', period:'Q3 FY 25-26', title:'CMP-08 (Composition)', tag:'Composition Dealers' },
+  { month:'jan_26', day:22, cat:'gst', sub:'qrmp', period:'Q3 FY 25-26', title:'GSTR-3B QRMP — Group A', tag:'MH, Guj, Kar, TN &c.' },
+  { month:'jan_26', day:24, cat:'gst', sub:'qrmp', period:'Q3 FY 25-26', title:'GSTR-3B QRMP — Group B', tag:'Delhi, UP, WB, Pun &c.' },
+  { month:'jan_26', day:31, cat:'tds', period:'Q3 FY 25-26', title:'TDS Return (24Q / 26Q / 27Q)', tag:'All Deductors' },
+
+  // ════════ FEBRUARY 2026 ════════
+  { month:'feb_26', day:25, cat:'gst', sub:'qrmp', period:'Jan 2026', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+
+  // ════════ MARCH 2026 ════════
+  { month:'mar_26', day:15, cat:'it',  period:'FY 2025-26', title:'Advance Tax — Q4 (100% cumulative)', tag:'All Assessees' },
+  { month:'mar_26', day:25, cat:'gst', sub:'qrmp', period:'Feb 2026', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
+  { month:'mar_26', day:31, cat:'it',  period:'Multiple AYs', title:'Updated Return (ITR-U) / Form 67', tag:'All Assessees' },
+  { month:'mar_26', day:31, cat:'pay', period:'FY 2025-26', title:'Maharashtra PTEC (Annual)', tag:'MH Self-Employed' },
+
+  // ════════ APRIL 2026 (FY 25-26 trailing) ════════
+  { month:'apr_26', day:7,  cat:'tds', period:'Mar 2026', title:'TCS Payment', tag:'TCS Collectors' },
+  { month:'apr_26', day:13, cat:'gst', sub:'qrmp', period:'Q4 FY 25-26 (Jan–Mar)', title:'GSTR-1 / IFF (QRMP)', tag:'QRMP Taxpayers' },
+  { month:'apr_26', day:18, cat:'gst', sub:'comp', period:'Q4 FY 25-26', title:'CMP-08 (Composition)', tag:'Composition Dealers' },
+  { month:'apr_26', day:22, cat:'gst', sub:'qrmp', period:'Q4 FY 25-26', title:'GSTR-3B QRMP — Group A', tag:'MH, Guj, Kar, TN &c.' },
+  { month:'apr_26', day:24, cat:'gst', sub:'qrmp', period:'Q4 FY 25-26', title:'GSTR-3B QRMP — Group B', tag:'Delhi, UP, WB, Pun &c.' },
+  { month:'apr_26', day:30, cat:'tds', period:'Mar 2026', title:'TDS Payment for March (extended)', tag:'All Deductors' },
+  { month:'apr_26', day:30, cat:'roc', period:'Oct \'25 – Mar \'26', title:'Form MSME-1 (Half-Yearly)', tag:'Companies' },
+  { month:'apr_26', day:30, cat:'gst', sub:'comp', period:'FY 2025-26', title:'GSTR-4 (Composition Annual)', tag:'Composition Dealers' }
+];
+
+// ── Monthly recurring templates ────────────────────────
+// Generate one entry per month for each. Note: April excluded for TDS/TCS combined
+// (April handled specially: 7 Apr = TCS only, 30 Apr = TDS extended)
+const MONTHLY_RECURRING = [
+  { day:7,      cat:'tds', title:'TDS / TCS Deposit',                 tag:'All Deductors',         excludeMonths:['apr_25','apr_26'] },
+  { day:10,     cat:'gst', sub:'regular', title:'GSTR-7 / GSTR-8 (TDS/TCS)', tag:'GST TDS / ECO Operators' },
+  { day:11,     cat:'gst', sub:'regular', title:'GSTR-1 (Monthly)',          tag:'Regular Taxpayers' },
+  { day:13,     cat:'gst', sub:'regular', title:'GSTR-5 / GSTR-6 (NRTP / ISD)', tag:'NRTP / ISD' },
+  { day:15,     cat:'pay', title:'EPF / ECR Payment',                  tag:'Employers (>=20)' },
+  { day:15,     cat:'pay', title:'ESIC Contribution',                  tag:'Employers (>=10)' },
+  { day:20,     cat:'gst', sub:'regular', title:'GSTR-3B (Monthly) / GSTR-5A', tag:'Regular / OIDAR' },
+  { day:'last', cat:'pay', title:'Maharashtra Profession Tax (PTRC)',  tag:'MH Employers' }
+];
+
+// Expand monthly recurring into specific dates per month
+function expandMonthly() {
+  const out = [];
+  Object.keys(MONTH_INFO).forEach(m => {
+    MONTHLY_RECURRING.forEach(r => {
+      if (r.excludeMonths && r.excludeMonths.includes(m)) return;
+      const day = (r.day === 'last') ? MONTH_INFO[m].days : r.day;
+      out.push({
+        month: m,
+        day,
+        cat: r.cat,
+        sub: r.sub,
+        period: PREV_MONTH_NAME[m],
+        title: r.title,
+        tag: r.tag
+      });
+    });
+  });
+  return out;
+}
+
+const COMPLIANCES = [...RAW_COMPLIANCES, ...expandMonthly()];
+
+// ── Display helpers ────────────────────────────────────
+const ACT_DISPLAY = {
+  it:  'Income Tax',
+  tds: 'TDS / TCS',
+  gst: 'GST',
+  roc: 'MCA',
+  pay: 'PF / ESIC'
+};
+
+// ── State ──────────────────────────────────────────────
+let activeCat = 'all';
+let activeGSTSub = 'regular';
+let activeMonth = 'all';
+
+// ── Filter functions (exposed on window) ───────────────
+function filterCal(cat) {
+  activeCat = cat;
+  document.querySelectorAll('#cat-tabs .tool-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === cat);
+  });
+  document.getElementById('gst-sub-bar').style.display = (cat === 'gst') ? 'block' : 'none';
+  render();
+}
+window.filterCal = filterCal;
+
+function filterGSTSub(sub) {
+  activeGSTSub = sub;
+  document.querySelectorAll('#gst-sub-bar .tool-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.sub === sub);
+  });
+  render();
+}
+window.filterGSTSub = filterGSTSub;
+
+function filterMonth(m) {
+  activeMonth = m;
+  document.querySelectorAll('.month-chip').forEach(b => {
+    b.classList.toggle('active', b.dataset.month === m);
+  });
+  render();
+}
+window.filterMonth = filterMonth;
+
+// ── Filter logic ───────────────────────────────────────
+function matchesFilter(c) {
+  const catMatch = (activeCat === 'all' || c.cat === activeCat);
+  let subMatch = true;
+  if (activeCat === 'gst' && c.sub) {
+    subMatch = c.sub.split(' ').includes(activeGSTSub);
+  }
+  const monthMatch = (activeMonth === 'all' || c.month === activeMonth);
+  return catMatch && subMatch && monthMatch;
+}
+
+function escHTML(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+// ── Render ─────────────────────────────────────────────
+function render() {
+  const body = document.getElementById('compliance-body');
+  const filtered = COMPLIANCES.filter(matchesFilter);
+
+  if (filtered.length === 0) {
+    body.innerHTML = `<div class="empty-state"><i class="fa-solid fa-circle-info"></i>No compliances match the current filter.<br><small>Try changing the category or month.</small></div>`;
+    updateCount(0);
+    return;
+  }
+
+  // Group by month
+  const groups = {};
+  filtered.forEach(c => { (groups[c.month] = groups[c.month] || []).push(c); });
+
+  // Sort months chronologically; sort each group by day
+  const sortedMonths = Object.keys(groups).sort((a, b) => MONTH_INFO[a].order - MONTH_INFO[b].order);
+  sortedMonths.forEach(m => groups[m].sort((a, b) => a.day - b.day));
+
+  // Build HTML
+  let html = '';
+  sortedMonths.forEach(m => {
+    const items = groups[m];
+    html += `<div class="month-section">
+      <div class="month-section-header">
+        <h3>${escHTML(MONTH_INFO[m].name)}</h3>
+        <span class="badge-count">${items.length} ${items.length === 1 ? 'compliance' : 'compliances'}</span>
+      </div>
+      <table class="compliance-table">
+        <thead>
+          <tr>
+            <th style="width:64px">Date</th>
+            <th style="width:110px">Act</th>
+            <th style="width:140px">Period</th>
+            <th>Description</th>
+            <th style="width:170px">Applicable To</th>
+          </tr>
+        </thead>
+        <tbody>`;
+    items.forEach(c => {
+      html += `<tr>
+        <td data-label="Date"><span class="date-pill">${c.day}</span></td>
+        <td data-label="Act"><span class="act-pill ${c.cat}">${escHTML(ACT_DISPLAY[c.cat])}</span></td>
+        <td data-label="Period"><span class="period-text">${escHTML(c.period)}</span></td>
+        <td data-label="Compliance"><span class="desc-text">${escHTML(c.title)}</span></td>
+        <td data-label="Applicable"><span class="applicable-text">${escHTML(c.tag)}</span></td>
+      </tr>`;
+    });
+    html += '</tbody></table></div>';
+  });
+
+  body.innerHTML = html;
+  updateCount(filtered.length);
+}
+
+function updateCount(n) {
+  const total = COMPLIANCES.length;
+  const monthTxt = activeMonth !== 'all' ? ` · ${MONTH_INFO[activeMonth].name}` : '';
+  const catLabels = { all:'All Categories', it:'Income Tax', tds:'TDS / TCS', gst:'GST', roc:'ROC / MCA', pay:'Payroll' };
+  const catTxt = activeCat !== 'all' ? ` · ${catLabels[activeCat]}` : '';
+  document.getElementById('cal-count').textContent =
+    (activeCat === 'all' && activeMonth === 'all')
+      ? `${total} compliance deadlines — FY 2025-26`
+      : `Showing ${n} of ${total} deadlines${catTxt}${monthTxt}`;
+}
+
+// ── Highlight current month chip on load ───────────────
+(function highlightCurrentMonth() {
+  const now = new Date();
+  const yr = now.getFullYear();
+  const mo = now.getMonth(); // 0-based
+  const keyMap = {
+    '20253':'apr_25','20254':'may_25','20255':'jun_25','20256':'jul_25',
+    '20257':'aug_25','20258':'sep_25','20259':'oct_25','202510':'nov_25','202511':'dec_25',
+    '20260':'jan_26','20261':'feb_26','20262':'mar_26','20263':'apr_26'
+  };
+  const key = '' + yr + mo;
+  const target = keyMap[key];
+  if (target) {
+    const chip = document.querySelector(`.month-chip[data-month="${target}"]`);
+    if (chip) chip.classList.add('highlight');
+  }
+})();
+
+// ── Initial render ─────────────────────────────────────
+document.addEventListener('DOMContentLoaded', render);
+
+/* ═══════════════════════════════════════════════════════
+   IMAGE DOWNLOAD — branded shareable PNG (matches client-share design)
+   ═══════════════════════════════════════════════════════ */
+
+const ACT_STYLES = {
+  it:  { bg:'#1D4ED8', icon:'fa-rupee-sign',     label:'Income Tax' },
+  tds: { bg:'#10B981', icon:'fa-money-bill-wave', label:'TDS / TCS' },
+  gst: { bg:'#F97316', text:'GST',                label:'GST' },
+  roc: { bg:'#3B82F6', icon:'fa-building',        label:'MCA' },
+  pay: { bg:'#8B5CF6', icon:'fa-users',           label:'PF / ESIC' }
+};
+
+function caLogoImg(size = 116) {
+  return `<img src="../ca-india-logo.png" alt="CA India" class="export-logo" style="width:${size}px;height:${size}px;object-fit:contain;display:block;flex-shrink:0">`;
+}
+
+function skylineSVG() {
+  return `<svg width="300" height="112" viewBox="0 0 300 112" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;opacity:0.18">
+    <g fill="none" stroke="#0B1D3A" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 94h246"/>
+      <path d="M64 94V48c0-12 9-21 21-21h24c12 0 21 9 21 21v46"/>
+      <path d="M83 94V63c0-8 6-14 14-14s14 6 14 14v31"/>
+      <path d="M54 49h86"/>
+      <path d="M74 30c3-11 10-18 23-18s20 7 23 18"/>
+      <path d="M97 12V4M89 16l-7-8M105 16l7-8"/>
+      <path d="M36 94V62c0-8 6-14 14-14h14"/>
+      <path d="M130 48h14c8 0 14 6 14 14v32"/>
+      <path d="M178 94V37h28v57M186 46h12M186 56h12M186 66h12M186 76h12"/>
+      <path d="M218 94V22h24v72M226 33h8M226 45h8M226 57h8M226 69h8M226 81h8"/>
+      <path d="M238 22l-8-14-8 14"/>
+      <path d="M252 94V51h24v43M260 60h8M260 71h8M260 82h8"/>
+      <path d="M46 58h12M136 58h12"/>
+    </g>
+  </svg>`;
+}
+
+function buildExportHTML(items, monthInfo, today) {
+  const rowsHTML = items.map((c, i) => {
+    const a = ACT_STYLES[c.cat];
+    const bg = i % 2 === 0 ? '#ffffff' : '#fbfdff';
+    const badgeContent = a.text
+      ? `<span style="font-size:9px;font-weight:900;letter-spacing:0.2px;color:#fff">${a.text}</span>`
+      : `<i class="fa-solid ${a.icon}" style="font-size:12px;color:#fff"></i>`;
+    return `<tr style="background:${bg}">
+      <td style="padding:11px 13px;border-bottom:1px solid #dbe3ee;border-right:1px solid #dbe3ee;vertical-align:middle">
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fa-regular fa-calendar-days" style="color:#0B3B73;font-size:15px"></i>
+          <span style="font-weight:900;color:#07275a;font-size:22px;line-height:1">${c.day}</span>
+        </div>
+      </td>
+      <td style="padding:11px 13px;border-bottom:1px solid #dbe3ee;border-right:1px solid #dbe3ee;vertical-align:middle">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="background:${a.bg};width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 5px rgba(0,0,0,0.12)">${badgeContent}</div>
+          <span style="font-weight:700;color:#111827;font-size:16px;line-height:1.2">${a.label}</span>
+        </div>
+      </td>
+      <td style="padding:11px 13px;border-bottom:1px solid #dbe3ee;border-right:1px solid #dbe3ee;font-size:15px;color:#111827;vertical-align:middle;font-weight:500;line-height:1.35">${escHTML(c.period)}</td>
+      <td style="padding:11px 15px;border-bottom:1px solid #dbe3ee;border-right:1px solid #dbe3ee;font-size:15.5px;color:#111827;vertical-align:middle;font-weight:500;line-height:1.35">${escHTML(c.title)}</td>
+      <td style="padding:11px 13px;border-bottom:1px solid #dbe3ee;font-size:14.5px;color:#111827;vertical-align:middle;line-height:1.35;font-weight:500">${escHTML(c.tag)}</td>
+    </tr>`;
+  }).join('');
+
+  return `<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');</style>
+    <div class="export-canvas" style="width:1024px;background:#ffffff;font-family:'Inter', Arial, sans-serif;color:#0B1D3A;padding:0;margin:0;position:relative;overflow:hidden">
+
+    <!-- Header bar (Letterhead Style) -->
+    <div style="padding:32px 44px 16px;display:flex;align-items:flex-start;justify-content:space-between;position:relative;z-index:1">
+      <div style="display:flex;align-items:center;gap:24px">
+        ${caLogoImg(118)}
+        <div style="width:1px;height:90px;background:#9a9a9a"></div>
+        <div>
+          <h1 style="font-size:38px;color:#0B1D3A;margin:0;font-weight:800;letter-spacing:-0.8px;line-height:1.04">K C Shah &amp; Associates</h1>
+          <p style="font-size:25px;color:#111827;margin:8px 0 0;font-weight:400;letter-spacing:0;line-height:1.2">Chartered Accountants <span style="color:#111827;margin:0 8px">-</span> Mumbai</p>
+        </div>
+      </div>
+      <div style="margin-top:2px">${skylineSVG()}</div>
+    </div>
+
+    <!-- Title -->
+    <div style="text-align:center;padding:12px 0 20px">
+      <h2 style="font-family:Georgia,'Times New Roman',serif;font-size:51px;font-weight:900;color:#0B1D3A;margin:0 0 10px;letter-spacing:1.5px;line-height:1">COMPLIANCE CALENDAR</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px">
+        <span style="width:130px;height:1px;background:#D8A33D;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#C68B20;display:inline-block"></span>
+        <div style="display:inline-block;background:linear-gradient(180deg,#E8BF63 0%,#C78F2D 100%);color:#fff;padding:9px 38px;border-radius:8px;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:900;letter-spacing:1px;box-shadow:0 3px 7px rgba(201,168,76,0.24)">FY 2025-26</div>
+        <span style="width:10px;height:10px;border-radius:50%;background:#C68B20;display:inline-block"></span>
+        <span style="width:130px;height:1px;background:#D8A33D;display:inline-block"></span>
+      </div>
+    </div>
+
+    <!-- Month / generated / count banner -->
+    <div style="background:linear-gradient(135deg,#0B1D3A 0%,#004E92 100%);color:#fff;padding:18px 32px;margin:0 43px;display:flex;align-items:center;justify-content:space-between;border-radius:11px 11px 0 0;box-shadow:0 8px 18px rgba(11,29,58,0.14);position:relative;z-index:1">
+      <div style="display:flex;align-items:center;gap:16px;min-width:0">
+        <i class="fa-regular fa-calendar-days" style="font-size:34px;color:#fff"></i>
+        <span style="font-family:Georgia,'Times New Roman',serif;font-weight:900;font-size:41px;letter-spacing:0.5px;line-height:1">${monthInfo.name.toUpperCase()}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px;font-size:16px;font-weight:600;white-space:nowrap">
+        <span style="width:1px;height:44px;background:rgba(255,255,255,0.55);display:inline-block"></span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fa-regular fa-calendar-check" style="font-size:22px;color:#fff"></i>
+          <span>Generated on ${today}</span>
+        </div>
+        <span style="width:1px;height:44px;background:rgba(255,255,255,0.55);display:inline-block"></span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fa-regular fa-clipboard" style="font-size:22px;color:#fff"></i>
+          <span>${items.length} Entries</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compliance Table Wrapper -->
+    <div style="margin:6px 43px 0;border-radius:8px;overflow:hidden;background:#fff;border:1px solid #cfd8e3;position:relative;z-index:1">
+      <table style="width:100%;border-collapse:collapse;table-layout:fixed;background:transparent">
+        <colgroup>
+          <col style="width:112px">
+          <col style="width:146px">
+          <col style="width:159px">
+          <col style="width:auto">
+          <col style="width:230px">
+        </colgroup>
+        <thead>
+          <tr style="background:linear-gradient(135deg,#0B1D3A 0%,#004E92 100%);color:#fff">
+            <th style="padding:11px 13px;text-align:center;font-size:17px;font-weight:700;border-right:1px solid rgba(255,255,255,0.28)">Date</th>
+            <th style="padding:11px 13px;text-align:center;font-size:17px;font-weight:700;border-right:1px solid rgba(255,255,255,0.28)">Act</th>
+            <th style="padding:11px 13px;text-align:center;font-size:17px;font-weight:700;border-right:1px solid rgba(255,255,255,0.28)">Period</th>
+            <th style="padding:11px 13px;text-align:center;font-size:17px;font-weight:700;border-right:1px solid rgba(255,255,255,0.28)">Compliance</th>
+            <th style="padding:11px 13px;text-align:center;font-size:17px;font-weight:700">Applicable To</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHTML}</tbody>
+      </table>
+    </div>
+
+    <!-- Contact bar -->
+    <div style="background:linear-gradient(135deg,#0B1D3A 0%,#004E92 100%);padding:16px 30px;margin:22px 43px 16px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+      <div style="display:flex;align-items:center;gap:14px;flex:1">
+        <div style="background:linear-gradient(180deg,#E8BF63,#C78F2D);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid fa-globe" style="font-size:22px;color:#fff"></i></div>
+        <div>
+          <div style="color:#fff;font-size:14px;font-weight:500">Visit Our Website</div>
+          <div style="color:#fff;font-size:19px;font-weight:800;margin-top:4px">kcshah.com</div>
+        </div>
+      </div>
+      <span style="width:1px;height:54px;background:rgba(255,255,255,0.55);display:inline-block"></span>
+      <div style="display:flex;align-items:center;gap:14px;flex:1;justify-content:center">
+        <div style="background:linear-gradient(180deg,#E8BF63,#C78F2D);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid fa-phone" style="font-size:22px;color:#fff"></i></div>
+        <div>
+          <div style="color:#fff;font-size:14px;font-weight:500">Call Us</div>
+          <div style="color:#fff;font-size:19px;font-weight:800;margin-top:4px">+91 7666638995</div>
+        </div>
+      </div>
+      <span style="width:1px;height:54px;background:rgba(255,255,255,0.55);display:inline-block"></span>
+      <div style="display:flex;align-items:center;gap:14px;flex:1;justify-content:flex-end">
+        <div style="background:linear-gradient(180deg,#E8BF63,#C78F2D);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid fa-envelope" style="font-size:21px;color:#fff"></i></div>
+        <div>
+          <div style="color:#fff;font-size:14px;font-weight:500">Email Us</div>
+          <div style="color:#fff;font-size:19px;font-weight:800;margin-top:4px">karan@kcshah.com</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div style="margin:0 43px 30px;padding:17px 22px;background:#fff;border:1px solid #cfd8e3;border-radius:10px;display:flex;gap:18px;align-items:center">
+      <div style="flex-shrink:0">
+        <div style="color:#C78F2D;width:52px;height:52px;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-shield-halved" style="font-size:38px"></i></div>
+      </div>
+      <div style="flex:1">
+        <div style="font-weight:900;color:#C78F2D;font-size:16px;margin-bottom:5px;letter-spacing:1px">DISCLAIMER</div>
+        <p style="margin:0;font-size:12.5px;color:#111827;line-height:1.45">This Compliance Calendar is prepared for general information only and does not constitute professional advice.<br>Due dates and applicability may vary. Please verify the same before taking any action.<br>K C Shah &amp; Associates shall not be liable for any loss or damage arising from the use of this calendar.</p>
+      </div>
+      <div style="flex-shrink:0;padding-left:28px;border-left:1px solid #9ca3af">
+        <div style="font-style:italic;color:#0B1D3A;font-weight:500;font-size:23px;line-height:1.35;font-family:Georgia,'Times New Roman',serif">Stay Compliant,<br>Stay Ahead!</div>
+      </div>
+    </div>
+
+  </div>`;
+}
+
+function waitForExportAssets(wrap) {
+  const fontReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  const imageReady = Array.from(wrap.querySelectorAll('img')).map(img => {
+    if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error(`Failed to load export image: ${img.src}`));
+    });
+  });
+  return Promise.all([fontReady, ...imageReady]);
+}
+
+function downloadImage() {
+  if (activeMonth === 'all') {
+    alert('Please select a specific month from the chips above to download a shareable monthly compliance image.\n\nUse the "All Months" + PDF option for the full year as a document.');
+    return;
+  }
+  const filtered = COMPLIANCES.filter(matchesFilter);
+  if (filtered.length === 0) { alert('No compliances match the current filter.'); return; }
+
+  filtered.sort((a, b) => a.day - b.day);
+
+  const monthInfo = MONTH_INFO[activeMonth];
+  const today = new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+
+  // Inject hidden export template
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;z-index:-1;pointer-events:none';
+  wrap.innerHTML = buildExportHTML(filtered, monthInfo, today);
+  document.body.appendChild(wrap);
+
+  const target = wrap.querySelector('.export-canvas');
+  const btn = document.activeElement && document.activeElement.tagName === 'BUTTON' ? document.activeElement : null;
+  const origText = btn ? btn.innerHTML : '';
+  if (btn) { btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:6px"></i>Generating...'; btn.disabled = true; }
+
+  // Allow icons/fonts to render before capturing
+  setTimeout(() => {
+    waitForExportAssets(wrap).then(() => {
+      html2canvas(target, {
+        scale: 3,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+        windowWidth: 1024
+      }).then(canvas => {
+        const link = document.createElement('a');
+        const safe = monthInfo.name.replace(/\s+/g, '-');
+        link.download = `KCS-Compliance-Calendar-${safe}.png`;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        document.body.removeChild(wrap);
+        if (btn) { btn.innerHTML = origText; btn.disabled = false; }
+      }).catch(err => {
+        console.error('Image generation failed:', err);
+        alert('Failed to generate image. Please try again or use the PDF option.');
+        document.body.removeChild(wrap);
+        if (btn) { btn.innerHTML = origText; btn.disabled = false; }
+      });
+    }).catch(err => {
+      console.error('Image generation failed:', err);
+      alert('Failed to generate image. Please try again or use the PDF option.');
+      document.body.removeChild(wrap);
+      if (btn) { btn.innerHTML = origText; btn.disabled = false; }
+    });
+  }, 400);
+}
+window.downloadImage = downloadImage;
+
+/* ═══════════════════════════════════════════════════════
+   PDF DOWNLOAD — branded, with active filters preserved
+   ═══════════════════════════════════════════════════════ */
+function downloadPDF() {
+  const filtered = COMPLIANCES.filter(matchesFilter);
+  if (filtered.length === 0) { alert('No items to export for the selected filter.'); return; }
+
+  // Sort same as render
+  filtered.sort((a, b) => {
+    const om = MONTH_INFO[a.month].order - MONTH_INFO[b.month].order;
+    return om !== 0 ? om : a.day - b.day;
+  });
+
+  const catLabels = { all:'All Categories', it:'Income Tax', tds:'TDS / TCS', gst:'GST', roc:'ROC / MCA', pay:'Payroll' };
+  const subLabels = { regular:'Regular (Monthly)', qrmp:'QRMP Scheme', comp:'Composition' };
+  const catLbl = catLabels[activeCat] + (activeCat === 'gst' ? ' — ' + subLabels[activeGSTSub] : '');
+  const monthLbl = activeMonth !== 'all' ? MONTH_INFO[activeMonth].name : 'FY 2025-26 (All Months)';
+  const filterLine = (activeCat === 'all' ? '' : catLbl + '  •  ') + monthLbl;
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageW = 210;
+
+  // Page 1 navy header
+  doc.setFillColor(11, 29, 58);
+  doc.rect(0, 0, pageW, 36, 'F');
+  // Gold accent stripe
+  doc.setFillColor(201, 168, 76);
+  doc.rect(0, 36, pageW, 1.2, 'F');
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.text('KC Shah & Associates', 14, 14);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(201, 168, 76);
+  doc.text('Chartered Accountants  •  Mumbai', 14, 19.5);
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Compliance Calendar', pageW - 14, 14, { align: 'right' });
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.text('FY 2025-26', pageW - 14, 19.5, { align: 'right' });
+
+  // Filter line
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text(filterLine, 14, 30);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7.5);
+  doc.setTextColor(180, 180, 180);
+  doc.text(
+    `Generated ${new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })}  •  ${filtered.length} entries`,
+    pageW - 14, 30, { align: 'right' }
+  );
+
+  // Build table rows; insert a "month divider" row when month changes
+  const colors = { it:[29,78,216], tds:[29,78,216], gst:[109,40,217], roc:[5,150,105], pay:[185,28,28] };
+  const rows = [];
+  let lastMonth = null;
+  filtered.forEach(c => {
+    if (c.month !== lastMonth) {
+      lastMonth = c.month;
+      // Section divider row
+      rows.push([{
+        content: MONTH_INFO[c.month].name.toUpperCase(),
+        colSpan: 5,
+        styles: { fillColor: [11,29,58], textColor: [255,255,255], fontStyle: 'bold', fontSize: 8.5, halign: 'left', cellPadding: { top: 3.5, bottom: 3.5, left: 4, right: 4 } }
+      }]);
+    }
+    rows.push([
+      { content: String(c.day), styles: { halign: 'center', fontStyle: 'bold', textColor: [11,29,58] } },
+      { content: ACT_DISPLAY[c.cat], styles: { fontStyle: 'bold', textColor: colors[c.cat] || [60,60,60] } },
+      { content: c.period, styles: { textColor: [100,100,100] } },
+      { content: c.title, styles: { textColor: [11,29,58] } },
+      { content: c.tag, styles: { textColor: [100,100,100], fontSize: 7 } }
+    ]);
+  });
+
+  doc.autoTable({
+    head: [['Date', 'Act', 'Period', 'Compliance', 'Applicable To']],
+    body: rows,
+    startY: 42,
+    margin: { left: 14, right: 14, top: 28, bottom: 16 },
+    styles: { fontSize: 8, cellPadding: { top: 3, bottom: 3, left: 4, right: 4 }, overflow: 'linebreak', valign: 'middle' },
+    headStyles: { fillColor: [11, 29, 58], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 8 },
+    alternateRowStyles: { fillColor: [248, 249, 250] },
+    columnStyles: {
+      0: { cellWidth: 14, halign: 'center' },
+      1: { cellWidth: 24 },
+      2: { cellWidth: 32 },
+      3: { cellWidth: 'auto' },
+      4: { cellWidth: 38 }
+    },
+    didDrawPage: (data) => {
+      if (data.pageNumber > 1) {
+        doc.setFillColor(11, 29, 58);
+        doc.rect(0, 0, pageW, 22, 'F');
+        doc.setFillColor(201, 168, 76);
+        doc.rect(0, 22, pageW, 0.8, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+        doc.text('KC Shah & Associates', 14, 9);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.text('Compliance Calendar FY 2025-26', 14, 15.5);
+        doc.setTextColor(201, 168, 76);
+        doc.setFont('helvetica', 'bold');
+        doc.text(filterLine, pageW - 14, 15.5, { align: 'right' });
+      }
+    }
+  });
+
+  // Footer on every page
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setDrawColor(220, 220, 220);
+    doc.line(14, 285, pageW - 14, 285);
+    doc.setFontSize(6.5);
+    doc.setTextColor(150, 150, 150);
+    doc.setFont('helvetica', 'normal');
+    doc.text('kcshah.com/tools/compliance-calendar.html  •  +91 76666 38995  •  karan@kcshah.com  •  Indicative only — verify before acting', 14, 289);
+    doc.text(`Page ${i} of ${pageCount}`, pageW - 14, 289, { align: 'right' });
+  }
+
+  const safe = filterLine.replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  doc.save(`KCS-Compliance-Calendar-${safe}.pdf`);
+}
+window.downloadPDF = downloadPDF;
+</script>
+</body>
+</html>
