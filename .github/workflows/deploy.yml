@@ -24,7 +24,7 @@ jobs:
           protocol: ftp
           
           # Upload to your Hostinger public_html folder
-          server-dir: ./
+          server-dir: /public_html/
           
           # Only upload files from the repo root (your site files)
           local-dir: ./
