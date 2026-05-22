@@ -1,0 +1,32 @@
+# KC Shah & Associates
+
+Welcome to KC Shah & Associates. We are a premium Chartered Accountancy firm in Mumbai offering Zoho Books outsourcing, business valuation (IBBI), company incorporation, GST compliance, virtual CFO & audit services for startups and SMEs.
+
+## Core Pages
+- [Home](https://kcshah.com/)
+- [About Us](https://kcshah.com/about.html)
+- [Contact](https://kcshah.com/contact.html)
+- [Insights / Blog](https://kcshah.com/blog.html)
+
+## Services
+- [Zoho Books Outsourcing](https://kcshah.com/zoho-books-outsourcing.html)
+- [Zoho Books Implementation](https://kcshah.com/zoho-books-implementation.html)
+- [Business Valuation](https://kcshah.com/business-valuation.html)
+- [Virtual CFO](https://kcshah.com/virtual-cfo.html)
+- [Company Incorporation](https://kcshah.com/company-incorporation.html)
+- [GST Filing Services](https://kcshah.com/gst-filing.html)
+- [Income Tax Filing](https://kcshah.com/income-tax.html)
+- [Audit & Assurance](https://kcshah.com/audit-assurance.html)
+- [Corporate Finance](https://kcshah.com/corporate-finance.html)
+- [FEMA & RBI Compliance](https://kcshah.com/fema-compliance.html)
+
+## Free Tools
+- [Income Tax Calculator](https://kcshah.com/tools/income-tax-calculator.html)
+- [Advance Tax Calculator](https://kcshah.com/tools/advance-tax-calculator.html)
+- [Capital Gain Calculator](https://kcshah.com/tools/capital-gain-calculator.html)
+- [EMI Calculator](https://kcshah.com/tools/emi-calculator.html)
+- [Loan Eligibility Calculator](https://kcshah.com/tools/loan-eligibility-calculator.html)
+- [Loan Tenure Calculator](https://kcshah.com/tools/loan-tenure-calculator.html)
+- [TDS Rate Chart](https://kcshah.com/tools/tds-rate-chart.html)
+- [Compliance Calendar](https://kcshah.com/tools/compliance-calendar.html)
+- [PDF Sign & Stamp](https://kcshah.com/tools/sign-stamp-tool.html)

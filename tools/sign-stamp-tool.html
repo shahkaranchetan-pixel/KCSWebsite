@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PDF Sign & Stamp Tool — KC Shah & Associates</title>
-<meta name="description" content="Free PDF Sign &amp; Stamp Tool — Apply digital signature and rubber stamp on PDFs without printing. Auto-removes white background, page-wise placement, CA-standard layouts. No upload required.">
-<link rel="canonical" href="https://kcshah.com/tools/sign-stamp-tool.html">
+<title>PDF Sign & Stamp Tool � KC Shah & Associates</title>
+<meta name="description" content="Free PDF Sign &amp; Stamp Tool � Apply digital signature and rubber stamp on PDFs without printing. Auto-removes white background, page-wise placement, CA-standard layouts. No upload required.">
+<link rel="canonical" href="https://kcshah.com/tools/sign-stamp-tool">
 <meta property="og:title" content="PDF Sign &amp; Stamp Tool | KC Shah &amp; Associates">
 <meta property="og:description" content="Apply digital signature and rubber stamp on PDFs without printing. Free tool by KC Shah &amp; Associates, Mumbai.">
 <meta property="og:type" content="website">
@@ -350,7 +350,7 @@
     gap: 6px;
   }
 
-  /* ── Step 4 grid ── */
+  /* -- Step 4 grid -- */
   .global-controls {
     display: flex;
     align-items: center;
@@ -421,7 +421,7 @@
     background: white; padding: 1px 4px; border-radius: 3px; border: 1px solid var(--border);
   }
 
-  /* ── Step 4 professional layout (3-column) ── */
+  /* -- Step 4 professional layout (3-column) -- */
   /* When Step 4 is active, expand the container to the full viewport */
   body.step4-active .container { max-width: 1700px; padding: 20px 24px 40px; }
   body.step4-active .steps { max-width: 920px; margin-left: auto; margin-right: auto; }
@@ -510,7 +510,7 @@
   #mainCanvas { display: block; max-width: 100%; }
   .main-overlay { z-index: 2; }
   #mainStp { z-index: 2; }
-  #mainSig { z-index: 3; }  /* signature always on top — needed for "sign over stamp" */
+  #mainSig { z-index: 3; }  /* signature always on top � needed for "sign over stamp" */
   .snap-guide {
     position: absolute; background: rgba(201,168,76,0.7);
     pointer-events: none; display: none; z-index: 3;
@@ -683,13 +683,13 @@
         <div>
           <div class="upload-zone" id="sigZone">
             <input type="file" id="sigInput" accept="image/jpeg,image/png,image/jpg">
-            <div class="upload-icon">✍️</div>
+            <div class="upload-icon">??</div>
             <div class="upload-label">Click to upload Signature</div>
             <div class="upload-hint">JPG / PNG</div>
           </div>
-          <button id="sigRestore" onclick="restoreImage('sig')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">↺ Restore Previous Signature</button>
+          <button id="sigRestore" onclick="restoreImage('sig')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">? Restore Previous Signature</button>
           <div class="preview-panel" id="sigPreview">
-            <div class="preview-title">Signature — Background Removal</div>
+            <div class="preview-title">Signature � Background Removal</div>
             <div class="preview-images">
               <div>
                 <div class="preview-box"><img id="sigOrig" alt="Original"></div>
@@ -714,8 +714,8 @@
               <input type="checkbox" id="sigBlue"> Make Official Blue
             </label>
             <div style="display:flex;align-items:center;gap:12px;">
-              <button class="btn-confirm" id="sigConfirm" onclick="confirmImage('sig')">✔ Use This</button>
-              <div class="confirmed-badge" id="sigConfirmed">✔ Signature confirmed</div>
+              <button class="btn-confirm" id="sigConfirm" onclick="confirmImage('sig')">? Use This</button>
+              <div class="confirmed-badge" id="sigConfirmed">? Signature confirmed</div>
             </div>
           </div>
         </div>
@@ -724,13 +724,13 @@
         <div>
           <div class="upload-zone" id="stpZone">
             <input type="file" id="stpInput" accept="image/jpeg,image/png,image/jpg">
-            <div class="upload-icon">🔴</div>
+            <div class="upload-icon">??</div>
             <div class="upload-label">Click to upload Stamp</div>
             <div class="upload-hint">JPG / PNG</div>
           </div>
-          <button id="stpRestore" onclick="restoreImage('stp')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">↺ Restore Previous Stamp</button>
+          <button id="stpRestore" onclick="restoreImage('stp')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">? Restore Previous Stamp</button>
           <div class="preview-panel" id="stpPreview">
-            <div class="preview-title">Stamp — Background Removal</div>
+            <div class="preview-title">Stamp � Background Removal</div>
             <div class="preview-images">
               <div>
                 <div class="preview-box"><img id="stpOrig" alt="Original"></div>
@@ -755,8 +755,8 @@
               <input type="checkbox" id="stpBlue"> Make Official Blue
             </label>
             <div style="display:flex;align-items:center;gap:12px;">
-              <button class="btn-confirm" id="stpConfirm" onclick="confirmImage('stp')">✔ Use This</button>
-              <div class="confirmed-badge" id="stpConfirmed">✔ Stamp confirmed</div>
+              <button class="btn-confirm" id="stpConfirm" onclick="confirmImage('stp')">? Use This</button>
+              <div class="confirmed-badge" id="stpConfirmed">? Stamp confirmed</div>
             </div>
           </div>
         </div>
@@ -765,7 +765,7 @@
       <div class="error-msg" id="step1Error"></div>
       <div class="step-nav">
         <div></div>
-        <button class="btn-nav primary" onclick="goStep(2)">Next: Upload PDF →</button>
+        <button class="btn-nav primary" onclick="goStep(2)">Next: Upload PDF ?</button>
       </div>
     </div>
   </div>
@@ -778,23 +778,23 @@
 
       <div class="pdf-upload-zone" id="pdfZone">
         <input type="file" id="pdfInput" accept=".pdf,application/pdf">
-        <div class="upload-icon">📄</div>
+        <div class="upload-icon">??</div>
         <div class="upload-label">Click to upload PDF</div>
         <div class="upload-hint">PDF files only</div>
       </div>
 
       <div class="pdf-info" id="pdfInfo">
-        <div class="pdf-info-icon">📋</div>
+        <div class="pdf-info-icon">??</div>
         <div class="pdf-info-text">
-          <div class="pdf-name" id="pdfName">—</div>
-          <div class="pdf-pages" id="pdfPages">—</div>
+          <div class="pdf-name" id="pdfName">�</div>
+          <div class="pdf-pages" id="pdfPages">�</div>
         </div>
       </div>
 
       <div class="error-msg" id="step2Error"></div>
       <div class="step-nav">
-        <button class="btn-nav secondary" onclick="goStep(1)">← Back</button>
-        <button class="btn-nav primary" onclick="goStep(3)">Next: Select Pages →</button>
+        <button class="btn-nav secondary" onclick="goStep(1)">? Back</button>
+        <button class="btn-nav primary" onclick="goStep(3)">Next: Select Pages ?</button>
       </div>
     </div>
   </div>
@@ -843,8 +843,8 @@
 
       <div class="error-msg" id="step3Error"></div>
       <div class="step-nav">
-        <button class="btn-nav secondary" onclick="goStep(2)">← Back</button>
-        <button class="btn-nav primary" onclick="goStep(4)">Next: Position →</button>
+        <button class="btn-nav secondary" onclick="goStep(2)">? Back</button>
+        <button class="btn-nav primary" onclick="goStep(4)">Next: Position ?</button>
       </div>
     </div>
   </div>
@@ -857,33 +857,33 @@
 
       <!-- Sticky toolbar -->
       <div class="step4-toolbar">
-        <div class="size-row">✍️ Sig
+        <div class="size-row">?? Sig
           <input type="range" id="sigSize" min="20" max="220" value="140" oninput="updateAllSizes('sig', this.value)">
           <span class="val" id="sigSizeVal">140</span>
         </div>
-        <div class="size-row">🔴 Stamp
+        <div class="size-row">?? Stamp
           <input type="range" id="stpSize" min="20" max="220" value="110" oninput="updateAllSizes('stp', this.value)">
           <span class="val" id="stpSizeVal">110</span>
         </div>
         <select id="presetSelect" class="preset-select" onchange="applyPreset(this.value)">
-          <option value="">⚡ Quick layout…</option>
-          <option value="sig-over-stamp">✍️ Sign over stamp (CA standard)</option>
+          <option value="">? Quick layout�</option>
+          <option value="sig-over-stamp">?? Sign over stamp (CA standard)</option>
           <option value="ca-default">Sig left, Stamp right</option>
           <option value="bottom-right">Both bottom-right</option>
           <option value="bottom-center">Both bottom-center</option>
         </select>
-        <button class="btn-copy" onclick="copyPage0ToAll()">📋 Copy Page 1 → all</button>
+        <button class="btn-copy" onclick="copyPage0ToAll()">?? Copy Page 1 ? all</button>
         <div class="zoom-controls" style="display:flex; gap:6px; align-items:center; margin-left:auto;">
-          <button onclick="changeZoom(-0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">➖</button>
+          <button onclick="changeZoom(-0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">?</button>
           <span id="zoomLabel" style="font-size:0.8rem; width:40px; text-align:center; font-weight:600;">100%</span>
-          <button onclick="changeZoom(0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">➕</button>
+          <button onclick="changeZoom(0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">?</button>
         </div>
       </div>
 
       <!-- 3-column layout -->
       <div class="step4-layout">
         <div class="step4-thumbs" id="step4Thumbs">
-          <div class="thumbs-loading">Loading pages…</div>
+          <div class="thumbs-loading">Loading pages�</div>
         </div>
 
         <div class="step4-main">
@@ -901,15 +901,15 @@
           <div class="rail-header" id="railActiveLabel">Page 1</div>
 
           <div class="rail-section">
-            <div class="rail-title">✍️ Signature</div>
-            <div class="rail-coord">X: <span id="sigCoordX">—</span> pt</div>
-            <div class="rail-coord">Y: <span id="sigCoordY">—</span> pt</div>
+            <div class="rail-title">?? Signature</div>
+            <div class="rail-coord">X: <span id="sigCoordX">�</span> pt</div>
+            <div class="rail-coord">Y: <span id="sigCoordY">�</span> pt</div>
           </div>
 
           <div class="rail-section">
-            <div class="rail-title">🔴 Stamp</div>
-            <div class="rail-coord">X: <span id="stpCoordX">—</span> pt</div>
-            <div class="rail-coord">Y: <span id="stpCoordY">—</span> pt</div>
+            <div class="rail-title">?? Stamp</div>
+            <div class="rail-coord">X: <span id="stpCoordX">�</span> pt</div>
+            <div class="rail-coord">Y: <span id="stpCoordY">�</span> pt</div>
           </div>
 
           <label class="rail-toggle">
@@ -921,16 +921,16 @@
             Realistic Jitter (Slight variation)
           </label>
           <div class="rail-section" style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 12px;">
-            <div class="rail-title">📝 Additional Text</div>
+            <div class="rail-title">?? Additional Text</div>
             <input type="text" id="pdfText" placeholder="e.g. Certified True Copy" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; margin-bottom:4px; font-size:0.8rem;" oninput="updateTextOverlay()">
             <input type="date" id="pdfDate" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; font-size:0.8rem;" onchange="updateTextOverlay()">
           </div>
-          <div class="rail-hint" style="color:#a94442; background:#f2dede; border-color:#ebccd1; margin-bottom:8px;">⚠️ Warning: The signature is an image overlay and can be extracted from the final PDF.</div>
-          <div class="rail-hint">💡 Arrow keys nudge the last-clicked overlay (Shift+Arrow = ×10)</div>
+          <div class="rail-hint" style="color:#a94442; background:#f2dede; border-color:#ebccd1; margin-bottom:8px;">?? Warning: The signature is an image overlay and can be extracted from the final PDF.</div>
+          <div class="rail-hint">?? Arrow keys nudge the last-clicked overlay (Shift+Arrow = �10)</div>
 
           <button class="btn-process rail-process" id="processBtn" onclick="processPDF()">
             <span class="spinner" id="processSpinner"></span>
-            <span id="processBtnText">⬇ Process &amp; Download</span>
+            <span id="processBtnText">? Process &amp; Download</span>
           </button>
           <div class="error-msg" id="step4Error"></div>
           <div class="success-msg" id="step4Success"></div>
@@ -938,7 +938,7 @@
       </div>
 
       <div class="step-nav">
-        <button class="btn-nav secondary" onclick="goStep(3)">← Back</button>
+        <button class="btn-nav secondary" onclick="goStep(3)">? Back</button>
         <div></div>
       </div>
     </div>
@@ -947,7 +947,7 @@
 </div>
 
 <script>
-// ─── State ────────────────────────────────────────────────────────────────────
+// --- State --------------------------------------------------------------------
 const state = {
   sig: { imgEl: null, origData: null, cleanDataURL: null, confirmed: false, threshold: 220 },
   stp: { imgEl: null, origData: null, cleanDataURL: null, confirmed: false, threshold: 220 },
@@ -959,7 +959,7 @@ const state = {
   jitter: true
 };
 
-// Per-page overlay positions stored as PERCENTAGES (0–1) of page width/height.
+// Per-page overlay positions stored as PERCENTAGES (0�1) of page width/height.
 // This makes positions size-agnostic across pages of different sizes.
 // pageOverlays[i] = { sig: { xp, yp }, stp: { xp, yp } }
 let pageOverlays = [];
@@ -968,7 +968,7 @@ let pdfjsDoc = null;
 let targetPagesCache = [];          // [{idx, ptW, ptH, mainW, mainH}, ...]
 let lastSelectedKey = 'sig';        // for keyboard nudging
 
-// ─── Step Navigation ──────────────────────────────────────────────────────────
+// --- Step Navigation ----------------------------------------------------------
 function goStep(n) {
   // Validate before leaving current step
   if (n > state.currentStep) {
@@ -982,7 +982,7 @@ function goStep(n) {
     const lbl = document.getElementById('sl' + i);
     const con = document.getElementById('sc' + i);
     num.className = 'step-num' + (i < n ? ' done' : i === n ? ' active' : '');
-    if (i < n) num.textContent = '✓';
+    if (i < n) num.textContent = '?';
     else num.textContent = i;
     lbl.className = 'step-label' + (i === n ? ' active' : '');
     if (con) con.className = 'step-connector' + (i < n ? ' done' : '');
@@ -1023,7 +1023,7 @@ function hideStepError(n) {
   if (el) { el.textContent = ''; el.classList.remove('visible'); }
 }
 
-// ─── Image Processing ─────────────────────────────────────────────────────────
+// --- Image Processing ---------------------------------------------------------
 function setupImageUpload(key) {
   const input = document.getElementById(key + 'Input');
   const zone = document.getElementById(key + 'Zone');
@@ -1175,7 +1175,7 @@ function updateTextOverlay() {
   txtEl.style.left = stpLeft + 'px';
 }
 
-// ─── PDF Upload ───────────────────────────────────────────────────────────────
+// --- PDF Upload ---------------------------------------------------------------
 function setupPDFUpload() {
   const input = document.getElementById('pdfInput');
   const zone = document.getElementById('pdfZone');
@@ -1210,7 +1210,7 @@ function setupPDFUpload() {
   });
 }
 
-// ─── Page Mode ────────────────────────────────────────────────────────────────
+// --- Page Mode ----------------------------------------------------------------
 function updatePageMode(radio) {
   state.pageMode = radio.value;
   document.querySelectorAll('.radio-option').forEach(el => el.classList.remove('selected'));
@@ -1248,13 +1248,13 @@ function getTargetPages() {
   return [n - 1];
 }
 
-// ─── Placement Canvas ─────────────────────────────────────────────────────────
-// ─── Step 4: Per-page placement grid ──────────────────────────────────────────
+// --- Placement Canvas ---------------------------------------------------------
+// --- Step 4: Per-page placement grid ------------------------------------------
 
 function getSigAR() { const c = document.getElementById('sigCanvas'); return (c.width / c.height) || 3; }
 function getStpAR() { const c = document.getElementById('stpCanvas'); return (c.width / c.height) || 1; }
 
-// ─── Step 4 Pipeline: PDF.js rendering + 3-column editor ──────────────────────
+// --- Step 4 Pipeline: PDF.js rendering + 3-column editor ----------------------
 
 const MAIN_W_TARGET = 720;          // target main canvas width (px)
 const THUMB_W = 130;                // thumbnail width (px)
@@ -1272,7 +1272,7 @@ async function initStep4() {
       pdfjsDoc.__bytesRef = state.pdf.bytes;
     } catch (e) {
       const tWrap = document.getElementById('step4Thumbs');
-      tWrap.innerHTML = '<div class="thumbs-loading">⚠ ' + e.message + '</div>';
+      tWrap.innerHTML = '<div class="thumbs-loading">? ' + e.message + '</div>';
       return;
     }
   }
@@ -1361,7 +1361,7 @@ function positionMainOverlays(i) {
     const img = document.getElementById('main' + (key === 'sig' ? 'SigImg' : 'StpImg'));
     img.src = state[key].cleanDataURL;
     const ar = key === 'sig' ? getSigAR() : getStpAR();
-    // Width slider value is in "% of main view width" indirectly — we treat slider as "px at MAIN_W_TARGET"
+    // Width slider value is in "% of main view width" indirectly � we treat slider as "px at MAIN_W_TARGET"
     const w = state.overlays[key].w * (tp.mainW / MAIN_W_TARGET);
     const h = w / ar;
     img.style.width = w + 'px'; img.style.height = h + 'px';
@@ -1481,7 +1481,7 @@ function copyPage0ToAll() {
   // Refresh active page view
   if (activeI > 0) positionMainOverlays(activeI);
   updateCoordReadout();
-  flashToolbar('Copied page 1 layout to all pages ✓');
+  flashToolbar('Copied page 1 layout to all pages ?');
 }
 
 function applyPreset(name) {
@@ -1572,10 +1572,10 @@ function flashToolbar(msg) {
   setTimeout(() => { tb.style.background = old; }, 600);
 }
 
-// ─── LEGACY STUB ─────────────────────────────────────────────────────────────
+// --- LEGACY STUB -------------------------------------------------------------
 function initPlacementCanvas() { /* no-op, replaced by initStep4 */ }
 
-// ─── PDF Processing ───────────────────────────────────────────────────────────
+// --- PDF Processing -----------------------------------------------------------
 async function processPDF() {
   const errEl = document.getElementById('step4Error');
   const sucEl = document.getElementById('step4Success');
@@ -1592,7 +1592,7 @@ async function processPDF() {
   }
 
   btn.classList.add('processing'); btn.disabled = true;
-  btnText.textContent = 'Processing…';
+  btnText.textContent = 'Processing�';
 
   try {
     const pdfDoc   = await PDFLib.PDFDocument.load(state.pdf.bytes);
@@ -1613,7 +1613,7 @@ async function processPDF() {
       const pW = (rot === 90 || rot === 270) ? pH_raw : pW_raw;
       const pH = (rot === 90 || rot === 270) ? pW_raw : pH_raw;
 
-      // Slider value is "px at MAIN_W_TARGET reference width" → convert to actual page pt
+      // Slider value is "px at MAIN_W_TARGET reference width" ? convert to actual page pt
       // Uniform scale (W and H from same factor) preserves stamp circularity
       const refScale = pW / MAIN_W_TARGET;
       const sigPdfW = state.overlays.sig.w * refScale;
@@ -1637,7 +1637,7 @@ async function processPDF() {
       const sigRot = state.jitter ? (Math.random() - 0.5) * 8 : 0;
       const stpRot = state.jitter ? (Math.random() - 0.5) * 6 : 0;
 
-      // Map percentage position → PDF points (flip Y: PDF origin is bottom-left)
+      // Map percentage position ? PDF points (flip Y: PDF origin is bottom-left)
       const sigPdfX = po.sig.xp * pW + jSigX;
       const sigPdfY = pH - po.sig.yp * pH - sigPdfH + jSigY;
       const stpPdfX = po.stp.xp * pW + jStpX;
@@ -1674,14 +1674,14 @@ async function processPDF() {
 
     const pdfBytes = await pdfDoc.save();
     downloadBytes(pdfBytes, 'signed_' + (state.pdf.name || 'document.pdf'));
-    sucEl.textContent = '✔ PDF processed and downloaded successfully!';
+    sucEl.textContent = '? PDF processed and downloaded successfully!';
     sucEl.classList.add('visible');
   } catch(e) {
     errEl.textContent = 'Error: ' + e.message;
     errEl.classList.add('visible');
   } finally {
     btn.classList.remove('processing'); btn.disabled = false;
-    btnText.textContent = '⬇ Process & Download PDF';
+    btnText.textContent = '? Process & Download PDF';
   }
 }
 
@@ -1721,7 +1721,7 @@ function setupDragDrop(zoneId, inputId) {
   });
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
+// --- Init ---------------------------------------------------------------------
 setupImageUpload('sig');
 setupImageUpload('stp');
 setupPDFUpload();
