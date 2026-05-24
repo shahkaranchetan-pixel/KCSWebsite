@@ -785,7 +785,7 @@
       </div>
 
       <div class="pdf-info" id="pdfInfo">
-        <div class="pdf-info-icon">??</div>
+        <div class="pdf-info-icon"><i class="fa-solid fa-file-pdf"></i></div>
         <div class="pdf-info-text">
           <div class="pdf-name" id="pdfName">-</div>
           <div class="pdf-pages" id="pdfPages">-</div>
@@ -858,26 +858,26 @@
 
       <!-- Sticky toolbar -->
       <div class="step4-toolbar">
-        <div class="size-row">?? Sig
+        <div class="size-row"><i class="fa-solid fa-signature"></i> Sig
           <input type="range" id="sigSize" min="20" max="220" value="140" oninput="updateAllSizes('sig', this.value)">
           <span class="val" id="sigSizeVal">140</span>
         </div>
-        <div class="size-row">?? Stamp
+        <div class="size-row"><i class="fa-solid fa-stamp"></i> Stamp
           <input type="range" id="stpSize" min="20" max="220" value="110" oninput="updateAllSizes('stp', this.value)">
           <span class="val" id="stpSizeVal">110</span>
         </div>
         <select id="presetSelect" class="preset-select" onchange="applyPreset(this.value)">
-          <option value="">? Quick layout-</option>
-          <option value="sig-over-stamp">?? Sign over stamp (CA standard)</option>
+          <option value="">⚡ Quick layout...</option>
+          <option value="sig-over-stamp">⭐ Sign over stamp (CA standard)</option>
           <option value="ca-default">Sig left, Stamp right</option>
           <option value="bottom-right">Both bottom-right</option>
           <option value="bottom-center">Both bottom-center</option>
         </select>
-        <button class="btn-copy" onclick="copyPage0ToAll()">?? Copy Page 1 - all</button>
+        <button class="btn-copy" onclick="copyPage0ToAll()"><i class="fa-regular fa-copy"></i> Copy Page 1 - all</button>
         <div class="zoom-controls" style="display:flex; gap:6px; align-items:center; margin-left:auto;">
-          <button onclick="changeZoom(-0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">?</button>
+          <button onclick="changeZoom(-0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;"><i class="fa-solid fa-minus"></i></button>
           <span id="zoomLabel" style="font-size:0.8rem; width:40px; text-align:center; font-weight:600;">100%</span>
-          <button onclick="changeZoom(0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;">?</button>
+          <button onclick="changeZoom(0.2)" style="background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer;"><i class="fa-solid fa-plus"></i></button>
         </div>
       </div>
 
@@ -908,7 +908,7 @@
           </div>
 
           <div class="rail-section">
-            <div class="rail-title">?? Stamp</div>
+            <div class="rail-title"><i class="fa-solid fa-stamp"></i> Stamp</div>
             <div class="rail-coord">X: <span id="stpCoordX">-</span> pt</div>
             <div class="rail-coord">Y: <span id="stpCoordY">-</span> pt</div>
           </div>
@@ -926,8 +926,8 @@
             <input type="text" id="pdfText" placeholder="e.g. Certified True Copy" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; margin-bottom:4px; font-size:0.8rem;" oninput="updateTextOverlay()">
             <input type="date" id="pdfDate" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; font-size:0.8rem;" onchange="updateTextOverlay()">
           </div>
-          <div class="rail-hint" style="color:#a94442; background:#f2dede; border-color:#ebccd1; margin-bottom:8px;">?? Warning: The signature is an image overlay and can be extracted from the final PDF.</div>
-          <div class="rail-hint">?? Arrow keys nudge the last-clicked overlay (Shift+Arrow = -10)</div>
+          <div class="rail-hint" style="color:#a94442; background:#f2dede; border-color:#ebccd1; margin-bottom:8px;"><i class="fa-solid fa-triangle-exclamation"></i> Warning: The signature is an image overlay and can be extracted from the final PDF.</div>
+          <div class="rail-hint"><i class="fa-solid fa-keyboard"></i> Arrow keys nudge the last-clicked overlay (Shift+Arrow = -10)</div>
 
           <button class="btn-process rail-process" id="processBtn" onclick="processPDF()">
             <span class="spinner" id="processSpinner"></span>
@@ -983,7 +983,7 @@ function goStep(n) {
     const lbl = document.getElementById('sl' + i);
     const con = document.getElementById('sc' + i);
     num.className = 'step-num' + (i < n ? ' done' : i === n ? ' active' : '');
-    if (i < n) num.textContent = '?';
+    if (i < n) num.innerHTML = '<i class="fa-solid fa-check"></i>';
     else num.textContent = i;
     lbl.className = 'step-label' + (i === n ? ' active' : '');
     if (con) con.className = 'step-connector' + (i < n ? ' done' : '');
@@ -1273,7 +1273,7 @@ async function initStep4() {
       pdfjsDoc.__bytesRef = state.pdf.bytes;
     } catch (e) {
       const tWrap = document.getElementById('step4Thumbs');
-      tWrap.innerHTML = '<div class="thumbs-loading">? ' + e.message + '</div>';
+      tWrap.innerHTML = '<div class="thumbs-loading"><i class="fa-solid fa-triangle-exclamation"></i> ' + e.message + '</div>';
       return;
     }
   }
@@ -1482,7 +1482,7 @@ function copyPage0ToAll() {
   // Refresh active page view
   if (activeI > 0) positionMainOverlays(activeI);
   updateCoordReadout();
-  flashToolbar('Copied page 1 layout to all pages ?');
+  flashToolbar('Copied page 1 layout to all pages \u2705');
 }
 
 function applyPreset(name) {
@@ -1675,14 +1675,14 @@ async function processPDF() {
 
     const pdfBytes = await pdfDoc.save();
     downloadBytes(pdfBytes, 'signed_' + (state.pdf.name || 'document.pdf'));
-    sucEl.textContent = '? PDF processed and downloaded successfully!';
+    sucEl.innerHTML = '<i class="fa-solid fa-check-circle"></i> PDF processed and downloaded successfully!';
     sucEl.classList.add('visible');
   } catch(e) {
     errEl.textContent = 'Error: ' + e.message;
     errEl.classList.add('visible');
   } finally {
     btn.classList.remove('processing'); btn.disabled = false;
-    btnText.textContent = '<i class="fa-solid fa-download"></i> Process & Download PDF';
+    btnText.innerHTML = '<i class="fa-solid fa-download"></i> Process & Download PDF';
   }
 }
 
