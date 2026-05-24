@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -435,11 +435,11 @@
         var visible = 0;
         cards.forEach(function(card) {
           var show = filter === 'All' || card.dataset.category === filter;
-          card.style.display = show ? '' : 'none';
+          card.style.display = show - '' : 'none';
           if (show) visible++;
         });
         var empty = document.getElementById('blog-empty');
-        if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+        if (empty) empty.style.display = visible === 0 - 'block' : 'none';
       });
     });
   })();

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -88,7 +88,7 @@
 
 <section class="tool-page-header">
 <div class="container" style="position:relative;z-index:2">
-<div class="breadcrumb"><a href="../index">Home</a><span>—</span><a href="/">Free Tools</a><span>—</span><span style="color:rgba(255,255,255,.7)">Capital Gains</span></div>
+<div class="breadcrumb"><a href="../index">Home</a><span>ï¿½</span><a href="/">Free Tools</a><span>ï¿½</span><span style="color:rgba(255,255,255,.7)">Capital Gains</span></div>
 <h1>Capital Gains Calculator</h1>
 <p>Calculate STCG & LTCG post Budget 2024 changes (12.5% rate without indexation for long term).</p>
 </div>
@@ -123,12 +123,12 @@
 <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> Capital Gains Result</div>
 <div class="tool-result" style="text-align:center;margin-bottom:16px">
 <div class="tool-result-label" id="gain-type">Long Term Capital Gain</div>
-<div class="tool-result-value" id="gain-amount">?0</div>
+<div class="tool-result-value" id="gain-amount">â‚¹0</div>
 </div>
 <div class="tool-result-grid">
 <div class="tool-result-item"><div class="label">Holding Period</div><div class="value" id="hold-period">0 Months</div></div>
 <div class="tool-result-item"><div class="label">Applicable Tax Rate</div><div class="value" id="tax-rate">12.5%</div></div>
-<div class="tool-result-item highlight" style="grid-column: span 2"><div class="label">Estimated Tax Liability (excluding surcharge/cess)</div><div class="value" id="tax-amount" style="font-size:1.4rem">?0</div></div>
+<div class="tool-result-item highlight" style="grid-column: span 2"><div class="label">Estimated Tax Liability (excluding surcharge/cess)</div><div class="value" id="tax-amount" style="font-size:1.4rem">â‚¹0</div></div>
 </div>
 <div class="tool-info-box" style="margin-top:16px"><i class="fa-solid fa-info-circle"></i><p>Post Budget 2024 (23 July 2024), LTCG is taxed at 12.5% across all asset classes without indexation benefit. STCG on listed equity is 20%.</p></div>
 <div class="tool-actions">
@@ -160,15 +160,15 @@ function calculate(){
   if(asset === 'eq_listed') ltcgThreshold = 12;
 
   const isLtcg = months > ltcgThreshold;
-  document.getElementById('gain-type').textContent = isLtcg ? 'Long Term Capital Gain' : 'Short Term Capital Gain';
+  document.getElementById('gain-type').textContent = isLtcg - 'Long Term Capital Gain' : 'Short Term Capital Gain';
 
   const gain = Math.max(0, sprice - pprice - exp);
   document.getElementById('gain-amount').textContent = fmt(gain);
 
   let rate = 0;
-  if(asset === 'eq_listed') rate = isLtcg ? 0.125 : 0.20;
-  else if(asset === 'debt') rate = isLtcg ? 0.125 : 0.30; // Assuming 30% slab for STCG for simplicity here
-  else rate = isLtcg ? 0.125 : 0.30; // Unlisted, property, gold STCG assuming 30% slab
+  if(asset === 'eq_listed') rate = isLtcg - 0.125 : 0.20;
+  else if(asset === 'debt') rate = isLtcg - 0.125 : 0.30; // Assuming 30% slab for STCG for simplicity here
+  else rate = isLtcg - 0.125 : 0.30; // Unlisted, property, gold STCG assuming 30% slab
 
   // For listed equity LTCG, exempt up to 1.25L
   let taxableGain = gain;
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', calculate);
 
 <footer><div class="container">
 <div class="footer-grid">
-<div class="footer-widget"><div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">&amp; Associates</span></div><p>Free financial tools for Indian businesses — built by Chartered Accountants with verified formulas and FY 2025-26 tax data.</p>
+<div class="footer-widget"><div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">&amp; Associates</span></div><p>Free financial tools for Indian businesses ï¿½ built by Chartered Accountants with verified formulas and FY 2025-26 tax data.</p>
 <div class="footer-social"><a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://api.whatsapp.com/send/?phone=917666638995" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a><a href="mailto:karan@kcshah.com"><i class="fa-solid fa-envelope"></i></a></div></div>
 <div class="footer-widget"><h4>Tax Tools</h4><ul><li><a href="income-tax-calculator">Income Tax Calculator</a></li><li><a href="advance-tax-calculator">Advance Tax Calculator</a></li><li><a href="capital-gain-calculator">Capital Gains Calculator</a></li><li><a href="tds-rate-chart">TDS Rate Chart</a></li><li><a href="compliance-calendar">Compliance Calendar</a></li></ul></div>
 <div class="footer-widget"><h4>Business Tools</h4><ul><li><a href="emi-calculator">EMI Calculator</a></li><li><a href="loan-eligibility-calculator">Loan Eligibility</a></li><li><a href="loan-tenure-calculator">Loan Tenure</a></li><li><a href="sign-stamp-tool">PDF Sign &amp; Stamp</a></li></ul></div>
