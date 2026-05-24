@@ -424,7 +424,7 @@ function expandMonthly() {
   Object.keys(MONTH_INFO).forEach(m => {
     MONTHLY_RECURRING.forEach(r => {
       if (r.excludeMonths && r.excludeMonths.includes(m)) return;
-      const day = (r.day === 'last') - MONTH_INFO[m].days : r.day;
+      const day = (r.day === 'last') ? MONTH_INFO[m].days : r.day;
       out.push({
         month: m,
         day,
@@ -461,7 +461,7 @@ function filterCal(cat) {
   document.querySelectorAll('#cat-tabs .tool-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.cat === cat);
   });
-  document.getElementById('gst-sub-bar').style.display = (cat === 'gst') - 'block' : 'none';
+  document.getElementById('gst-sub-bar').style.display = (cat === 'gst') ? 'block' : 'none';
   render();
 }
 window.filterCal = filterCal;
@@ -525,7 +525,7 @@ function render() {
     html += `<div class="month-section">
       <div class="month-section-header">
         <h3>${escHTML(MONTH_INFO[m].name)}</h3>
-        <span class="badge-count">${items.length} ${items.length === 1 - 'compliance' : 'compliances'}</span>
+        <span class="badge-count">${items.length} ${items.length === 1 ? 'compliance' : 'compliances'}</span>
       </div>
       <table class="compliance-table">
         <thead>
@@ -556,9 +556,9 @@ function render() {
 
 function updateCount(n) {
   const total = COMPLIANCES.length;
-  const monthTxt = activeMonth !== 'all' - ` - ${MONTH_INFO[activeMonth].name}` : '';
+  const monthTxt = activeMonth !== 'all' ? ` - ${MONTH_INFO[activeMonth].name}` : '';
   const catLabels = { all:'All Categories', it:'Income Tax', tds:'TDS / TCS', gst:'GST', roc:'ROC / MCA', pay:'Payroll' };
-  const catTxt = activeCat !== 'all' - ` - ${catLabels[activeCat]}` : '';
+  const catTxt = activeCat !== 'all' ? ` - ${catLabels[activeCat]}` : '';
   document.getElementById('cal-count').textContent =
     (activeCat === 'all' && activeMonth === 'all')
       - `${total} compliance deadlines - FY 2025-26`
@@ -625,7 +625,7 @@ function skylineSVG() {
 function buildExportHTML(items, monthInfo, today) {
   const rowsHTML = items.map((c, i) => {
     const a = ACT_STYLES[c.cat];
-    const bg = i % 2 === 0 - '#ffffff' : '#fbfdff';
+    const bg = i % 2 === 0 ? '#ffffff' : '#fbfdff';
     const badgeContent = a.text
       - `<span style="font-size:9px;font-weight:900;letter-spacing:0.2px;color:#fff">${a.text}</span>`
       : `<i class="fa-solid ${a.icon}" style="font-size:12px;color:#fff"></i>`;
@@ -764,7 +764,7 @@ function buildExportHTML(items, monthInfo, today) {
 }
 
 function waitForExportAssets(wrap) {
-  const fontReady = document.fonts && document.fonts.ready - document.fonts.ready : Promise.resolve();
+  const fontReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
   const imageReady = Array.from(wrap.querySelectorAll('img')).map(img => {
     if (img.complete && img.naturalWidth > 0) return Promise.resolve();
     return new Promise((resolve, reject) => {
@@ -795,8 +795,8 @@ function downloadImage() {
   document.body.appendChild(wrap);
 
   const target = wrap.querySelector('.export-canvas');
-  const btn = document.activeElement && document.activeElement.tagName === 'BUTTON' - document.activeElement : null;
-  const origText = btn - btn.innerHTML : '';
+  const btn = document.activeElement && document.activeElement.tagName === 'BUTTON' ? document.activeElement : null;
+  const origText = btn ? btn.innerHTML : '';
   if (btn) { btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:6px"></i>Generating...'; btn.disabled = true; }
 
   // Allow icons/fonts to render before capturing
@@ -844,14 +844,14 @@ function downloadPDF() {
   // Sort same as render
   filtered.sort((a, b) => {
     const om = MONTH_INFO[a.month].order - MONTH_INFO[b.month].order;
-    return om !== 0 - om : a.day - b.day;
+    return om !== 0 ? om : a.day - b.day;
   });
 
   const catLabels = { all:'All Categories', it:'Income Tax', tds:'TDS / TCS', gst:'GST', roc:'ROC / MCA', pay:'Payroll' };
   const subLabels = { regular:'Regular (Monthly)', qrmp:'QRMP Scheme', comp:'Composition' };
-  const catLbl = catLabels[activeCat] + (activeCat === 'gst' - ' - ' + subLabels[activeGSTSub] : '');
-  const monthLbl = activeMonth !== 'all' - MONTH_INFO[activeMonth].name : 'FY 2025-26 (All Months)';
-  const filterLine = (activeCat === 'all' - '' : catLbl + '  -  ') + monthLbl;
+  const catLbl = catLabels[activeCat] + (activeCat === 'gst' ? ' - ' + subLabels[activeGSTSub] : '');
+  const monthLbl = activeMonth !== 'all' ? MONTH_INFO[activeMonth].name : 'FY 2025-26 (All Months)';
+  const filterLine = (activeCat === 'all' ? '' : catLbl + '  -  ') + monthLbl;
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });

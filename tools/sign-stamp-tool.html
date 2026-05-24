@@ -982,11 +982,11 @@ function goStep(n) {
     const num = document.getElementById('sn' + i);
     const lbl = document.getElementById('sl' + i);
     const con = document.getElementById('sc' + i);
-    num.className = 'step-num' + (i < n - ' done' : i === n - ' active' : '');
+    num.className = 'step-num' + (i < n ? ' done' : i === n ? ' active' : '');
     if (i < n) num.textContent = '?';
     else num.textContent = i;
-    lbl.className = 'step-label' + (i === n - ' active' : '');
-    if (con) con.className = 'step-connector' + (i < n - ' done' : '');
+    lbl.className = 'step-label' + (i === n ? ' active' : '');
+    if (con) con.className = 'step-connector' + (i < n ? ' done' : '');
   }
   document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
   document.getElementById('step' + n).classList.add('active');
@@ -1092,8 +1092,8 @@ function removeBackground(key) {
   const feather = 8;
   const darkenEl = document.getElementById(key + 'Darken');
   const blueEl = document.getElementById(key + 'Blue');
-  const darken = (darkenEl - darkenEl.value : 0) / 100;
-  const makeBlue = blueEl - blueEl.checked : false;
+  const darken = (darkenEl ? darkenEl.value : 0) / 100;
+  const makeBlue = blueEl ? blueEl.checked : false;
 
   for (let i = 0; i < data.length; i += 4) {
     const minCh = Math.min(data[i], data[i+1], data[i+2]);
@@ -1160,7 +1160,7 @@ function updateTextOverlay() {
   const txt = document.getElementById('pdfText').value;
   const dateVal = document.getElementById('pdfDate').value;
   let finalTxt = txt;
-  if (dateVal) finalTxt += (finalTxt - ' - ' : '') + dateVal;
+  if (dateVal) finalTxt += (finalTxt ? ' - ' : '') + dateVal;
   
   const txtEl = document.getElementById('mainTxt');
   txtEl.textContent = finalTxt;
@@ -1202,7 +1202,7 @@ function setupPDFUpload() {
       pageOverlays = [];
       targetPagesCache = [];
       document.getElementById('pdfName').textContent = file.name;
-      document.getElementById('pdfPages').textContent = state.pdf.pageCount + ' page' + (state.pdf.pageCount !== 1 - 's' : '');
+      document.getElementById('pdfPages').textContent = state.pdf.pageCount + ' page' + (state.pdf.pageCount !== 1 ? 's' : '');
       document.getElementById('pdfInfo').classList.add('visible');
       hideStepError(2);
     } catch(e) {
@@ -1322,7 +1322,7 @@ async function renderAllThumbnails() {
     await tp.page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
 
     const item = document.createElement('div');
-    item.className = 'thumb-item' + (i === 0 - ' active' : '');
+    item.className = 'thumb-item' + (i === 0 ? ' active' : '');
     item.dataset.i = i;
     item.onclick = () => switchToPage(i);
     const img = document.createElement('img');
@@ -1358,10 +1358,10 @@ async function renderMainPage(i) {
 function positionMainOverlays(i) {
   const tp = targetPagesCache[i];
   ['sig', 'stp'].forEach(key => {
-    const el = document.getElementById('main' + (key === 'sig' - 'Sig' : 'Stp'));
-    const img = document.getElementById('main' + (key === 'sig' - 'SigImg' : 'StpImg'));
+    const el = document.getElementById('main' + (key === 'sig' ? 'Sig' : 'Stp'));
+    const img = document.getElementById('main' + (key === 'sig' ? 'SigImg' : 'StpImg'));
     img.src = state[key].cleanDataURL;
-    const ar = key === 'sig' - getSigAR() : getStpAR();
+    const ar = key === 'sig' ? getSigAR() : getStpAR();
     // Width slider value is in "% of main view width" indirectly - we treat slider as "px at MAIN_W_TARGET"
     const w = state.overlays[key].w * (tp.mainW / MAIN_W_TARGET);
     const h = w / ar;
@@ -1382,7 +1382,7 @@ function attachMainDragHandlers() {
   if (_dragHandlersAttached) return;
   _dragHandlersAttached = true;
   ['sig', 'stp'].forEach(key => {
-    const el = document.getElementById('main' + (key === 'sig' - 'Sig' : 'Stp'));
+    const el = document.getElementById('main' + (key === 'sig' ? 'Sig' : 'Stp'));
     let active = false, sx, sy, ox, oy;
 
     function start(cx, cy) {
@@ -1456,9 +1456,9 @@ function updateAllSizes(key, val) {
   // Re-position only the main overlay; thumbnails don't show overlays
   if (targetPagesCache[activeI]) {
     const tp = targetPagesCache[activeI];
-    const el = document.getElementById('main' + (key === 'sig' - 'Sig' : 'Stp'));
-    const img = document.getElementById('main' + (key === 'sig' - 'SigImg' : 'StpImg'));
-    const ar = key === 'sig' - getSigAR() : getStpAR();
+    const el = document.getElementById('main' + (key === 'sig' ? 'Sig' : 'Stp'));
+    const img = document.getElementById('main' + (key === 'sig' ? 'SigImg' : 'StpImg'));
+    const ar = key === 'sig' ? getSigAR() : getStpAR();
     const w = parseInt(val) * (tp.mainW / MAIN_W_TARGET);
     const h = w / ar;
     img.style.width = w + 'px'; img.style.height = h + 'px';
@@ -1548,7 +1548,7 @@ function attachKeyboardNudge() {
     if (!document.getElementById('step4').classList.contains('active')) return;
     if (!targetPagesCache[activeI]) return;
     const tp = targetPagesCache[activeI];
-    const step = e.shiftKey - 10 : 1;
+    const step = e.shiftKey ? 10 : 1;
     const po = pageOverlays[activeI][lastSelectedKey];
     let dx = 0, dy = 0;
     if (e.key === 'ArrowLeft')  dx = -step;
@@ -1559,7 +1559,7 @@ function attachKeyboardNudge() {
     e.preventDefault();
     po.xp = Math.max(0, Math.min(1, po.xp + dx / tp.mainW));
     po.yp = Math.max(0, Math.min(1, po.yp + dy / tp.mainH));
-    const el = document.getElementById('main' + (lastSelectedKey === 'sig' - 'Sig' : 'Stp'));
+    const el = document.getElementById('main' + (lastSelectedKey === 'sig' ? 'Sig' : 'Stp'));
     el.style.left = (po.xp * tp.mainW) + 'px';
     el.style.top  = (po.yp * tp.mainH) + 'px';
     updateCoordReadout();
@@ -1611,8 +1611,8 @@ async function processPDF() {
 
       let { width: pW_raw, height: pH_raw } = page.getSize();
       const rot = page.getRotation().angle;
-      const pW = (rot === 90 || rot === 270) - pH_raw : pW_raw;
-      const pH = (rot === 90 || rot === 270) - pW_raw : pH_raw;
+      const pW = (rot === 90 || rot === 270) ? pH_raw : pW_raw;
+      const pH = (rot === 90 || rot === 270) ? pW_raw : pH_raw;
 
       // Slider value is "px at MAIN_W_TARGET reference width" - convert to actual page pt
       // Uniform scale (W and H from same factor) preserves stamp circularity
@@ -1624,19 +1624,19 @@ async function processPDF() {
 
       // Grouped Jitter: Stamp and Signature move together around the page (up to 30pt)
       // Micro Jitter: They move relative to each other very slightly (up to 5pt)
-      const macroAmt = state.jitter - 30 : 0;
-      const microAmt = state.jitter - 5 : 0;
+      const macroAmt = state.jitter ? 30 : 0;
+      const microAmt = state.jitter ? 5 : 0;
       
-      const groupJitterX = state.jitter - (Math.random() - 0.5) * macroAmt : 0;
-      const groupJitterY = state.jitter - (Math.random() - 0.5) * macroAmt : 0;
+      const groupJitterX = state.jitter ? (Math.random() - 0.5) * macroAmt : 0;
+      const groupJitterY = state.jitter ? (Math.random() - 0.5) * macroAmt : 0;
       
-      const jSigX = groupJitterX + (state.jitter - (Math.random() - 0.5) * microAmt : 0);
-      const jSigY = groupJitterY + (state.jitter - (Math.random() - 0.5) * microAmt : 0);
-      const jStpX = groupJitterX + (state.jitter - (Math.random() - 0.5) * microAmt : 0);
-      const jStpY = groupJitterY + (state.jitter - (Math.random() - 0.5) * microAmt : 0);
+      const jSigX = groupJitterX + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
+      const jSigY = groupJitterY + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
+      const jStpX = groupJitterX + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
+      const jStpY = groupJitterY + (state.jitter ? (Math.random() - 0.5) * microAmt : 0);
       
-      const sigRot = state.jitter - (Math.random() - 0.5) * 8 : 0;
-      const stpRot = state.jitter - (Math.random() - 0.5) * 6 : 0;
+      const sigRot = state.jitter ? (Math.random() - 0.5) * 8 : 0;
+      const stpRot = state.jitter ? (Math.random() - 0.5) * 6 : 0;
 
       // Map percentage position - PDF points (flip Y: PDF origin is bottom-left)
       const sigPdfX = po.sig.xp * pW + jSigX;
@@ -1661,7 +1661,7 @@ async function processPDF() {
       const txt = document.getElementById('pdfText').value;
       const dateVal = document.getElementById('pdfDate').value;
       let finalTxt = txt;
-      if (dateVal) finalTxt += (finalTxt - ' - ' : '') + dateVal;
+      if (dateVal) finalTxt += (finalTxt ? ' - ' : '') + dateVal;
       
       if (finalTxt) {
          page.drawText(finalTxt, {

@@ -381,13 +381,13 @@ function generateTaxReportPDF() {
   const greenBg = '#E8F5EF';
 
   const winnerIsNew = winner.toLowerCase().includes('new');
-  const recColor = winnerIsNew - green : '#1a4a7a';
-  const recBg    = winnerIsNew - greenBg : '#E8EDF5';
+  const recColor = winnerIsNew ? green : '#1a4a7a';
+  const recBg    = winnerIsNew ? greenBg : '#E8EDF5';
 
   const oldTaxable = parseInt((get('b-ti-o')||'0').replace(/[^0-9]/g,'')) || 0;
   const newTaxable = parseInt((get('b-ti-n')||'0').replace(/[^0-9]/g,'')) || 0;
-  const oldETR = gross > 0 - pct(oldTotal/gross) : '0.00%';
-  const newETR = gross > 0 - pct(newTotal/gross) : '0.00%';
+  const oldETR = gross > 0 ? pct(oldTotal/gross) : '0.00%';
+  const newETR = gross > 0 ? pct(newTotal/gross) : '0.00%';
 
   const html = `
 <div style="width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#222;font-size:13px;line-height:1.5">

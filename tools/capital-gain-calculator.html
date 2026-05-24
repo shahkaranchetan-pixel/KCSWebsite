@@ -160,15 +160,15 @@ function calculate(){
   if(asset === 'eq_listed') ltcgThreshold = 12;
 
   const isLtcg = months > ltcgThreshold;
-  document.getElementById('gain-type').textContent = isLtcg - 'Long Term Capital Gain' : 'Short Term Capital Gain';
+  document.getElementById('gain-type').textContent = isLtcg ? 'Long Term Capital Gain' : 'Short Term Capital Gain';
 
   const gain = Math.max(0, sprice - pprice - exp);
   document.getElementById('gain-amount').textContent = fmt(gain);
 
   let rate = 0;
-  if(asset === 'eq_listed') rate = isLtcg - 0.125 : 0.20;
-  else if(asset === 'debt') rate = isLtcg - 0.125 : 0.30; // Assuming 30% slab for STCG for simplicity here
-  else rate = isLtcg - 0.125 : 0.30; // Unlisted, property, gold STCG assuming 30% slab
+  if(asset === 'eq_listed') rate = isLtcg ? 0.125 : 0.20;
+  else if(asset === 'debt') rate = isLtcg ? 0.125 : 0.30; // Assuming 30% slab for STCG for simplicity here
+  else rate = isLtcg ? 0.125 : 0.30; // Unlisted, property, gold STCG assuming 30% slab
 
   // For listed equity LTCG, exempt up to 1.25L
   let taxableGain = gain;
