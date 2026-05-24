@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -561,7 +561,7 @@ function updateCount(n) {
   const catTxt = activeCat !== 'all' ? ` - ${catLabels[activeCat]}` : '';
   document.getElementById('cal-count').textContent =
     (activeCat === 'all' && activeMonth === 'all')
-      - `${total} compliance deadlines - FY 2025-26`
+      ? `${total} compliance deadlines - FY 2025-26`
       : `Showing ${n} of ${total} deadlines${catTxt}${monthTxt}`;
 }
 
@@ -627,7 +627,7 @@ function buildExportHTML(items, monthInfo, today) {
     const a = ACT_STYLES[c.cat];
     const bg = i % 2 === 0 ? '#ffffff' : '#fbfdff';
     const badgeContent = a.text
-      - `<span style="font-size:9px;font-weight:900;letter-spacing:0.2px;color:#fff">${a.text}</span>`
+      ? `<span style="font-size:9px;font-weight:900;letter-spacing:0.2px;color:#fff">${a.text}</span>`
       : `<i class="fa-solid ${a.icon}" style="font-size:12px;color:#fff"></i>`;
     return `<tr style="background:${bg}">
       <td style="padding:11px 13px;border-bottom:1px solid #dbe3ee;border-right:1px solid #dbe3ee;vertical-align:middle">
