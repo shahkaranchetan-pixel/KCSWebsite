@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PDF Sign & Stamp Tool — KC Shah & Associates</title>
-<meta name="description" content="Free PDF Sign &amp; Stamp Tool — Apply digital signature and rubber stamp on PDFs without printing. Auto-removes white background, page-wise placement, CA-standard layouts. No upload required.">
+<title>PDF Sign & Stamp Tool ï¿½ KC Shah & Associates</title>
+<meta name="description" content="Free PDF Sign &amp; Stamp Tool ï¿½ Apply digital signature and rubber stamp on PDFs without printing. Auto-removes white background, page-wise placement, CA-standard layouts. No upload required.">
 <link rel="canonical" href="https://kcshah.com/tools/sign-stamp-tool">
 <meta property="og:title" content="PDF Sign &amp; Stamp Tool | KC Shah &amp; Associates">
 <meta property="og:description" content="Apply digital signature and rubber stamp on PDFs without printing. Free tool by KC Shah &amp; Associates, Mumbai.">
@@ -510,7 +510,7 @@
   #mainCanvas { display: block; max-width: 100%; }
   .main-overlay { z-index: 2; }
   #mainStp { z-index: 2; }
-  #mainSig { z-index: 3; }  /* signature always on top — needed for "sign over stamp" */
+  #mainSig { z-index: 3; }  /* signature always on top ï¿½ needed for "sign over stamp" */
   .snap-guide {
     position: absolute; background: rgba(201,168,76,0.7);
     pointer-events: none; display: none; z-index: 3;
@@ -639,6 +639,7 @@
   .step-section { display: none; }
   .step-section.active { display: block; }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -689,7 +690,7 @@
           </div>
           <button id="sigRestore" onclick="restoreImage('sig')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">? Restore Previous Signature</button>
           <div class="preview-panel" id="sigPreview">
-            <div class="preview-title">Signature — Background Removal</div>
+            <div class="preview-title">Signature ï¿½ Background Removal</div>
             <div class="preview-images">
               <div>
                 <div class="preview-box"><img id="sigOrig" alt="Original"></div>
@@ -730,7 +731,7 @@
           </div>
           <button id="stpRestore" onclick="restoreImage('stp')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">? Restore Previous Stamp</button>
           <div class="preview-panel" id="stpPreview">
-            <div class="preview-title">Stamp — Background Removal</div>
+            <div class="preview-title">Stamp ï¿½ Background Removal</div>
             <div class="preview-images">
               <div>
                 <div class="preview-box"><img id="stpOrig" alt="Original"></div>
@@ -786,8 +787,8 @@
       <div class="pdf-info" id="pdfInfo">
         <div class="pdf-info-icon">??</div>
         <div class="pdf-info-text">
-          <div class="pdf-name" id="pdfName">—</div>
-          <div class="pdf-pages" id="pdfPages">—</div>
+          <div class="pdf-name" id="pdfName">ï¿½</div>
+          <div class="pdf-pages" id="pdfPages">ï¿½</div>
         </div>
       </div>
 
@@ -866,7 +867,7 @@
           <span class="val" id="stpSizeVal">110</span>
         </div>
         <select id="presetSelect" class="preset-select" onchange="applyPreset(this.value)">
-          <option value="">? Quick layout…</option>
+          <option value="">? Quick layoutï¿½</option>
           <option value="sig-over-stamp">?? Sign over stamp (CA standard)</option>
           <option value="ca-default">Sig left, Stamp right</option>
           <option value="bottom-right">Both bottom-right</option>
@@ -883,7 +884,7 @@
       <!-- 3-column layout -->
       <div class="step4-layout">
         <div class="step4-thumbs" id="step4Thumbs">
-          <div class="thumbs-loading">Loading pages…</div>
+          <div class="thumbs-loading">Loading pagesï¿½</div>
         </div>
 
         <div class="step4-main">
@@ -902,14 +903,14 @@
 
           <div class="rail-section">
             <div class="rail-title">?? Signature</div>
-            <div class="rail-coord">X: <span id="sigCoordX">—</span> pt</div>
-            <div class="rail-coord">Y: <span id="sigCoordY">—</span> pt</div>
+            <div class="rail-coord">X: <span id="sigCoordX">ï¿½</span> pt</div>
+            <div class="rail-coord">Y: <span id="sigCoordY">ï¿½</span> pt</div>
           </div>
 
           <div class="rail-section">
             <div class="rail-title">?? Stamp</div>
-            <div class="rail-coord">X: <span id="stpCoordX">—</span> pt</div>
-            <div class="rail-coord">Y: <span id="stpCoordY">—</span> pt</div>
+            <div class="rail-coord">X: <span id="stpCoordX">ï¿½</span> pt</div>
+            <div class="rail-coord">Y: <span id="stpCoordY">ï¿½</span> pt</div>
           </div>
 
           <label class="rail-toggle">
@@ -926,7 +927,7 @@
             <input type="date" id="pdfDate" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; font-size:0.8rem;" onchange="updateTextOverlay()">
           </div>
           <div class="rail-hint" style="color:#a94442; background:#f2dede; border-color:#ebccd1; margin-bottom:8px;">?? Warning: The signature is an image overlay and can be extracted from the final PDF.</div>
-          <div class="rail-hint">?? Arrow keys nudge the last-clicked overlay (Shift+Arrow = ×10)</div>
+          <div class="rail-hint">?? Arrow keys nudge the last-clicked overlay (Shift+Arrow = ï¿½10)</div>
 
           <button class="btn-process rail-process" id="processBtn" onclick="processPDF()">
             <span class="spinner" id="processSpinner"></span>
@@ -959,7 +960,7 @@ const state = {
   jitter: true
 };
 
-// Per-page overlay positions stored as PERCENTAGES (0–1) of page width/height.
+// Per-page overlay positions stored as PERCENTAGES (0ï¿½1) of page width/height.
 // This makes positions size-agnostic across pages of different sizes.
 // pageOverlays[i] = { sig: { xp, yp }, stp: { xp, yp } }
 let pageOverlays = [];
@@ -1361,7 +1362,7 @@ function positionMainOverlays(i) {
     const img = document.getElementById('main' + (key === 'sig' ? 'SigImg' : 'StpImg'));
     img.src = state[key].cleanDataURL;
     const ar = key === 'sig' ? getSigAR() : getStpAR();
-    // Width slider value is in "% of main view width" indirectly — we treat slider as "px at MAIN_W_TARGET"
+    // Width slider value is in "% of main view width" indirectly ï¿½ we treat slider as "px at MAIN_W_TARGET"
     const w = state.overlays[key].w * (tp.mainW / MAIN_W_TARGET);
     const h = w / ar;
     img.style.width = w + 'px'; img.style.height = h + 'px';
@@ -1592,7 +1593,7 @@ async function processPDF() {
   }
 
   btn.classList.add('processing'); btn.disabled = true;
-  btnText.textContent = 'Processing…';
+  btnText.textContent = 'Processingï¿½';
 
   try {
     const pdfDoc   = await PDFLib.PDFDocument.load(state.pdf.bytes);
