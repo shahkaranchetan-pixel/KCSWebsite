@@ -684,11 +684,11 @@
         <div>
           <div class="upload-zone" id="sigZone">
             <input type="file" id="sigInput" accept="image/jpeg,image/png,image/jpg">
-            <div class="upload-icon">??</div>
+            <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
             <div class="upload-label">Click to upload Signature</div>
             <div class="upload-hint">JPG / PNG</div>
           </div>
-          <button id="sigRestore" onclick="restoreImage('sig')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">? Restore Previous Signature</button>
+          <button id="sigRestore" onclick="restoreImage('sig')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;"><i class="fa-solid fa-clock-rotate-left"></i> Restore Previous Signature</button>
           <div class="preview-panel" id="sigPreview">
             <div class="preview-title">Signature � Background Removal</div>
             <div class="preview-images">
@@ -715,8 +715,8 @@
               <input type="checkbox" id="sigBlue"> Make Official Blue
             </label>
             <div style="display:flex;align-items:center;gap:12px;">
-              <button class="btn-confirm" id="sigConfirm" onclick="confirmImage('sig')">? Use This</button>
-              <div class="confirmed-badge" id="sigConfirmed">? Signature confirmed</div>
+              <button class="btn-confirm" id="sigConfirm" onclick="confirmImage('sig')"><i class="fa-solid fa-check"></i> Use This</button>
+              <div class="confirmed-badge" id="sigConfirmed"><i class="fa-solid fa-check-circle"></i> Signature confirmed</div>
             </div>
           </div>
         </div>
@@ -725,11 +725,11 @@
         <div>
           <div class="upload-zone" id="stpZone">
             <input type="file" id="stpInput" accept="image/jpeg,image/png,image/jpg">
-            <div class="upload-icon">??</div>
+            <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
             <div class="upload-label">Click to upload Stamp</div>
             <div class="upload-hint">JPG / PNG</div>
           </div>
-          <button id="stpRestore" onclick="restoreImage('stp')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;">? Restore Previous Stamp</button>
+          <button id="stpRestore" onclick="restoreImage('stp')" style="display:none; width:100%; padding:8px; margin-top:8px; border-radius:6px; background:#e8f0fe; color:var(--navy); border:none; cursor:pointer; font-weight:600;"><i class="fa-solid fa-clock-rotate-left"></i> Restore Previous Stamp</button>
           <div class="preview-panel" id="stpPreview">
             <div class="preview-title">Stamp � Background Removal</div>
             <div class="preview-images">
@@ -756,8 +756,8 @@
               <input type="checkbox" id="stpBlue"> Make Official Blue
             </label>
             <div style="display:flex;align-items:center;gap:12px;">
-              <button class="btn-confirm" id="stpConfirm" onclick="confirmImage('stp')">? Use This</button>
-              <div class="confirmed-badge" id="stpConfirmed">? Stamp confirmed</div>
+              <button class="btn-confirm" id="stpConfirm" onclick="confirmImage('stp')"><i class="fa-solid fa-check"></i> Use This</button>
+              <div class="confirmed-badge" id="stpConfirmed"><i class="fa-solid fa-check-circle"></i> Stamp confirmed</div>
             </div>
           </div>
         </div>
@@ -766,7 +766,7 @@
       <div class="error-msg" id="step1Error"></div>
       <div class="step-nav">
         <div></div>
-        <button class="btn-nav primary" onclick="goStep(2)">Next: Upload PDF ?</button>
+        <button class="btn-nav primary" onclick="goStep(2)">Next: Upload PDF <i class="fa-solid fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -779,7 +779,7 @@
 
       <div class="pdf-upload-zone" id="pdfZone">
         <input type="file" id="pdfInput" accept=".pdf,application/pdf">
-        <div class="upload-icon">??</div>
+        <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
         <div class="upload-label">Click to upload PDF</div>
         <div class="upload-hint">PDF files only</div>
       </div>
@@ -794,8 +794,8 @@
 
       <div class="error-msg" id="step2Error"></div>
       <div class="step-nav">
-        <button class="btn-nav secondary" onclick="goStep(1)">? Back</button>
-        <button class="btn-nav primary" onclick="goStep(3)">Next: Select Pages ?</button>
+        <button class="btn-nav secondary" onclick="goStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="btn-nav primary" onclick="goStep(3)">Next: Select Pages <i class="fa-solid fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -844,8 +844,8 @@
 
       <div class="error-msg" id="step3Error"></div>
       <div class="step-nav">
-        <button class="btn-nav secondary" onclick="goStep(2)">? Back</button>
-        <button class="btn-nav primary" onclick="goStep(4)">Next: Position ?</button>
+        <button class="btn-nav secondary" onclick="goStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="btn-nav primary" onclick="goStep(4)">Next: Position <i class="fa-solid fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -902,7 +902,7 @@
           <div class="rail-header" id="railActiveLabel">Page 1</div>
 
           <div class="rail-section">
-            <div class="rail-title">?? Signature</div>
+            <div class="rail-title"><i class="fa-solid fa-signature"></i> Signature</div>
             <div class="rail-coord">X: <span id="sigCoordX">�</span> pt</div>
             <div class="rail-coord">Y: <span id="sigCoordY">�</span> pt</div>
           </div>
@@ -922,7 +922,7 @@
             Realistic Jitter (Slight variation)
           </label>
           <div class="rail-section" style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 12px;">
-            <div class="rail-title">?? Additional Text</div>
+            <div class="rail-title"><i class="fa-solid fa-font"></i> Additional Text</div>
             <input type="text" id="pdfText" placeholder="e.g. Certified True Copy" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; margin-bottom:4px; font-size:0.8rem;" oninput="updateTextOverlay()">
             <input type="date" id="pdfDate" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; font-size:0.8rem;" onchange="updateTextOverlay()">
           </div>
@@ -931,7 +931,7 @@
 
           <button class="btn-process rail-process" id="processBtn" onclick="processPDF()">
             <span class="spinner" id="processSpinner"></span>
-            <span id="processBtnText">? Process &amp; Download</span>
+            <span id="processBtnText"><i class="fa-solid fa-download"></i> Process &amp; Download</span>
           </button>
           <div class="error-msg" id="step4Error"></div>
           <div class="success-msg" id="step4Success"></div>
@@ -939,7 +939,7 @@
       </div>
 
       <div class="step-nav">
-        <button class="btn-nav secondary" onclick="goStep(3)">? Back</button>
+        <button class="btn-nav secondary" onclick="goStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <div></div>
       </div>
     </div>
@@ -1682,7 +1682,7 @@ async function processPDF() {
     errEl.classList.add('visible');
   } finally {
     btn.classList.remove('processing'); btn.disabled = false;
-    btnText.textContent = '? Process & Download PDF';
+    btnText.textContent = '<i class="fa-solid fa-download"></i> Process & Download PDF';
   }
 }
 
