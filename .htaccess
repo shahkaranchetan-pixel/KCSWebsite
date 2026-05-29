@@ -1,10 +1,32 @@
 RewriteEngine On
 
-# Redirect trailing slashes to non-trailing slashes
+# 1. Force HTTPS and canonical domain (kcshah.com)
+RewriteCond %{HTTP_HOST} !^kcshah\.com$ [NC]
+RewriteRule ^(.*)$ https://kcshah.com/$1 [L,R=301]
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://kcshah.com/$1 [L,R=301]
+
+# 2. Redirect /index.html to root /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+RewriteRule ^index\.html$ https://kcshah.com/ [R=301,L]
+
+# 3. Redirect .html extensions to extensionless URLs
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.html\ HTTP/
+RewriteRule ^(.*)\.html$ https://kcshah.com/$1 [R=301,L]
+
+# 4. Redirect specific old URLs
+RewriteRule ^about-us/?$ /about [R=301,L]
+RewriteRule ^blogs/?$ /blog [R=301,L]
+
+# 5. Redirect trailing slashes to non-trailing slashes (existing)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-# Serve .html files without the extension
+# 6. Return 410 Gone for old WordPress paths
+RewriteRule ^wp-content/ - [G,L]
+
+# 7. Serve .html files without the extension (existing)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{DOCUMENT_ROOT}/$1.html -f
