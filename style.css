@@ -94,11 +94,11 @@ img { max-width: 100%; display: block; }
 
 /* ── TOP BAR ── */
 .top-bar {
-  background: var(--brand-blue-deep); color: var(--mid-grey);
+  background: var(--brand-blue-deep); color: rgba(255, 255, 255, 0.85);
   padding: 10px 0; font-size: 0.8rem;
 }
 .top-bar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-.top-bar a { color: var(--mid-grey); }
+.top-bar a { color: rgba(255, 255, 255, 0.85); }
 .top-bar a:hover { color: var(--brand-saffron); }
 .top-bar-left, .top-bar-right { display: flex; align-items: center; gap: 20px; }
 .top-bar i { margin-right: 6px; color: var(--brand-saffron); }
