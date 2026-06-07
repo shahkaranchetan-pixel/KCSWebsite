@@ -138,59 +138,38 @@
 
 <!-- Hero -->
 <section class="hero">
-  <div class="container">
+  <div class="container grid grid-2" style="align-items: center;">
     <div class="hero-content">
       <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> ICAI Certified &bull; Trusted by 100+ Businesses</div>
-      <h1>Your Trusted <span class="highlight">Financial Growth</span> Partner - CA Firm in Mumbai</h1>
+      <h1>Your Trusted <span class="highlight">Financial Growth</span> Partner</h1>
       <p>Helping startups, SMEs & enterprises with accounting, compliance, valuation & financial strategy - powered by modern technology and deep domain expertise.</p>
-      <div class="hero-btns">
-        <a href="contact" class="btn btn-primary">Book Free Consultation</a>
-        <a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20visited%20kcshah.com%20and%20would%20like%20to%20discuss%20your%20services." target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
-        <a href="#services" class="btn btn-white">Explore Services</a>
+      <div class="hero-btns" style="margin-bottom: 40px;">
+        <a href="contact" class="btn btn-primary">Book a Consultation</a>
+        <a href="#services" class="btn btn-secondary">View Services</a>
+      </div>
+      <div class="hero-stats" style="margin-top:0; border:none; padding:0; flex-direction:column; gap:12px; display:flex;">
+        <p style="margin:0; font-family: 'Fraunces', serif; color: var(--surface); font-size: 1.1rem; font-weight: 600;"><i class="fa-solid fa-check" style="color:var(--brand-green);margin-right:8px"></i> ₹2,500 Cr+ Valuation Reports Issued</p>
+        <p style="margin:0; font-family: 'Fraunces', serif; color: var(--surface); font-size: 1.1rem; font-weight: 600;"><i class="fa-solid fa-check" style="color:var(--brand-green);margin-right:8px"></i> Zoho Implemented for 15+ companies</p>
+        <p style="margin:0; font-family: 'Fraunces', serif; color: var(--surface); font-size: 1.1rem; font-weight: 600;"><i class="fa-solid fa-check" style="color:var(--brand-green);margin-right:8px"></i> 100% ICAI Compliant</p>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <h3><span data-count="100" data-suffix="+">0</span></h3>
-        <p>Clients Served</p>
+    <div class="hero-image" style="position: relative; text-align: center; display:flex; justify-content:center;">
+      <div style="position: relative; display: inline-block; padding: 20px;">
+        <div style="position: absolute; inset: 0; border: 4px solid var(--brand-blue-deep); border-radius: 50%; border-top-color: var(--brand-saffron); transform: rotate(45deg);"></div>
+        <img src="headshot.webp" alt="CA Karan Shah" style="width: 320px; height: 320px; object-fit: cover; border-radius: 50%; box-shadow: var(--shadow-lg);">
       </div>
-      <div class="hero-stat">
-        <h3><span data-count="5" data-suffix="+">0</span></h3>
-        <p>Years Experience</p>
-      </div>
-      <div class="hero-stat">
-        <h3><span data-count="500" data-suffix="+">0</span></h3>
-        <p>Projects Completed</p>
-      </div>
-      <div class="hero-stat">
-        <h3><span data-count="10" data-suffix="+">0</span></h3>
-        <p>Industries Served</p>
-      </div>
+      <div style="position: absolute; bottom: 30px; right: 0; background: var(--surface); color: var(--brand-blue); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; border: 1.5px solid var(--brand-saffron); box-shadow: var(--shadow-md);">ICAI &bull; IBBI &bull; CFA L3</div>
     </div>
   </div>
 </section>
 
 <!-- Trust Bar -->
-<div class="trust-bar">
-  <div class="container">
-    <div class="trust-items">
-      <div class="trust-item">
-        <i class="fa-solid fa-certificate"></i>
-        <div class="trust-text"><strong>ICAI Member</strong><span>Institute of Chartered Accountants</span></div>
-      </div>
-      <div class="trust-item">
-        <i class="fa-solid fa-stamp"></i>
-        <div class="trust-text"><strong>Registered Valuer</strong><span>IBBI Certified</span></div>
-      </div>
-      <div class="trust-item">
-        <i class="fa-solid fa-chart-column"></i>
-        <div class="trust-text"><strong>CFA Candidate</strong><span>Level 3 - CFA Institute</span></div>
-      </div>
-      <div class="trust-item">
-        <i class="fa-solid fa-building-columns"></i>
-        <div class="trust-text"><strong>2 Offices</strong><span>Andheri & Fort, Mumbai</span></div>
-      </div>
-    </div>
+<div class="trust-bar" style="padding: 40px 0;">
+  <div class="container" style="text-align: center;">
+    <p style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-body); margin-bottom: 24px;">Member of the Institute of Chartered Accountants of India</p>
+    <img src="ca-india-logo.png" alt="CA India Logo" style="height: 80px; margin: 0 auto;">
+  </div>
+</div>
   </div>
 </div>
 
@@ -202,7 +181,7 @@
       <h2>Comprehensive Financial & Advisory Services</h2>
       <p>From cloud accounting to corporate finance, we deliver tailored solutions that help your business scale with confidence.</p>
     </div>
-    <div class="grid grid-4">
+    <div class="grid grid-3">
       <div class="card reveal">
         <div class="card-icon"><i class="fa-solid fa-cloud"></i></div>
         <h3>Zoho Books Outsourcing</h3>
@@ -255,78 +234,80 @@
   </div>
 </section>
 
-<!-- Why Choose Us -->
-<section class="section" id="why-us">
+<!-- Free Calculators -->
+<section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="label">Why KC Shah</span>
-      <h2>What Sets Us Apart</h2>
+      <span class="label">Free Tools</span>
+      <h2>Calculators used by 10,000+ businesses</h2>
     </div>
-    <div class="grid grid-3">
-      <div class="card reveal" style="text-align:center">
-        <div class="card-icon" style="margin:0 auto 20px"><i class="fa-solid fa-laptop-code"></i></div>
-        <h3>Tech-Forward Approach</h3>
-        <p>We replace legacy tools with cloud-native ecosystems like Zoho Books, delivering real-time dashboards instead of static reports.</p>
+    <div class="grid grid-4">
+      <div class="card reveal" style="padding: 24px; text-align: center;">
+        <i class="fa-solid fa-calculator" style="font-size: 2rem; color: var(--brand-green); margin-bottom: 16px;"></i>
+        <h4 style="margin-bottom: 16px;">Income Tax</h4>
+        <a href="tools/income-tax-calculator" class="card-link" style="margin-top: 0;">Calculate <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <div class="card reveal" style="text-align:center">
-        <div class="card-icon" style="margin:0 auto 20px"><i class="fa-solid fa-award"></i></div>
-        <h3>Certified Expertise</h3>
-        <p>Our founder holds CA, CFA (Level 3), and IBBI credentials - a rare combination of accounting, finance, and valuation depth.</p>
+      <div class="card reveal" style="padding: 24px; text-align: center;">
+        <i class="fa-solid fa-percent" style="font-size: 2rem; color: var(--brand-green); margin-bottom: 16px;"></i>
+        <h4 style="margin-bottom: 16px;">EMI Calculator</h4>
+        <a href="tools/emi-calculator" class="card-link" style="margin-top: 0;">Calculate <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <div class="card reveal" style="text-align:center">
-        <div class="card-icon" style="margin:0 auto 20px"><i class="fa-solid fa-rocket"></i></div>
-        <h3>Startup DNA</h3>
-        <p>From seed-stage valuations to DPIIT registration and ESOP structuring - we speak the language of founders and investors.</p>
+      <div class="card reveal" style="padding: 24px; text-align: center;">
+        <i class="fa-solid fa-chart-line" style="font-size: 2rem; color: var(--brand-green); margin-bottom: 16px;"></i>
+        <h4 style="margin-bottom: 16px;">Capital Gains</h4>
+        <a href="tools/capital-gain-calculator" class="card-link" style="margin-top: 0;">Calculate <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="card reveal" style="padding: 24px; text-align: center;">
+        <i class="fa-solid fa-calendar-check" style="font-size: 2rem; color: var(--brand-green); margin-bottom: 16px;"></i>
+        <h4 style="margin-bottom: 16px;">Advance Tax</h4>
+        <a href="tools/advance-tax-calculator" class="card-link" style="margin-top: 0;">Calculate <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Testimonials -->
+<!-- Latest Insights -->
 <section class="section section-light">
   <div class="container">
     <div class="section-header">
-      <span class="label">Client Stories</span>
-      <h2>Trusted by Growing Businesses</h2>
+      <span class="label">Insights</span>
+      <h2>Latest from our Blog</h2>
     </div>
-    <div class="testimonial-slider">
-      <div class="testimonial-track">
-        <div class="testimonial-card">
-          <div class="stars"><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i></div>
-          <p class="quote">"KC Shah & Associates transformed our accounting operations by migrating us to Zoho Books. Their hands-on approach and deep understanding of GST compliance saved us countless hours every month."</p>
-          <p class="author">Rajesh Mehta</p>
-          <p class="role">Founder, TechStart Solutions</p>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars"><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i></div>
-          <p class="quote">"The valuation report prepared for our Series A fundraise was thorough, credible, and delivered ahead of schedule. The investors were impressed with the quality of analysis."</p>
-          <p class="author">Priya Sharma</p>
-          <p class="role">CEO, GreenLeaf Ventures</p>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars"><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i><i class="fa-solid fa-star" style="color:#C9A84C"></i></div>
-          <p class="quote">"From company incorporation to ongoing compliance, Karan and his team have been our go-to advisors. They genuinely care about our growth, not just our filings."</p>
-          <p class="author">Amit Desai</p>
-          <p class="role">Director, Nexus Exports Pvt Ltd</p>
-        </div>
+    <div class="grid grid-3">
+      <div class="card reveal" style="padding: 32px;">
+        <p style="font-size: 0.8rem; color: var(--brand-saffron); font-weight: 600; margin-bottom: 8px;">TAXATION</p>
+        <h4 style="margin-bottom: 16px;">New vs Old Tax Regime AY 26-27</h4>
+        <p style="font-size: 0.9rem; margin-bottom: 24px;">A detailed comparison to help you choose the best tax regime for your salary bracket this year.</p>
+        <a href="blog-new-vs-old-regime-ay2627.html" class="card-link" style="margin-top: 0;">Read <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <div class="testimonial-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+      <div class="card reveal" style="padding: 32px;">
+        <p style="font-size: 0.8rem; color: var(--brand-saffron); font-weight: 600; margin-bottom: 8px;">COMPLIANCE</p>
+        <h4 style="margin-bottom: 16px;">Startup Compliance Checklist</h4>
+        <p style="font-size: 0.9rem; margin-bottom: 24px;">The ultimate ROC and GST compliance calendar every private limited company needs to follow.</p>
+        <a href="blog-startup-compliance-checklist.html" class="card-link" style="margin-top: 0;">Read <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="card reveal" style="padding: 32px;">
+        <p style="font-size: 0.8rem; color: var(--brand-saffron); font-weight: 600; margin-bottom: 8px;">VALUATION</p>
+        <h4 style="margin-bottom: 16px;">ESOP Valuation in India</h4>
+        <p style="font-size: 0.9rem; margin-bottom: 24px;">Understanding the tax implications and fair market value calculations for employee stock options.</p>
+        <a href="blog-esop-valuation-india.html" class="card-link" style="margin-top: 0;">Read <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA Banner -->
-<section class="cta-banner">
-  <div class="container">
-    <h2>Ready to Scale Your Business?</h2>
-    <p>Let's discuss how our expertise in accounting, valuation, and compliance can accelerate your growth.</p>
-    <div class="btn-group">
-      <a href="contact" class="btn btn-primary">Book Free Consultation</a>
-      <a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20visited%20kcshah.com%20and%20would%20like%20to%20discuss%20your%20services." target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+<section class="cta-banner" style="background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-deep) 100%);">
+  <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; text-align: left;">
+    <div style="flex: 1; min-width: 300px; display: flex; align-items: center; gap: 24px;">
+       <img src="headshot.webp" alt="CA Karan Shah" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--brand-saffron); box-shadow: var(--shadow-lg);">
+       <div>
+         <h2 style="color: var(--surface); margin-bottom: 8px; font-size: 1.8rem;">Let's talk growth.</h2>
+         <p style="color: rgba(255,255,255,0.8); margin: 0; font-family: 'Fraunces', serif; font-style: italic;">"Free 30-min strategy call. No pitch."</p>
+       </div>
+    </div>
+    <div style="flex: 1; min-width: 300px; text-align: right;">
+      <a href="contact" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 40px;">Book Free Consultation</a>
     </div>
   </div>
 </section>
@@ -396,9 +377,9 @@
         <div class="form-card">
           <h3>Request a Callback</h3>
           <form id="callback-form" action="https://formspree.io/f/mkoklqgn" method="POST"><input type="text" name="_gotcha" style="display:none">
-            <div class="form-group"><label for="cb-name">Full Name</label><input type="text" id="cb-name" name="name" class="form-control" placeholder="Your Name" autocomplete="name" required></div>
-            <div class="form-group"><label for="cb-email">Email</label><input type="email" id="cb-email" name="email" class="form-control" placeholder="you@company.com" required></div>
-            <div class="form-group"><label for="cb-phone">Phone</label><input type="tel" id="cb-phone" name="phone" class="form-control" placeholder="+91 XXXXX XXXXX"></div>
+            <div class="form-group"><input type="text" id="cb-name" name="name" class="form-control" placeholder=" " autocomplete="name" required><label for="cb-name">Full Name</label></div>
+            <div class="form-group"><input type="email" id="cb-email" name="email" class="form-control" placeholder=" " required><label for="cb-email">Email</label></div>
+            <div class="form-group"><input type="tel" id="cb-phone" name="phone" class="form-control" placeholder=" "><label for="cb-phone">Phone</label></div>
             <div class="form-group">
               <label for="cb-service">Service Interested In</label>
               <select id="cb-service" name="service" class="form-control">
@@ -422,48 +403,54 @@
 </section>
 
 <!-- Footer -->
-<footer>
+<footer style="background: var(--brand-blue-deep); color: rgba(255,255,255,0.8); padding: 80px 0 0;">
   <div class="container">
-    <div class="footer-grid">
+    <div class="footer-grid" style="grid-template-columns: 1.5fr 2fr 1.5fr; gap: 60px;">
       <div class="footer-widget">
-        <div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">& Associates</span></div>
-        <p>A boutique Chartered Accountancy firm in Mumbai delivering premium accounting, valuation, and advisory services for modern businesses.</p>
-        <div class="footer-social">
-          <a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20visited%20kcshah.com%20and%20would%20like%20to%20discuss%20your%20services." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="mailto:karan@kcshah.com"><i class="fa-solid fa-envelope"></i></a>
+        <img src="ca-india-logo.png" alt="CA India Logo" style="height: 60px; margin-bottom: 24px; filter: brightness(0) invert(1);">
+        <p style="margin-bottom: 24px;">A premium Chartered Accountancy firm in Mumbai delivering accounting, valuation, and advisory services for modern businesses.</p>
+        <div style="display: flex; gap: 16px;">
+          <i class="fa-solid fa-location-dot" style="color:var(--brand-saffron); font-size: 1.2rem; margin-top: 4px;"></i>
+          <p style="font-size: 0.9rem;"><strong>Andheri Office:</strong><br>91 Springboard, Marol MIDC<br>Andheri East, Mumbai 400069</p>
+        </div>
+      </div>
+      <div class="footer-widget" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+        <div>
+          <h4 style="color: white; margin-bottom: 24px; font-size: 1.1rem;">Services</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 12px;"><a href="zoho-books-outsourcing" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Zoho Books Outsourcing</a></li>
+            <li style="margin-bottom: 12px;"><a href="business-valuation" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Business Valuation</a></li>
+            <li style="margin-bottom: 12px;"><a href="company-incorporation" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Company Incorporation</a></li>
+            <li style="margin-bottom: 12px;"><a href="gst-filing" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">GST Filing</a></li>
+            <li style="margin-bottom: 12px;"><a href="virtual-cfo" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Virtual CFO</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: white; margin-bottom: 24px; font-size: 1.1rem; visibility: hidden;">More</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 12px;"><a href="income-tax" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Income Tax Filing</a></li>
+            <li style="margin-bottom: 12px;"><a href="audit-assurance" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Audit & Assurance</a></li>
+            <li style="margin-bottom: 12px;"><a href="corporate-finance" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Corporate Finance</a></li>
+            <li style="margin-bottom: 12px;"><a href="fema-compliance" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">FEMA Compliance</a></li>
+          </ul>
         </div>
       </div>
       <div class="footer-widget">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="zoho-books-outsourcing">Zoho Books Outsourcing</a></li>
-          <li><a href="business-valuation">Business Valuation</a></li>
-          <li><a href="company-incorporation">Company Incorporation</a></li>
-          <li><a href="gst-filing">GST Filing</a></li>
-          <li><a href="virtual-cfo">Virtual CFO</a></li>
-        </ul>
-      </div>
-      <div class="footer-widget">
-        <h4>More Services</h4>
-        <ul>
-          <li><a href="income-tax">Income Tax Filing</a></li>
-          <li><a href="audit-assurance">Audit & Assurance</a></li>
-          <li><a href="corporate-finance">Corporate Finance</a></li>
-          <li><a href="fema-compliance">FEMA Compliance</a></li>
-          <li><a href="zoho-books-implementation">Zoho Implementation</a></li>
-        </ul>
-      </div>
-      <div class="footer-widget">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="tel:+917666638995"><i class="fa-solid fa-phone" style="color:var(--gold);margin-right:8px"></i> +91 7666638995</a></li>
-          <li><a href="mailto:karan@kcshah.com"><i class="fa-solid fa-envelope" style="color:var(--gold);margin-right:8px"></i> karan@kcshah.com</a></li>
-          <li style="color:rgba(255,255,255,0.6);font-size:0.88rem"><i class="fa-solid fa-location-dot" style="color:var(--gold);margin-right:8px"></i> Andheri & Fort, Mumbai</li>
-        </ul>
+        <h4 style="color: white; margin-bottom: 24px; font-size: 1.1rem;">Location</h4>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); width: 100%; height: 160px; background: url('https://maps.googleapis.com/maps/api/staticmap?center=19.1195538,72.8723865&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7C19.1195538,72.8723865&key=YOUR_API_KEY') center/cover; background-color: #e5e3df; display: flex; align-items: center; justify-content: center;">
+           <i class="fa-solid fa-map-location-dot" style="font-size: 3rem; color: rgba(0,0,0,0.3);"></i>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 KC Shah & Associates. All rights reserved. | Chartered Accountants</div>
+    
+    <div style="border-top: 1px solid var(--brand-saffron); margin-top: 40px; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">&copy; 2026 KC Shah & Associates. All rights reserved.</div>
+      <div class="footer-social" style="margin: 0;">
+        <a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://api.whatsapp.com/send/?phone=917666638995" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="mailto:karan@kcshah.com"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
   </div>
 </footer>
 

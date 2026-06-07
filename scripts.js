@@ -74,9 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length) {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+      let delayIndex = 0;
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+          setTimeout(() => entry.target.classList.add('visible'), delayIndex * 80);
+          delayIndex++;
           observer.unobserve(entry.target);
         }
       });
@@ -202,6 +204,21 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { stickyCta.style.display = ''; }, 200);
       }
     });
+  }
+
+  // ── Hide floating WhatsApp if sticky CTA is visible ──
+  const waFloat = document.querySelector('.whatsapp-float');
+  if (waFloat && stickyCta) {
+    const checkWaVisibility = () => {
+      const stickyStyle = window.getComputedStyle(stickyCta);
+      if (stickyStyle.display !== 'none') {
+        waFloat.style.display = 'none';
+      } else {
+        waFloat.style.display = 'flex';
+      }
+    };
+    window.addEventListener('resize', checkWaVisibility);
+    checkWaVisibility();
   }
 
 });
