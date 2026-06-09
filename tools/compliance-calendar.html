@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-<link rel="stylesheet" href="../style.min.css?v=8">
+<link rel="stylesheet" href="../style.min.css?v=10">
 <link rel="stylesheet" href="../tools.css?v=4">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
@@ -100,7 +100,22 @@
 }
 </style>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://kcshah.com/tools/"},{"@type":"ListItem","position":3,"name":"Compliance Calendar","item":"https://kcshah.com/tools/compliance-calendar.html"}]}</script></head>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://kcshah.com/tools/"},{"@type":"ListItem","position":3,"name":"Compliance Calendar","item":"https://kcshah.com/tools/compliance-calendar.html"}]}</script>
+<script>
+  function loadGTM(){ if(window.__gtmLoaded) return; window.__gtmLoaded=true;
+    var s=document.createElement('script'); s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7';
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date()); gtag('config','G-2XB5VRL6X7');
+  }
+  ['scroll','mousemove','touchstart','keydown'].forEach(function(e){
+    window.addEventListener(e, loadGTM, {once:true, passive:true});
+  });
+  setTimeout(loadGTM, 3000);
+</script>
+
+</head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="top-bar"><div class="container"><div class="top-bar-left">
@@ -254,7 +269,7 @@
 <a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi" class="btn btn-sm" style="flex:1;justify-content:center;background:#25D366;color:white;border-color:#25D366" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
 </div>
 
-<script src="../scripts.min.js?v=4" defer></script>
+<script src="../scripts.min.js?v=5" defer></script>
 <script src="../tools-shared.js?v=4"></script>
 <!-- jsPDF + autoTable for branded PDF download -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -786,7 +801,7 @@ function downloadImage() {
 
   // Inject hidden export template
   const wrap = document.createElement('div');
-  wrap.style.min.cssText = 'position:fixed;left:-99999px;top:0;z-index:-1;pointer-events:none';
+  wrap.style.min.css?v=10Text = 'position:fixed;left:-99999px;top:0;z-index:-1;pointer-events:none';
   wrap.innerHTML = buildExportHTML(filtered, monthInfo, today);
   document.body.appendChild(wrap);
 

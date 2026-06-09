@@ -4,6 +4,7 @@
   --brand-blue-deep: #152A52;
   --brand-blue-light: #2A4F9A;
   --brand-saffron: #d95e0b;
+    --brand-saffron-text: #b34d09;
   --brand-saffron-dark: #C85A0A;
   --brand-green: #3FA535;
   --surface: #FFFFFF;
@@ -80,7 +81,8 @@ img { max-width: 100%; display: block; }
   transition: all 0.2s cubic-bezier(0.4,0,0.2,1); white-space: nowrap;
 }
 .btn:active { transform: scale(0.96); }
-.btn-primary { background: var(--brand-saffron); color: var(--surface); border-color: #c95d10; /* Darkened for contrast */ }
+.btn-primary {
+    background: var(--brand-saffron-text); color: var(--surface); border-color: #c95d10; /* Darkened for contrast */ }
 .btn-primary:hover { background: var(--brand-saffron-dark); border-color: var(--brand-saffron-dark); transform: translateY(-2px); box-shadow: var(--shadow-saffron); }
 .btn-secondary { background: transparent; color: var(--surface); border-color: rgba(255,255,255,0.6); }
 .btn-secondary:hover { background: var(--surface); color: var(--brand-blue); }
