@@ -2,6 +2,28 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ── Delay GTM ──
+  const loadGTM = () => {
+    const script1 = document.createElement('script');
+    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7';
+    script1.async = true;
+    document.head.appendChild(script1);
+    const script2 = document.createElement('script');
+    script2.innerHTML = "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-2XB5VRL6X7');";
+    document.head.appendChild(script2);
+  };
+  let gtmLoaded = false;
+  const initGTM = () => {
+    if (!gtmLoaded) {
+      gtmLoaded = true;
+      loadGTM();
+    }
+  };
+  window.addEventListener('scroll', initGTM, { passive: true, once: true });
+  window.addEventListener('touchstart', initGTM, { passive: true, once: true });
+  window.addEventListener('mousemove', initGTM, { passive: true, once: true });
+  setTimeout(initGTM, 3500);
+
   // ── Scroll Progress Bar ──
   const progressBar = document.createElement('div');
   progressBar.className = 'scroll-progress';
@@ -10,13 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Sticky Header ──
   const header = document.querySelector('header');
   let ticking = false;
+  let cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+  window.addEventListener('resize', () => {
+    cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+  }, { passive: true });
+
   window.addEventListener('scroll', () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
         // Progress bar
         const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        const progress = cachedDocHeight > 0 ? (scrollTop / cachedDocHeight) * 100 : 0;
         progressBar.style.width = progress + '%';
         // Header shadow
         if (header) header.classList.toggle('scrolled', scrollTop > 50);
@@ -110,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el.textContent = Math.floor(target * eased) + suffix;
             if (progress < 1) requestAnimationFrame(animate);
           };
-          requestAnimationFrame(animate);
+          setTimeout(() => requestAnimationFrame(animate), 500);
           counterObserver.unobserve(el);
         }
       });
