@@ -9,14 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Sticky Header ──
   const header = document.querySelector('header');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    // Progress bar
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = progress + '%';
-    // Header shadow
-    if (header) header.classList.toggle('scrolled', scrollTop > 50);
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        // Progress bar
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = progress + '%';
+        // Header shadow
+        if (header) header.classList.toggle('scrolled', scrollTop > 50);
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
 
   // ── Mobile Nav ──
