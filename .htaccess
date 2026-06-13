@@ -89,3 +89,8 @@ Redirect 301 /services/valuations-in-thane.html /valuations.html
 Redirect 301 /services/startup-incorporation-in-thane.html /startup-incorporation.html
 Redirect 301 /services/gst-registration-returns-in-thane.html /gst-registration-returns.html
 Redirect 301 /services/income-tax-filing-in-thane.html /income-tax-filing.html
+
+# 8. Security headers (HSTS - sent only over HTTPS)
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+</IfModule>
