@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,6 +95,7 @@ header{background:var(--brand-blue-deep);color:#fff;padding:15px 5%}
 </div>
 <div class="form-group"><select id="c-service" name="service" class="form-control"><option>Zoho Books Outsourcing</option><option>Zoho Books Implementation</option><option>Business Valuation</option><option>Virtual CFO</option><option>Company Incorporation</option><option>GST Filing</option><option>Income Tax Filing</option><option>Audit & Assurance</option><option>Corporate Finance</option><option>FEMA Compliance</option><option>Other</option></select><label for="c-service">Service Required</label></div>
 <div class="form-group"><textarea id="c-message" name="message" class="form-control" rows="4" placeholder="Tell us about your requirements..."></textarea><label for="c-message">Message</label></div>
+<div class="g-recaptcha" data-sitekey="6LdklS0tAAAAAGgdwpZBRmj70kDa196Mpu6Sb7pI" style="margin:0 0 16px"></div>
 <button type="submit" id="form-submit-btn" class="btn btn-primary" style="width:100%">Send Message</button>
 <div id="form-success" style="display:none;margin-top:16px;padding:16px;background:#d4edda;color:#155724;border-radius:8px;text-align:center"><i class="fa-solid fa-circle-check" style="margin-right:8px"></i>Message sent! We'll get back to you within 24 hours.</div>
 <div id="form-error" style="display:none;margin-top:16px;padding:16px;background:#f8d7da;color:#721c24;border-radius:8px;text-align:center"><i class="fa-solid fa-circle-exclamation" style="margin-right:8px"></i>Something went wrong. Please try WhatsApp or email directly.</div>
@@ -205,11 +206,24 @@ header{background:var(--brand-blue-deep);color:#fff;padding:15px 5%}
 (function(){
   var form = document.getElementById('contact-form');
   if(!form) return;
+  var errEl = document.getElementById('form-error');
+  var origErr = errEl ? errEl.innerHTML : '';
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var btn = document.getElementById('form-submit-btn');
     var success = document.getElementById('form-success');
     var error = document.getElementById('form-error');
+    if (typeof grecaptcha !== 'undefined' && form.querySelector('.g-recaptcha')) {
+      var rcResp = '';
+      try { rcResp = grecaptcha.getResponse(); } catch (err) {}
+      if (!rcResp) {
+        error.innerHTML = '<i class="fa-solid fa-circle-exclamation" style="margin-right:8px"></i>Please tick the “I’m not a robot” box.';
+        error.style.display = 'block';
+        success.style.display = 'none';
+        return;
+      }
+    }
+    error.innerHTML = origErr;
     btn.textContent = 'Sending...';
     btn.disabled = true;
     fetch(form.action, {
@@ -219,6 +233,7 @@ header{background:var(--brand-blue-deep);color:#fff;padding:15px 5%}
     }).then(function(res){
       if(res.ok){
         form.reset();
+        if (typeof grecaptcha !== 'undefined') { try { grecaptcha.reset(); } catch (err) {} }
         success.style.display = 'block';
         error.style.display = 'none';
         btn.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right:6px"></i>Message Sent!';
@@ -237,5 +252,6 @@ header{background:var(--brand-blue-deep);color:#fff;padding:15px 5%}
   });
 })();
 </script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body></html>
 

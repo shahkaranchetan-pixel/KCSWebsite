@@ -183,12 +183,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Service page sidebar form handler ──
   document.querySelectorAll('.service-form').forEach(form => {
+    const origErr = form.querySelector('.sf-error') ? form.querySelector('.sf-error').innerHTML : '';
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       const btn = form.querySelector('[type=submit]');
       const success = form.querySelector('.sf-success');
       const error = form.querySelector('.sf-error');
       const origText = btn.textContent;
+      if (typeof grecaptcha !== 'undefined' && form.querySelector('.g-recaptcha')) {
+        let rcResp = '';
+        try { rcResp = grecaptcha.getResponse(); } catch (err) {}
+        if (!rcResp) {
+          error.innerHTML = '<i class="fa-solid fa-circle-exclamation" style="margin-right:8px"></i>Please tick the “I’m not a robot” box.';
+          error.style.display = 'block';
+          success.style.display = 'none';
+          return;
+        }
+      }
+      error.innerHTML = origErr;
       btn.textContent = 'Sending…';
       btn.disabled = true;
       fetch(form.action, {
@@ -198,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).then(res => {
         if (res.ok) {
           form.reset();
+          if (typeof grecaptcha !== 'undefined') { try { grecaptcha.reset(); } catch (err) {} }
           success.style.display = 'block';
           error.style.display = 'none';
           btn.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right:6px"></i>Sent!';
