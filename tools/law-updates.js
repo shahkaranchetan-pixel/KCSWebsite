@@ -73,7 +73,6 @@
       }
     }
     const trustCount = document.querySelector(".trust-item .trust-text strong");
-    if (trustCount && trustCount.textContent.includes("8 Free Tools")) trustCount.textContent = "11 Free Tools";
     document.querySelectorAll("h3").forEach((h) => {
       if (h.textContent.trim() === "Capital Gain Calculator") h.textContent = "Capital Gains Calculator";
     });
@@ -498,9 +497,10 @@
     if (body) body.innerHTML = rows.map(([label, value], index) => `<tr${index === rows.length - 1 ? ' class="highlight-row"' : ""}><td>${label}</td><td>${INR(value)}</td></tr>`).join("");
   }
 
-  const path = location.pathname;
-  if (path.endsWith("/tools/") || path.endsWith("/tools/index.html")) enhanceToolsHub();
-  if (path.endsWith("/tools/income-tax-calculator.html")) {
+  const path = location.pathname.replace(/\.html$/, "");
+  const isHub = path === "/tools" || path === "/tools/" || path.endsWith("/tools/index");
+  if (isHub) enhanceToolsHub();
+  if (path.endsWith("/tools/income-tax-calculator")) {
     addCommonTaxSchema("Income Tax Calculator", "https://kcshah.com/tools/income-tax-calculator.html", [
       { q: "Does the calculator compare old and new tax regimes?", a: "Yes. It compares the old and new regimes for FY 2025-26 / AY 2026-27 using slab tax, eligible deductions, rebate, surcharge, marginal relief and cess." },
       { q: "Are special-rate capital gains covered?", a: "Yes. It separates STCG under section 111A and LTCG under sections 112A and 112 so they are not incorrectly reduced by the new-regime Section 87A rebate." },
@@ -512,7 +512,7 @@
     document.addEventListener("DOMContentLoaded", runIncomeTaxCalculator);
     runIncomeTaxCalculator();
   }
-  if (path.endsWith("/tools/advance-tax-calculator.html")) {
+  if (path.endsWith("/tools/advance-tax-calculator")) {
     addCommonTaxSchema("Advance Tax Calculator", "https://kcshah.com/tools/advance-tax-calculator.html", [
       { q: "Who needs to pay advance tax?", a: "A taxpayer generally needs to pay advance tax when net tax liability after TDS/TCS is Rs. 10,000 or more." },
       { q: "What instalments are used for regular taxpayers?", a: "Regular taxpayers generally use cumulative instalments of 15%, 45%, 75% and 100% by 15 June, 15 September, 15 December and 15 March." },
@@ -523,7 +523,7 @@
     document.addEventListener("DOMContentLoaded", runAdvanceTaxCalculator);
     runAdvanceTaxCalculator();
   }
-  if (path.endsWith("/tools/capital-gain-calculator.html")) {
+  if (path.endsWith("/tools/capital-gain-calculator")) {
     addCommonTaxSchema("Capital Gains Calculator", "https://kcshah.com/tools/capital-gain-calculator.html", [
       { q: "Does the calculator include Sections 54, 54F and 54EC?", a: "Yes. It includes indicative exemption inputs for Section 54, Section 54F and Section 54EC, subject to statutory conditions." },
       { q: "Does it handle post-Budget 2024 capital gains rates?", a: "Yes. It separates listed equity, land/building and other asset classes and applies post-Budget 2024 rates where relevant." },
