@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700;800;900&display=swap">
 <link rel="stylesheet" href="../style.min.css?v=11">
-<link rel="stylesheet" href="../tools.min.css?v=4">
+<link rel="stylesheet" href="../tools.min.css?v=5">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -187,8 +187,9 @@
 <tr><td>Standard Deduction</td><td id="b-sd-o">₹75,000</td><td id="b-sd-n">₹75,000</td></tr>
 <tr><td>Chapter VI-A Deductions</td><td id="b-ded-o">₹0</td><td>-</td></tr>
 <tr><td>Taxable Income</td><td id="b-ti-o">₹0</td><td id="b-ti-n">₹0</td></tr>
-<tr><td>Income Tax</td><td id="b-tax-o">₹0</td><td id="b-tax-n">₹0</td></tr>
+<tr><td>Income Tax (slab)</td><td id="b-tax-o">₹0</td><td id="b-tax-n">₹0</td></tr>
 <tr><td>Rebate u/s 87A</td><td id="b-87a-o">₹0</td><td id="b-87a-n">₹0</td></tr>
+<tr><td>Capital Gains Tax (Special Rate)</td><td id="b-cg-o">₹0</td><td id="b-cg-n">₹0</td></tr>
 <tr><td>Surcharge</td><td id="b-sur-o">₹0</td><td id="b-sur-n">₹0</td></tr>
 <tr><td>Health & Education Cess (4%)</td><td id="b-cess-o">₹0</td><td id="b-cess-n">₹0</td></tr>
 <tr class="highlight-row"><td><strong>Total Tax Payable</strong></td><td id="b-total-o"><strong>₹0</strong></td><td id="b-total-n"><strong>₹0</strong></td></tr>
@@ -274,10 +275,9 @@ function calcSlabTax(income,slabs){
   }
   return Math.max(0,tax);
 }
-function surcharge(income,tax,isNew){
+function surchargeRate(income,isNew){
   if(income<=5000000)return 0;
-  let rate=income<=10000000?.10:income<=20000000?.15:income<=50000000?.25:isNew?.25:.37;
-  return tax*rate;
+  return income<=10000000?.10:income<=20000000?.15:income<=50000000?.25:isNew?.25:.37;
 }
 function v(id){return parseFloat(document.getElementById(id).value)||0;}
 function fmt(n){return formatINRFull(n);}
@@ -287,27 +287,41 @@ function calculate(){
   const c80c=Math.min(v('c80c'),150000), c80d=v('c80d'), nps=Math.min(v('nps'),50000);
   const hra=v('hra'), other80=v('other80');
   const age=parseInt(document.querySelector('input[name="age"]:checked').value);
-  const gross=sal+other+stcg+ltcg;
   const stdDed=75000;
+
+  // Special-rate capital gains — taxed the SAME in both regimes and NOT eligible
+  // for slab rates, the standard deduction, Chapter VI-A, or the 87A rebate.
+  //   STCG u/s 111A  -> flat 20%  (transfers on/after 23-Jul-2024)
+  //   LTCG u/s 112A  -> flat 12.5% on gains exceeding the ₹1,25,000 exemption
+  // Note: basic-exemption set-off against CG (when ordinary income is below the
+  // basic exemption limit) is NOT modelled here — a deliberate simplification.
+  const ltcgTaxable=Math.max(0,ltcg-125000);
+  const cgTax=stcg*0.20 + ltcgTaxable*0.125;
+  const ordIncome=sal+other;                 // slab-rate (ordinary) income
+  const gross=sal+other+stcg+ltcg;           // total income (surcharge + ETR base)
 
   // OLD REGIME
   const oldSlabs=age===2?SLABS_OLD_80:age===1?SLABS_OLD_60_80:SLABS_OLD_60;
   const oldDed=stdDed+c80c+c80d+nps+hra+other80;
-  const oldTaxable=Math.max(0,gross-oldDed);
-  let oldTax=calcSlabTax(oldTaxable,oldSlabs);
-  const old87a=oldTaxable<=500000?Math.min(oldTax,12500):0;
-  oldTax=Math.max(0,oldTax-old87a);
-  const oldSur=surcharge(oldTaxable,oldTax,false);
+  const oldOrdTaxable=Math.max(0,ordIncome-oldDed);
+  const oldSlabTax=calcSlabTax(oldOrdTaxable,oldSlabs);
+  const old87a=oldOrdTaxable<=500000?Math.min(oldSlabTax,12500):0;
+  const oldTax=Math.max(0,oldSlabTax-old87a)+cgTax;
+  const oldTaxable=oldOrdTaxable+stcg+ltcgTaxable;
+  const oldSurRate=surchargeRate(gross,false);
+  const oldSur=Math.max(0,oldSlabTax-old87a)*oldSurRate + cgTax*Math.min(oldSurRate,0.15);
   const oldCess=(oldTax+oldSur)*.04;
   const oldTotal=Math.round(oldTax+oldSur+oldCess);
   const oldETR=gross>0?(oldTotal/gross*100):0;
 
   // NEW REGIME
-  const newTaxable=Math.max(0,gross-stdDed);
-  let newTax=calcSlabTax(newTaxable,SLABS_NEW);
-  const new87a=newTaxable<=1200000?Math.min(newTax,60000):0;
-  newTax=Math.max(0,newTax-new87a);
-  const newSur=surcharge(newTaxable,newTax,true);
+  const newOrdTaxable=Math.max(0,ordIncome-stdDed);
+  const newSlabTax=calcSlabTax(newOrdTaxable,SLABS_NEW);
+  const new87a=newOrdTaxable<=1200000?Math.min(newSlabTax,60000):0;
+  const newTax=Math.max(0,newSlabTax-new87a)+cgTax;
+  const newTaxable=newOrdTaxable+stcg+ltcgTaxable;
+  const newSurRate=surchargeRate(gross,true);
+  const newSur=Math.max(0,newSlabTax-new87a)*newSurRate + cgTax*Math.min(newSurRate,0.15);
   const newCess=(newTax+newSur)*.04;
   const newTotal=Math.round(newTax+newSur+newCess);
   const newETR=gross>0?(newTotal/gross*100):0;
@@ -336,10 +350,12 @@ function calculate(){
   document.getElementById('b-ded-o').textContent=fmt(c80c+c80d+nps+hra+other80);
   document.getElementById('b-ti-o').textContent=fmt(oldTaxable);
   document.getElementById('b-ti-n').textContent=fmt(newTaxable);
-  document.getElementById('b-tax-o').textContent=fmt(oldTax+old87a);
-  document.getElementById('b-tax-n').textContent=fmt(newTax+new87a);
+  document.getElementById('b-tax-o').textContent=fmt(oldSlabTax);
+  document.getElementById('b-tax-n').textContent=fmt(newSlabTax);
   document.getElementById('b-87a-o').textContent=fmt(old87a);
   document.getElementById('b-87a-n').textContent=fmt(new87a);
+  document.getElementById('b-cg-o').textContent=fmt(cgTax);
+  document.getElementById('b-cg-n').textContent=fmt(cgTax);
   document.getElementById('b-sur-o').textContent=fmt(oldSur);
   document.getElementById('b-sur-n').textContent=fmt(newSur);
   document.getElementById('b-cess-o').textContent=fmt(oldCess);
@@ -533,6 +549,11 @@ function generateTaxReportPDF() {
             <td style="padding:8px 14px;border-bottom:1px solid #eee">Less: Rebate u/s 87A</td>
             <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-o')})</td>
             <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-n')})</td>
+          </tr>
+          <tr style="background:#F9FAFB">
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Capital Gains Tax (Sec. 111A / 112A - Special Rate)</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cg-o')}</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cg-n')}</td>
           </tr>
           <tr>
             <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Surcharge</td>

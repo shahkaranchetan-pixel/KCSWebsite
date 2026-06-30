@@ -1,7 +1,0 @@
-SEO: consolidate thin location pages, retarget homepage keywords; update tools
-
-- Homepage title/H1/hero retargeted for "CA Firm in Mumbai" and "Zoho Outsourced Accounting"
-- Deleted 140 thin /services/{service}/{city} pages; added 140 301 redirects in .htaccess to canonical service pages (fixes GSC "Discovered – currently not indexed")
-- Pruned 140 location URLs from sitemap.xml (213 -> 73)
-- Rewired internal ca-in/* links to canonical targets
-- Includes pending updates to tools/ calculators and law-updates
