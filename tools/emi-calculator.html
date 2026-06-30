@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -111,7 +111,7 @@
 <div class="tool-card-title"><i class="fa-solid fa-landmark"></i> Loan Details</div>
 
 <div class="tool-input-group">
-<label>Loan Amount (?)</label>
+<label>Loan Amount <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="The total principal amount you plan to borrow."></i></label>
 <div class="tool-input-prefix"><input type="number" id="lamt" class="tool-input" value="5000000" min="100000" oninput="calculate()"></div>
 <div class="tool-slider-wrap"><input type="range" id="lamt-s" class="tool-slider" min="100000" max="50000000" step="100000" value="5000000"><div class="tool-slider-val" id="lamt-s-val">₹50 L</div></div>
 </div>
@@ -129,12 +129,13 @@
 </div>
 
 </div>
+<button class="tool-btn-hero" style="margin-top:20px;" onclick="calculate(); document.getElementById('result-card').scrollIntoView({behavior:'smooth'});"><i class="fa-solid fa-calculator"></i> Calculate EMI</button>
 </div>
 
 <div>
 <div id="result-card" class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> EMI Summary</div>
-<div class="tool-result" style="text-align:center;margin-bottom:16px">
+<div class="tool-result glass" style="text-align:center;margin-bottom:16px">
 <div class="tool-result-label">Monthly EMI</div>
 <div class="tool-result-value" id="emi-val">₹0</div>
 </div>
@@ -186,6 +187,13 @@ function calculate(){
   document.getElementById('tot-int').textContent = formatINRFull(totalInt);
   document.getElementById('tot-pay').textContent = formatINRFull(totalPay);
   
+  const resultCard = document.querySelector('.tool-result.glass');
+  if (resultCard) {
+    resultCard.classList.remove('tool-animate-result');
+    void resultCard.offsetWidth; // trigger reflow
+    resultCard.classList.add('tool-animate-result');
+  }
+  
   drawDonut('donut-chart', [p, totalInt], ['Principal', 'Interest'], ['#C9A84C', '#0B1D3A']);
 
   let bal = p;
@@ -224,7 +232,7 @@ function syncSlider(sliderId, inputId, pre, suf, fmtFn){
 </script>
 </main>
 <footer><div class="container"><div class="footer-grid">
-<div class="footer-widget"><div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">&amp; Associates</span></div><p>Free financial tools for Indian businesses - built by Chartered Accountants with verified formulas and FY 2025-26 tax data.</p><div class="footer-social"><a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://api.whatsapp.com/send/?phone=917666638995" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a><a href="mailto:karan@kcshah.com" aria-label="Email Us"><i class="fa-solid fa-envelope"></i></a></div></div>
+<div class="footer-widget"><div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">&amp; Associates</span></div><p>Free financial tools for Indian businesses - built by Chartered Accountants with verified formulas and FY 2026-27 tax data.</p><div class="footer-social"><a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://api.whatsapp.com/send/?phone=917666638995" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a><a href="mailto:karan@kcshah.com" aria-label="Email Us"><i class="fa-solid fa-envelope"></i></a></div></div>
 <div class="footer-widget"><h4>Tax Tools</h4><ul><li><a href="income-tax-calculator">Income Tax Calculator</a></li><li><a href="advance-tax-calculator">Advance Tax Calculator</a></li><li><a href="capital-gain-calculator">Capital Gains Calculator</a></li><li><a href="tds-rate-chart">TDS Rate Chart</a></li><li><a href="compliance-calendar">Compliance Calendar</a></li></ul></div>
 <div class="footer-widget"><h4>Business Tools</h4><ul><li><a href="emi-calculator">EMI Calculator</a></li><li><a href="loan-eligibility-calculator">Loan Eligibility</a></li><li><a href="loan-tenure-calculator">Loan Tenure</a></li><li><a href="sign-stamp-tool">PDF Sign &amp; Stamp</a></li></ul></div>
 <div class="footer-widget"><h4>Our Services</h4><ul><li><a href="../income-tax">Income Tax Filing</a></li><li><a href="../gst-filing">GST Filing</a></li><li><a href="../virtual-cfo">Virtual CFO</a></li><li><a href="../business-valuation">Business Valuation</a></li><li><a href="../contact">Contact Us</a></li></ul></div>

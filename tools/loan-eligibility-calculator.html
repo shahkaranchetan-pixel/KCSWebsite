@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -109,25 +109,26 @@
 <div class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-user-check"></i> Financial Details</div>
 
-<div class="tool-input-group"><label>Net Monthly Income (?)</label><div class="tool-input-prefix"><input type="number" id="income" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Existing Monthly EMIs (?)</label><div class="tool-input-prefix"><input type="number" id="emi" class="tool-input" value="10000" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Net Monthly Income <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Your total monthly take-home pay after taxes."></i></label><div class="tool-input-prefix"><input type="number" id="income" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Existing Monthly EMIs <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Total of all your current monthly loan payments."></i></label><div class="tool-input-prefix"><input type="number" id="emi" class="tool-input" value="10000" min="0" oninput="calculate()"></div></div>
 
-<div class="tool-input-group"><label>Loan Tenure (Years)</label><input type="number" id="tenure" class="tool-input" value="20" min="1" oninput="calculate()"></div>
+<div class="tool-input-group"><label>Loan Tenure (Years)</label><input type="number" id="term" class="tool-input" value="20" min="1" oninput="calculate()"></div>
 <div class="tool-input-group"><label>Interest Rate (% p.a.)</label><input type="number" id="rate" class="tool-input" value="8.5" step="0.1" oninput="calculate()"></div>
 
 <div class="tool-input-group">
 <label>FOIR (Fixed Obligation to Income Ratio) <span>Max % of income for EMI</span></label>
 <div class="tool-slider-wrap"><input type="range" id="foir" class="tool-slider" min="40" max="65" step="1" value="50" oninput="calculate()"><div class="tool-slider-val" id="foir-val">50%</div></div>
 </div>
-
+</div>
+<button class="tool-btn-hero" style="margin-top:20px;" onclick="calculate(); document.getElementById('result-card').scrollIntoView({behavior:'smooth'});"><i class="fa-solid fa-calculator"></i> Calculate Eligibility</button>
 </div></div>
 
 <div>
 <div id="result-card" class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-check-circle"></i> Eligibility Result</div>
-<div class="tool-result" style="text-align:center;margin-bottom:16px">
-<div class="tool-result-label">Maximum Eligible Loan</div>
-<div class="tool-result-value" id="max-loan">₹0</div>
+<div class="tool-result glass" style="text-align:center;margin-bottom:16px">
+<div class="tool-result-label">You can get a loan up to</div>
+<div class="tool-result-value" id="loan-val">₹0</div>
 </div>
 <div class="tool-result-grid">
 <div class="tool-result-item"><div class="label">Max Allowed EMI</div><div class="value" id="max-emi">₹0</div></div>
@@ -141,7 +142,7 @@
 function calculate() {
   const inc = parseFloat(document.getElementById('income').value)||0;
   const existingEmi = parseFloat(document.getElementById('emi').value)||0;
-  const t = (parseFloat(document.getElementById('tenure').value)||0)*12;
+  const n = (parseFloat(document.getElementById('term').value)||0)*12;
   const r = (parseFloat(document.getElementById('rate').value)||0)/12/100;
   const foir = parseFloat(document.getElementById('foir').value)||50;
   
@@ -149,16 +150,24 @@ function calculate() {
   document.getElementById('foir-display').textContent = foir + '%';
 
   const maxTotalEmi = inc * (foir/100);
-  const newEmi = Math.max(0, maxTotalEmi - existingEmi);
+  const avail = Math.max(0, maxTotalEmi - existingEmi);
   
-  let maxLoan = 0;
-  if(r>0 && t>0 && newEmi>0) {
-    maxLoan = newEmi * (Math.pow(1+r, t) - 1) / (r * Math.pow(1+r, t));
+  let eligibleLoan = 0;
+  if(r>0 && n>0 && avail>0) {
+   const emiPerLakh = 100000 * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+  eligibleLoan = (avail / emiPerLakh) * 100000;
   }
   
-  document.getElementById('max-loan').textContent = formatINRFull(maxLoan);
+  const resultCard = document.querySelector('.tool-result.glass');
+  if (resultCard) {
+    resultCard.classList.remove('tool-animate-result');
+    void resultCard.offsetWidth;
+    resultCard.classList.add('tool-animate-result');
+  }
+
+  document.getElementById('loan-val').textContent = formatINRFull(eligibleLoan);
   document.getElementById('max-emi').textContent = formatINRFull(maxTotalEmi);
-  document.getElementById('new-emi').textContent = formatINRFull(newEmi);
+  document.getElementById('new-emi').textContent = formatINRFull(avail);
 }
 document.addEventListener('DOMContentLoaded', calculate);
 </script>
@@ -175,7 +184,7 @@ document.addEventListener('DOMContentLoaded', calculate);
 </main>
 <footer><div class="container">
 <div class="footer-grid">
-<div class="footer-widget"><div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">&amp; Associates</span></div><p>Free financial tools for Indian businesses - built by Chartered Accountants with verified formulas and FY 2025-26 tax data.</p>
+<div class="footer-widget"><div class="logo-text" style="color:white;margin-bottom:12px">KC Shah <span style="color:var(--gold)">&amp; Associates</span></div><p>Free financial tools for Indian businesses - built by Chartered Accountants with verified formulas and FY 2026-27 tax data.</p>
 <div class="footer-social"><a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://api.whatsapp.com/send/?phone=917666638995" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a><a href="mailto:karan@kcshah.com" aria-label="Email Us"><i class="fa-solid fa-envelope"></i></a></div></div>
 <div class="footer-widget"><h4>Tax Tools</h4><ul><li><a href="income-tax-calculator">Income Tax Calculator</a></li><li><a href="advance-tax-calculator">Advance Tax Calculator</a></li><li><a href="capital-gain-calculator">Capital Gain Calculator</a></li><li><a href="tds-rate-chart">TDS Rate Chart</a></li><li><a href="compliance-calendar">Compliance Calendar</a></li></ul></div>
 <div class="footer-widget"><h4>Business Tools</h4><ul><li><a href="emi-calculator">EMI Calculator</a></li><li><a href="loan-eligibility-calculator">Loan Eligibility</a></li><li><a href="loan-tenure-calculator">Loan Tenure</a></li><li><a href="sign-stamp-tool">PDF Sign &amp; Stamp</a></li></ul></div>
