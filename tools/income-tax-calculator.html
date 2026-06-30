@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -130,10 +130,10 @@
 
 <div class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-indian-rupee-sign"></i> Income Details</div>
-<div class="tool-input-group"><label>Gross Salary / Business Income (?)</label><div class="tool-input-prefix"><input type="number" id="salary" class="tool-input" value="1200000" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Income from Other Sources (?) <span>Interest, dividends etc.</span></label><div class="tool-input-prefix"><input type="number" id="other" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Short-Term Capital Gains (?)</label><div class="tool-input-prefix"><input type="number" id="stcg" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Long-Term Capital Gains (?)</label><div class="tool-input-prefix"><input type="number" id="ltcg" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Gross Salary / Business Income <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Total annual salary before any deductions, or net business profit."></i></label><div class="tool-input-prefix"><input type="number" id="salary" class="tool-input" value="1200000" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Income from Other Sources <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Include savings interest, FDs, dividend income, etc."></i> <span>Interest, dividends etc.</span></label><div class="tool-input-prefix"><input type="number" id="other" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Short-Term Capital Gains <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Gains from shares sold within 1 year (taxed at 20% post Budget 2024)."></i></label><div class="tool-input-prefix"><input type="number" id="stcg" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Long-Term Capital Gains <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Gains from shares held > 1 year (taxed at 12.5% post Budget 2024)."></i></label><div class="tool-input-prefix"><input type="number" id="ltcg" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
 </div>
 
 <div class="tool-card" style="margin-bottom:20px">
@@ -142,9 +142,11 @@
 <div class="tool-input-group"><label>Section 80C (PPF, ELSS, LIC, etc.) <span>Max ₹1,50,000</span></label><div class="tool-input-prefix"><input type="number" id="c80c" class="tool-input" value="150000" min="0" max="150000" oninput="calculate()"></div></div>
 <div class="tool-input-group"><label>Section 80D - Medical Insurance <span>Max ₹25,000 / ₹50,000 (Senior)</span></label><div class="tool-input-prefix"><input type="number" id="c80d" class="tool-input" value="25000" min="0" oninput="calculate()"></div></div>
 <div class="tool-input-group"><label>Section 80CCD(1B) - NPS <span>Max ₹50,000</span></label><div class="tool-input-prefix"><input type="number" id="nps" class="tool-input" value="0" min="0" max="50000" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>HRA Exemption (?)</label><div class="tool-input-prefix"><input type="number" id="hra" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Other Chapter VI-A Deductions (?)</label><div class="tool-input-prefix"><input type="number" id="other80" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>HRA Exemption <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="House Rent Allowance exemption calculated under Section 10(13A)."></i></label><div class="tool-input-prefix"><input type="number" id="hra" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Other Chapter VI-A Deductions <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="E.g. Section 80E, 80G, 80TTA. Applicable only in Old Regime."></i></label><div class="tool-input-prefix"><input type="number" id="other80" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
 </div>
+
+<button class="tool-btn-hero" onclick="calculate(); document.getElementById('result-card').scrollIntoView({behavior:'smooth'});"><i class="fa-solid fa-calculator"></i> Calculate Income Tax</button>
 </div>
 
 <!-- RIGHT: SIDEBAR -->
@@ -152,7 +154,7 @@
 <div id="pdf-export-area">
 <div id="result-card" class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-trophy"></i> Best Regime for You</div>
-<div id="winner-banner" class="tool-result" style="text-align:center;margin-bottom:16px">
+<div id="winner-banner" class="tool-result glass" style="text-align:center;margin-bottom:16px">
 <div class="tool-result-label">Recommended Regime</div>
 <div class="tool-result-value" id="winner-text">New Regime</div>
 <div class="tool-result-sub" id="winner-savings">You save ₹0</div>
@@ -315,6 +317,12 @@ function calculate(){
   const saving=Math.abs(oldTotal-newTotal);
   document.getElementById('winner-text').textContent=winner+' Regime';
   document.getElementById('winner-savings').textContent='You save '+fmt(saving)+' vs '+((winner==='New')?'Old':'New')+' Regime';
+  
+  const resultCard = document.getElementById('winner-banner');
+  resultCard.classList.remove('tool-animate-result');
+  void resultCard.offsetWidth; // trigger reflow
+  resultCard.classList.add('tool-animate-result');
+
   document.getElementById('old-total').textContent=fmt(oldTotal);
   document.getElementById('new-total').textContent=fmt(newTotal);
   document.getElementById('old-taxable').textContent=fmt(oldTaxable);

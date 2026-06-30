@@ -401,3 +401,96 @@
   .tool-btn { justify-content: center; }
   .tools-hub-section { padding: 40px 0; }
 }
+
+/* --- Tooltips --- */
+.tool-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  color: var(--gold, #c9a84c);
+  cursor: help;
+  font-size: 0.95rem;
+}
+.tool-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--navy, #0b1d3a);
+  color: var(--white, #fff);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(11,29,58,0.2);
+  font-weight: 500;
+}
+.tool-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  border: 6px solid transparent;
+  border-top-color: var(--navy, #0b1d3a);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+.tool-tooltip:hover::after, .tool-tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* --- Hero Calculate Button --- */
+.tool-btn-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold, #c9a84c) 0%, #e8c96a 100%);
+  color: var(--navy, #0b1d3a);
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 16px 24px;
+  border-radius: var(--radius-sm, 8px);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(201, 168, 76, 0.4);
+  margin-top: 10px;
+}
+.tool-btn-hero:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.6);
+  background: linear-gradient(135deg, #e8c96a 0%, var(--gold, #c9a84c) 100%);
+}
+
+/* --- Animations --- */
+@keyframes toolFadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tool-animate-result {
+  animation: toolFadeInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* --- Glassmorphism Enhancements --- */
+.tool-result.glass {
+  background: linear-gradient(135deg, rgba(11,29,58,0.95) 0%, rgba(11,29,58,0.85) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(11,29,58,0.15);
+}

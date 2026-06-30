@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -123,16 +123,18 @@
 <div class="tool-input-group"><label>Purchase Date</label><input type="date" id="pdate" class="tool-input" value="2020-04-01" onchange="calculate()"></div>
 <div class="tool-input-group"><label>Sale Date</label><input type="date" id="sdate" class="tool-input" value="2025-04-01" onchange="calculate()"></div>
 </div>
-<div class="tool-input-group"><label>Purchase Price (?)</label><div class="tool-input-prefix"><input type="number" id="pprice" class="tool-input" value="100000" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Sale Price (?)</label><div class="tool-input-prefix"><input type="number" id="sprice" class="tool-input" value="250000" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Transfer Expenses (?)</label><div class="tool-input-prefix"><input type="number" id="exp" class="tool-input" value="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Purchase Price <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="The actual cost of acquiring the asset."></i></label><div class="tool-input-prefix"><input type="number" id="pprice" class="tool-input" value="100000" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Sale Price <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Total consideration received on transfer."></i></label><div class="tool-input-prefix"><input type="number" id="sprice" class="tool-input" value="250000" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Transfer Expenses <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Brokerage, stamp duty, or other costs wholly related to the sale."></i></label><div class="tool-input-prefix"><input type="number" id="exp" class="tool-input" value="0" oninput="calculate()"></div></div>
 </div>
+
+<button class="tool-btn-hero" onclick="calculate(); document.getElementById('result-card').scrollIntoView({behavior:'smooth'});"><i class="fa-solid fa-calculator"></i> Calculate Capital Gains</button>
 </div>
 
 <div>
 <div id="result-card" class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> Capital Gains Result</div>
-<div class="tool-result" style="text-align:center;margin-bottom:16px">
+<div class="tool-result glass" style="text-align:center;margin-bottom:16px">
 <div class="tool-result-label" id="gain-type">Long Term Capital Gain</div>
 <div class="tool-result-value" id="gain-amount">₹0</div>
 </div>
@@ -174,6 +176,14 @@ function calculate(){
   document.getElementById('gain-type').textContent = isLtcg ? 'Long Term Capital Gain' : 'Short Term Capital Gain';
 
   const gain = Math.max(0, sprice - pprice - exp);
+  
+  const resultCard = document.querySelector('.tool-result.glass');
+  if (resultCard) {
+    resultCard.classList.remove('tool-animate-result');
+    void resultCard.offsetWidth; // trigger reflow
+    resultCard.classList.add('tool-animate-result');
+  }
+
   document.getElementById('gain-amount').textContent = fmt(gain);
 
   let rate = 0;

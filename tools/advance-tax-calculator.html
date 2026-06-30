@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -110,22 +110,24 @@
 <div>
 <div class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-file-invoice"></i> Tax Details</div>
-<div class="tool-input-group"><label>Estimated Total Tax Liability (?)</label><div class="tool-input-prefix"><input type="number" id="totaltax" class="tool-input" value="500000" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>TDS/TCS Already Deducted (?)</label><div class="tool-input-prefix"><input type="number" id="tds" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Estimated Total Tax Liability <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Total estimated tax for the year including surcharge and cess."></i></label><div class="tool-input-prefix"><input type="number" id="totaltax" class="tool-input" value="500000" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>TDS/TCS Already Deducted <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Total tax deducted/collected at source that you can claim credit for."></i></label><div class="tool-input-prefix"><input type="number" id="tds" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
 </div>
 <div class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-money-bill"></i> Advance Tax Paid</div>
-<div class="tool-input-group"><label>Paid on/before 15 June (?)</label><div class="tool-input-prefix"><input type="number" id="p_jun" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Paid on/before 15 Sep (?)</label><div class="tool-input-prefix"><input type="number" id="p_sep" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Paid on/before 15 Dec (?)</label><div class="tool-input-prefix"><input type="number" id="p_dec" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-<div class="tool-input-group"><label>Paid on/before 15 Mar (?)</label><div class="tool-input-prefix"><input type="number" id="p_mar" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Paid on/before 15 June <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Advance tax actually paid by Q1 deadline."></i></label><div class="tool-input-prefix"><input type="number" id="p_jun" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Paid on/before 15 Sep <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Advance tax actually paid by Q2 deadline."></i></label><div class="tool-input-prefix"><input type="number" id="p_sep" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Paid on/before 15 Dec <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Advance tax actually paid by Q3 deadline."></i></label><div class="tool-input-prefix"><input type="number" id="p_dec" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+<div class="tool-input-group"><label>Paid on/before 15 Mar <i class="fa-solid fa-circle-question tool-tooltip" data-tooltip="Advance tax actually paid by Q4 deadline."></i></label><div class="tool-input-prefix"><input type="number" id="p_mar" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
 </div>
+
+<button class="tool-btn-hero" onclick="calculate(); document.getElementById('result-card').scrollIntoView({behavior:'smooth'});"><i class="fa-solid fa-calculator"></i> Calculate Instalments</button>
 </div>
 
 <div>
 <div id="result-card" class="tool-card" style="margin-bottom:20px">
 <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> Payment Schedule</div>
-<div class="tool-result" style="text-align:center;margin-bottom:16px">
+<div class="tool-result glass" style="text-align:center;margin-bottom:16px">
 <div class="tool-result-label">Net Advance Tax Payable</div>
 <div class="tool-result-value" id="net-tax">₹0</div>
 </div>
@@ -151,6 +153,14 @@ function fmt(n){return formatINRFull(n);}
 function calculate(){
   const tt=v('totaltax'), tds=v('tds');
   const net=Math.max(0, tt-tds);
+
+  const resultCard = document.querySelector('.tool-result.glass');
+  if (resultCard) {
+    resultCard.classList.remove('tool-animate-result');
+    void resultCard.offsetWidth; // trigger reflow
+    resultCard.classList.add('tool-animate-result');
+  }
+
   document.getElementById('net-tax').textContent=fmt(net);
   
   const d1=net*0.15, d2=net*0.45, d3=net*0.75, d4=net;
