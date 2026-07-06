@@ -1,5 +1,29 @@
 // ── KC Shah & Associates — Tools Shared Utilities ──
 
+/* ── Lazy-loaded PDF export libraries (html2canvas + jsPDF) ──
+   Only fetched on first PDF/image export click, not on page load. */
+function loadScriptOnce(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector('script[src="' + src + '"]')) { resolve(); return; }
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('Failed to load ' + src));
+    document.head.appendChild(s);
+  });
+}
+let _pdfLibsPromise = null;
+function ensurePdfLibs() {
+  if (!_pdfLibsPromise) {
+    _pdfLibsPromise = Promise.all([
+      loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'),
+      loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+    ]);
+  }
+  return _pdfLibsPromise;
+}
+window.ensurePdfLibs = ensurePdfLibs;
+
 /* ── Currency Formatter (Indian system) ── */
 function formatINR(num) {
   if (isNaN(num) || num === null) return '₹0';
@@ -51,13 +75,11 @@ async function shareResult(title, text) {
 }
 
 /* ── PDF Export ── */
-function downloadPDF(elementId, filename) {
+async function downloadPDF(elementId, filename) {
   const el = document.getElementById(elementId);
   if (!el) { showToast('Nothing to export.', 'error'); return; }
-  if (typeof html2canvas === 'undefined' || typeof jspdf === 'undefined') {
-    showToast('PDF library not loaded. Please try again.', 'error'); return;
-  }
-  showToast('Generating PDF…', 'info');
+  showToast('Preparing PDF…', 'info');
+  try { await ensurePdfLibs(); } catch (e) { showToast('Could not load PDF library.', 'error'); return; }
   html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
     const { jsPDF } = jspdf;
     const imgData = canvas.toDataURL('image/png');

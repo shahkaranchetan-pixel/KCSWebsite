@@ -131,7 +131,7 @@
   word-break: break-word; overflow-wrap: break-word;
 }
 .tool-result-item.highlight { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.3); }
-.tool-result-item.highlight .value { color: var(--gold-dark); }
+.tool-result-item.highlight .value { color: #8a4006; }
 
 /* Canvas Chart */
 .tool-chart-wrap { position: relative; width: 100%; max-width: 220px; margin: 0 auto 16px; }
@@ -246,18 +246,18 @@
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
   border-radius: var(--radius-md); padding: 28px; color: var(--white); text-align: center; margin-bottom: 20px;
 }
-.tool-sidebar-cta h4 { color: var(--white); margin-bottom: 8px; font-size: 1rem; }
+.tool-sidebar-cta h2 { color: var(--white); margin-bottom: 8px; font-size: 1rem; }
 .tool-sidebar-cta p { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-bottom: 16px; }
 .tool-sidebar-cta .btn-wa {
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  background: #25D366; color: white; border-radius: var(--radius-sm);
+  background: #075E54; color: white; border-radius: var(--radius-sm);
   padding: 11px 20px; font-weight: 700; font-size: 0.88rem; margin-bottom: 10px;
   transition: var(--transition); border: none; width: 100%;
 }
-.tool-sidebar-cta .btn-wa:hover { background: #128C7E; transform: translateY(-1px); }
+.tool-sidebar-cta .btn-wa:hover { background: #054238; transform: translateY(-1px); }
 .tool-sidebar-cta .btn-consult {
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  background: var(--gold); color: var(--navy); border-radius: var(--radius-sm);
+  background: var(--gold); color: var(--white); border-radius: var(--radius-sm);
   padding: 11px 20px; font-weight: 700; font-size: 0.88rem;
   transition: var(--transition); border: none; width: 100%;
 }
@@ -277,7 +277,7 @@
 }
 .tool-newsletter-form input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
 .tool-newsletter-form button {
-  padding: 11px; background: var(--gold); color: var(--navy); border: none;
+  padding: 11px; background: var(--gold); color: var(--white); border: none;
   border-radius: var(--radius-sm); font-weight: 700; font-size: 0.85rem; cursor: pointer;
   transition: var(--transition);
 }
