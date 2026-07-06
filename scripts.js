@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        // Progress bar
+        // Progress bar (transform only — no layout)
         const scrollTop = window.scrollY;
-        const progress = cachedDocHeight > 0 ? (scrollTop / cachedDocHeight) * 100 : 0;
-        progressBar.style.width = progress + '%';
+        const progress = cachedDocHeight > 0 ? Math.min(scrollTop / cachedDocHeight, 1) : 0;
+        progressBar.style.transform = 'scaleX(' + progress + ')';
         // Header shadow
         if (header) header.classList.toggle('scrolled', scrollTop > 50);
         ticking = false;

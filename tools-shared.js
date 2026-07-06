@@ -169,6 +169,7 @@ function initNewsletterForm(formId) {
     const btn = form.querySelector('button[type="submit"]');
     const email = form.querySelector('input[type="email"]').value;
     if (!email) return;
+    const originalLabel = btn.textContent;
     btn.textContent = 'Subscribing…';
     btn.disabled = true;
     fetch('https://formspree.io/f/mkoklqgn', {
@@ -177,8 +178,8 @@ function initNewsletterForm(formId) {
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
     }).then(r => {
       if (r.ok) { btn.textContent = '✓ Subscribed!'; form.reset(); showToast('You\'re subscribed for tax updates!', 'success'); }
-      else { btn.textContent = 'Subscribe'; btn.disabled = false; showToast('Try again.', 'error'); }
-    }).catch(() => { btn.textContent = 'Subscribe'; btn.disabled = false; });
+      else { btn.textContent = originalLabel; btn.disabled = false; showToast('Try again.', 'error'); }
+    }).catch(() => { btn.textContent = originalLabel; btn.disabled = false; });
   });
 }
 
