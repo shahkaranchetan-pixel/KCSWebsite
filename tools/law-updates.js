@@ -18,6 +18,24 @@
   };
   const cap = (value, limit) => Math.min(Math.max(0, value || 0), limit);
 
+  // Cost Inflation Index (base FY 2001-02 = 100), keyed by financial-year start year.
+  // Government-notified values through the current year; used to auto-compute indexed cost
+  // for the section 197(3) LTCG comparison on land/building.
+  const CII = { 2001: 100, 2002: 105, 2003: 109, 2004: 113, 2005: 117, 2006: 122, 2007: 129, 2008: 137, 2009: 148, 2010: 167, 2011: 184, 2012: 200, 2013: 220, 2014: 240, 2015: 254, 2016: 264, 2017: 272, 2018: 280, 2019: 289, 2020: 301, 2021: 317, 2022: 331, 2023: 348, 2024: 363, 2025: 376 };
+  const finYearStart = (date) => (date.getMonth() >= 3 ? date.getFullYear() : date.getFullYear() - 1);
+  const ciiFor = (fyStart) => {
+    const years = Object.keys(CII).map(Number);
+    const clamped = Math.min(Math.max(fyStart, Math.min(...years)), Math.max(...years));
+    return CII[clamped];
+  };
+  function indexedCostFrom(cost, pdate, sdate) {
+    // Base year: FY 2001-02 or year of acquisition, whichever later (section 72(8)(b)).
+    const base = ciiFor(Math.max(finYearStart(pdate), 2001));
+    const target = ciiFor(finYearStart(sdate));
+    if (!base || !target) return cost;
+    return Math.round((cost * target) / base);
+  }
+
   function addJsonLd(id, data) {
     if (document.getElementById(id)) return;
     const script = document.createElement("script");
@@ -380,11 +398,11 @@
           <div class="tool-input-group"><label>Asset Type</label><select id="asset" class="tool-select" onchange="calculate()"><option value="eq_listed">Listed Equity / Equity MF</option><option value="property">Residential House Property</option><option value="land_building">Land / Building</option><option value="gold">Gold / Jewelry</option><option value="eq_unlisted">Unlisted Equity</option><option value="debt">Debt Mutual Fund</option></select></div>
           <div class="grid grid-2" style="margin-bottom:12px"><div class="tool-input-group"><label>Purchase Date</label><input type="date" id="pdate" class="tool-input" value="2020-04-01" onchange="calculate()"></div><div class="tool-input-group"><label>Sale Date</label><input type="date" id="sdate" class="tool-input" value="2025-04-01" onchange="calculate()"></div></div>
           <div class="tool-input-group"><label>Purchase Price</label><div class="tool-input-prefix"><input type="number" id="pprice" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Indexed Cost <span>Optional, for eligible land/building comparison</span></label><div class="tool-input-prefix"><input type="number" id="indexed-cost" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+          <div class="tool-input-group"><label>Indexed Cost <span>Auto-calculated from CII for eligible land/building; enter a value to override</span></label><div class="tool-input-prefix"><input type="number" id="indexed-cost" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
           <div class="tool-input-group"><label>Sale Price / Full Value of Consideration</label><div class="tool-input-prefix"><input type="number" id="sprice" class="tool-input" value="250000" min="0" oninput="calculate()"></div></div>
           <div class="tool-input-group"><label>Transfer Expenses</label><div class="tool-input-prefix"><input type="number" id="exp" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
           <div class="tool-input-group"><label>Taxpayer Type</label><select id="taxpayer-type" class="tool-select" onchange="calculate()"><option value="resident">Resident individual / HUF</option><option value="other">Other taxpayer</option></select></div>
-          <div class="tool-input-group"><label>Surcharge Rate</label><select id="cg-surcharge-rate" class="tool-select" onchange="calculate()"><option value="0">No surcharge</option><option value="0.1">10%</option><option value="0.15">15%</option><option value="0.25">25%</option><option value="0.37">37%</option></select></div>
+          <div class="tool-input-group"><label>Surcharge Rate <span>Surcharge on capital gains is capped at 15%</span></label><select id="cg-surcharge-rate" class="tool-select" onchange="calculate()"><option value="0">No surcharge</option><option value="0.1">10%</option><option value="0.15">15%</option></select></div>
         </div>
         <div class="tool-card" style="margin-bottom:20px">
           <div class="tool-card-title"><i class="fa-solid fa-key"></i> Exemptions</div>
@@ -398,6 +416,7 @@
           <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> Capital Gains Result</div>
           <div class="tool-result" style="text-align:center;margin-bottom:16px"><div class="tool-result-label" id="gain-type">Long Term Capital Gain</div><div class="tool-result-value" id="gain-amount">₹0</div><div class="tool-result-sub" id="tax-method">Post Budget 2024 method</div></div>
           <div class="tool-result-grid"><div class="tool-result-item"><div class="label">Holding Period</div><div class="value" id="hold-period">0 Months</div></div><div class="tool-result-item"><div class="label">Tax Rate</div><div class="value" id="tax-rate">12.5%</div></div><div class="tool-result-item"><div class="label">Exemption Claimed</div><div class="value" id="cg-exemption">₹0</div></div><div class="tool-result-item highlight"><div class="label">Total Tax incl. Cess</div><div class="value" id="tax-amount">₹0</div></div></div>
+          <div id="cg-methods" style="margin-top:16px"></div>
           <div class="tool-info-box" style="margin-top:16px"><i class="fa-solid fa-info-circle"></i><p id="cg-eligibility">Exemptions are indicative and subject to investment timing, ownership, lock-in and CGAS conditions.</p></div>
           <div class="tool-actions"><button class="tool-btn tool-btn-outline" onclick="downloadPDF('capital-pdf-area','Capital-Gains-KCShah')">Download PDF</button></div>
         </div>
@@ -422,11 +441,21 @@
     const expenses = num("exp");
     const netConsideration = Math.max(0, sale - expenses);
     const grossGain = Math.max(0, netConsideration - cost);
-    const postBudget = sdate >= new Date("2024-07-23");
+    const budgetCutoff = new Date("2024-07-23");
+    const postBudget = sdate >= budgetCutoff;
     let rate = 0.3;
     let method = isLong ? "Long-term capital gain" : "Short-term capital gain";
     let taxableBeforeExemption = grossGain;
     let eligibility = "STCG is generally taxed at applicable slab rates except listed equity/equity MF under Section 111A.";
+
+    // Section 197(3), ITA 2025: a resident individual/HUF transferring land or building acquired
+    // before 23 Jul 2024 pays the LOWER of 12.5% without indexation vs 20% with indexation.
+    const isResidentIndHuf = document.getElementById("taxpayer-type")?.value === "resident";
+    const acquiredBeforeCutoff = pdate < budgetCutoff;
+    const indexationEligible = isLong && postBudget && isResidentIndHuf && acquiredBeforeCutoff && (asset === "property" || asset === "land_building");
+    const overrideIndexedCost = num("indexed-cost");
+    const autoIndexedCost = indexedCostFrom(cost, pdate, sdate);
+    const indexedCost = overrideIndexedCost > 0 ? overrideIndexedCost : autoIndexedCost;
 
     if (asset === "eq_listed") {
       rate = isLong ? (postBudget ? 0.125 : 0.1) : (postBudget ? 0.2 : 0.15);
@@ -435,20 +464,6 @@
     } else if (isLong) {
       rate = postBudget ? 0.125 : 0.2;
       eligibility = "LTCG exemption depends on asset type, investment timing, ownership and lock-in conditions.";
-      if ((asset === "property" || asset === "land_building") && postBudget && document.getElementById("taxpayer-type")?.value === "resident") {
-        const indexedCost = num("indexed-cost");
-        const oldTaxable = Math.max(0, netConsideration - (indexedCost || cost));
-        const oldTax = oldTaxable * 0.2;
-        const newTax = grossGain * 0.125;
-        if (indexedCost && oldTax < newTax) {
-          rate = 0.2;
-          taxableBeforeExemption = oldTaxable;
-          method = "LTCG - 20% with indexation comparison";
-          eligibility = "Resident individual/HUF land or building comparison selected the lower indexed-tax result.";
-        } else {
-          method = "LTCG - 12.5% without indexation";
-        }
-      }
       if (asset === "debt") {
         eligibility = "Debt mutual fund taxation depends on acquisition date, holding mix and statutory classification. Treat this as an estimate and review before filing.";
       }
@@ -464,8 +479,41 @@
     }
     const exemption = Math.max(0, exemption54 + exemption54f + exemption54ec);
     const taxableGain = Math.max(0, taxableBeforeExemption - exemption);
-    const baseTax = taxableGain * rate;
-    const surchargeAmount = baseTax * (Number(document.getElementById("cg-surcharge-rate")?.value) || 0);
+
+    // Default single-method result; overridden below for the section 197(3) comparison.
+    let displayTaxableGain = taxableGain;
+    let baseTax = taxableGain * rate;
+    let methodsHtml = "";
+
+    if (indexationEligible) {
+      const taxableNoIndex = taxableGain;                                       // 12.5% base (non-indexed)
+      const taxableIndexed = Math.max(0, Math.max(0, netConsideration - indexedCost) - exemption); // 20% base
+      const taxNoIndex = taxableNoIndex * 0.125;                                // A: s.197(1)(b)
+      const taxIndexed = taxableIndexed * 0.2;                                  // B: 20% on indexed gain
+      const indexWins = taxIndexed < taxNoIndex;                               // pay the lower (s.197(3))
+      if (indexWins) {
+        rate = 0.2;
+        displayTaxableGain = taxableIndexed;
+        baseTax = taxIndexed;
+        method = "LTCG · 20% with indexation (payable)";
+      } else {
+        rate = 0.125;
+        displayTaxableGain = taxableNoIndex;
+        baseTax = taxNoIndex;
+        method = "LTCG · 12.5% without indexation (payable)";
+      }
+      eligibility = "Resident individual/HUF, land/building acquired before 23 Jul 2024: under section 197(3) you pay the lower of the two methods below. Indexed cost is auto-calculated from the Cost Inflation Index (override optional).";
+      const tag = (lower) => (lower ? '<span style="color:#0a7d33;font-weight:600"> (lower — payable)</span>' : '<span style="color:#888"> (higher — ignored)</span>');
+      methodsHtml = `<div class="tool-card-title" style="font-size:0.95rem;margin-bottom:8px"><i class="fa-solid fa-scale-balanced"></i> Both methods compared — s.197(3)</div>` +
+        `<table class="tool-comparison"><thead><tr><th>Method</th><th>Taxable gain</th><th>Tax*</th></tr></thead><tbody>` +
+        `<tr class="${indexWins ? "" : "highlight-row"}"><td>12.5% without indexation${tag(!indexWins)}</td><td>${INR(taxableNoIndex)}</td><td>${INR(taxNoIndex)}</td></tr>` +
+        `<tr class="${indexWins ? "highlight-row" : ""}"><td>20% with indexation${tag(indexWins)}</td><td>${INR(taxableIndexed)}</td><td>${INR(taxIndexed)}</td></tr>` +
+        `</tbody></table><p style="font-size:0.75rem;color:#888;margin-top:6px">*Tax before surcharge & cess. Indexed cost used: ${INR(indexedCost)}.</p>`;
+    }
+
+    // Surcharge on capital gains is capped at 15% (section 197 / Finance Act rate schedule).
+    const surchargeRate = Math.min(Number(document.getElementById("cg-surcharge-rate")?.value) || 0, 0.15);
+    const surchargeAmount = baseTax * surchargeRate;
     const cess = (baseTax + surchargeAmount) * 0.04;
     const totalTax = Math.round(baseTax + surchargeAmount + cess);
 
@@ -476,18 +524,19 @@
     setText("tax-method", method);
     setText("cg-exemption", INR(exemption));
     setText("tax-amount", INR(totalTax));
+    setHtml("cg-methods", methodsHtml);
     setText("cg-eligibility", `${eligibility} Section 54/54F/54EC benefits require prescribed reinvestment timelines, CGAS deposit where applicable, and lock-in compliance.`);
     const rows = [
       ["Sale consideration", sale],
       ["Less: transfer expenses", expenses],
       ["Net consideration", netConsideration],
       ["Cost of acquisition", cost],
-      ["Indexed cost used", rate === 0.2 ? (num("indexed-cost") || cost) : 0],
+      ["Indexed cost used", indexationEligible && rate === 0.2 ? indexedCost : 0],
       ["Gross capital gain", grossGain],
       ["Section 54 exemption", exemption54],
       ["Section 54F exemption", exemption54f],
       ["Section 54EC exemption", exemption54ec],
-      ["Taxable capital gain", taxableGain],
+      ["Taxable capital gain", displayTaxableGain],
       ["Tax before surcharge/cess", baseTax],
       ["Surcharge", surchargeAmount],
       ["Health & Education Cess", cess],
@@ -527,7 +576,7 @@
     addCommonTaxSchema("Capital Gains Calculator", "https://kcshah.com/tools/capital-gain-calculator.html", [
       { q: "Does the calculator include Sections 54, 54F and 54EC?", a: "Yes. It includes indicative exemption inputs for Section 54, Section 54F and Section 54EC, subject to statutory conditions." },
       { q: "Does it handle post-Budget 2024 capital gains rates?", a: "Yes. It separates listed equity, land/building and other asset classes and applies post-Budget 2024 rates where relevant." },
-      { q: "Can it compare indexed and non-indexed land or building tax?", a: "Yes. For eligible resident individuals or HUFs, it can compare 12.5% without indexation against 20% with indexation when indexed cost is entered." },
+      { q: "Can it compare indexed and non-indexed land or building tax?", a: "Yes. For eligible resident individuals or HUFs (land/building acquired before 23 July 2024), it shows both 12.5% without indexation and 20% with indexation and applies the lower under Section 197(3). Indexed cost is auto-calculated from the Cost Inflation Index." },
     ]);
     buildCapitalGainsUI();
     window.calculate = runCapitalGainsCalculator;
