@@ -81,7 +81,7 @@ async function downloadPDF(elementId, filename) {
   showToast('Preparing PDF…', 'info');
   try { await ensurePdfLibs(); } catch (e) { showToast('Could not load PDF library.', 'error'); return; }
   html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
-    const { jsPDF } = jspdf;
+    const { jsPDF } = window.jspdf;
     const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
     const pdfW = pdf.internal.pageSize.getWidth();

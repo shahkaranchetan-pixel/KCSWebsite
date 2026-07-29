@@ -664,7 +664,7 @@ async function generateTaxReportPDF() {
     windowWidth: 794
   }).then(canvas => {
     document.body.removeChild(wrapper);
-    const { jsPDF } = jspdf;
+    const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
     const pdfW = pdf.internal.pageSize.getWidth();   // 210mm
     const pdfH = pdf.internal.pageSize.getHeight();  // 297mm
@@ -865,7 +865,7 @@ async function generateAdvanceTaxReportPDF() {
     windowWidth: 794
   }).then(canvas => {
     document.body.removeChild(wrapper);
-    const { jsPDF } = jspdf;
+    const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
     const pdfW = pdf.internal.pageSize.getWidth();
     const pdfH = pdf.internal.pageSize.getHeight();
@@ -1064,7 +1064,7 @@ async function generateCapitalGainsReportPDF() {
     windowWidth: 794
   }).then(canvas => {
     document.body.removeChild(wrapper);
-    const { jsPDF } = jspdf;
+    const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
     const pdfW = pdf.internal.pageSize.getWidth();
     const pdfH = pdf.internal.pageSize.getHeight();
