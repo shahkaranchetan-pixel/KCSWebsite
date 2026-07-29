@@ -170,8 +170,8 @@
     setText("b-gross-n", INR(newCalc.gross));
     setText("b-sd-o", INR(oldCalc.salaryDed));
     setText("b-sd-n", INR(newCalc.salaryDed));
-    setText("b-ded-o", INR(oldCalc.deductions));
-    setText("b-ded-n", INR(newCalc.deductions));
+    setText("b-ded-o", INR(Math.max(0, oldCalc.deductions - oldCalc.salaryDed)));
+    setText("b-ded-n", INR(Math.max(0, newCalc.deductions - newCalc.salaryDed)));
     setText("b-ti-o", INR(oldCalc.normalTaxable));
     setText("b-ti-n", INR(newCalc.normalTaxable));
     setText("b-normal-tax-o", INR(oldCalc.normalTax));
@@ -190,7 +190,7 @@
     setHtml("b-total-n", `<strong>${INR(newCalc.total)}</strong>`);
     setText("b-etr-o", oldCalc.gross ? `${(oldCalc.total / oldCalc.gross * 100).toFixed(2)}%` : "0%");
     setText("b-etr-n", newCalc.gross ? `${(newCalc.total / newCalc.gross * 100).toFixed(2)}%` : "0%");
-    if (window.drawDonut) drawDonut("donut-chart", [oldCalc.total, newCalc.total], ["Old", "New"], ["#0B1D3A", "#C9A84C"]);
+    // Donut chart removed from PDF logic as it causes layout/rendering issues in headless contexts and overlaps content
   }
 
   
@@ -404,12 +404,13 @@ async function generateTaxReportPDF() {
   const winner        = document.getElementById('winner-text').textContent;
   const savings       = Math.abs(oldTotal - newTotal);
 
-  const f = n => '?' + Math.round(n).toLocaleString('en-IN');
+  const f = n => '₹' + Math.round(n).toLocaleString('en-IN');
   const pct = n => (n*100).toFixed(2)+'%';
   const gross = sal + other + stcg + ltcg;
 
   // Individual tax components from DOM
   const get = id => document.getElementById(id)?.textContent?.trim() || '-';
+  const oldSD = parseInt((get('b-sd-o')||'0').replace(/[^0-9]/g,'')) || 0;
 
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
@@ -472,17 +473,17 @@ async function generateTaxReportPDF() {
         <thead>
           <tr style="background:${navy}">
             <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Particulars</th>
-            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (?)</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (₹)</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Gross Salary / Business Income</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(sal)}</td></tr>
-          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Income from Other Sources (Interest, Dividends)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(other)}</td></tr>
-          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Short-Term Capital Gains (Sec. 111A @ 20%)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(stcg)}</td></tr>
-          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Long-Term Capital Gains (Sec. 112A @ 12.5%)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(ltcg)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:6px 14px;border-bottom:1px solid #eee">Gross Salary / Business Income</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(sal)}</td></tr>
+          <tr><td style="padding:6px 14px;border-bottom:1px solid #eee">Income from Other Sources (Interest, Dividends)</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(other)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:6px 14px;border-bottom:1px solid #eee">Short-Term Capital Gains (Sec. 111A @ 20%)</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(stcg)}</td></tr>
+          <tr><td style="padding:6px 14px;border-bottom:1px solid #eee">Long-Term Capital Gains (Sec. 112A @ 12.5%)</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(ltcg)}</td></tr>
           <tr style="background:${lightBlue}">
-            <td style="padding:9px 14px;font-weight:700;color:${navy}">Gross Total Income</td>
-            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${f(gross)}</td>
+            <td style="padding:7px 14px;font-weight:700;color:${navy}">Gross Total Income</td>
+            <td style="padding:7px 14px;font-weight:700;color:${navy};text-align:right">${f(gross)}</td>
           </tr>
         </tbody>
       </table>
@@ -495,19 +496,19 @@ async function generateTaxReportPDF() {
         <thead>
           <tr style="background:${navy}">
             <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Deduction</th>
-            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (?)</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (₹)</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Standard Deduction (both regimes)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(75000)}</td></tr>
-          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Section 80C - PPF, ELSS, LIC, EPF, etc.</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(c80c)}</td></tr>
-          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Section 80D - Medical Insurance Premium</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(c80d)}</td></tr>
-          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Section 80CCD(1B) - NPS Contribution</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(nps)}</td></tr>
-          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">HRA Exemption</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(hra)}</td></tr>
-          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Other Chapter VI-A Deductions</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(o80)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:6px 14px;border-bottom:1px solid #eee">Standard Deduction (Old Regime)</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(oldSD)}</td></tr>
+          <tr><td style="padding:6px 14px;border-bottom:1px solid #eee">Section 80C - PPF, ELSS, LIC, EPF, etc.</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(c80c)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:6px 14px;border-bottom:1px solid #eee">Section 80D - Medical Insurance Premium</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(c80d)}</td></tr>
+          <tr><td style="padding:6px 14px;border-bottom:1px solid #eee">Section 80CCD(1B) - NPS Contribution</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(nps)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:6px 14px;border-bottom:1px solid #eee">HRA Exemption</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(hra)}</td></tr>
+          <tr><td style="padding:6px 14px;border-bottom:1px solid #eee">Other Chapter VI-A Deductions</td><td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${f(o80)}</td></tr>
           <tr style="background:${lightBlue}">
-            <td style="padding:9px 14px;font-weight:700;color:${navy}">Total Deductions (Old Regime)</td>
-            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${f(75000+c80c+c80d+nps+hra+o80)}</td>
+            <td style="padding:7px 14px;font-weight:700;color:${navy}">Total Deductions (Old Regime)</td>
+            <td style="padding:7px 14px;font-weight:700;color:${navy};text-align:right">${get('b-ded-o')} (Ch. VI-A) + ${f(oldSD)} (SD)</td>
           </tr>
         </tbody>
       </table>
@@ -526,64 +527,64 @@ async function generateTaxReportPDF() {
         </thead>
         <tbody>
           <tr style="background:#F9FAFB">
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Gross Total Income</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-gross-o')}</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-gross-n')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Gross Total Income</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-gross-o')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-gross-n')}</td>
           </tr>
           <tr>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Less: Standard Deduction</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-sd-o')})</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-sd-n')})</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Less: Standard Deduction</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-sd-o')})</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-sd-n')})</td>
           </tr>
           <tr style="background:#F9FAFB">
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Less: Chapter VI-A Deductions</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-ded-o')})</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#888">Not Applicable</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Less: Chapter VI-A Deductions</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-ded-o')})</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#888">Not Applicable</td>
           </tr>
           <tr style="background:${lightBlue}">
-            <td style="padding:9px 14px;font-weight:700;color:${navy}">Taxable Income</td>
-            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${get('b-ti-o')}</td>
-            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${get('b-ti-n')}</td>
+            <td style="padding:7px 14px;font-weight:700;color:${navy}">Taxable Income</td>
+            <td style="padding:7px 14px;font-weight:700;color:${navy};text-align:right">${get('b-ti-o')}</td>
+            <td style="padding:7px 14px;font-weight:700;color:${navy};text-align:right">${get('b-ti-n')}</td>
           </tr>
           <tr>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Income Tax (as per applicable slabs)</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-tax-o')}</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-tax-n')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Income Tax (as per applicable slabs)</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-normal-tax-o')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-normal-tax-n')}</td>
           </tr>
           <tr style="background:#F9FAFB">
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Less: Rebate u/s 87A</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-o')})</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-n')})</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Less: Rebate u/s 87A</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-o')})</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-n')})</td>
           </tr>
           <tr style="background:#F9FAFB">
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Capital Gains Tax (Sec. 111A / 112A - Special Rate)</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cg-o')}</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cg-n')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Add: Capital Gains Tax (Sec. 111A / 112A - Special Rate)</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-special-tax-o')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-special-tax-n')}</td>
           </tr>
           <tr>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Surcharge</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-sur-o')}</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-sur-n')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Add: Surcharge</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-sur-o')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-sur-n')}</td>
           </tr>
           <tr style="background:#F9FAFB">
-            <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Health & Education Cess @ 4%</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cess-o')}</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cess-n')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee">Add: Health & Education Cess @ 4%</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cess-o')}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cess-n')}</td>
           </tr>
           <tr style="background:${navy}">
-            <td style="padding:11px 14px;font-weight:700;color:white;font-size:13px">TOTAL TAX PAYABLE</td>
-            <td style="padding:11px 14px;font-weight:700;color:${gold};text-align:right;font-size:13px">${f(oldTotal)}</td>
-            <td style="padding:11px 14px;font-weight:700;color:${gold};text-align:right;font-size:13px">${f(newTotal)}</td>
+            <td style="padding:9px 14px;font-weight:700;color:white;font-size:13px">TOTAL TAX PAYABLE</td>
+            <td style="padding:9px 14px;font-weight:700;color:${gold};text-align:right;font-size:13px">${f(oldTotal)}</td>
+            <td style="padding:9px 14px;font-weight:700;color:${gold};text-align:right;font-size:13px">${f(newTotal)}</td>
           </tr>
           <tr>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;color:#555">Effective Tax Rate (on Gross Income)</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#555">${oldETR}</td>
-            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#555">${newETR}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;color:#555">Effective Tax Rate (on Gross Income)</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#555">${oldETR}</td>
+            <td style="padding:6px 14px;border-bottom:1px solid #eee;text-align:right;color:#555">${newETR}</td>
           </tr>
           <tr style="background:#F9FAFB">
-            <td style="padding:8px 14px;color:#555">Monthly Tax Outflow</td>
-            <td style="padding:8px 14px;text-align:right;color:#555">${f(Math.round(oldTotal/12))}</td>
-            <td style="padding:8px 14px;text-align:right;color:#555">${f(Math.round(newTotal/12))}</td>
+            <td style="padding:6px 14px;color:#555">Monthly Tax Outflow</td>
+            <td style="padding:6px 14px;text-align:right;color:#555">${f(Math.round(oldTotal/12))}</td>
+            <td style="padding:6px 14px;text-align:right;color:#555">${f(Math.round(newTotal/12))}</td>
           </tr>
         </tbody>
       </table>
@@ -592,7 +593,7 @@ async function generateTaxReportPDF() {
     <!-- RECOMMENDATION -->
     <div style="background:${recBg};border:2px solid ${recColor};border-radius:8px;padding:18px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between">
       <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:${recColor};margin-bottom:4px">? Recommended Tax Regime</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:${recColor};margin-bottom:4px">💡 Recommended Tax Regime</div>
         <div style="font-size:22px;font-weight:700;color:${recColor}">${winner}</div>
         <div style="font-size:12px;color:${recColor};margin-top:4px;opacity:0.85">Based on your income profile and deductions for FY 2026-27</div>
       </div>
