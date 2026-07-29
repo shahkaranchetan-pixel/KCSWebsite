@@ -113,96 +113,7 @@
     return tax * rate;
   }
 
-  function buildIncomeTaxUI() {
-    const firstCard = document.querySelector(".tool-card-title .fa-user")?.closest(".tool-card");
-    const incomeCard = document.querySelector(".tool-card-title .fa-indian-rupee-sign")?.closest(".tool-card");
-    const deductionCard = document.querySelector(".tool-card-title .fa-receipt")?.closest(".tool-card");
-    const breakdown = document.getElementById("breakdown-table");
-    if (!firstCard || !incomeCard || !deductionCard || !breakdown) return;
-
-    firstCard.innerHTML = `
-      <div class="tool-card-title"><i class="fa-solid fa-user"></i> Taxpayer Profile</div>
-      <div class="tool-input-group">
-        <label>Residential Status</label>
-        <select id="residential-status" class="tool-select" onchange="calculate()">
-          <option value="resident">Resident Individual / HUF</option>
-          <option value="nonresident">Non-resident / Not ordinarily resident</option>
-        </select>
-      </div>
-      <div class="tool-input-group">
-        <label>Primary Income Type</label>
-        <div class="tool-radio-group">
-          <div class="tool-radio-btn"><input type="radio" id="profile-salaried" name="profile" value="salaried" checked onchange="calculate()"><label for="profile-salaried">Salaried / Pension</label></div>
-          <div class="tool-radio-btn"><input type="radio" id="profile-business" name="profile" value="business" onchange="calculate()"><label for="profile-business">Business / Profession</label></div>
-        </div>
-      </div>
-      <div class="tool-input-group">
-        <label>Age Category</label>
-        <div class="tool-radio-group">
-          <div class="tool-radio-btn"><input type="radio" id="age0" name="age" value="0" checked onchange="calculate()"><label for="age0">Below 60</label></div>
-          <div class="tool-radio-btn"><input type="radio" id="age1" name="age" value="1" onchange="calculate()"><label for="age1">60 - 80</label></div>
-          <div class="tool-radio-btn"><input type="radio" id="age2" name="age" value="2" onchange="calculate()"><label for="age2">Above 80</label></div>
-        </div>
-      </div>`;
-
-    incomeCard.innerHTML = `
-      <div class="tool-card-title"><i class="fa-solid fa-indian-rupee-sign"></i> Income Details</div>
-      <div class="tool-input-group"><label>Salary / Pension Income <span>Standard deduction applies only here</span></label><div class="tool-input-prefix"><input type="number" id="salary-income" class="tool-input" value="1200000" min="0" oninput="calculate()"></div></div>
-      <div class="tool-input-group"><label>Business / Professional Income</label><div class="tool-input-prefix"><input type="number" id="business-income" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-      <div class="tool-input-group"><label>House Property Income / Loss <span>Enter positive amount after set-off limits</span></label><div class="tool-input-prefix"><input type="number" id="house-income" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-      <div class="tool-input-group"><label>Income from Other Sources</label><div class="tool-input-prefix"><input type="number" id="other-income" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-      <details style="margin-top:10px">
-        <summary style="cursor:pointer;font-weight:700;color:var(--navy)">Special-rate capital gains</summary>
-        <div class="tool-input-group" style="margin-top:12px"><label>STCG u/s 111A <span>Listed equity / equity MF</span></label><div class="tool-input-prefix"><input type="number" id="stcg-111a" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>LTCG u/s 112A <span>Listed equity / equity MF</span></label><div class="tool-input-prefix"><input type="number" id="ltcg-112a" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Other Special-rate LTCG u/s 112</label><div class="tool-input-prefix"><input type="number" id="ltcg-112" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Normal-rate Capital Gains</label><div class="tool-input-prefix"><input type="number" id="normal-cg" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-      </details>`;
-
-    deductionCard.innerHTML = `
-      <div class="tool-card-title"><i class="fa-solid fa-receipt"></i> Deductions & Exemptions</div>
-      <div class="tool-info-box"><i class="fa-solid fa-circle-info"></i><p>Most Chapter VI-A deductions apply only to the old regime. Employer NPS and eligible salary/family pension deductions are considered separately where allowed.</p></div>
-      <div class="tool-input-group"><label>Section 80C <span>Max ₹1,50,000</span></label><div class="tool-input-prefix"><input type="number" id="c80c" class="tool-input" value="150000" min="0" oninput="calculate()"></div></div>
-      <div class="tool-input-group"><label>Section 80D - Medical Insurance <span>Auto-capped by age</span></label><div class="tool-input-prefix"><input type="number" id="c80d" class="tool-input" value="25000" min="0" oninput="calculate()"></div></div>
-      <div class="tool-input-group"><label>Section 80CCD(1B) - Personal NPS <span>Max ₹50,000</span></label><div class="tool-input-prefix"><input type="number" id="nps" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-      <div class="tool-input-group"><label>Employer NPS u/s 80CCD(2) <span>Allowed in both regimes, capped on salary</span></label><div class="tool-input-prefix"><input type="number" id="nps-employer" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-      <details style="margin-top:10px">
-        <summary style="cursor:pointer;font-weight:700;color:var(--navy)">Advanced old-regime deductions</summary>
-        <div class="tool-input-group" style="margin-top:12px"><label>HRA Exemption</label><div class="tool-input-prefix"><input type="number" id="hra" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Housing Loan Interest <span>Old regime, self-occupied cap ₹2,00,000</span></label><div class="tool-input-prefix"><input type="number" id="home-loan-interest" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Section 80E - Education Loan Interest</label><div class="tool-input-prefix"><input type="number" id="c80e" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Section 80G - Donations</label><div class="tool-input-prefix"><input type="number" id="c80g" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Section 80TTA / 80TTB <span>Auto-capped by age</span></label><div class="tool-input-prefix"><input type="number" id="c80tta" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Family Pension Deduction</label><div class="tool-input-prefix"><input type="number" id="family-pension-deduction" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        <div class="tool-input-group"><label>Other Chapter VI-A Deductions</label><div class="tool-input-prefix"><input type="number" id="other80" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-      </details>`;
-
-    const grid = document.querySelector("#result-card .tool-result-grid");
-    if (grid) {
-      grid.innerHTML = `
-        <div class="tool-result-item"><div class="label">Old Regime Tax</div><div class="value" id="old-total">₹0</div></div>
-        <div class="tool-result-item highlight"><div class="label">New Regime Tax</div><div class="value" id="new-total">₹0</div></div>
-        <div class="tool-result-item"><div class="label">Old Taxable Income</div><div class="value" id="old-taxable">₹0</div></div>
-        <div class="tool-result-item"><div class="label">New Taxable Income</div><div class="value" id="new-taxable">₹0</div></div>`;
-    }
-    const resultCard = document.getElementById("result-card");
-    if (resultCard && !document.getElementById("tax-assumptions")) {
-      resultCard.insertAdjacentHTML("beforeend", `<div class="tool-info-box" id="tax-assumptions" style="margin-top:14px"><i class="fa-solid fa-triangle-exclamation"></i><p>Resident individual/HUF computation. Special-rate capital gains are taxed separately and are not reduced by the new-regime Section 87A rebate.</p></div>`);
-    }
-    breakdown.querySelector("tbody").innerHTML = `
-      <tr><td>Gross Income</td><td id="b-gross-o">₹0</td><td id="b-gross-n">₹0</td></tr>
-      <tr><td>Standard / Salary Deduction</td><td id="b-sd-o">₹0</td><td id="b-sd-n">₹0</td></tr>
-      <tr><td>Deductions & Exemptions</td><td id="b-ded-o">₹0</td><td id="b-ded-n">₹0</td></tr>
-      <tr><td>Taxable Normal Income</td><td id="b-ti-o">₹0</td><td id="b-ti-n">₹0</td></tr>
-      <tr><td>Normal Income Tax</td><td id="b-normal-tax-o">₹0</td><td id="b-normal-tax-n">₹0</td></tr>
-      <tr><td>Special Rate Tax</td><td id="b-special-tax-o">₹0</td><td id="b-special-tax-n">₹0</td></tr>
-      <tr><td>Rebate u/s 87A</td><td id="b-87a-o">₹0</td><td id="b-87a-n">₹0</td></tr>
-      <tr><td>Surcharge</td><td id="b-sur-o">₹0</td><td id="b-sur-n">₹0</td></tr>
-      <tr><td>Marginal Relief</td><td id="b-mr-o">₹0</td><td id="b-mr-n">₹0</td></tr>
-      <tr><td>Health & Education Cess (4%)</td><td id="b-cess-o">₹0</td><td id="b-cess-n">₹0</td></tr>
-      <tr class="highlight-row"><td><strong>Total Tax Payable</strong></td><td id="b-total-o"><strong>₹0</strong></td><td id="b-total-n"><strong>₹0</strong></td></tr>
-      <tr><td>Effective Tax Rate</td><td id="b-etr-o">0%</td><td id="b-etr-n">0%</td></tr>`;
-  }
+  
 
   function computeIncomeTax(isNew) {
     const age = Number(checked("age", "0"));
@@ -282,59 +193,7 @@
     if (window.drawDonut) drawDonut("donut-chart", [oldCalc.total, newCalc.total], ["Old", "New"], ["#0B1D3A", "#C9A84C"]);
   }
 
-  function buildAdvanceTaxUI() {
-    const layout = document.querySelector(".tool-container .tool-layout");
-    if (!layout || !document.getElementById("totaltax")) return;
-    document.querySelector("h1").textContent = "Advance Tax Calculator FY 2025-26";
-    const subtitle = document.querySelector(".tool-page-header p");
-    if (subtitle) subtitle.textContent = "Calculate instalments, TDS/TCS credit, 234B interest and 234C shortfall interest for AY 2026-27.";
-    layout.innerHTML = `
-      <div>
-        <div class="tool-card" style="margin-bottom:20px">
-          <div class="tool-card-title"><i class="fa-solid fa-user-check"></i> Taxpayer Details</div>
-          <div class="tool-input-group">
-            <label>Taxpayer Type</label>
-            <select id="advance-taxpayer-type" class="tool-select" onchange="calculate()">
-              <option value="regular">Regular taxpayer</option>
-              <option value="presumptive">Presumptive income u/s 44AD / 44ADA</option>
-            </select>
-          </div>
-          <div class="tool-input-group"><label>Estimated Tax Before Credits <span>Final annual tax including surcharge and cess</span></label><div class="tool-input-prefix"><input type="number" id="advance-gross-tax" class="tool-input" value="500000" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>TDS / TCS / Relief Already Available</label><div class="tool-input-prefix"><input type="number" id="advance-credits" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Self-assessment Tax Already Paid</label><div class="tool-input-prefix"><input type="number" id="self-assessment-paid" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Months after 1 April for 234B <span>Use months/part-months of delay</span></label><input type="number" id="months-234b" class="tool-input" value="1" min="0" oninput="calculate()"></div>
-        </div>
-        <div class="tool-card" style="margin-bottom:20px">
-          <div class="tool-card-title"><i class="fa-solid fa-money-bill"></i> Advance Tax Paid</div>
-          <div class="tool-input-group"><label>Paid on/before 15 June</label><div class="tool-input-prefix"><input type="number" id="p_jun" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Paid on/before 15 September</label><div class="tool-input-prefix"><input type="number" id="p_sep" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Paid on/before 15 December</label><div class="tool-input-prefix"><input type="number" id="p_dec" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Paid on/before 15 March</label><div class="tool-input-prefix"><input type="number" id="p_mar" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-info-box"><i class="fa-solid fa-circle-info"></i><p>For unexpected capital gains or similar income, 234C relief may apply if tax is paid in remaining instalments. Review final facts before filing.</p></div>
-        </div>
-      </div>
-      <div>
-        <div id="result-card" class="tool-card" style="margin-bottom:20px">
-          <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> Payment Schedule</div>
-          <div class="tool-result" style="text-align:center;margin-bottom:16px">
-            <div class="tool-result-label">Net Advance Tax Payable</div>
-            <div class="tool-result-value" id="net-tax">₹0</div>
-            <div class="tool-result-sub" id="advance-advice">Enter your estimated tax and payments</div>
-          </div>
-          <table class="tool-comparison" id="adv-table">
-            <thead><tr><th>Due Date</th><th>Required</th><th>Paid Cumulative</th><th>Shortfall</th><th>234C</th></tr></thead>
-            <tbody id="advance-breakdown"></tbody>
-          </table>
-          <div class="tool-result-grid" style="margin-top:16px">
-            <div class="tool-result-item"><div class="label">Estimated 234C</div><div class="value" id="int234c">₹0</div></div>
-            <div class="tool-result-item"><div class="label">Estimated 234B</div><div class="value" id="int234b">₹0</div></div>
-            <div class="tool-result-item highlight" style="grid-column:span 2"><div class="label">Balance / Shortfall After Credits & Payments</div><div class="value" id="advance-balance">₹0</div></div>
-          </div>
-          <div class="tool-info-box" style="margin-top:16px"><i class="fa-solid fa-triangle-exclamation"></i><p id="advance-assumption">Interest estimate uses Section 211 instalment percentages and 1% monthly interest assumptions. Presumptive taxpayers generally pay 100% by 15 March.</p></div>
-          <div class="tool-actions"><button class="tool-btn tool-btn-outline" onclick="downloadPDF('result-card','Advance-Tax-KCShah')">Download PDF</button></div>
-        </div>
-      </div>`;
-  }
+  
 
   function runAdvanceTaxCalculator() {
     const grossTax = num("advance-gross-tax");
@@ -385,44 +244,7 @@
     return Math.max(0, months);
   }
 
-  function buildCapitalGainsUI() {
-    const toolLayout = document.querySelector(".tool-container .tool-layout");
-    if (!toolLayout || !document.getElementById("asset")) return;
-    document.querySelector("h1").textContent = "Capital Gains Calculator";
-    const subtitle = document.querySelector(".tool-page-header p");
-    if (subtitle) subtitle.textContent = "Calculate STCG, LTCG, exemptions, cess and post-Budget 2024 tax treatment.";
-    toolLayout.innerHTML = `
-      <div id="capital-pdf-area">
-        <div class="tool-card" style="margin-bottom:20px">
-          <div class="tool-card-title"><i class="fa-solid fa-house"></i> Asset Details</div>
-          <div class="tool-input-group"><label>Asset Type</label><select id="asset" class="tool-select" onchange="calculate()"><option value="eq_listed">Listed Equity / Equity MF</option><option value="property">Residential House Property</option><option value="land_building">Land / Building</option><option value="gold">Gold / Jewelry</option><option value="eq_unlisted">Unlisted Equity</option><option value="debt">Debt Mutual Fund</option></select></div>
-          <div class="grid grid-2" style="margin-bottom:12px"><div class="tool-input-group"><label>Purchase Date</label><input type="date" id="pdate" class="tool-input" value="2020-04-01" onchange="calculate()"></div><div class="tool-input-group"><label>Sale Date</label><input type="date" id="sdate" class="tool-input" value="2025-04-01" onchange="calculate()"></div></div>
-          <div class="tool-input-group"><label>Purchase Price</label><div class="tool-input-prefix"><input type="number" id="pprice" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Indexed Cost <span>Auto-calculated from CII for eligible land/building; enter a value to override</span></label><div class="tool-input-prefix"><input type="number" id="indexed-cost" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Sale Price / Full Value of Consideration</label><div class="tool-input-prefix"><input type="number" id="sprice" class="tool-input" value="250000" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Transfer Expenses</label><div class="tool-input-prefix"><input type="number" id="exp" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Taxpayer Type</label><select id="taxpayer-type" class="tool-select" onchange="calculate()"><option value="resident">Resident individual / HUF</option><option value="other">Other taxpayer</option></select></div>
-          <div class="tool-input-group"><label>Surcharge Rate <span>Surcharge on capital gains is capped at 15%</span></label><select id="cg-surcharge-rate" class="tool-select" onchange="calculate()"><option value="0">No surcharge</option><option value="0.1">10%</option><option value="0.15">15%</option></select></div>
-        </div>
-        <div class="tool-card" style="margin-bottom:20px">
-          <div class="tool-card-title"><i class="fa-solid fa-key"></i> Exemptions</div>
-          <div class="tool-input-group"><label>Section 54 Investment <span>Residential house sold, max eligible investment ₹10 crore</span></label><div class="tool-input-prefix"><input type="number" id="sec54" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Section 54F Investment <span>Other long-term asset into residential house</span></label><div class="tool-input-prefix"><input type="number" id="sec54f" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Section 54EC Bonds <span>Land/building LTCG, cap ₹50 lakh</span></label><div class="tool-input-prefix"><input type="number" id="sec54ec" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-        </div>
-      </div>
-      <div>
-        <div id="result-card" class="tool-card" style="margin-bottom:20px">
-          <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> Capital Gains Result</div>
-          <div class="tool-result" style="text-align:center;margin-bottom:16px"><div class="tool-result-label" id="gain-type">Long Term Capital Gain</div><div class="tool-result-value" id="gain-amount">₹0</div><div class="tool-result-sub" id="tax-method">Post Budget 2024 method</div></div>
-          <div class="tool-result-grid"><div class="tool-result-item"><div class="label">Holding Period</div><div class="value" id="hold-period">0 Months</div></div><div class="tool-result-item"><div class="label">Tax Rate</div><div class="value" id="tax-rate">12.5%</div></div><div class="tool-result-item"><div class="label">Exemption Claimed</div><div class="value" id="cg-exemption">₹0</div></div><div class="tool-result-item highlight"><div class="label">Total Tax incl. Cess</div><div class="value" id="tax-amount">₹0</div></div></div>
-          <div id="cg-methods" style="margin-top:16px"></div>
-          <div class="tool-info-box" style="margin-top:16px"><i class="fa-solid fa-info-circle"></i><p id="cg-eligibility">Exemptions are indicative and subject to investment timing, ownership, lock-in and CGAS conditions.</p></div>
-          <div class="tool-actions"><button class="tool-btn tool-btn-outline" onclick="downloadPDF('capital-pdf-area','Capital-Gains-KCShah')">Download PDF</button></div>
-        </div>
-        <div class="tool-card" style="margin-bottom:20px"><div class="tool-card-title"><i class="fa-solid fa-table"></i> Computation</div><table class="tool-comparison"><tbody id="cg-breakdown"></tbody></table></div>
-      </div>`;
-  }
+  
 
   function runCapitalGainsCalculator() {
     const asset = document.getElementById("asset")?.value;
@@ -555,9 +377,326 @@
       { q: "Are special-rate capital gains covered?", a: "Yes. It separates STCG under section 111A and LTCG under sections 112A and 112 so they are not incorrectly reduced by the new-regime Section 87A rebate." },
       { q: "Is this a substitute for tax filing advice?", a: "No. It is an indicative calculator based on user inputs and should be reviewed before filing a return." },
     ]);
-    buildIncomeTaxUI();
+    
+    // -- Professional Tax Report PDF Generator --
+async function generateTaxReportPDF() {
+  showToast('Preparing professional report-', 'info');
+  try { await ensurePdfLibs(); } catch (e) { showToast('Could not load PDF library.', 'error'); return; }
+
+  // Read all inputs
+  const sal   = parseFloat(document.getElementById('salary-income').value) || 0;
+  const other = parseFloat((parseFloat(document.getElementById('other-income').value)||0) + (parseFloat(document.getElementById('house-income').value)||0) + (parseFloat(document.getElementById('business-income').value)||0) + (parseFloat(document.getElementById('normal-cg').value)||0))  || 0;
+  const stcg  = parseFloat(document.getElementById('stcg-111a').value)   || 0;
+  const ltcg  = parseFloat((parseFloat(document.getElementById('ltcg-112a').value)||0) + (parseFloat(document.getElementById('ltcg-112').value)||0))   || 0;
+  const c80c  = Math.min(parseFloat(document.getElementById('c80c').value)  || 0, 150000);
+  const c80d  = parseFloat(document.getElementById('c80d').value)   || 0;
+  const nps   = Math.min(parseFloat(document.getElementById('nps').value)   || 0, 50000);
+  const hra   = parseFloat(document.getElementById('hra').value)    || 0;
+  const o80   = parseFloat(document.getElementById('other80').value)|| 0;
+  const age   = parseInt(document.querySelector('input[name="age"]:checked').value);
+  const ageLabel = age===2?'Above 80 (Super Senior Citizen)':age===1?'60 - 80 (Senior Citizen)':'Below 60';
+
+  // Read computed results from DOM
+  const oldTotalStr   = document.getElementById('b-total-o').textContent.replace(/[^0-9,.]/g,'').replace(/,/g,'');
+  const newTotalStr   = document.getElementById('b-total-n').textContent.replace(/[^0-9,.]/g,'').replace(/,/g,'');
+  const oldTotal      = parseInt(oldTotalStr) || 0;
+  const newTotal      = parseInt(newTotalStr) || 0;
+  const winner        = document.getElementById('winner-text').textContent;
+  const savings       = Math.abs(oldTotal - newTotal);
+
+  const f = n => '?' + Math.round(n).toLocaleString('en-IN');
+  const pct = n => (n*100).toFixed(2)+'%';
+  const gross = sal + other + stcg + ltcg;
+
+  // Individual tax components from DOM
+  const get = id => document.getElementById(id)?.textContent?.trim() || '-';
+
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const reportNo = 'KCS-ITR-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0');
+
+  const navy = '#1F3A6E';
+  const gold = '#d95e0b';
+  const lightBlue = '#E8EDF5';
+  const green = '#1a7a4a';
+  const greenBg = '#E8F5EF';
+
+  const winnerIsNew = winner.toLowerCase().includes('new');
+  const recColor = winnerIsNew ? green : '#1a4a7a';
+  const recBg    = winnerIsNew ? greenBg : '#E8EDF5';
+
+  const oldTaxable = parseInt((get('b-ti-o')||'0').replace(/[^0-9]/g,'')) || 0;
+  const newTaxable = parseInt((get('b-ti-n')||'0').replace(/[^0-9]/g,'')) || 0;
+  const oldETR = gross > 0 ? pct(oldTotal/gross) : '0.00%';
+  const newETR = gross > 0 ? pct(newTotal/gross) : '0.00%';
+
+  const html = `
+<div style="width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#222;font-size:13px;line-height:1.5">
+
+  <!-- LETTERHEAD -->
+  <div style="background:${navy};padding:22px 32px 18px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="color:${gold};font-size:22px;font-weight:700;letter-spacing:0.5px">KC Shah & Associates</div>
+      <div style="color:rgba(255,255,255,0.8);font-size:11px;margin-top:3px">Chartered Accountants | Mumbai</div>
+    </div>
+    <div style="text-align:right;color:rgba(255,255,255,0.75);font-size:10.5px;line-height:1.8">
+      <div>karan@kcshah.com</div>
+      <div>+91 76666 38995</div>
+      <div>kcshah.com</div>
+    </div>
+  </div>
+
+  <!-- GOLD RULE -->
+  <div style="height:4px;background:linear-gradient(90deg,${gold},#f0a05a,${gold})"></div>
+
+  <!-- DOCUMENT TITLE -->
+  <div style="background:#F4F6FA;padding:18px 32px;border-bottom:1px solid #dde3ef">
+    <div style="font-size:17px;font-weight:700;color:${navy};letter-spacing:0.3px">INCOME TAX COMPUTATION STATEMENT</div>
+    <div style="font-size:11.5px;color:#555;margin-top:4px">Financial Year 2026-27 &nbsp;|&nbsp; Assessment Year 2027-28</div>
+  </div>
+
+  <!-- META ROW -->
+  <div style="display:flex;justify-content:space-between;padding:12px 32px;background:#fff;border-bottom:1px solid #eee;font-size:11px;color:#555">
+    <div><span style="font-weight:600;color:${navy}">Report No:</span> ${reportNo}</div>
+    <div><span style="font-weight:600;color:${navy}">Generated:</span> ${dateStr}</div>
+    <div><span style="font-weight:600;color:${navy}">Status:</span> Resident Individual</div>
+    <div><span style="font-weight:600;color:${navy}">Age Category:</span> ${ageLabel}</div>
+  </div>
+
+  <div style="padding:24px 32px">
+
+    <!-- INCOME PARTICULARS -->
+    <div style="margin-bottom:22px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:0">A. Income Particulars</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+        <thead>
+          <tr style="background:${navy}">
+            <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Particulars</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (?)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Gross Salary / Business Income</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(sal)}</td></tr>
+          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Income from Other Sources (Interest, Dividends)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(other)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Short-Term Capital Gains (Sec. 111A @ 20%)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(stcg)}</td></tr>
+          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Long-Term Capital Gains (Sec. 112A @ 12.5%)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(ltcg)}</td></tr>
+          <tr style="background:${lightBlue}">
+            <td style="padding:9px 14px;font-weight:700;color:${navy}">Gross Total Income</td>
+            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${f(gross)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DEDUCTIONS (OLD REGIME) -->
+    <div style="margin-bottom:22px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:0">B. Deductions Claimed (Old Regime)</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+        <thead>
+          <tr style="background:${navy}">
+            <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Deduction</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (?)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Standard Deduction (both regimes)</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(75000)}</td></tr>
+          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Section 80C - PPF, ELSS, LIC, EPF, etc.</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(c80c)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">Section 80D - Medical Insurance Premium</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(c80d)}</td></tr>
+          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Section 80CCD(1B) - NPS Contribution</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(nps)}</td></tr>
+          <tr style="background:#F9FAFB"><td style="padding:8px 14px;border-bottom:1px solid #eee">HRA Exemption</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(hra)}</td></tr>
+          <tr><td style="padding:8px 14px;border-bottom:1px solid #eee">Other Chapter VI-A Deductions</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${f(o80)}</td></tr>
+          <tr style="background:${lightBlue}">
+            <td style="padding:9px 14px;font-weight:700;color:${navy}">Total Deductions (Old Regime)</td>
+            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${f(75000+c80c+c80d+nps+hra+o80)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAX COMPUTATION -->
+    <div style="margin-bottom:22px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:0">C. Tax Computation - Old Regime vs New Regime</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+        <thead>
+          <tr style="background:${navy}">
+            <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:50%">Particulars</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600;width:25%">Old Regime</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600;width:25%">New Regime</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#F9FAFB">
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Gross Total Income</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-gross-o')}</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-gross-n')}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Less: Standard Deduction</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-sd-o')})</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-sd-n')})</td>
+          </tr>
+          <tr style="background:#F9FAFB">
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Less: Chapter VI-A Deductions</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-ded-o')})</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#888">Not Applicable</td>
+          </tr>
+          <tr style="background:${lightBlue}">
+            <td style="padding:9px 14px;font-weight:700;color:${navy}">Taxable Income</td>
+            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${get('b-ti-o')}</td>
+            <td style="padding:9px 14px;font-weight:700;color:${navy};text-align:right">${get('b-ti-n')}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Income Tax (as per applicable slabs)</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-tax-o')}</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-tax-n')}</td>
+          </tr>
+          <tr style="background:#F9FAFB">
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Less: Rebate u/s 87A</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-o')})</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">(${get('b-87a-n')})</td>
+          </tr>
+          <tr style="background:#F9FAFB">
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Capital Gains Tax (Sec. 111A / 112A - Special Rate)</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cg-o')}</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cg-n')}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Surcharge</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-sur-o')}</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-sur-n')}</td>
+          </tr>
+          <tr style="background:#F9FAFB">
+            <td style="padding:8px 14px;border-bottom:1px solid #eee">Add: Health & Education Cess @ 4%</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cess-o')}</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${get('b-cess-n')}</td>
+          </tr>
+          <tr style="background:${navy}">
+            <td style="padding:11px 14px;font-weight:700;color:white;font-size:13px">TOTAL TAX PAYABLE</td>
+            <td style="padding:11px 14px;font-weight:700;color:${gold};text-align:right;font-size:13px">${f(oldTotal)}</td>
+            <td style="padding:11px 14px;font-weight:700;color:${gold};text-align:right;font-size:13px">${f(newTotal)}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;color:#555">Effective Tax Rate (on Gross Income)</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#555">${oldETR}</td>
+            <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#555">${newETR}</td>
+          </tr>
+          <tr style="background:#F9FAFB">
+            <td style="padding:8px 14px;color:#555">Monthly Tax Outflow</td>
+            <td style="padding:8px 14px;text-align:right;color:#555">${f(Math.round(oldTotal/12))}</td>
+            <td style="padding:8px 14px;text-align:right;color:#555">${f(Math.round(newTotal/12))}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RECOMMENDATION -->
+    <div style="background:${recBg};border:2px solid ${recColor};border-radius:8px;padding:18px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:${recColor};margin-bottom:4px">? Recommended Tax Regime</div>
+        <div style="font-size:22px;font-weight:700;color:${recColor}">${winner}</div>
+        <div style="font-size:12px;color:${recColor};margin-top:4px;opacity:0.85">Based on your income profile and deductions for FY 2026-27</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;color:${recColor};opacity:0.8;margin-bottom:4px">Annual Tax Savings</div>
+        <div style="font-size:28px;font-weight:700;color:${recColor}">${f(savings)}</div>
+        <div style="font-size:11px;color:${recColor};opacity:0.8">vs ${winnerIsNew?'Old':'New'} Regime</div>
+      </div>
+    </div>
+
+    <!-- SLAB REFERENCE -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:10px">D. Tax Slab Reference - FY 2026-27</div>
+      <div style="display:flex;gap:16px">
+        <table style="width:50%;border-collapse:collapse;font-size:11.5px">
+          <thead><tr style="background:#334E78"><th style="text-align:left;padding:7px 10px;color:white;font-weight:600">New Regime Slab</th><th style="text-align:right;padding:7px 10px;color:white;font-weight:600">Rate</th></tr></thead>
+          <tbody>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to ₹4,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹4,00,001 - ₹8,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹8,00,001 - ₹12,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">10%</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹12,00,001 - ₹16,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">15%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹16,00,001 - ₹20,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹20,00,001 - ₹24,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">25%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px">Above ₹24,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
+          </tbody>
+        </table>
+        <table style="width:50%;border-collapse:collapse;font-size:11.5px">
+          <thead><tr style="background:#334E78"><th style="text-align:left;padding:7px 10px;color:white;font-weight:600">Old Regime Slab (Below 60)</th><th style="text-align:right;padding:7px 10px;color:white;font-weight:600">Rate</th></tr></thead>
+          <tbody>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to ₹2,50,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹2,50,001 - ₹5,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹5,00,001 - ₹10,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
+            <tr><td style="padding:6px 10px">Above ₹10,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div style="background:#FFF8E7;border-left:3px solid ${gold};padding:12px 16px;border-radius:0 6px 6px 0;font-size:10.5px;color:#7a6000;margin-bottom:0">
+      <strong>Disclaimer:</strong> This computation is generated for informational purposes only based on inputs provided by the user. It does not constitute professional tax advice. Tax liability may vary based on actual income, exemptions, surcharge applicability, and CBDT notifications. Please consult a Chartered Accountant before filing your Income Tax Return.
+    </div>
+
+  </div><!-- end padding div -->
+
+  <!-- FOOTER -->
+  <div style="background:${navy};padding:14px 32px;display:flex;justify-content:space-between;align-items:center;margin-top:0">
+    <div style="color:rgba(255,255,255,0.6);font-size:10px">KC Shah & Associates | Chartered Accountants, Mumbai | kcshah.com</div>
+    <div style="color:${gold};font-size:10px;font-weight:600">CA-Verified Computation | FY 2026-27</div>
+    <div style="color:rgba(255,255,255,0.6);font-size:10px">Page 1 of 1</div>
+  </div>
+
+</div>`;
+
+  // Inject hidden render container
+  const wrapper = document.createElement('div');
+  wrapper.id = '__tax-pdf-render__';
+  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;z-index:-1;background:#fff';
+  wrapper.innerHTML = html;
+  document.body.appendChild(wrapper);
+
+  const reportEl = wrapper.firstElementChild;
+
+  html2canvas(reportEl, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    width: 794,
+    windowWidth: 794
+  }).then(canvas => {
+    document.body.removeChild(wrapper);
+    const { jsPDF } = jspdf;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pdfW = pdf.internal.pageSize.getWidth();   // 210mm
+    const pdfH = pdf.internal.pageSize.getHeight();  // 297mm
+    const imgData = canvas.toDataURL('image/jpeg', 0.97);
+    const imgH = (canvas.height * pdfW) / canvas.width;
+
+    if (imgH <= pdfH) {
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, imgH);
+    } else {
+      // multi-page if needed
+      let yOffset = 0;
+      let remaining = imgH;
+      let page = 0;
+      while (remaining > 0) {
+        if (page > 0) pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, -yOffset, pdfW, imgH);
+        yOffset += pdfH;
+        remaining -= pdfH;
+        page++;
+      }
+    }
+    pdf.save('KC-Shah-Tax-Report-FY2627.pdf');
+    showToast('Professional PDF downloaded!', 'success');
+  }).catch(err => {
+    document.body.removeChild(wrapper);
+    console.error(err);
+    showToast('PDF generation failed. Please try again.', 'error');
+  });
+}
+
+    window.generateTaxReportPDF = generateTaxReportPDF;
     window.calculate = runIncomeTaxCalculator;
-    window.generateTaxReportPDF = function () { downloadPDF("pdf-export-area", "Income-Tax-KCShah"); };
     document.addEventListener("DOMContentLoaded", runIncomeTaxCalculator);
     runIncomeTaxCalculator();
   }
@@ -567,7 +706,196 @@
       { q: "What instalments are used for regular taxpayers?", a: "Regular taxpayers generally use cumulative instalments of 15%, 45%, 75% and 100% by 15 June, 15 September, 15 December and 15 March." },
       { q: "Does the calculator estimate 234B and 234C interest?", a: "Yes. It estimates 234C for instalment shortfalls and 234B where advance tax paid is below the required threshold." },
     ]);
-    buildAdvanceTaxUI();
+    
+    
+async function generateAdvanceTaxReportPDF() {
+  showToast('Preparing professional report-', 'info');
+  try { await ensurePdfLibs(); } catch (e) { showToast('Could not load PDF library.', 'error'); return; }
+
+  // Read inputs
+  const taxpayerType = document.getElementById('advance-taxpayer-type').options[document.getElementById('advance-taxpayer-type').selectedIndex].text;
+  const grossTax = document.getElementById('advance-gross-tax').value || "0";
+  const credits = document.getElementById('advance-credits').value || "0";
+  const selfAssPaid = document.getElementById('self-assessment-paid').value || "0";
+  
+  // Read outputs
+  const netTax = document.getElementById('net-tax')?.textContent || '0';
+  const int234c = document.getElementById('int234c')?.textContent || '0';
+  const int234b = document.getElementById('int234b')?.textContent || '0';
+  const balance = document.getElementById('advance-balance')?.textContent || '0';
+  const advice = document.getElementById('advance-advice')?.textContent || '';
+
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const reportNo = 'KCS-ADV-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0');
+
+  const navy = '#1F3A6E';
+  const gold = '#d95e0b';
+  const lightBlue = '#E8EDF5';
+  
+  // Create table rows for the computation section from the advance-breakdown table
+  const breakdownRows = Array.from(document.querySelectorAll('#advance-breakdown tr')).map(tr => {
+    const tds = tr.querySelectorAll('td');
+    if (tds.length === 5) return [tds[0].textContent, tds[1].textContent, tds[2].textContent, tds[3].textContent, tds[4].textContent];
+    return null;
+  }).filter(Boolean);
+  
+  let computationHtml = '';
+  breakdownRows.forEach((row, i) => {
+    let bg = i % 2 === 0 ? '#F9FAFB' : '#fff';
+    computationHtml += `<tr style="background:${bg}">
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;">${row[0]}</td>
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;">${row[1]}</td>
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;">${row[2]}</td>
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;">${row[3]}</td>
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;color:#c62828">${row[4]}</td>
+    </tr>`;
+  });
+
+  const html = `
+<div style="width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#222;font-size:13px;line-height:1.5">
+
+  <!-- LETTERHEAD -->
+  <div style="background:${navy};padding:22px 32px 18px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="color:${gold};font-size:22px;font-weight:700;letter-spacing:0.5px">KC Shah & Associates</div>
+      <div style="color:rgba(255,255,255,0.8);font-size:11px;margin-top:3px">Chartered Accountants | Mumbai</div>
+    </div>
+    <div style="text-align:right;color:rgba(255,255,255,0.75);font-size:10.5px;line-height:1.8">
+      <div>karan@kcshah.com</div>
+      <div>+91 76666 38995</div>
+      <div>kcshah.com</div>
+    </div>
+  </div>
+
+  <!-- GOLD RULE -->
+  <div style="height:4px;background:linear-gradient(90deg,${gold},#f0a05a,${gold})"></div>
+
+  <!-- DOCUMENT TITLE -->
+  <div style="background:#F4F6FA;padding:18px 32px;border-bottom:1px solid #dde3ef">
+    <div style="font-size:17px;font-weight:700;color:${navy};letter-spacing:0.3px">ADVANCE TAX COMPUTATION STATEMENT</div>
+    <div style="font-size:11.5px;color:#555;margin-top:4px">Financial Year 2026-27 &nbsp;|&nbsp; Assessment Year 2027-28</div>
+  </div>
+
+  <!-- META ROW -->
+  <div style="display:flex;justify-content:space-between;padding:12px 32px;background:#fff;border-bottom:1px solid #eee;font-size:11px;color:#555">
+    <div><span style="font-weight:600;color:${navy}">Report No:</span> ${reportNo}</div>
+    <div><span style="font-weight:600;color:${navy}">Generated:</span> ${dateStr}</div>
+    <div><span style="font-weight:600;color:${navy}">Taxpayer:</span> ${taxpayerType}</div>
+  </div>
+
+  <div style="padding:24px 32px">
+  
+    <!-- SUMMARY CARDS -->
+    <div style="display:flex;gap:16px;margin-bottom:24px">
+      <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${navy}">
+        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Net Advance Tax Payable</div>
+        <div style="font-size:16px;font-weight:700;color:${navy};margin-top:4px">${netTax}</div>
+      </div>
+      <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid #c62828">
+        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Estimated Interest (234B & 234C)</div>
+        <div style="font-size:16px;font-weight:700;color:#c62828;margin-top:4px">₹${(parseFloat(int234c.replace(/[^0-9.]/g,'')) || 0) + (parseFloat(int234b.replace(/[^0-9.]/g,'')) || 0)}</div>
+      </div>
+      <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${gold}">
+        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Balance Tax / Shortfall</div>
+        <div style="font-size:16px;font-weight:700;color:${gold};margin-top:4px">${balance}</div>
+      </div>
+    </div>
+
+    <!-- TRANSACTION DETAILS -->
+    <div style="margin-bottom:22px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:12px">A. Tax Assessment Details</div>
+      <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:12px">
+        <div style="flex:1;min-width:45%">
+          <div style="margin-bottom:8px"><span style="color:#666">Estimated Tax Before Credits:</span> <strong>₹${Number(grossTax).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">TDS/TCS Credits:</span> <strong>₹${Number(credits).toLocaleString('en-IN')}</strong></div>
+        </div>
+        <div style="flex:1;min-width:45%">
+          <div style="margin-bottom:8px"><span style="color:#666">Self-Assessment Tax Paid:</span> <strong>₹${Number(selfAssPaid).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Result:</span> <strong>${advice}</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPUTATION TABLE -->
+    <div style="margin-bottom:22px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:0">B. Instalment Schedule & Interest Estimation</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+        <thead>
+          <tr style="background:${navy}">
+            <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:20%">Due Date</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600;width:20%">Required</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600;width:20%">Paid Cumulative</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600;width:20%">Shortfall</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600;width:20%">234C Int.</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${computationHtml}
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:11.5px;color:#555">
+         <strong>Total Estimated 234C Interest:</strong> ${int234c} <br>
+         <strong>Total Estimated 234B Interest:</strong> ${int234b}
+      </div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div style="background:#FDF2E9;border-left:3px solid ${gold};padding:12px 16px;font-size:10.5px;color:#703f16;margin-top:40px">
+      <strong>Disclaimer:</strong> This computation is an estimate generated based on user inputs and current tax laws. It should not be construed as professional tax advice. The 234B and 234C interest calculations are estimations using standard instalment percentages. Please consult your Chartered Accountant before filing your income tax return or paying advance tax.
+    </div>
+
+  </div>
+</div>
+  `;
+
+  const wrapper = document.createElement('div');
+  wrapper.style.position = 'absolute';
+  wrapper.style.top = '-9999px';
+  wrapper.style.left = '-9999px';
+  wrapper.style.zIndex = '-1';
+  wrapper.innerHTML = html;
+  document.body.appendChild(wrapper);
+
+  html2canvas(wrapper.firstElementChild, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    width: 794,
+    windowWidth: 794
+  }).then(canvas => {
+    document.body.removeChild(wrapper);
+    const { jsPDF } = jspdf;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pdfW = pdf.internal.pageSize.getWidth();
+    const pdfH = pdf.internal.pageSize.getHeight();
+    const imgData = canvas.toDataURL('image/jpeg', 0.97);
+    const imgH = (canvas.height * pdfW) / canvas.width;
+
+    if (imgH <= pdfH) {
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, imgH);
+    } else {
+      let yOffset = 0;
+      let remaining = imgH;
+      let page = 0;
+      while (remaining > 0) {
+        if (page > 0) pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, -yOffset, pdfW, imgH);
+        yOffset += pdfH;
+        remaining -= pdfH;
+        page++;
+      }
+    }
+    pdf.save('KC-Shah-Advance-Tax-FY2627.pdf');
+    showToast('Professional PDF downloaded!', 'success');
+  }).catch(err => {
+    document.body.removeChild(wrapper);
+    console.error(err);
+    showToast('PDF generation failed. Please try again.', 'error');
+  });
+}
+
+    window.generateAdvanceTaxReportPDF = generateAdvanceTaxReportPDF;
     window.calculate = runAdvanceTaxCalculator;
     document.addEventListener("DOMContentLoaded", runAdvanceTaxCalculator);
     runAdvanceTaxCalculator();
@@ -578,7 +906,195 @@
       { q: "Does it handle post-Budget 2024 capital gains rates?", a: "Yes. It separates listed equity, land/building and other asset classes and applies post-Budget 2024 rates where relevant." },
       { q: "Can it compare indexed and non-indexed land or building tax?", a: "Yes. For eligible resident individuals or HUFs (land/building acquired before 23 July 2024), it shows both 12.5% without indexation and 20% with indexation and applies the lower under Section 197(3). Indexed cost is auto-calculated from the Cost Inflation Index." },
     ]);
-    buildCapitalGainsUI();
+    
+    
+async function generateCapitalGainsReportPDF() {
+  showToast('Preparing professional report-', 'info');
+  try { await ensurePdfLibs(); } catch (e) { showToast('Could not load PDF library.', 'error'); return; }
+
+  // Read inputs
+  const assetType = document.getElementById('asset').options[document.getElementById('asset').selectedIndex].text;
+  const pdate = document.getElementById('pdate').value;
+  const sdate = document.getElementById('sdate').value;
+  const pprice = document.getElementById('pprice').value || "0";
+  const sprice = document.getElementById('sprice').value || "0";
+  const indexedCost = document.getElementById('indexed-cost').value || "0";
+  const exp = document.getElementById('exp').value || "0";
+  
+  // Read outputs
+  const gainType = document.getElementById('gain-type')?.textContent || '-';
+  const gainAmount = document.getElementById('gain-amount')?.textContent || '0';
+  const holdPeriod = document.getElementById('hold-period')?.textContent || '-';
+  const taxRate = document.getElementById('tax-rate')?.textContent || '-';
+  const taxMethod = document.getElementById('tax-method')?.textContent || '-';
+  const cgExemption = document.getElementById('cg-exemption')?.textContent || '0';
+  const taxAmount = document.getElementById('tax-amount')?.textContent || '0';
+
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const reportNo = 'KCS-CG-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0');
+
+  const navy = '#1F3A6E';
+  const gold = '#d95e0b';
+  const lightBlue = '#E8EDF5';
+  
+  // Create table rows for the computation section from the cg-breakdown table
+  const breakdownRows = Array.from(document.querySelectorAll('#cg-breakdown tr')).map(tr => {
+    const tds = tr.querySelectorAll('td');
+    if (tds.length === 2) return [tds[0].textContent, tds[1].textContent, tr.classList.contains('highlight-row')];
+    return null;
+  }).filter(Boolean);
+  
+  let computationHtml = '';
+  breakdownRows.forEach((row, i) => {
+    let bg = i % 2 === 0 ? '#F9FAFB' : '#fff';
+    if (row[2]) bg = lightBlue;
+    computationHtml += `<tr style="background:${bg}">
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;${row[2]?'font-weight:700;color:'+navy:''} ">${row[0]}</td>
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;${row[2]?'font-weight:700;color:'+navy:''} ">${row[1]}</td>
+    </tr>`;
+  });
+
+  const html = `
+<div style="width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#222;font-size:13px;line-height:1.5">
+
+  <!-- LETTERHEAD -->
+  <div style="background:${navy};padding:22px 32px 18px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="color:${gold};font-size:22px;font-weight:700;letter-spacing:0.5px">KC Shah & Associates</div>
+      <div style="color:rgba(255,255,255,0.8);font-size:11px;margin-top:3px">Chartered Accountants | Mumbai</div>
+    </div>
+    <div style="text-align:right;color:rgba(255,255,255,0.75);font-size:10.5px;line-height:1.8">
+      <div>karan@kcshah.com</div>
+      <div>+91 76666 38995</div>
+      <div>kcshah.com</div>
+    </div>
+  </div>
+
+  <!-- GOLD RULE -->
+  <div style="height:4px;background:linear-gradient(90deg,${gold},#f0a05a,${gold})"></div>
+
+  <!-- DOCUMENT TITLE -->
+  <div style="background:#F4F6FA;padding:18px 32px;border-bottom:1px solid #dde3ef">
+    <div style="font-size:17px;font-weight:700;color:${navy};letter-spacing:0.3px">CAPITAL GAINS COMPUTATION STATEMENT</div>
+    <div style="font-size:11.5px;color:#555;margin-top:4px">Financial Year 2026-27 &nbsp;|&nbsp; Assessment Year 2027-28</div>
+  </div>
+
+  <!-- META ROW -->
+  <div style="display:flex;justify-content:space-between;padding:12px 32px;background:#fff;border-bottom:1px solid #eee;font-size:11px;color:#555">
+    <div><span style="font-weight:600;color:${navy}">Report No:</span> ${reportNo}</div>
+    <div><span style="font-weight:600;color:${navy}">Generated:</span> ${dateStr}</div>
+    <div><span style="font-weight:600;color:${navy}">Asset Type:</span> ${assetType}</div>
+  </div>
+
+  <div style="padding:24px 32px">
+  
+    <!-- SUMMARY CARDS -->
+    <div style="display:flex;gap:16px;margin-bottom:24px">
+      <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${navy}">
+        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Gain Classification</div>
+        <div style="font-size:16px;font-weight:700;color:${navy};margin-top:4px">${gainType}</div>
+      </div>
+      <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${navy}">
+        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Holding Period</div>
+        <div style="font-size:16px;font-weight:700;color:${navy};margin-top:4px">${holdPeriod}</div>
+      </div>
+      <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${gold}">
+        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Total Tax Payable</div>
+        <div style="font-size:16px;font-weight:700;color:${gold};margin-top:4px">${taxAmount}</div>
+      </div>
+    </div>
+
+    <!-- TRANSACTION DETAILS -->
+    <div style="margin-bottom:22px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:12px">A. Transaction Details</div>
+      <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:12px">
+        <div style="flex:1;min-width:45%">
+          <div style="margin-bottom:8px"><span style="color:#666">Purchase Date:</span> <strong>${pdate}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Purchase Price:</span> <strong>₹${Number(pprice).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Transfer Expenses:</span> <strong>₹${Number(exp).toLocaleString('en-IN')}</strong></div>
+        </div>
+        <div style="flex:1;min-width:45%">
+          <div style="margin-bottom:8px"><span style="color:#666">Sale Date:</span> <strong>${sdate}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Sale Price:</span> <strong>₹${Number(sprice).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Applicable Tax Rate:</span> <strong>${taxRate}</strong></div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:#666"><em>Note: ${taxMethod}</em></div>
+    </div>
+
+    <!-- COMPUTATION TABLE -->
+    <div style="margin-bottom:22px">
+      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:0">B. Detailed Computation</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+        <thead>
+          <tr style="background:${navy}">
+            <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:70%">Particulars</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600;width:30%">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${computationHtml}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div style="background:#FDF2E9;border-left:3px solid ${gold};padding:12px 16px;font-size:10.5px;color:#703f16;margin-top:40px">
+      <strong>Disclaimer:</strong> This computation is an estimate generated based on user inputs and current tax laws (including Budget 2024 changes). It should not be construed as professional tax advice. Exemptions (Sec 54/54F/54EC) are subject to statutory conditions. Please consult your Chartered Accountant before filing your income tax return.
+    </div>
+
+  </div>
+</div>
+  `;
+
+  const wrapper = document.createElement('div');
+  wrapper.style.position = 'absolute';
+  wrapper.style.top = '-9999px';
+  wrapper.style.left = '-9999px';
+  wrapper.style.zIndex = '-1';
+  wrapper.innerHTML = html;
+  document.body.appendChild(wrapper);
+
+  html2canvas(wrapper.firstElementChild, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    width: 794,
+    windowWidth: 794
+  }).then(canvas => {
+    document.body.removeChild(wrapper);
+    const { jsPDF } = jspdf;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pdfW = pdf.internal.pageSize.getWidth();
+    const pdfH = pdf.internal.pageSize.getHeight();
+    const imgData = canvas.toDataURL('image/jpeg', 0.97);
+    const imgH = (canvas.height * pdfW) / canvas.width;
+
+    if (imgH <= pdfH) {
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, imgH);
+    } else {
+      let yOffset = 0;
+      let remaining = imgH;
+      let page = 0;
+      while (remaining > 0) {
+        if (page > 0) pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, -yOffset, pdfW, imgH);
+        yOffset += pdfH;
+        remaining -= pdfH;
+        page++;
+      }
+    }
+    pdf.save('KC-Shah-Capital-Gains-FY2627.pdf');
+    showToast('Professional PDF downloaded!', 'success');
+  }).catch(err => {
+    document.body.removeChild(wrapper);
+    console.error(err);
+    showToast('PDF generation failed. Please try again.', 'error');
+  });
+}
+
+    window.generateCapitalGainsReportPDF = generateCapitalGainsReportPDF;
     window.calculate = runCapitalGainsCalculator;
     document.addEventListener("DOMContentLoaded", runCapitalGainsCalculator);
     runCapitalGainsCalculator();
