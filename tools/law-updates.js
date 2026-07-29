@@ -1,5 +1,5 @@
-(function () {
-  const INR = (n) => (window.formatINRFull ? window.formatINRFull(n) : "₹" + Math.round(n || 0).toLocaleString("en-IN"));
+﻿(function () {
+  const INR = (n) => (window.formatINRFull ? window.formatINRFull(n) : "â‚¹" + Math.round(n || 0).toLocaleString("en-IN"));
   const num = (id) => {
     const el = document.getElementById(id);
     return el ? Math.max(0, Number(el.value) || 0) : 0;
@@ -317,16 +317,16 @@
         rate = 0.2;
         displayTaxableGain = taxableIndexed;
         baseTax = taxIndexed;
-        method = "LTCG · 20% with indexation (payable)";
+        method = "LTCG Â· 20% with indexation (payable)";
       } else {
         rate = 0.125;
         displayTaxableGain = taxableNoIndex;
         baseTax = taxNoIndex;
-        method = "LTCG · 12.5% without indexation (payable)";
+        method = "LTCG Â· 12.5% without indexation (payable)";
       }
       eligibility = "Resident individual/HUF, land/building acquired before 23 Jul 2024: under section 197(3) you pay the lower of the two methods below. Indexed cost is auto-calculated from the Cost Inflation Index (override optional).";
-      const tag = (lower) => (lower ? '<span style="color:#0a7d33;font-weight:600"> (lower — payable)</span>' : '<span style="color:#888"> (higher — ignored)</span>');
-      methodsHtml = `<div class="tool-card-title" style="font-size:0.95rem;margin-bottom:8px"><i class="fa-solid fa-scale-balanced"></i> Both methods compared — s.197(3)</div>` +
+      const tag = (lower) => (lower ? '<span style="color:#0a7d33;font-weight:600"> (lower â€” payable)</span>' : '<span style="color:#888"> (higher â€” ignored)</span>');
+      methodsHtml = `<div class="tool-card-title" style="font-size:0.95rem;margin-bottom:8px"><i class="fa-solid fa-scale-balanced"></i> Both methods compared â€” s.197(3)</div>` +
         `<table class="tool-comparison"><thead><tr><th>Method</th><th>Taxable gain</th><th>Tax*</th></tr></thead><tbody>` +
         `<tr class="${indexWins ? "" : "highlight-row"}"><td>12.5% without indexation${tag(!indexWins)}</td><td>${INR(taxableNoIndex)}</td><td>${INR(taxNoIndex)}</td></tr>` +
         `<tr class="${indexWins ? "highlight-row" : ""}"><td>20% with indexation${tag(indexWins)}</td><td>${INR(taxableIndexed)}</td><td>${INR(taxIndexed)}</td></tr>` +
@@ -404,7 +404,7 @@ async function generateTaxReportPDF() {
   const winner        = document.getElementById('winner-text').textContent;
   const savings       = Math.abs(oldTotal - newTotal);
 
-  const f = n => '₹' + Math.round(n).toLocaleString('en-IN');
+  const f = n => 'â‚¹' + Math.round(n).toLocaleString('en-IN');
   const pct = n => (n*100).toFixed(2)+'%';
   const gross = sal + other + stcg + ltcg;
 
@@ -473,7 +473,7 @@ async function generateTaxReportPDF() {
         <thead>
           <tr style="background:${navy}">
             <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Particulars</th>
-            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (₹)</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (â‚¹)</th>
           </tr>
         </thead>
         <tbody>
@@ -496,7 +496,7 @@ async function generateTaxReportPDF() {
         <thead>
           <tr style="background:${navy}">
             <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Deduction</th>
-            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (₹)</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (â‚¹)</th>
           </tr>
         </thead>
         <tbody>
@@ -593,7 +593,7 @@ async function generateTaxReportPDF() {
     <!-- RECOMMENDATION -->
     <div style="background:${recBg};border:2px solid ${recColor};border-radius:8px;padding:18px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between">
       <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:${recColor};margin-bottom:4px">💡 Recommended Tax Regime</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:${recColor};margin-bottom:4px">ðŸ’¡ Recommended Tax Regime</div>
         <div style="font-size:22px;font-weight:700;color:${recColor}">${winner}</div>
         <div style="font-size:12px;color:${recColor};margin-top:4px;opacity:0.85">Based on your income profile and deductions for FY 2026-27</div>
       </div>
@@ -611,22 +611,22 @@ async function generateTaxReportPDF() {
         <table style="width:50%;border-collapse:collapse;font-size:11.5px">
           <thead><tr style="background:#334E78"><th style="text-align:left;padding:7px 10px;color:white;font-weight:600">New Regime Slab</th><th style="text-align:right;padding:7px 10px;color:white;font-weight:600">Rate</th></tr></thead>
           <tbody>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to ₹4,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹4,00,001 - ₹8,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹8,00,001 - ₹12,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">10%</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹12,00,001 - ₹16,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">15%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹16,00,001 - ₹20,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹20,00,001 - ₹24,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">25%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px">Above ₹24,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to â‚¹4,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹4,00,001 - â‚¹8,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹8,00,001 - â‚¹12,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">10%</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹12,00,001 - â‚¹16,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">15%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹16,00,001 - â‚¹20,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹20,00,001 - â‚¹24,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">25%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px">Above â‚¹24,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
           </tbody>
         </table>
         <table style="width:50%;border-collapse:collapse;font-size:11.5px">
           <thead><tr style="background:#334E78"><th style="text-align:left;padding:7px 10px;color:white;font-weight:600">Old Regime Slab (Below 60)</th><th style="text-align:right;padding:7px 10px;color:white;font-weight:600">Rate</th></tr></thead>
           <tbody>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to ₹2,50,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹2,50,001 - ₹5,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹5,00,001 - ₹10,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
-            <tr><td style="padding:6px 10px">Above ₹10,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to â‚¹2,50,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹2,50,001 - â‚¹5,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹5,00,001 - â‚¹10,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
+            <tr><td style="padding:6px 10px">Above â‚¹10,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
           </tbody>
         </table>
       </div>
@@ -795,7 +795,7 @@ async function generateAdvanceTaxReportPDF() {
       </div>
       <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid #c62828">
         <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Estimated Interest (234B & 234C)</div>
-        <div style="font-size:16px;font-weight:700;color:#c62828;margin-top:4px">₹${(parseFloat(int234c.replace(/[^0-9.]/g,'')) || 0) + (parseFloat(int234b.replace(/[^0-9.]/g,'')) || 0)}</div>
+        <div style="font-size:16px;font-weight:700;color:#c62828;margin-top:4px">â‚¹${(parseFloat(int234c.replace(/[^0-9.]/g,'')) || 0) + (parseFloat(int234b.replace(/[^0-9.]/g,'')) || 0)}</div>
       </div>
       <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${gold}">
         <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Balance Tax / Shortfall</div>
@@ -808,11 +808,11 @@ async function generateAdvanceTaxReportPDF() {
       <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:12px">A. Tax Assessment Details</div>
       <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:12px">
         <div style="flex:1;min-width:45%">
-          <div style="margin-bottom:8px"><span style="color:#666">Estimated Tax Before Credits:</span> <strong>₹${Number(grossTax).toLocaleString('en-IN')}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">TDS/TCS Credits:</span> <strong>₹${Number(credits).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Estimated Tax Before Credits:</span> <strong>â‚¹${Number(grossTax).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">TDS/TCS Credits:</span> <strong>â‚¹${Number(credits).toLocaleString('en-IN')}</strong></div>
         </div>
         <div style="flex:1;min-width:45%">
-          <div style="margin-bottom:8px"><span style="color:#666">Self-Assessment Tax Paid:</span> <strong>₹${Number(selfAssPaid).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Self-Assessment Tax Paid:</span> <strong>â‚¹${Number(selfAssPaid).toLocaleString('en-IN')}</strong></div>
           <div style="margin-bottom:8px"><span style="color:#666">Result:</span> <strong>${advice}</strong></div>
         </div>
       </div>
@@ -1012,12 +1012,12 @@ async function generateCapitalGainsReportPDF() {
       <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:12px">
         <div style="flex:1;min-width:45%">
           <div style="margin-bottom:8px"><span style="color:#666">Purchase Date:</span> <strong>${pdate}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">Purchase Price:</span> <strong>₹${Number(pprice).toLocaleString('en-IN')}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">Transfer Expenses:</span> <strong>₹${Number(exp).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Purchase Price:</span> <strong>â‚¹${Number(pprice).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Transfer Expenses:</span> <strong>â‚¹${Number(exp).toLocaleString('en-IN')}</strong></div>
         </div>
         <div style="flex:1;min-width:45%">
           <div style="margin-bottom:8px"><span style="color:#666">Sale Date:</span> <strong>${sdate}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">Sale Price:</span> <strong>₹${Number(sprice).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Sale Price:</span> <strong>â‚¹${Number(sprice).toLocaleString('en-IN')}</strong></div>
           <div style="margin-bottom:8px"><span style="color:#666">Applicable Tax Rate:</span> <strong>${taxRate}</strong></div>
         </div>
       </div>
@@ -1101,3 +1101,4 @@ async function generateCapitalGainsReportPDF() {
     runCapitalGainsCalculator();
   }
 })();
+
