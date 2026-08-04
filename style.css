@@ -307,6 +307,10 @@ body.nav-open { overflow: hidden; }
 
 /* ── CONTENT LAYOUT ── */
 .content-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+/* Grid items default to min-width:auto, which forces the column to the widest
+   descendant's min-content (wide tables) and overflows the page on mobile.
+   min-width:0 lets the column shrink so .table-scroll can scroll internally. */
+.content-grid > * { min-width: 0; }
 .sidebar { position: sticky; top: 100px; }
 
 /* ── FORMS ── */
