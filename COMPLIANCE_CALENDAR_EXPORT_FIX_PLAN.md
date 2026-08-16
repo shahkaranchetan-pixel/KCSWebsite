@@ -333,6 +333,38 @@ Three further defects were found during implementation and fixed:
 Mobile was checked at 375 px: no horizontal overflow, and the four action buttons collapse from four
 rows to two via short labels.
 
+### Round 2 — static month pages and server-rendered content (same day)
+
+The `?month=` deep links shipped above were the weak form of the idea: 14 URLs all serving the same
+HTML, differentiated only by JavaScript after load. And the page's entire value — every due date —
+existed only in a JS array, so the served HTML contained an empty `<div>` and a spinner. Both were
+replaced:
+
+- **A build step.** `scripts/compliance-data.js` is now the single source of truth for the dataset;
+  `node scripts/build-compliance-calendar.js` regenerates everything from it. Idempotent.
+- **The full year is baked into the HTML.** All 178 rows across 13 month sections are in
+  `tools/compliance-calendar.html` as served — verified by fetching the page and parsing it with no
+  JavaScript executed. Page goes from 75 KB to 182 KB raw, but the live server already serves Brotli,
+  so it ships at ~21 KB.
+- **Filtering hides rather than rebuilds.** `render()` now toggles `hidden` on pre-rendered rows, so
+  the complete year stays in the DOM whichever filter is active.
+- **No duplicated payload.** The page reads `COMPLIANCES` back out of the rendered rows instead of
+  shipping the dataset twice. Verified identical: 178 entries, 17 act overrides, all four `sub`
+  values including the `regular qrmp` combination.
+- **13 static month pages** at `/tools/compliance-calendar-august-2026` and so on, each with its own
+  title, description, canonical, `BreadcrumbList` and `FAQPage` schema, prev/next navigation, and
+  73–129 words of intro prose generated from that month's actual data (busiest date, first and last
+  deadline, category mix). All 13 intros and titles are unique.
+- **`?month=` URLs now canonicalise to the matching static page**, so the parameter view consolidates
+  into the indexable one instead of competing with it. Sitemap updated: the 13 parameter URLs were
+  replaced by the 13 static URLs (88 entries, well-formed).
+- All 183 internal calendar links resolve; exports re-verified unchanged after the data-source swap
+  (PNG 2048×2482 at 17.5 px title clearance, ICS 9 events/9 alarms with 0 lines over 75 octets).
+
+Flat URLs rather than nested: a `tools/compliance-calendar/` directory would make
+`RewriteCond %{REQUEST_FILENAME} !-d` in `.htaccess` skip the extensionless rewrite and break
+`/tools/compliance-calendar` itself.
+
 ### Deliberately left open
 
 - **Suggestion 4 (client-name stamp)** — you marked it not required.

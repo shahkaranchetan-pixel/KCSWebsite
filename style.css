@@ -570,6 +570,14 @@ footer strong { color: #FFFFFF; }
 .blog-content p{margin-bottom:24px}
 .blog-content ul,.blog-content ol{margin-bottom:32px;background:var(--surface-muted);padding:24px 24px 24px 48px;border-radius:8px}
 .blog-content li{margin-bottom:12px}
+/* In-content links must be distinguishable from the prose around them. The global
+   a{text-decoration:none;color:inherit} rule above renders them as plain body text,
+   which fails WCAG 2.1 SC 1.4.1 (Use of Colour) and means nobody clicks them.
+   Scoped to article prose so buttons, card links and share icons keep their styling. */
+.blog-content p > a:not(.btn):not(.card-link),
+.blog-content li > a:not(.btn):not(.card-link){color:var(--brand-saffron-text);text-decoration:underline;text-underline-offset:2px}
+.blog-content p > a:not(.btn):not(.card-link):hover,
+.blog-content li > a:not(.btn):not(.card-link):hover{color:var(--brand-blue)}
 .drop-cap::first-letter{float:left;font-size:3.5rem;line-height:0.8;margin-right:12px;color:var(--brand-saffron);font-weight:bold}
 .blog-quote{font-size:1.3rem;font-style:italic;color:var(--brand-blue);border-left:4px solid var(--brand-saffron);padding:20px 32px;margin:40px 0;background:linear-gradient(90deg,var(--surface-muted),transparent);position:relative}
 .blog-quote::before{content:'\201C';font-size:4rem;color:rgba(217,94,11,0.2);position:absolute;left:10px;top:-10px;font-family:serif}
