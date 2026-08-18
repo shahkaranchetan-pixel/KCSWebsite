@@ -15,3 +15,28 @@ Thumbs.db
 
 # Keep the blog template local only
 blog-post-template.html
+
+# Internal planning/audit docs — must never deploy to the public server
+ANTIGRAVITY_*.md
+Antigravity_*.md
+COMPLIANCE_CALENDAR_EXPORT_FIX_PLAN.md
+THIN_CONTENT_REPORT.md
+CHANGELOG_*.md
+DEPLOYMENT_GUIDE.md
+lh-report-final.json
+
+# Work-in-progress pages not for publication
+competitor_page.html
+
+# Stale duplicate checkout — never deploy or push from this
+Local_Preview/
+_archive_unused/
+
+# Local dev tooling
+.agents/
+matrix-generator/
+gmb-post-images*/
+yt_scraper*.js
+download_ytdlp.js
+yt-dlp.exe
+playlist.json

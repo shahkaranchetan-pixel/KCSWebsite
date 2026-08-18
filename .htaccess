@@ -1,5 +1,13 @@
 RewriteEngine On
 
+# 0. Directory index + hardening
+DirectoryIndex index.html
+
+# Block VCS metadata and internal planning docs from public access
+RedirectMatch 404 "/\.git"
+RedirectMatch 404 "\.md$"
+RedirectMatch 404 "/lh-report-final\.json$"
+
 # 1. Force HTTPS and canonical domain (kcshah.com)
 RewriteCond %{HTTP_HOST} !^kcshah\.com$ [NC]
 RewriteRule ^(.*)$ https://kcshah.com/$1 [L,R=301]
