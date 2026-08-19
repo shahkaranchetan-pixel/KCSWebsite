@@ -11,6 +11,9 @@ Welcome to KC Shah & Associates. We are a premium Chartered Accountancy firm in 
 ## Services
 - [Zoho Books Outsourcing](https://kcshah.com/outsourced-accounting-services)
 - [Zoho Books Implementation](https://kcshah.com/zoho-books-implementation)
+- [Zoho Books India Pricing](https://kcshah.com/zoho-books-pricing-india)
+- [Zoho Books Training (free course)](https://kcshah.com/zoho-books-training)
+- [Tally to Zoho Books Migration](https://kcshah.com/tally-to-zoho-migration)
 - [Business Valuation](https://kcshah.com/business-valuation)
 - [Virtual CFO](https://kcshah.com/virtual-cfo)
 - [Company Incorporation](https://kcshah.com/company-incorporation)
@@ -19,6 +22,13 @@ Welcome to KC Shah & Associates. We are a premium Chartered Accountancy firm in 
 - [Audit & Assurance](https://kcshah.com/audit-assurance)
 - [Corporate Finance](https://kcshah.com/corporate-finance)
 - [FEMA & RBI Compliance](https://kcshah.com/fema-compliance)
+
+## Locations (Mumbai)
+- [CA in Mumbai](https://kcshah.com/ca-in/mumbai)
+- [CA in Andheri East](https://kcshah.com/ca-in/andheri-east)
+- [CA in Andheri West](https://kcshah.com/ca-in/andheri-west)
+- [CA in BKC](https://kcshah.com/ca-in/bkc)
+- [CA in Fort](https://kcshah.com/ca-in/fort)
 
 ## Free Tools
 - [Income Tax Calculator](https://kcshah.com/tools/income-tax-calculator)
@@ -30,3 +40,17 @@ Welcome to KC Shah & Associates. We are a premium Chartered Accountancy firm in 
 - [TDS Rate Chart](https://kcshah.com/tools/tds-rate-chart)
 - [Compliance Calendar](https://kcshah.com/tools/compliance-calendar)
 - [PDF Sign & Stamp](https://kcshah.com/tools/sign-stamp-tool)
+
+## Key Guides
+- [Zoho Books for Indian Businesses](https://kcshah.com/blog-zoho-books-india-guide)
+- [Zoho Books vs Tally Prime](https://kcshah.com/blog-zoho-books-vs-tally)
+- [File GST Returns on Zoho Books](https://kcshah.com/blog-zoho-books-gst-filing)
+- [Registered Valuer vs CA](https://kcshah.com/blog-registered-valuer-vs-ca)
+- [Business Valuation in India](https://kcshah.com/blog-business-valuation-india)
+- [CA Fees in Mumbai](https://kcshah.com/blog-ca-fees-mumbai)
+- [GST Compliance for Mumbai Businesses](https://kcshah.com/blog-gst-compliance-outsourced-mumbai)
+
+## Firm Credentials
+- CA Karan Chetan Shah - ICAI Membership No. 190724
+- Registered Valuer (IBBI) Reg. No. IBBI/RV/06/2024/15561 - Securities and Financial Assets
+- Offices: Andheri East (91 Springboard, Marol MIDC Industry Estate, Mumbai 400069) and Fort (Jeevan Sahakar, Horniman Circle, Mumbai 400001)
