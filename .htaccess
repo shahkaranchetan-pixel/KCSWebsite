@@ -16,6 +16,27 @@ RewriteRule ^blog-registered-valuer-ma-india(\.html)?/?$ https://kcshah.com/blog
 RewriteRule ^blog-ibbi-registered-valuer-startup-funding(\.html)?/?$ https://kcshah.com/blog-registered-valuer-vs-ca [R=301,L]
 RewriteRule ^blog-zoho-books-gst-maharashtra(\.html)?/?$ https://kcshah.com/blog-zoho-books-gst-filing [R=301,L]
 
+# 0b-2. Legacy sections removed from the site.
+#       Placed above the .html rule so both URL forms resolve in ONE hop.
+#       The former /academy/ course library was replaced by /zoho-books-training.
+RewriteRule ^academy(/.*)?$ https://kcshah.com/zoho-books-training [R=301,L]
+
+#       Pruned location pages: the .html form was already covered by the mod_alias
+#       block below, but the extensionless form was returning 404.
+RewriteRule ^ca-in/(andheri|bandra|goregaon|malad|navi-mumbai|thane)(\.html)?/?$ https://kcshah.com/ca-in/mumbai [R=301,L]
+
+RewriteRule ^local-services(\.html)?/?$ https://kcshah.com/ca-in/mumbai [R=301,L]
+RewriteRule ^zoho-books-outsourcing(\.html)?/?$ https://kcshah.com/outsourced-accounting-services [R=301,L]
+
+#       Retired calculators and calendars.
+RewriteRule ^tools/(gst-due-date-calendar|income-tax-calendar|roc-compliance-calendar)(\.html)?/?$ https://kcshah.com/tools/compliance-calendar [R=301,L]
+RewriteRule ^tools/(hsn-sac-search|roi-calculator)(\.html)?/?$ https://kcshah.com/tools/ [R=301,L]
+
+#       NOTE: the ~350 pruned /services/<category>/<area> matrix URLs are deliberately
+#       left returning 404. They were thin doorway pages, Google has already dropped
+#       them from the index, and bulk-redirecting them onto real service pages would
+#       be a soft-404 pattern. 404 is the correct signal for permanently removed content.
+
 # 0c. <dir>/index.html -> <dir>/  in a single hop (e.g. /tools/index.html -> /tools/).
 #     Must precede the generic .html rule, which would otherwise land on /tools/index.
 RewriteRule ^(.+)/index\.html$ https://kcshah.com/$1/ [R=301,L]
