@@ -2,27 +2,42 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Delay GTM ──
-  const loadGTM = () => {
-    const script1 = document.createElement('script');
-    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7';
-    script1.async = true;
-    document.head.appendChild(script1);
-    const script2 = document.createElement('script');
-    script2.innerHTML = "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-2XB5VRL6X7');";
-    document.head.appendChild(script2);
+  // ── Contact intent tracking ──
+  // The gtag snippet itself now sits inline in each page's <head>. It used to be
+  // injected from here behind a scroll/touch/3.5s gate, which dropped every visit
+  // that ended before the gate opened — those showed up in GA4 as sessions with
+  // no landing page.
+  //
+  // Enquiries arrive by WhatsApp and phone rather than the contact form, so these
+  // clicks are the events worth marking as key events in GA4.
+  const trackContact = (method, el) => {
+    if (typeof window.gtag !== 'function') return;
+    const region = el.closest('.top-bar') ? 'top_bar'
+      : el.closest('.whatsapp-float') ? 'float_button'
+      : el.closest('.mobile-sticky-cta') ? 'mobile_sticky'
+      : el.closest('footer') ? 'footer'
+      : el.closest('header') ? 'header'
+      : 'body';
+    window.gtag('event', 'contact_click', {
+      method: method,
+      link_location: region,
+      page_path: window.location.pathname
+    });
   };
-  let gtmLoaded = false;
-  const initGTM = () => {
-    if (!gtmLoaded) {
-      gtmLoaded = true;
-      loadGTM();
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href') || '';
+    if (/^tel:/i.test(href)) {
+      trackContact('call', link);
+    } else if (/wa\.me|whatsapp\.com/i.test(href)) {
+      // .share-whatsapp is the "share this article" button, not an enquiry.
+      if (!link.classList.contains('share-whatsapp')) trackContact('whatsapp', link);
+    } else if (/^mailto:/i.test(href)) {
+      trackContact('email', link);
     }
-  };
-  window.addEventListener('scroll', initGTM, { passive: true, once: true });
-  window.addEventListener('touchstart', initGTM, { passive: true, once: true });
-  window.addEventListener('mousemove', initGTM, { passive: true, once: true });
-  setTimeout(initGTM, 3500);
+  }, { passive: true });
 
   // ── Scroll Progress Bar ──
   const progressBar = document.createElement('div');
