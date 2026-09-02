@@ -278,7 +278,10 @@
 .curr-module h3 {
     font-size: 1.25rem;
     margin: 0 0 8px;
+    /* Clear the 86px sticky header when arriving on #module-N */
+    scroll-margin-top: 96px;
 }
+.curr-theme h4, #curriculum { scroll-margin-top: 96px; }
 .curr-blurb {
     font-size: 0.92rem;
     margin: 0 0 18px;
@@ -2198,7 +2201,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Accessible per-lesson iframe title
         player.title = 'Video: ' + titleEl.textContent;
 
-        if(window.innerWidth > 900) {
+        if(window.innerWidth > 900 && !preserveHash) {
             lesson.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
@@ -2308,9 +2311,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Init is done: let lesson clicks own the hash again, and honour the anchor the
     // visitor actually arrived on (#module-7, #curriculum, ...).
     if (preserveHash) {
-        const anchorEl = document.getElementById(window.location.hash.slice(1));
+        const anchorId = window.location.hash.slice(1);
+        const goToAnchor = () => {
+            const anchorEl = document.getElementById(anchorId);
+            if (anchorEl) anchorEl.scrollIntoView();
+        };
+        goToAnchor();
+        window.addEventListener('load', goToAnchor, { once: true });
         preserveHash = false;
-        if (anchorEl) anchorEl.scrollIntoView();
     }
 
     // Accordions
