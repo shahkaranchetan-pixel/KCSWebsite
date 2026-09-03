@@ -694,7 +694,7 @@
                         <div class="lesson-left"><i class="fa-regular fa-circle-play"></i> 7.3 TDS Liabilities &amp; Challans <span class="lesson-age lesson-age-new">5 mos ago</span></div>
                         <span class="lesson-duration">3:54</span>
                     </li>
-                    <li class="course-lesson" data-doc="kcs-tds-tcs" data-id="7.4" data-duration="Read" data-title="7.4 TDS on Purchases & the TCS Setting You Should Switch Off" data-notes="KC Shah &amp; Associates practice note: configuring Zoho Books for TDS you deduct on purchases and TDS your customers deduct from your receipts, why the TCS-on-goods rate still sitting in most orgs should now be switched off, and how to reconcile the rest against Form 26AS and the AIS." data-links="AIS/TIS reconciliation guide::/blog-ais-reconciliation-guide|Income tax filing service::/income-tax|Compliance calendar tool::/tools/compliance-calendar|Official Zoho Books India help centre::https://www.zoho.com/in/books/help/" tabindex="0">
+                    <li class="course-lesson" data-doc="kcs-tds-tcs" data-id="7.4" data-duration="Read" data-title="7.4 TDS on Purchases & the TCS Setting You Should Switch Off" data-notes="KC Shah &amp; Associates practice note: configuring Zoho Books for TDS you deduct on purchases and TDS your customers deduct from your receipts, why the TCS-on-goods rate still sitting in most orgs should now be switched off, and how to reconcile the rest against Form 26AS and the AIS." data-links="TCS on sale of goods is gone &mdash; but still switched on::/blog-tcs-sale-of-goods-zoho-books|AIS/TIS reconciliation guide::/blog-ais-reconciliation-guide|Income tax filing service::/income-tax|Compliance calendar tool::/tools/compliance-calendar|Official Zoho Books India help centre::https://www.zoho.com/in/books/help/" tabindex="0">
                         <div class="lesson-left"><i class="fa-regular fa-file-lines"></i> 7.4 TDS on Purchases &amp; the TCS Setting You Should Switch Off <span class="lesson-pill pill-kcs">KCS NOTE</span></div>
                         <span class="lesson-duration">Read</span>
                     </li>
@@ -1693,7 +1693,7 @@
 <p>Zoho then posts the deduction to a TDS payable ledger as bills are recorded. Record the challan payment against that ledger each month so the balance is what you still owe, and reconcile that balance to the quarterly TDS return before you file it. A TDS payable ledger that never moves is a red flag.</p>
 
 <h3>The TCS setting you should now switch off</h3>
-<p>TCS on the sale of goods &mdash; the 0.1% collection on receipts above ₹50 lakh under the erstwhile section 206C(1H) &mdash; was omitted with effect from 1 April 2025, and it has no counterpart anywhere in the Income-tax Act, 2025. The tax rate record, however, is still sitting in a great many Zoho Books organisations, because nobody went back to deactivate it after the omission. Open the tax rates list and check that before you configure anything else.</p>
+<p>TCS on the sale of goods &mdash; the 0.1% collection on receipts above ₹50 lakh under the erstwhile section 206C(1H) &mdash; was omitted with effect from 1 April 2025, and it has no counterpart anywhere in the Income-tax Act, 2025. The tax rate record, however, is still sitting in a great many Zoho Books organisations, because nobody went back to deactivate it after the omission. Open the tax rates list and check that before you configure anything else &mdash; we set out the full sweep, and what to do if you have collected it since April 2025, in <a href="/blog-tcs-sale-of-goods-zoho-books">TCS on sale of goods is gone but still switched on</a>.</p>
 <p>Leaving it active is not harmless. An invoice that still applies it collects money from a customer under a provision that no longer exists, the balance accumulates in a TCS payable ledger against no corresponding line in Form 27EQ, and the query surfaces at the worst possible moment &mdash; when the customer's own auditor asks what the deduction on their purchase invoice is.</p>
 <p>Collection at source survives only for the nine categories listed in section 394: alcoholic liquor for human consumption, tendu leaves, timber and other forest produce, scrap, minerals being coal or lignite or iron ore, motor vehicles and notified goods where the consideration exceeds ₹10 lakh, remittances under the LRS exceeding ₹10 lakh, overseas tour programme packages, and the use of a parking lot, toll plaza, mine or quarry. If your client sells none of these, TCS is not a configuration question for them at all.</p>
 <p>If your client does sell one of them, check the rate as well as the applicability. The Finance Act, 2026 moved liquor, tendu leaves, scrap and minerals to 2% with effect from 1 April 2026, so a rate carried forward from an older setup will now under-collect. Where TCS genuinely applies, keep it in its own ledger and never net it against TDS &mdash; they are different obligations with different returns.</p>
@@ -1714,7 +1714,7 @@
 <p class="doc-note">Rates, thresholds and the sections in force change with every Finance Act. Treat the workflow above as the durable part and verify the current rates and applicability for your assessment year.</p>
 
 <p class="doc-cta">We reconcile this for clients every quarter &mdash; see the <a href="/blog-ais-reconciliation-guide">AIS and Form 26AS reconciliation guide</a>, our <a href="/income-tax">income tax service</a>, or the <a href="/tools/compliance-calendar">compliance calendar</a> for TDS return due dates.</p></div>
-                    <p class="curr-links">Related reading: <a href="/blog-ais-reconciliation-guide">AIS/TIS reconciliation guide</a> &middot; <a href="/income-tax">Income tax filing service</a> &middot; <a href="/tools/compliance-calendar">Compliance calendar tool</a></p>
+                    <p class="curr-links">Related reading: <a href="/blog-tcs-sale-of-goods-zoho-books">TCS on sale of goods is gone &mdash; but still switched on</a> &middot; <a href="/blog-ais-reconciliation-guide">AIS/TIS reconciliation guide</a> &middot; <a href="/income-tax">Income tax filing service</a> &middot; <a href="/tools/compliance-calendar">Compliance calendar tool</a></p>
                 </li>
                 <li>
                     <p class="curr-head"><a href="#l-7-5">7.5 India Tax Essentials Spotlight</a> <span class="curr-dur">1:02:43</span></p>
@@ -2201,8 +2201,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (lid && history.replaceState && !preserveHash) {
             history.replaceState(null, '', '#l-' + lid.replace('.', '-'));
         }
-        // Accessible per-lesson iframe title
-        player.title = 'Video: ' + titleEl.textContent;
+        // Accessible per-lesson stage title. Reading lessons have no video, so do not
+        // announce one — the iframe is hidden and empty for them.
+        player.title = (doc ? 'Reading lesson: ' : 'Video: ') + titleEl.textContent;
 
         if(window.innerWidth > 900 && !preserveHash) {
             lesson.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
