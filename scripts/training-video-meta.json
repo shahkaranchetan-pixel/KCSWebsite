@@ -1,0 +1,320 @@
+{
+ "_note": "Verified live against YouTube on 2026-09-05. Keyed by video id so lesson renumbering does not invalidate it. Re-run scripts/build-training-schema.js after editing.",
+ "videos": {
+  "N3TbCpsgC9U": {
+   "published": "2021-12-19",
+   "seconds": 799,
+   "ytTitle": "Signing Up & Getting Started - Zoho Books - India Edition"
+  },
+  "X0dYtJ2Eceo": {
+   "published": "2023-12-25",
+   "seconds": 1866,
+   "ytTitle": "Zoho Books - Indian Edition | A guided tour in English"
+  },
+  "SXgqhJ-cjwI": {
+   "published": "2019-09-29",
+   "seconds": 194,
+   "ytTitle": "Setting Up GST Details in Your Organisation | India - Zoho Books"
+  },
+  "zp29EZoZoYQ": {
+   "published": "2026-04-15",
+   "seconds": 306,
+   "ytTitle": "How to Use the Chart of Accounts in Zoho Books"
+  },
+  "mspvWlLjTjM": {
+   "published": "2026-08-31",
+   "seconds": 1226,
+   "ytTitle": "Items - Zoho Books - Global Edition"
+  },
+  "FL4INMHvg-o": {
+   "published": "2019-09-11",
+   "seconds": 104,
+   "ytTitle": "How to Set Up User Roles and Invite Users | Zoho Books"
+  },
+  "rpQMzMIWhKA": {
+   "published": "2025-07-21",
+   "seconds": 2686,
+   "ytTitle": "Unlocking the Accountants toolkit with Zoho Books"
+  },
+  "T-e9tzTyVns": {
+   "published": "2025-07-21",
+   "seconds": 2226,
+   "ytTitle": "Collaboration capabilities with Zoho Books"
+  },
+  "YNoX9pAdZOQ": {
+   "published": "2025-02-28",
+   "seconds": 3602,
+   "ytTitle": "Simplify your receivables with Zoho Books | English | India"
+  },
+  "vTsKM92MNYo": {
+   "published": "2026-02-18",
+   "seconds": 3341,
+   "ytTitle": "Mastering AP Automation with Zoho Books | English"
+  },
+  "cdYXmpLQpYE": {
+   "published": "2025-12-23",
+   "seconds": 2017,
+   "ytTitle": "Simplify banking & reconciliation with Zoho Books (Global)"
+  },
+  "g-hwH6r6dMo": {
+   "published": "2019-09-11",
+   "seconds": 135,
+   "ytTitle": "How to Record an Expense | Zoho Books"
+  },
+  "EmCrANaeKcg": {
+   "published": "2019-09-11",
+   "seconds": 90,
+   "ytTitle": "How to Post a Manual Journal | Zoho Books"
+  },
+  "RUhiM4uctyA": {
+   "published": "2025-04-13",
+   "seconds": 2022,
+   "ytTitle": "Efficient fixed assets management with Zoho Books | English"
+  },
+  "KOfPyX7XVog": {
+   "published": "2025-07-21",
+   "seconds": 2514,
+   "ytTitle": "Elevate your Stock Management with Zoho Books"
+  },
+  "_BZ6WMXd7QA": {
+   "published": "2025-03-27",
+   "seconds": 2583,
+   "ytTitle": "Tips & Tricks for Financial Year End with Zoho Books | English | India"
+  },
+  "sFoIFyjCegY": {
+   "published": "2025-07-17",
+   "seconds": 641,
+   "ytTitle": "How to customise PDF Templates for your sales and purchase transactions in Zoho Books"
+  },
+  "Lz_cxMaOZyA": {
+   "published": "2023-07-10",
+   "seconds": 494,
+   "ytTitle": "How to create and customise templates in Zoho Books (हिंदी) - India Edition"
+  },
+  "AYIBCRQv-e4": {
+   "published": "2023-09-12",
+   "seconds": 60,
+   "ytTitle": "Uploading Logo in Emails - Zoho Books - India Edition"
+  },
+  "nkUNgJdSzIQ": {
+   "published": "2025-10-06",
+   "seconds": 2495,
+   "ytTitle": "Overview of GST and Simplification in Zoho Books | India | English"
+  },
+  "vlPPcDfSpSQ": {
+   "published": "2018-08-17",
+   "seconds": 275,
+   "ytTitle": "Elements of a GST invoice | Zoho Invoice | India | GST"
+  },
+  "9i_jDtSA3xc": {
+   "published": "2019-01-31",
+   "seconds": 535,
+   "ytTitle": "How to Create an E-Way bill from Zoho Books | India GST"
+  },
+  "xzX2a8EJuIQ": {
+   "published": "2026-04-15",
+   "seconds": 214,
+   "ytTitle": "How To Record Shipping Bill & Bill of Entry in Zoho Books - India Edition"
+  },
+  "IXzRm_SSUI4": {
+   "published": "2019-09-11",
+   "seconds": 132,
+   "ytTitle": "How to Create a Credit Note | Zoho Books"
+  },
+  "0e4ilLC6t-I": {
+   "published": "2019-09-11",
+   "seconds": 133,
+   "ytTitle": "How to Create a Vendor Credit | Zoho Books"
+  },
+  "Xbq8jQlt1kQ": {
+   "published": "2026-04-15",
+   "seconds": 234,
+   "ytTitle": "How to Manage TDS Liabilities & Challans in Zoho Books - India Edition"
+  },
+  "1JhzfIzBXC8": {
+   "published": "2025-07-21",
+   "seconds": 3763,
+   "ytTitle": "Zoho Books: Tax Essentials India Spotlight‌"
+  },
+  "c0gEOTT-1So": {
+   "published": "2025-02-28",
+   "seconds": 3152,
+   "ytTitle": "‌The Right Way to Set Up and Use E-Invoicing in Zoho Books | English | India"
+  },
+  "rOYoQATpIRc": {
+   "published": "2022-10-23",
+   "seconds": 291,
+   "ytTitle": "Testing e-Invoicing using Sandbox - India Edition - Zoho Books"
+  },
+  "LoUL2Z8Kly8": {
+   "published": "2023-12-22",
+   "seconds": 1380,
+   "ytTitle": "Mastering GSTR-1 | GST simplified: A four-part guide to GSTR compliance | English | India"
+  },
+  "s-NJv7kphcY": {
+   "published": "2023-12-22",
+   "seconds": 2332,
+   "ytTitle": "Reconciling GSTR-2/2B | GST simplified: A four-part guide to GSTR compliance  | English | India"
+  },
+  "l3S1EqzEZ5c": {
+   "published": "2023-12-22",
+   "seconds": 2331,
+   "ytTitle": "Handling GSTR-3B | GST simplified: A four-part guide to GSTR compliance | English | India"
+  },
+  "-yA2i3d6uJU": {
+   "published": "2023-12-22",
+   "seconds": 1790,
+   "ytTitle": "GSTR-9 | GST simplified: A four-part guide to GSTR compliance | English | India"
+  },
+  "Vp_bdilX72c": {
+   "published": "2024-12-19",
+   "seconds": 1375,
+   "ytTitle": "Master the new Invoice Management System (IMS) under GST in Zoho Books"
+  },
+  "rcTkHwLcX_s": {
+   "published": "2025-10-05",
+   "seconds": 476,
+   "ytTitle": "GSTR-6A Reconciliation & GSTR-6 for ISD's"
+  },
+  "sGedk0a8aFw": {
+   "published": "2023-08-21",
+   "seconds": 3073,
+   "ytTitle": "Session 1: Basics of Reporting and Configuration | English | India"
+  },
+  "hVzFZB1oEYA": {
+   "published": "2023-09-11",
+   "seconds": 3170,
+   "ytTitle": "Session 2: Getting to know Business Overview Reports  | English | India"
+  },
+  "0bMMcsaF8R4": {
+   "published": "2023-10-09",
+   "seconds": 2859,
+   "ytTitle": "Session 3: Track your Receivables and Payables  | English | India"
+  },
+  "dXdi35llVxU": {
+   "published": "2023-11-07",
+   "seconds": 2654,
+   "ytTitle": "Session 4: Manage your Sales and Purchases  | English | India"
+  },
+  "4tLsr3dxcVw": {
+   "published": "2023-11-07",
+   "seconds": 2667,
+   "ytTitle": "Session 5: Handling Inventory Management  | English | India"
+  },
+  "moB3rFFf88I": {
+   "published": "2023-11-24",
+   "seconds": 2979,
+   "ytTitle": "Session 6: Advanced Inventory Management  | English | India"
+  },
+  "nTZ6zkr9ses": {
+   "published": "2024-03-20",
+   "seconds": 2507,
+   "ytTitle": "Session 7: Manage your Ledgers and Currencies  | English | India"
+  },
+  "hnd7Ze8yuGo": {
+   "published": "2024-03-20",
+   "seconds": 1738,
+   "ytTitle": "Session 8: Budget and Project planning  | English | India"
+  },
+  "iC6wzUQiPqg": {
+   "published": "2024-03-20",
+   "seconds": 2495,
+   "ytTitle": "Session 9: Deep Dive into the Tax reports  | English | India"
+  },
+  "S8P4CtaBaaE": {
+   "published": "2024-03-20",
+   "seconds": 3299,
+   "ytTitle": "Session 10: A comprehensive overview of GST reports  | English | India"
+  },
+  "u9Dr_FH2llg": {
+   "published": "2024-03-20",
+   "seconds": 2287,
+   "ytTitle": "Session 11: Managing user activities  | English | India"
+  },
+  "C1a4ak3dMJ4": {
+   "published": "2026-04-06",
+   "seconds": 2916,
+   "ytTitle": "Demystifying reports and analytics with Zoho Books - India Edition"
+  },
+  "QeSW7LvD6uA": {
+   "published": "2026-07-29",
+   "seconds": 1395,
+   "ytTitle": "Projects and timesheets in Zoho Books | Project Management |  Chapter 8 - Zoho Finance Masterclass"
+  },
+  "V7uNul3CLz8": {
+   "published": "2025-02-28",
+   "seconds": 2298,
+   "ytTitle": "Efficient Project accounting with Zoho Books| English | India"
+  },
+  "aqOJhsSMwoE": {
+   "published": "2025-08-06",
+   "seconds": 2787,
+   "ytTitle": "Revenue Recognition and Progress Invoicing in Zoho Books - English Webinar"
+  },
+  "GSbs7Kwqvb0": {
+   "published": "2024-09-04",
+   "seconds": 635,
+   "ytTitle": "Integrating Zoho Books with Zoho Projects"
+  },
+  "Ho5hPNrD0vY": {
+   "published": "2024-04-08",
+   "seconds": 2405,
+   "ytTitle": "Become an Expert in Zoho Books Banking | English | India"
+  },
+  "A42-2JVC5qE": {
+   "published": "2025-07-18",
+   "seconds": 656,
+   "ytTitle": "Connected Banking With ICICI Bank & Zoho Books"
+  },
+  "gWwQVV9z0wU": {
+   "published": "2025-03-05",
+   "seconds": 642,
+   "ytTitle": "Connected Banking With SBI & Zoho Books"
+  },
+  "jYOO2MueI94": {
+   "published": "2025-09-01",
+   "seconds": 954,
+   "ytTitle": "How To Configure Bharat Connect in Zoho Books"
+  },
+  "SqtZSGLmPaE": {
+   "published": "2026-04-16",
+   "seconds": 298,
+   "ytTitle": "How To Set Up Payment Reminders in Zoho Books"
+  },
+  "-lzZRfXejRg": {
+   "published": "2026-04-02",
+   "seconds": 401,
+   "ytTitle": "How Transaction Approval Works in Zoho Books"
+  },
+  "6HiFxrAFE2I": {
+   "published": "2023-05-09",
+   "seconds": 295,
+   "ytTitle": "Performing Banking Functions in Zoho Books - iOS App (Global Edition)"
+  },
+  "iiTCCnn-Qes": {
+   "published": "2025-12-07",
+   "seconds": 2906,
+   "ytTitle": "Unlock the power of customization with Zoho Books | Webinar | English"
+  },
+  "kbXZyTYDWXU": {
+   "published": "2026-02-18",
+   "seconds": 2063,
+   "ytTitle": "Automate your accounting with Zoho Books | English"
+  },
+  "770SUuL-9pU": {
+   "published": "2024-11-04",
+   "seconds": 195,
+   "ytTitle": "Creating a Custom Dashboard in Zoho Books"
+  },
+  "5vhz_Poqm6I": {
+   "published": "2026-07-01",
+   "seconds": 2754,
+   "ytTitle": "Transform Accounting Operations with MCP and Zoho Books | Webinar"
+  },
+  "ROfJxBxQmnI": {
+   "published": "2025-02-27",
+   "seconds": 731,
+   "ytTitle": "How to Create a Sample Extension in Zoho Books"
+  }
+ }
+}
