@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to File GST Returns in Zoho Books: GSTR-1 &amp; 3B | KC Shah</title>
-<meta name="description" content="Step-by-step GST filing in Zoho Books: auto-populate GSTR-1, file GSTR-3B, and reconcile GSTR-2B for ITC. Written by a CA who runs this for Indian clients every month.">
+<title>Zoho GST Filing: GSTR-1, GSTR-3B &amp; 2B Reconciliation | KC Shah</title>
+<meta name="description" content="How to file GST in Zoho Books: push GSTR-1, reconcile GSTR-2B against your purchase register, file GSTR-3B. The monthly routine a Mumbai CA runs for clients.">
 <link rel="canonical" href="https://kcshah.com/blog-zoho-books-gst-filing">
-<meta property="og:title" content="How to File GST Returns in Zoho Books: GSTR-1 &amp; 3B | KC Shah">
-<meta property="og:description" content="Step-by-step GST filing in Zoho Books: auto-populate GSTR-1, file GSTR-3B, and reconcile GSTR-2B for ITC. Written by a CA who runs this for Indian clients every month.">
+<meta property="og:title" content="Zoho GST Filing: GSTR-1, GSTR-3B &amp; 2B Reconciliation | KC Shah">
+<meta property="og:description" content="How to file GST in Zoho Books: push GSTR-1, reconcile GSTR-2B against your purchase register, file GSTR-3B. The monthly routine a Mumbai CA runs for clients.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://kcshah.com/blog-zoho-books-gst-filing">
 <meta property="og:image" content="https://kcshah.com/og-image.jpg">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="1024">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How to File GST Returns in Zoho Books: GSTR-1 &amp; 3B | KC Shah">
-<meta name="twitter:description" content="Step-by-step GST filing in Zoho Books: auto-populate GSTR-1, file GSTR-3B, and reconcile GSTR-2B for ITC. Written by a CA who runs this for Indian clients every month.">
+<meta name="twitter:title" content="Zoho GST Filing: GSTR-1, GSTR-3B &amp; 2B Reconciliation | KC Shah">
+<meta name="twitter:description" content="How to file GST in Zoho Books: push GSTR-1, reconcile GSTR-2B against your purchase register, file GSTR-3B. The monthly routine a Mumbai CA runs for clients.">
 <meta name="twitter:image" content="https://kcshah.com/og-image.jpg">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta property="article:published_time" content="2025-07-15T00:00:00+05:30">
-<meta property="article:modified_time" content="2025-07-15T00:00:00+05:30">
+<meta property="article:modified_time" content="2026-09-09T00:00:00+05:30">
 <meta property="article:author" content="https://www.linkedin.com/in/cakaranshah/">
 <meta property="article:section" content="Accounting">
-<meta property="article:tag" content="Zoho Books, GST Filing, Cloud Accounting, GSTR">
+<meta property="article:tag" content="Zoho GST filing, Zoho Books, GSTR-1, GSTR-3B, GSTR-2B reconciliation, ITC, IMS, India">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#152A52">
@@ -36,8 +36,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to File GST Returns on Zoho Books: Complete Step-by-Step Guide for Indian Businesses (2025) | KC Shah & Associates","description":"Step-by-step guide to filing GSTR-1, GSTR-3B, and reconciling GSTR-2B using Zoho Books - auto-population, ITC matching, and how outsourced accounting on Zoho Books saves time and prevents errors.","author":{"@type":"Person","name":"CA Karan Shah"},"publisher":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com"},"datePublished":"2025-07-15","dateModified":"2026-05-03","mainEntityOfPage":"https://kcshah.com/blog-zoho-books-gst-filing","image":"https://kcshah.com/og-image.jpg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Zoho GST Filing: How to File GSTR-1 and GSTR-3B in Zoho Books, and Reconcile GSTR-2B Before You Claim ITC","description":"Step-by-step guide to filing GSTR-1, GSTR-3B, and reconciling GSTR-2B using Zoho Books - auto-population, ITC matching, and how outsourced accounting on Zoho Books saves time and prevents errors.","author":{"@type":"Person","name":"CA Karan Shah"},"publisher":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com"},"datePublished":"2025-07-15","dateModified":"2026-09-09","mainEntityOfPage":"https://kcshah.com/blog-zoho-books-gst-filing","image":"https://kcshah.com/og-image.jpg"}</script>
 
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I file GST in Zoho Books?","acceptedAnswer":{"@type":"Answer","text":"Enable GST in Settings with your GSTIN and connect the organisation to the GSTN with an API username. Each month, review the sales register and push GSTR-1 from the GST Filing module, fetch and reconcile GSTR-2B against your bills, then generate GSTR-3B from the ledger, pay the liability and file. All three returns are filed from inside Zoho Books through the GSTN API."}},{"@type":"Question","name":"How do I enable GST in Zoho Books?","acceptedAnswer":{"@type":"Answer","text":"Settings, then Taxes, then GST Settings. Enter the GSTIN, registration type, business legal name and state; the state drives whether CGST plus SGST or IGST applies. Then set up an API username on the GST portal and enter it in the GST Filing module so returns can be pushed and GSTR-2B fetched."}},{"@type":"Question","name":"Is Zoho Books an officially approved GST software in India?","acceptedAnswer":{"@type":"Answer","text":"Zoho is a GSTN-authorised GST Suvidha Provider, which is what allows Zoho Books to push returns and fetch GSTR-2B through the API rather than through file uploads. The filing itself is still authenticated by you with an OTP or DSC on each return."}},{"@type":"Question","name":"Can I claim ITC on a bill that is not in GSTR-2B yet?","acceptedAnswer":{"@type":"Answer","text":"No. Section 16(2)(aa) allows credit only on invoices that appear in GSTR-2B. Mark the bill as ITC pending in Zoho Books, chase the supplier to file, and claim it in the month it appears in your 2B. Claiming early triggers a DRC-01C mismatch notice."}},{"@type":"Question","name":"Does Zoho Books handle multiple GSTINs?","acceptedAnswer":{"@type":"Answer","text":"Yes, as separate organisations under one Zoho account, one per GSTIN. Each organisation files its own GSTR-1 and GSTR-3B, and supplies between two registrations of the same PAN must be invoiced as taxable supplies rather than journalled as transfers."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://kcshah.com/blog"},{"@type":"ListItem","position":3,"name":"Accounting","item":"https://kcshah.com/blog-zoho-books-gst-filing"}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-2XB5VRL6X7');</script>
@@ -69,7 +70,7 @@
       <img loading="lazy" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80" srcset="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=480&q=80 480w, https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80 1000w" sizes="(max-width: 768px) 100vw, 800px" width="1000" height="400" alt="GST Returns Filing Zoho Books India">
       <div class="blog-hero-overlay">
         <span class="blog-category-badge">Zoho Books</span>
-        <h1 style="margin:0;font-size:2.2rem;line-height:1.2;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.9)">How to File GST Returns on Zoho Books: Complete Step-by-Step Guide for Indian Businesses (2025)</h1>
+        <h1 style="margin:0;font-size:2.2rem;line-height:1.2;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.9)">Zoho GST Filing: How to File GSTR-1 and GSTR-3B in Zoho Books, and Reconcile GSTR-2B Before You Claim ITC</h1>
       </div>
     </div>
 
@@ -78,12 +79,12 @@
       <div><i class="fa-regular fa-clock" style="color:var(--brand-saffron)"></i> 7 min read</div>
     </div>
 
-    <p class="drop-cap">Zoho Books is India's most popular GST-compliant accounting software for small and medium businesses - and for good reason. It auto-populates GSTR-1 from your sales invoices, reconciles GSTR-2B with your purchase register, and pushes data directly to the GSTN portal without you having to re-enter anything. For businesses using outsourced accounting services, Zoho Books transforms GST filing from a month-end scramble into a smooth, automated workflow. This guide walks you through the complete process of filing GSTR-1 and GSTR-3B from Zoho Books in 2025.</p>
+    <p class="drop-cap">Zoho Books is India's most popular GST-compliant accounting software for small and medium businesses - and for good reason. It auto-populates GSTR-1 from your sales invoices, reconciles GSTR-2B with your purchase register, and pushes data directly to the GSTN portal without you having to re-enter anything. For businesses using outsourced accounting services, Zoho Books transforms GST filing from a month-end scramble into a smooth, automated workflow. This guide walks through the complete monthly routine for filing GSTR-1 and GSTR-3B from Zoho Books, with the GSTR-2B reconciliation that has to happen in between.</p>
 
     
     <!-- AI Citation Additions (Needs Manual Review) -->
     <div class="what-changed">
-      <strong><i class="fa-solid fa-bell"></i> What Changed:</strong> The GST Network (GSTN) has made GSTR-2B the definitive source for claiming Input Tax Credit (ITC). Zoho Books has updated its API integration to automate the reconciliation between purchase registers and GSTR-2B, minimizing manual matching errors.
+      <strong><i class="fa-solid fa-bell"></i> What Changed:</strong> Since the Invoice Management System went live on the GST portal in October 2024, your GSTR-2B is built from the accept, reject or pending action on each supplier invoice, and the department matches your GSTR-3B claim against it automatically. Zoho Books fetches 2B through the GSTN API and reconciles it against your bills; Step 3 below is the routine.
     </div>
     <p class="direct-answer">Filing GST returns on Zoho Books involves setting up GST configurations, pushing outward supplies directly to GSTR-1 via API, and reconciling the purchase register with the auto-fetched GSTR-2B. Finally, the system consolidates this data to seamlessly generate and push the GSTR-3B summary to the GSTN portal for tax payment.</p>
     <aside class="key-takeaways">
@@ -123,15 +124,22 @@
       "When your accounting software talks directly to GSTN, you stop worrying about last-minute data entry errors. Zoho Books does the heavy lifting - you just review and file."
     </blockquote>
 
-    <h2>Step 3: GSTR-2B Reconciliation in Zoho Books</h2>
-    <p>GSTR-2B is the auto-populated Input Tax Credit statement - it shows ITC available based on your suppliers' GSTR-1 filings. Reconciling GSTR-2B with your purchase register is mandatory before claiming ITC in GSTR-3B. Zoho Books makes this process highly efficient:</p>
+    <h2 id="gstr-2b">Step 3: GSTR-2B Reconciliation in Zoho Books, Before You Claim a Rupee of ITC</h2>
+    <p>This is the step that decides whether your GSTR-3B is defensible. Since 1 January 2022, section 16(2)(aa) of the CGST Act allows input tax credit only on invoices that appear in your GSTR-2B. Not GSTR-2A, not the purchase register, not the physical invoice in the file: GSTR-2B. It is generated on the 14th of each month from what your suppliers filed in their GSTR-1 by the 11th, and, since the Invoice Management System went live on the GST portal in October 2024, from the accept, reject or pending action taken on each supplier invoice. An invoice you accept or leave untouched flows into 2B; an invoice you reject or mark pending does not.</p>
+    <p>Zoho Books fetches GSTR-2B through the GSTN API and matches it line by line against the bills in the ledger. The routine we run for every client between the 14th and the 18th:</p>
     <ol>
-      <li>Go to <strong>GST Returns - GSTR-2B Reconciliation</strong></li>
-      <li>Click <strong>"Fetch from GSTN"</strong> - Zoho Books downloads your GSTR-2B data directly</li>
-      <li>The system automatically matches GSTR-2B entries with purchase bills entered in Zoho Books</li>
-      <li>Review the reconciliation report: <strong>Matched</strong> (safe to claim ITC), <strong>Unmatched in Books</strong> (vendor filed but you haven't entered the bill), <strong>Unmatched in GSTR-2B</strong> (bill entered but vendor hasn't filed)</li>
-      <li>For unmatched entries, contact your vendor or defer the ITC claim to the next month when the supplier files</li>
+      <li><strong>Fetch.</strong> GST Filing, then GSTR-2B, then Fetch from GSTN for the return period. Zoho Books pulls the statement and runs the match against every bill dated in the period, plus unmatched bills carried forward from earlier periods.</li>
+      <li><strong>Read the four buckets.</strong> <em>Matched</em>: GSTIN, invoice number, date and tax amounts agree; safe to claim. <em>Mismatched</em>: the invoice exists on both sides but a value differs, usually the invoice number format, the date, or a rounding difference in tax. <em>Missing in Books</em>: the supplier filed it but nobody has entered the bill; either a bill that never reached accounts, or a supplier error. <em>Missing in GSTR-2B</em>: the bill is in the ledger but the supplier has not filed; the ITC is real but not yet claimable.</li>
+      <li><strong>Fix mismatches at the source.</strong> Correct the invoice number or date on the bill in Zoho Books so it matches the supplier's filing; do not edit the tax amounts to force a match. Tax-amount differences of more than a rupee mean the supplier invoiced one figure and reported another, and they need to amend, not you.</li>
+      <li><strong>Chase the Missing in GSTR-2B list the same day.</strong> A supplier who has not filed by the 14th can still file before your 3B is due. Zoho Books lets you mark these bills as ITC pending so they are excluded from this month's claim and re-matched automatically next month.</li>
+      <li><strong>Investigate Missing in Books before the 20th.</strong> Some are genuine bills to enter and claim. Some are suppliers reporting invoices you never received or do not accept; those should be rejected on the IMS so they drop out of 2B rather than sit as an unexplained gap.</li>
+      <li><strong>Apply blocked credit.</strong> Motor vehicles, food and beverages, club memberships, personal consumption and the other section 17(5) heads are in your 2B but not claimable. Zoho Books lets you flag the bill as ineligible so the credit is reported and reversed in Table 4B rather than silently omitted.</li>
+      <li><strong>Push the reconciled ITC to GSTR-3B.</strong> Only the Matched bucket, less blocked credit, flows to Table 4A(5). Pending ITC goes to the reclaim tracker for the following month.</li>
     </ol>
+    <div class="rates-checked">
+      <strong>Why the discipline matters.</strong> The department matches 3B ITC against 2B automatically. A claim above the 2B figure produces a DRC-01C intimation asking you to pay the difference or explain it within seven days, and the explanation "our supplier filed late" is not accepted for the month in question. Claiming exactly the reconciled 2B figure every month, and reclaiming late-filed invoices in the month they appear, is the whole job.
+    </div>
+    <p>The reconciliation is taught step by step, with the reclaim tracking, in the <a href="/zoho-books-training-gst-return-filing">GST return filing module</a> of our free Zoho Books course. If you would rather a CA firm ran this for you every month, that is the core of what we do; our post on <a href="/blog-zoho-books-for-ca-firms-outsourced-bookkeeping">how outsourced bookkeeping runs on Zoho Books</a> describes the calendar.</p>
 
     <h2>Step 4: Filing GSTR-3B from Zoho Books</h2>
     <p>GSTR-3B is the monthly summary return where you declare your net tax liability. In Zoho Books:</p>
@@ -161,7 +169,7 @@
     </ul>
 
     <h2>Zoho Books + Outsourced Accounting: The Best Combination for Indian SMEs</h2>
-    <p>While Zoho Books automates much of the data work, the judgement calls - ITC eligibility, RCM applicability, HSN classification, blocked credit identification - still require a skilled accountant. The ideal model for Indian SMEs is <strong>Zoho Books as the platform + a CA firm as the operator</strong>. Your CA in Mumbai manages the books on Zoho Books as your outsourced accounting partner: entering transactions, reconciling bank feeds, managing ITC, filing returns, and giving you real-time P&L visibility through the Zoho Books dashboard.</p>
+    <p>While Zoho Books automates much of the data work, the judgement calls - ITC eligibility, RCM applicability, HSN classification, blocked credit identification - still require a skilled accountant. The ideal model for Indian SMEs is <strong>Zoho Books as the platform + a CA firm as the operator</strong>. Your CA in Mumbai manages the books on Zoho Books as your outsourced accounting partner: entering transactions, reconciling bank feeds, managing ITC, filing returns, and giving you real-time P&L visibility through the Zoho Books dashboard. How that division of work is set up, and what the month looks like, is in <a href="/blog-zoho-books-for-ca-firms-outsourced-bookkeeping">Zoho Books for CA firms and outsourced bookkeeping</a>.</p>
     <p>KC Shah & Associates provides end-to-end Zoho Books outsourced accounting - we set up your Zoho Books, manage your day-to-day bookkeeping, handle all GST filings, and give you a clean set of financials at the end of every month.</p>
 
     <h2>Conclusion</h2>
@@ -187,6 +195,15 @@
     <h2>Why the Initial Setup Is Worth Getting Right</h2>
     <p>Zoho Books is inexpensive; a year of mis-stated returns is not. The configuration decisions that matter — organisation state, GSTIN, tax rates, HSN and SAC codes on every item, place of supply defaults, reverse-charge flags, and the opening balance migration — are all made once, in the first fortnight, and quietly propagate into every return afterwards.</p>
     <p>The failure mode we see most often in Mumbai is a business that switched to Zoho Books without mapping its Tally ledgers properly, filed three months of returns off the resulting data, and then needed a reconciliation exercise costing several times the software subscription to unwind it.</p>
+
+    <section class="faq-section">
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="faq-item"><div class="faq-question">How do I file GST in Zoho Books? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Enable GST in Settings with your GSTIN and connect the organisation to the GSTN with an API username. Each month, review the sales register and push GSTR-1 from the GST Filing module, fetch and reconcile GSTR-2B against your bills, then generate GSTR-3B from the ledger, pay the liability and file. All three returns are filed from inside Zoho Books through the GSTN API.</p></div></div>
+      <div class="faq-item"><div class="faq-question">How do I enable GST in Zoho Books? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Settings, then Taxes, then GST Settings. Enter the GSTIN, registration type, business legal name and state; the state drives whether CGST plus SGST or IGST applies. Then set up an API username on the GST portal and enter it in the GST Filing module so returns can be pushed and GSTR-2B fetched.</p></div></div>
+      <div class="faq-item"><div class="faq-question">Is Zoho Books an officially approved GST software in India? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Zoho is a GSTN-authorised GST Suvidha Provider, which is what allows Zoho Books to push returns and fetch GSTR-2B through the API rather than through file uploads. The filing itself is still authenticated by you with an OTP or DSC on each return.</p></div></div>
+      <div class="faq-item"><div class="faq-question">Can I claim ITC on a bill that is not in GSTR-2B yet? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>No. Section 16(2)(aa) allows credit only on invoices that appear in GSTR-2B. Mark the bill as ITC pending in Zoho Books, chase the supplier to file, and claim it in the month it appears in your 2B. Claiming early triggers a DRC-01C mismatch notice.</p></div></div>
+      <div class="faq-item"><div class="faq-question">Does Zoho Books handle multiple GSTINs? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Yes, as separate organisations under one Zoho account, one per GSTIN. Each organisation files its own GSTR-1 and GSTR-3B, and supplies between two registrations of the same PAN must be invoiced as taxable supplies rather than journalled as transfers.</p></div></div>
+    </section>
 
     <section class="sources-section">
       <h3><i class="fa-solid fa-book-open"></i> Sources & References</h3>

@@ -2,55 +2,80 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tally to Zoho Books Migration: Our Framework | KC Shah</title>
-<meta name="description" content="How we migrate Indian businesses from Tally to Zoho Books: ledger mapping, column-shift fixes, GST handling and a 19-step import sequence.">
-<link rel="canonical" href="https://kcshah.com/tally-to-zoho-migration">
-<meta property="og:title" content="From Tally to Zoho Books: A Structured Migration Framework Businesses Can Trust | KC Shah &amp; Associates">
-<meta property="og:description" content="How we migrate Indian businesses from Tally to Zoho Books: ledger mapping, column-shift fixes, GST handling and a 19-step import sequence.">
+<title>Zoho Books for CA Firms &amp; Outsourced Bookkeeping | KC Shah</title>
+<meta name="description" content="How a CA firm runs client books on Zoho Books: the free accountant seat, the role split, the monthly close with GST and TDS dates, and where Zoho Books stops.">
+<link rel="canonical" href="https://kcshah.com/blog-zoho-books-for-ca-firms-outsourced-bookkeeping">
+<meta property="og:title" content="Zoho Books for CA Firms: How Outsourced Bookkeeping Actually Runs on It | KC Shah &amp; Associates">
+<meta property="og:description" content="How a CA firm runs client books on Zoho Books: the free accountant seat, the role split, the monthly close with GST and TDS dates, and where Zoho Books stops.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://kcshah.com/tally-to-zoho-migration">
+<meta property="og:url" content="https://kcshah.com/blog-zoho-books-for-ca-firms-outsourced-bookkeeping">
 <meta property="og:image" content="https://kcshah.com/og-image.jpg">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="1024">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="From Tally to Zoho Books: A Structured Migration Framework Businesses Can Trust">
-<meta name="twitter:description" content="How we migrate Indian businesses from Tally to Zoho Books: ledger mapping, column-shift fixes, GST handling and a 19-step import sequence.">
+<meta name="twitter:title" content="Zoho Books for CA Firms: How Outsourced Bookkeeping Actually Runs on It | KC Shah &amp; Associates">
+<meta name="twitter:description" content="How a CA firm runs client books on Zoho Books: the free accountant seat, the role split, the monthly close with GST and TDS dates, and where Zoho Books stops.">
 <meta name="twitter:image" content="https://kcshah.com/og-image.jpg">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta property="article:published_time" content="2026-06-23T00:00:00+05:30">
-<meta property="article:modified_time" content="2026-07-16T00:00:00+05:30">
+<meta property="article:published_time" content="2026-09-09T00:00:00+05:30">
+<meta property="article:modified_time" content="2026-09-09T00:00:00+05:30">
 <meta property="article:author" content="https://www.linkedin.com/in/cakaranshah/">
 <meta property="article:section" content="Zoho Books">
-<meta property="article:tag" content="Tally, Zoho Books, Data Migration, GST, Cloud Accounting, India">
+<meta property="article:tag" content="zoho books for accountants, zoho for ca firm, outsource accounting on zoho books, zoho bookkeeping services, zoho books accountant, outsourced bookkeeping, India">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#152A52">
 <link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-
 <style>@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/fraunces-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/fraunces-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/fraunces-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 900; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 900; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }:root{--brand-blue:#1F3A6E;--brand-blue-deep:#152A52;--brand-blue-light:#2A4F9A;--brand-saffron:#d95e0b;--brand-saffron-text:#b34d09;--brand-saffron-dark:#C85A0A;--surface:#FFFFFF;--surface-muted:#F5F7FB;--text-primary:#0F1B36;--text-body:#4B5563;--border:#E5E8EF;--shadow-md:0 4px 20px rgba(31,58,110,.1);--shadow-lg:0 10px 40px rgba(31,58,110,.15);--radius-sm:6px;--radius-md:12px;--transition:all .35s cubic-bezier(.4,0,.2,1);--max-width:1240px}*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden}body{font-family:'Inter',sans-serif;color:var(--text-primary);background:var(--surface);line-height:1.7;overflow-x:hidden;width:100%}h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:700;color:var(--brand-blue);line-height:1.2;letter-spacing:-.01em}h1{font-size:clamp(1.8rem,4vw,2.75rem)}h2{font-size:clamp(1.5rem,3vw,2.1rem)}h3{font-size:clamp(1.1rem,2vw,1.3rem)}p{color:var(--text-body);margin-bottom:1rem}a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;display:block}.skip-link{position:absolute;top:-100%;left:0;z-index:9999;padding:12px 24px;background:var(--brand-saffron);color:var(--brand-blue);font-weight:600;text-decoration:none}.skip-link:focus{top:0}.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 24px}.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;border:2px solid transparent;white-space:nowrap}.btn-primary{background:var(--brand-saffron-text);color:var(--surface);border-color:var(--brand-saffron-text)}.btn-secondary{background:transparent;color:var(--surface);border-color:rgba(255,255,255,.6)}.btn-outline{background:transparent;color:var(--brand-blue);border-color:var(--brand-blue)}.btn-sm{padding:10px 22px;font-size:.85rem}.top-bar{background:var(--brand-blue-deep);color:rgba(255,255,255,.85);padding:10px 0;font-size:.8rem}.top-bar .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}.top-bar a{color:rgba(255,255,255,.85)}.top-bar-left,.top-bar-right{display:flex;align-items:center;gap:20px}.top-bar i{margin-right:6px;color:var(--brand-saffron-text)}header{background:rgba(255,255,255,.95);position:sticky;top:0;z-index:1000}.nav-wrapper{display:flex;justify-content:space-between;align-items:center;padding:18px 0}.logo{display:flex;align-items:center;gap:10px}.logo-text{font-family:'Inter',sans-serif;font-weight:800;font-size:1.2rem;color:var(--brand-blue);letter-spacing:-.5px}.logo-text span{color:var(--brand-saffron-text)}.logo-sub{font-size:.65rem;color:var(--text-body);text-transform:uppercase;letter-spacing:2px;display:block;font-family:'Inter',sans-serif}.nav-links{display:flex;align-items:center;gap:32px}.nav-links>li{position:relative}.nav-links>li>a{font-family:'Inter',sans-serif;font-weight:500;font-size:.9rem;color:var(--text-primary);padding:8px 0}.dropdown-menu{position:absolute;top:100%;left:-20px;background:var(--surface);min-width:280px;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);padding:16px 0;opacity:0;visibility:hidden;transform:translateY(10px)}.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}.hamburger span{display:block;width:24px;height:2px;background:var(--brand-blue)}.nav-cta{margin-left:16px}.hero{background:linear-gradient(135deg,var(--brand-blue-deep) 0%,var(--brand-blue) 55%,var(--brand-blue-light) 100%);color:var(--surface);padding:80px 0 100px;position:relative;overflow:hidden}.hero .container{position:relative;z-index:2}.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(217,94,11,.15);color:var(--brand-saffron-text);padding:8px 18px;border-radius:50px;font-size:.8rem;font-weight:600;margin-bottom:24px;border:1px solid rgba(217,94,11,.3)}.hero h1{color:var(--surface);margin-bottom:20px;font-weight:900}.hero h1 .highlight{color:var(--brand-saffron-text)}.hero p{color:rgba(255,255,255,.75);font-size:1.1rem;margin-bottom:36px;max-width:580px}.hero-btns{display:flex;gap:16px;flex-wrap:wrap}.hero-stats{display:flex;gap:32px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}.hero-stat h3{color:var(--brand-saffron-text);font-size:2rem;margin-bottom:4px}.hero-stat p{color:rgba(255,255,255,.6);font-size:.85rem;margin:0}.page-header{background:linear-gradient(135deg,var(--brand-blue-deep) 0%,var(--brand-blue) 60%,var(--brand-blue-light) 100%);color:var(--surface);padding:80px 0 60px;text-align:center;position:relative;overflow:hidden}.page-header h1{color:var(--surface);margin-bottom:16px}.page-header p{color:rgba(255,255,255,.75);max-width:600px;margin:0 auto;font-size:1.05rem}.breadcrumb{display:flex;justify-content:center;gap:8px;margin-bottom:20px;font-size:.85rem}.breadcrumb a{color:var(--brand-saffron-text)}.breadcrumb span{color:rgba(255,255,255,.5)}@media (max-width:768px){h1{font-size:clamp(1.75rem,6vw,2.25rem)}.nav-links{display:none}.hamburger{display:flex}.nav-cta{display:none}.top-bar{display:none}.hero{padding:60px 0 80px}.page-header{padding:48px 0 36px}}</style>
-
     <link rel="preload" href="style.min.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="style.min.css?v=16"></noscript>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"From Tally to Zoho Books: A Structured Migration Framework Businesses Can Trust","description":"A CA-led, transaction-level Tally-to-Zoho Books migration framework - master reconciliation, file validation and a fixed 19-step import sequence so every rupee reconciles.","author":{"@type":"Person","name":"CA Karan Shah"},"publisher":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com","logo":{"@type":"ImageObject","url":"https://kcshah.com/ca-india-logo.png"}},"datePublished":"2026-06-23","dateModified":"2026-07-16","mainEntityOfPage":"https://kcshah.com/tally-to-zoho-migration","image":"https://kcshah.com/og-image.jpg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Zoho Books for CA Firms: How Outsourced Bookkeeping Actually Runs on It","description":"How a CA firm runs client books on Zoho Books: the free accountant seat, the role split, the monthly close with GST and TDS dates, and where Zoho Books stops.","author":{"@type":"Person","name":"CA Karan Shah"},"publisher":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com","logo":{"@type":"ImageObject","url":"https://kcshah.com/ca-india-logo.png"}},"datePublished":"2026-09-09","dateModified":"2026-09-09","mainEntityOfPage":"https://kcshah.com/blog-zoho-books-for-ca-firms-outsourced-bookkeeping","image":"https://kcshah.com/og-image.jpg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I outsource my accounting on Zoho Books?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every Zoho Books organisation includes a free accountant user, so your CA firm works inside your own books with its own login, without buying a seat or exporting files. You keep ownership of the subscription and the data; the firm does the categorisation, reconciliation, GST and TDS work, and the month-end close."}},{"@type":"Question","name":"Does the CA firm need its own Zoho Books subscription?","acceptedAnswer":{"@type":"Answer","text":"No. The client owns the subscription on the plan that fits its transaction volume. The firm is invited as the accountant on each client organisation and manages all of them from one login. Firms that are Zoho partners can also use Zoho Practice as a console across clients."}},{"@type":"Question","name":"Is Zoho Books good for chartered accountants?","acceptedAnswer":{"@type":"Answer","text":"For bookkeeping, GST and management reporting across many small clients, yes: browser-based access, per-organisation roles, an audit trail on every transaction, direct GSTN filing and bank feeds make it easier to run than desktop software at scale. It does not prepare income-tax returns, TDS returns or Schedule III financial statements, so those stay in the firm's own tools."}},{"@type":"Question","name":"What does the client still have to do?","acceptedAnswer":{"@type":"Answer","text":"Raise sales invoices, capture expense bills and receipts, approve vendor payments and answer queries within a few days. Everything else, from bank matching to the GSTR-3B, is the firm's work. The division is agreed at onboarding and enforced through Zoho Books roles."}},{"@type":"Question","name":"How does the firm handle multiple GSTINs for one client?","acceptedAnswer":{"@type":"Answer","text":"Zoho Books treats each GSTIN as a separate organisation, so a client registered in two states has two organisations under one Zoho account. The firm is the accountant on both, files each GSTIN's returns separately, and consolidates management reports outside the ledger."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://kcshah.com/blog"},{"@type":"ListItem","position":3,"name":"Zoho Books for CA Firms","item":"https://kcshah.com/blog-zoho-books-for-ca-firms-outsourced-bookkeeping"}]}</script>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I migrate from Tally to Zoho Books without losing data?","acceptedAnswer":{"@type":"Answer","text":"Yes, with the right process. A clean migration extracts all Tally ledgers, groups, transactions and balances, reconciles masters first, validates every transaction file before import, and follows the import sequence Zoho Books requires. Done this way, your complete historical data - bills, invoices, payments, credit notes and journals - carries over with zero total difference. Most data-loss horror stories come from a raw export-and-import with no validation layer in between."}},{"@type":"Question","name":"Why do Tally to Zoho Books migrations fail?","acceptedAnswer":{"@type":"Answer","text":"The most common failures happen between export and import: ledger classification conflicts (the same party existing as both a debtor and creditor ledger), column-shift anomalies from cost centre or event data in the CSV, split cost-centre bills being mistaken for duplicates and deleted, pre-GST transactions handled incorrectly, embedded line breaks or NUL bytes corrupting the parser, and TDS-routed payments not mapping to Zoho's payment structure. A pre-import validation layer catches and corrects each of these."}},{"@type":"Question","name":"How is data validated before import to Zoho Books?","acceptedAnswer":{"@type":"Answer","text":"Every transaction CSV - across Purchases, Sales and Journals - is checked for field-count consistency (detecting column shifts), valid customer/vendor linkage, account existence in the chart of accounts, exchange-rate completeness, GST treatment consistency for pre- and post-GST periods, total-difference reconciliation to zero, and duplicate detection that preserves genuine split cost-centre bills. Nothing is imported until these checks pass."}},{"@type":"Question","name":"In what order should data be imported into Zoho Books?","acceptedAnswer":{"@type":"Answer","text":"Zoho Books enforces referential integrity, so the import follows a fixed sequence: Masters first (Contacts, Chart of Accounts, Items, Taxes), then Purchases (vendor bills, journal bills, expense bills, vendor credits, vendor payments), then Sales (invoices, journal invoices, credit notes, customer payments), then Journals. This order ensures a payment never imports before the bill it settles, leaving no orphaned records."}},{"@type":"Question","name":"How do you make sure the Balance Sheet matches Tally after migration?","acceptedAnswer":{"@type":"Answer","text":"Import is only half the job - the migration is complete only when Zoho's Trial Balance, P&L and Balance Sheet tie back to Tally to the rupee. Most Balance Sheet gaps are gross-vs-net: unapplied customer receipts sit in Unearned Revenue and unapplied vendor payments as advances, so we net them down with FIFO application (oldest advance against oldest open invoice or bill, party by party). Statutory clearing ledgers that migrated with only their bank leg are traced back to the correct account and cleared with adjustment journals. Each financial year is reconciled and signed off before the next is imported."}}]}</script>
-
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://kcshah.com/outsourced-accounting-services"},{"@type":"ListItem","position":3,"name":"Tally to Zoho Books Migration","item":"https://kcshah.com/tally-to-zoho-migration"}]}</script>
+<style>
+  .deadline-table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:0.95rem}
+  .deadline-table th{background:var(--brand-blue-deep);color:white;padding:14px 16px;text-align:left;font-size:0.88rem;letter-spacing:0.4px}
+  .deadline-table td{padding:12px 16px;border-bottom:1px solid var(--light-grey);vertical-align:top}
+  .deadline-table tr:nth-child(even) td{background:var(--off-white)}
+  .deadline-table td strong{color:var(--brand-blue-deep)}
+  .table-note{font-size:0.82rem;color:var(--text-grey);margin:0 0 32px}
+  .direct-answer{font-size:1.05rem;font-weight:500;color:var(--brand-blue-deep);background:var(--off-white);border-left:4px solid var(--brand-saffron);padding:16px 20px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:0 0 28px}
+  .what-changed{background:rgba(31,58,110,0.05);border:1px solid rgba(31,58,110,0.15);border-radius:var(--radius-md);padding:16px 20px;font-size:0.92rem;margin:0 0 28px}
+  .what-changed strong:first-child{color:var(--brand-saffron-text)}
+  .rates-checked{background:rgba(217,94,11,0.07);border:1px solid rgba(217,94,11,0.25);border-radius:var(--radius-md);padding:14px 18px;font-size:0.86rem;margin:0 0 32px}
+  .rates-checked strong{color:var(--brand-blue-deep)}
+  .key-takeaways{background:var(--off-white);border-radius:var(--radius-md);padding:22px 26px;margin:0 0 36px}
+  .key-takeaways h3{font-size:1.1rem;margin:0 0 14px;color:var(--brand-blue-deep)}
+  .key-takeaways ul{list-style:none;padding:0;margin:0}
+  .key-takeaways li{position:relative;padding-left:22px;margin-bottom:10px;font-size:0.93rem;color:var(--text-body)}
+  .key-takeaways li::before{content:"\203A";position:absolute;left:6px;top:-1px;color:var(--brand-saffron);font-weight:700}
+  .faq-section{margin:40px 0 8px}
+  .sources-section{border-top:1px solid var(--light-grey);padding-top:24px;margin-top:40px;color:var(--text-grey)}
+  .sources-section h3{color:var(--brand-blue-deep)}
+  .sources-section ul{list-style:none;padding:0}
+  .sources-section li{margin-bottom:10px}
+  .cta-box{background:var(--off-white);border-radius:var(--radius-md);padding:28px 30px;margin:40px 0 8px;text-align:center}
+  .blog-content ol{padding-left:22px;margin:0 0 20px}
+  .blog-content ol li{margin-bottom:10px;color:var(--text-body)}
+  .blog-content ul.plain{padding-left:22px;list-style:disc;margin:0 0 20px}
+  .blog-content ul.plain li{margin-bottom:8px;color:var(--text-body)}
+</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-2XB5VRL6X7');</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
 <div class="top-bar"><div class="container"><div class="top-bar-left"><a href="mailto:karan@kcshah.com" aria-label="Email karan@kcshah.com"><i class="fa-solid fa-envelope"></i> karan@kcshah.com</a><a href="tel:+917666638995"><i class="fa-solid fa-phone"></i> +91 7666638995</a></div><div class="top-bar-right"><a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><svg class="brand-icon brand-icon-linkedin-in" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg> LinkedIn</a><a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20visited%20kcshah.com%20and%20would%20like%20to%20discuss%20your%20services." target="_blank" rel="noopener noreferrer"><svg class="brand-icon brand-icon-whatsapp" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg> WhatsApp</a></div></div></div>
-
 <header><div class="container nav-wrapper"><a href="/" class="logo" style="display: flex; align-items: center; gap: 12px;">
-      <img src="ca-india-logo.png?v=2" width="194" height="144" alt="CA India Logo" style="height: 48px; width: auto;"><div><div class="logo-text">KC Shah <span>& Associates</span></div><span class="logo-sub">Chartered Accountants</span></div></a><ul class="nav-links"><li><a href="/">Home</a></li><li><a href="#">Services <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;margin-left:4px"></i></a><div class="dropdown-menu"><a href="outsourced-accounting-services"><i class="fa-solid fa-cloud"></i> Outsourced Accounting</a><a href="zoho-books-implementation"><i class="fa-solid fa-gear"></i> Zoho Books Implementation</a><a href="business-valuation"><i class="fa-solid fa-chart-line"></i> Business Valuation</a><a href="virtual-cfo"><i class="fa-solid fa-user-tie"></i> Virtual CFO</a><a href="company-incorporation"><i class="fa-solid fa-building"></i> Company Incorporation</a><a href="gst-filing"><i class="fa-solid fa-file-invoice"></i> GST Filing</a><a href="income-tax"><i class="fa-solid fa-calculator"></i> Income Tax</a><a href="audit-assurance"><i class="fa-solid fa-magnifying-glass-chart"></i> Audit & Assurance</a><a href="corporate-finance"><i class="fa-solid fa-hand-holding-dollar"></i> Corporate Finance</a><a href="fema-compliance"><i class="fa-solid fa-globe"></i> FEMA Compliance</a></div></li><li><a href="tools/">Free Tools <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;margin-left:4px"></i></a><div class="dropdown-menu">
+      <img src="ca-india-logo.png?v=2" width="194" height="144" alt="CA India Logo" style="height: 48px; width: auto;"><div><div class="logo-text">KC Shah <span>& Associates</span></div><span class="logo-sub">Chartered Accountants</span></div></a><ul class="nav-links"><li><a href="/">Home</a></li><li><a href="#">Services <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;margin-left:4px"></i></a><div class="dropdown-menu"><a href="outsourced-accounting-services"><i class="fa-solid fa-cloud"></i> Outsourced Accounting</a><a href="zoho-books-implementation"><i class="fa-solid fa-gear"></i> Zoho Books Implementation</a><a href="business-valuation"><i class="fa-solid fa-chart-line"></i> Business Valuation</a><a href="virtual-cfo"><i class="fa-solid fa-user-tie"></i> Virtual CFO</a><a href="company-incorporation"><i class="fa-solid fa-building"></i> Company Incorporation</a><a href="gst-filing"><i class="fa-solid fa-file-invoice"></i> GST Filing</a><a href="income-tax"><i class="fa-solid fa-calculator"></i> Income Tax</a><a href="audit-assurance"><i class="fa-solid fa-magnifying-glass-chart"></i> Audit & Assurance</a><a href="corporate-finance"><i class="fa-solid fa-hand-holding-dollar"></i> Corporate Finance</a><a href="fema-compliance"><i class="fa-solid fa-globe"></i> FEMA Compliance</a></div></li><li>
+        <a href="tools/">Free Tools <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;margin-left:4px"></i></a>
+        <div class="dropdown-menu">
 <a href="tools/income-tax-calculator"><i class="fa-solid fa-calculator"></i> Income Tax Calculator</a>
           <a href="tools/advance-tax-calculator"><i class="fa-solid fa-calendar-check"></i> Advance Tax</a>
           <a href="tools/capital-gain-calculator"><i class="fa-solid fa-chart-line"></i> Capital Gains</a>
@@ -61,26 +86,27 @@
           <a href="tools/compliance-calendar"><i class="fa-solid fa-calendar-days"></i> Compliance Calendar</a>
           <a href="tools/sign-stamp-tool"><i class="fa-solid fa-file-signature"></i> PDF Sign & Stamp</a>
           <a href="tools/" style="border-top: 1px solid var(--border); margin-top: 5px; padding-top: 10px;"><i class="fa-solid fa-table-cells-large"></i> View All Tools</a>
-</div></li><li><a href="/zoho-books-training">Zoho Books Training</a></li><li><a href="about">About</a></li><li><a href="blog" class="active">Insights</a></li><li><a href="contact">Contact</a></li></ul><a href="contact" class="btn btn-primary btn-sm nav-cta">Book Free Consultation</a><div class="hamburger" aria-label="Toggle navigation" role="button" tabindex="0"><span></span><span></span><span></span></div></div></header>
+</div>
+      </li>      
+      <li><a href="/zoho-books-training">Zoho Books Training</a></li><li><a href="about">About</a></li><li><a href="blog" class="active">Insights</a></li><li><a href="contact">Contact</a></li></ul><a href="contact" class="btn btn-primary btn-sm nav-cta">Book Free Consultation</a><div class="hamburger" aria-label="Toggle navigation" role="button" tabindex="0"><span></span><span></span><span></span></div></div></header>
 <main id="main-content">
-
-<div style="background:var(--off-white);padding:10px 0;border-bottom:1px solid var(--light-grey)"><div class="container"><div class="breadcrumb"><a href="/">Home</a> <span>/</span> <a href="blog">Insights</a> <span>/</span> <span>Tally to Zoho Books Migration</span></div></div></div>
+<div style="background:var(--off-white);padding:10px 0;border-bottom:1px solid var(--light-grey)"><div class="container"><div class="breadcrumb"><a href="/">Home</a> <span>/</span> <a href="blog">Insights</a> <span>/</span> <span>Zoho Books for CA Firms</span></div></div></div>
 
 <section class="section" style="padding-top: 40px;">
   <div class="container blog-content" style="max-width:850px;margin:0 auto">
 
     <div class="blog-hero">
-      <img loading="lazy" src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1000&q=80" srcset="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=480&q=80 480w, https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1000&q=80 1000w" sizes="(max-width: 768px) 100vw, 800px" width="1000" height="400" alt="Migrating accounting data from Tally to Zoho Books">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" srcset="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=480&amp;q=80 480w, https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=800&amp;q=80 800w, https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80 1000w" sizes="(max-width: 768px) 100vw, 800px" width="1000" height="400" alt="Accountant reviewing client books on a laptop with a calculator, illustrating outsourced bookkeeping on Zoho Books">
       <div class="blog-hero-overlay">
         <span class="blog-category-badge">Zoho Books</span>
-        <h1 style="margin:0;font-size:2.3rem;line-height:1.2;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.9)">From Tally to Zoho Books: A Structured Migration Framework Businesses Can Actually Trust</h1>
+        <h1 style="margin:0;font-size:2.3rem;line-height:1.2;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.9)">Zoho Books for CA Firms: How Outsourced Bookkeeping Actually Runs on It</h1>
       </div>
     </div>
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;color:var(--text-grey);font-size:0.95rem;flex-wrap:wrap;gap:12px;">
       <div style="display:flex;gap:16px;flex-wrap:wrap;">
-        <span><i class="fa-regular fa-calendar" style="color:var(--brand-saffron)"></i> Published: June 23, 2026</span>
-        <span><i class="fa-solid fa-clock-rotate-left" style="color:var(--brand-saffron)"></i> Last Updated: July 16, 2026</span>
+        <span><i class="fa-regular fa-calendar" style="color:var(--brand-saffron)"></i> Published: September 9, 2026</span>
+        <span><i class="fa-solid fa-clock-rotate-left" style="color:var(--brand-saffron)"></i> Last Updated: September 9, 2026</span>
       </div>
       <div style="display:flex;gap:16px;flex-wrap:wrap;">
         <span><i class="fa-solid fa-pen-nib" style="color:var(--brand-saffron)"></i> Author: CA Karan Shah</span>
@@ -88,172 +114,134 @@
       </div>
     </div>
 
-    <p class="drop-cap">For years, Tally has been the backbone of accounting for thousands of Indian businesses - reliable, familiar, and deeply embedded in the daily workflow of finance teams across the country. But as businesses scale, the limitations become harder to ignore: siloed data, limited cloud access, constrained reporting, and minimal integration with the modern tools growing businesses depend on. The shift to Zoho Books is no longer just a trend - it is a strategic move toward a connected, automated, reportable financial ecosystem. We have made this transition with our clients, and we built the framework to do it right.</p>
+    <p class="drop-cap">Most of the businesses we keep books for never log into Tally, because we do. That was the old model: the client sent documents, the firm entered them into software the client could not see, and a trial balance came back at year end. Zoho Books changed the model, not the work. The client and the firm now work in the same ledger, in a browser, with a permanent record of who did what. This post is written for both sides of that arrangement: the business owner asking whether accounting can be outsourced on Zoho Books, and the accountant asking whether Zoho Books is a sensible platform to run a practice on.</p>
 
-    <div class="what-changed">
-      <strong><i class="fa-solid fa-bell"></i> The reality:</strong> Moving from Tally to Zoho Books is not "export, then import". The real challenge lives between export and import - and most businesses discover that only after a failed migration attempt. This is the framework we use to prevent that.
-    </div>
-
-    <p class="direct-answer">Migrating from Tally to Zoho Books works reliably when you treat it as a financial system transition, not a data transfer. Our framework runs in three phases - master reconciliation, transaction-file validation, and a fixed 19-step sequenced import - so contacts, GST treatment and linked transactions all resolve correctly, with zero total difference between your Tally and Zoho balances.</p>
+    <p class="direct-answer">Yes, accounting can be outsourced on Zoho Books, and it is the platform we run most client books on. Every Zoho Books organisation includes a free accountant seat, so the client owns the subscription and the data while the firm works inside it. The firm handles categorisation, bank reconciliation, GST, TDS and the monthly close; the client raises invoices, captures bills and approves payments. Roles and approval workflows enforce the split, and the audit trail records every change by user and time.</p>
 
     <aside class="key-takeaways">
       <h3><i class="fa-solid fa-list-check"></i> Key Takeaways</h3>
       <ul>
-        <li>Most migration failures happen <em>between</em> export and import - not in either step itself.</li>
-        <li>Masters are reconciled first: dual debtor/creditor ledgers become a single Zoho contact with both roles.</li>
-        <li>Every transaction file is validated (column shifts, linkage, GST, duplicates) before a single import runs.</li>
-        <li>Zoho enforces referential integrity, so import follows a fixed sequence - Masters, Purchases, Sales, Journals.</li>
-        <li>The end state reconciles to <strong>zero total difference</strong> - every rupee accounted for.</li>
+        <li><strong>The accountant seat is free on every plan.</strong> Your CA is invited into your organisation; nobody exports files or shares passwords.</li>
+        <li><strong>The client owns the subscription.</strong> If you change firms, you revoke one user. The books stay where they are.</li>
+        <li><strong>Roles decide who does what.</strong> A sales user cannot post journals; an accountant cannot approve the client's vendor payments unless given that role.</li>
+        <li><strong>The monthly close is the product.</strong> Bank feeds matched, bills booked with TDS, GSTR-2B reconciled, GSTR-1 and 3B filed from the ledger, MIS sent by a fixed date.</li>
+        <li><strong>Zoho Books stops at bookkeeping and GST.</strong> Income-tax returns, TDS returns and Schedule III financials are prepared in the firm's own tools from Zoho Books data.</li>
       </ul>
     </aside>
 
-    <h2 id="why-move">Why Businesses Are Moving from Tally to Zoho Books</h2>
-    <p>The decision to migrate is rarely impulsive. It comes after months - sometimes years - of working around Tally's boundaries. The triggers we hear most from clients:</p>
-    <ul>
-      <li><strong>Remote access and collaboration</strong> - Tally's desktop-first architecture limits real-time access for management, accountants and auditors across locations. Zoho Books is fully cloud-native.</li>
-      <li><strong>MIS and reporting</strong> - owners want live dashboards, profitability by project or cost centre, and reports they can share in a click. In Tally these need workarounds; in Zoho Books they are built in.</li>
-      <li><strong>Automation and integrations</strong> - Zoho Books integrates natively with Zoho CRM, Zoho Inventory, payment gateways and GST portals. Tally needs third-party bridges.</li>
-      <li><strong>Approval workflows and controls</strong> - multi-level approvals, role-based access and audit trails are standard in Zoho Books; significant customisation in Tally.</li>
-      <li><strong>GST compliance</strong> - Zoho Books is among the most robust GST-ready platforms, with built-in return filing, reconciliation and e-invoicing.</li>
+    <h2 id="why-cas">Why CA firms are standardising on Zoho Books</h2>
+    <p>A firm running forty clients on desktop software has forty data files, forty backup routines and forty versions of the truth. A firm running the same forty on Zoho Books has forty browser tabs and one login. That is the practical reason, and it explains most of the shift. The others are:</p>
+    <ul class="plain">
+      <li><strong>Per-organisation roles.</strong> Every client organisation has its own users and permissions, so the firm's staff see only the clients assigned to them and clients see only their own books.</li>
+      <li><strong>An audit trail that cannot be switched off.</strong> Every create, edit and delete is logged against a user and a timestamp. When a number changes between the draft and the signed accounts, the log shows who changed it.</li>
+      <li><strong>Direct GSTN filing.</strong> GSTR-1 and GSTR-3B are pushed from the ledger, and GSTR-2B is fetched into it, which removes the re-keying step that produced most mismatches under the old model. Our <a href="/blog-zoho-books-gst-filing">Zoho GST filing guide</a> covers the routine.</li>
+      <li><strong>Bank feeds.</strong> Statement lines arrive in the ledger daily. Matching replaces entry, and the reconciliation is continuous rather than a month-end event.</li>
+      <li><strong>Document attachment.</strong> The bill image sits on the bill entry. The auditor's sample request becomes a filter, not a courier.</li>
     </ul>
-    <p>New to the platform? Start with our <a href="blog-zoho-books-india-guide">complete Zoho Books guide for Indian businesses</a>, or see <a href="blog-zoho-books-vs-tally">how Zoho Books compares to Tally Prime</a> before you commit.</p>
+    <p>Our fuller comparison with the desktop alternative is in <a href="/blog-zoho-books-vs-tally">Zoho Books vs Tally Prime for Indian SMEs</a>. The short version for firms: Tally is faster for a single operator entering vouchers, and Zoho Books is faster for a team working on many clients with the clients watching.</p>
 
-    <h2 id="challenge">The Migration Challenge No One Talks About</h2>
-    <p>Moving from Tally to Zoho Books is not as simple as exporting data and clicking import. The real challenge lies in what happens <em>between</em> export and import - and most businesses discover this only after a failed attempt. Here is what we encounter in real migrations:</p>
+    <h2 id="accountant-seat">The accountant seat, and who owns what</h2>
+    <p>Every Zoho Books plan, including the free one, allows the organisation to invite one accountant user at no charge. The accountant has full accounting access, can be added to any number of client organisations, and switches between them from a single login. The client remains the organisation owner and pays Zoho directly for the plan that matches its volume; the <a href="/zoho-books-pricing-india">pricing guide</a> sets out which plan fits which business.</p>
+    <p>This ownership split matters more than it sounds. Under the old model the firm held the data file, and changing accountants meant negotiating for your own books. Under this model you revoke one user and the incoming firm is invited the next morning. It also means the firm cannot be the reason your books are unavailable during a tax notice or a due-diligence exercise.</p>
+    <p>For firms managing many clients, Zoho also offers Zoho Practice, a console that lists every client organisation, pending tasks and review items in one place. It is useful above about twenty clients; below that, the organisation switcher inside Zoho Books is enough.</p>
 
-    <h3>Ledger classification conflicts</h3>
-    <p>In Tally, the same party often exists as two separate ledgers - one under Sundry Debtors (customer) and one under Sundry Creditors (vendor). Zoho Books manages this through a single contact that can hold both roles. Migration tools do not always map this correctly, and the result is incomplete customer or vendor data on import.</p>
-
-    <h3>Column structure irregularities</h3>
-    <p>When transaction data is exported from Tally, certain fields - cost centres, reporting tags, event codes - introduce structural shifts in the CSV output. Rows carrying cost centre or event data generate an extra field, shifting all subsequent columns by one position. Left undetected, this corrupts External Reference IDs, metadata and, in some cases, core transaction data. Our review process catches and corrects every such instance before any file is imported.</p>
-
-    <h3>Multi-entity bills and split cost centres</h3>
-    <p>Some Tally transactions are recorded across two cost centres - for example, the same vendor bill split between two departments or project codes. These legitimately appear as two rows for one bill number. Without proper validation, they can be wrongly flagged as duplicates and deleted, breaking the integrity of the imported data.</p>
-
-    <h3>Pre-GST transaction handling</h3>
-    <p>For businesses migrating historical data that pre-dates GST, transactions carry no GST treatment, use an Out of Scope supply type and have no GSTIN references. These need specific handling in Zoho Books to avoid import errors and incorrect GST reporting.</p>
-
-    <h3>Embedded formatting in exported files</h3>
-    <p>Tally exports occasionally contain embedded line breaks within quoted fields, NUL bytes from older data entries and inconsistent date formats. These cause standard CSV parsers to misread record counts and corrupt data on import.</p>
-
-    <h3>TDS routing through liability accounts</h3>
-    <p>Vendor payments made net of TDS - routed through TDS payable accounts like TDS on Contract (194C) or TDS on Hire of P&amp;M - must be correctly mapped to Zoho's payment structure, so the TDS liability account is recognised and the vendor payment amount reconciles correctly.</p>
-
-    <h2 id="framework">Our Migration Framework: Built from Real Projects</h2>
-    <p>We developed a structured migration framework using a purpose-built Tally-to-Zoho migration tool, combined with a comprehensive pre-import validation layer that we run on every client engagement. It has been proven on a full <strong>ten-year, multi-entity migration</strong> - imported one financial year at a time and reconciled to Tally down to the rupee across pre-GST and post-GST periods. It operates in three phases.</p>
-
-    <div class="phase-card">
-      <h3><i class="fa-solid fa-1" style="color:var(--brand-saffron);margin-right:8px"></i>Phase 1 - Data Extraction &amp; Master Reconciliation</h3>
-      <p style="margin-bottom:0">We begin with a full extraction of your Tally data - all ledgers, groups, transaction types and balances. Masters are reconciled first: contacts are mapped to the correct Zoho type (customer, vendor or both), accounts are aligned to Zoho's chart of accounts, and GST treatments are assigned based on party type and transaction era. Every contact is assigned a unique migration ID. Where Tally has separate Dr and Cr ledgers for the same party, we create a single Zoho contact with dual roles - preserving the complete transaction history on both the payable and receivable side.</p>
-    </div>
-
-    <div class="phase-card">
-      <h3><i class="fa-solid fa-2" style="color:var(--brand-saffron);margin-right:8px"></i>Phase 2 - Transaction File Validation</h3>
-      <p>This is the most critical phase, and where most migration failures originate. We validate every transaction CSV - across Purchases, Sales and Journals - before any import begins. Our validation checks for:</p>
-      <ul style="margin-bottom:0">
-        <li>Field count consistency across every row (detecting column-shift anomalies)</li>
-        <li>Customer Number and Vendor Number linkage (every transaction must resolve to a valid contact)</li>
-        <li>Account existence verification (every account referenced must exist in the chart of accounts)</li>
-        <li>Exchange rate completeness (blank rates valid for INR base currency; flagged for foreign currency)</li>
-        <li>GST treatment consistency (pre-GST as Out of Scope; post-GST validated against GSTIN and place of supply)</li>
-        <li>Total Difference reconciliation (Tally entity total vs Zoho entity total must match to zero)</li>
-        <li>Duplicate detection with cost-centre context (split-centre bills preserved; genuine duplicates removed)</li>
-      </ul>
-    </div>
-
-    <div class="phase-card">
-      <h3><i class="fa-solid fa-3" style="color:var(--brand-saffron);margin-right:8px"></i>Phase 3 - Sequenced Import Execution</h3>
-      <p style="margin-bottom:0">The import sequence is not arbitrary. Zoho Books enforces referential integrity - you cannot import a vendor payment before the bill it settles, or a credit note before the invoice it relates to. Our framework follows a fixed 19-step import sequence across Masters, Purchases, Sales and Journals, in the exact order Zoho Books requires.</p>
-    </div>
-
-    <h3 id="import-sequence">The Import Sequence</h3>
-    <div class="table-scroll" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="mig-table">
-      <thead>
-        <tr><th>Phase</th><th>Files Imported (in order)</th></tr>
-      </thead>
+    <h2 id="division">What the client does and what the firm does</h2>
+    <p>The arrangement fails when this is left vague. We write it into the engagement letter and then enforce it with roles.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Activity</th><th>Client</th><th>CA firm</th><th>Zoho Books role that enforces it</th></tr></thead>
       <tbody>
-        <tr><td class="phase-name">Masters</td><td>Contacts &rarr; Chart of Accounts &rarr; Items &rarr; Taxes</td></tr>
-        <tr><td class="phase-name">Purchases</td><td>Vendor Bills &rarr; Journal Bills &rarr; Expense Bills &rarr; Vendor Credits &rarr; Vendor Payments</td></tr>
-        <tr><td class="phase-name">Sales</td><td>Invoices &rarr; Journal Invoices &rarr; Credit Notes &rarr; Customer Payments</td></tr>
-        <tr><td class="phase-name">Journals</td><td>General Journals &rarr; Intermediate Journals &rarr; Payment Journals &rarr; Credit Journals</td></tr>
+        <tr><td>Sales invoices and credit notes</td><td>Raises</td><td>Reviews GST treatment monthly</td><td>Client staff: Sales role or custom "Invoicing" role</td></tr>
+        <tr><td>Expense bills and receipts</td><td>Uploads the document (email-in, mobile app or drag-and-drop)</td><td>Creates the bill, applies TDS, tags MSME status</td><td>Client: Submitter; firm: Accountant</td></tr>
+        <tr><td>Vendor payments</td><td>Approves and pays</td><td>Prepares the payment batch and records the payment</td><td>Approval workflow with the client as approver</td></tr>
+        <tr><td>Bank feeds and reconciliation</td><td>Connects the feed once</td><td>Matches daily, reconciles monthly</td><td>Accountant</td></tr>
+        <tr><td>Journals, provisions, depreciation</td><td>Nothing</td><td>Posts and documents</td><td>Accountant only; journal creation removed from client roles</td></tr>
+        <tr><td>GSTR-2B reconciliation, GSTR-1, GSTR-3B</td><td>Answers vendor-side queries</td><td>Reconciles, files, tracks pending ITC</td><td>Accountant, GSTN credentials held by the client</td></tr>
+        <tr><td>TDS deduction and deposit</td><td>Pays the challan</td><td>Computes, prepares the challan, prepares the quarterly statement outside Zoho Books</td><td>Accountant</td></tr>
+        <tr><td>Monthly MIS</td><td>Reads and asks</td><td>Prepares and presents</td><td>Reports shared as scheduled emails</td></tr>
+        <tr><td>Chart of accounts and settings</td><td>Nothing</td><td>Owns</td><td>Admin rights held by the firm under the client's ownership</td></tr>
       </tbody>
     </table></div>
-    <p>This sequencing ensures every linked transaction - a payment against a bill, a credit note against an invoice - resolves correctly on import, with no orphaned records.</p>
+    <p class="table-note">Two rules we do not bend: the client always holds the GSTN and bank credentials, and the client always has a user who can see everything, even if they never log in.</p>
 
-    <blockquote class="blog-quote">
-      "We do not treat migration as a data-transfer exercise. We treat it as a financial system transition - and we bring the same rigour to it that we bring to an audit, a valuation, or a Virtual CFO engagement."
-    </blockquote>
+    <h2 id="monthly-close">The monthly close on Zoho Books</h2>
+    <p>Outsourced bookkeeping is a calendar, not a service description. Ours runs like this for a typical client, and the sequence is the same whether the client turns over fifty lakh or fifty crore:</p>
+    <ol>
+      <li><strong>Daily:</strong> bank feed lines matched to invoices, bills and transfers; unmatched lines queried to the client through the comment thread on the transaction rather than by email.</li>
+      <li><strong>Weekly:</strong> bills created from uploaded documents, TDS section and rate applied at the vendor level, MSME vendors tagged for the 45-day rule (our <a href="/blog-43bh-msme-compliance-checklist">Section 43B(h) checklist</a> covers the tagging), payment batch prepared for approval.</li>
+      <li><strong>By the 7th:</strong> TDS computed and the challan prepared for the client to pay.</li>
+      <li><strong>By the 10th:</strong> sales register reviewed for place of supply, HSN and e-invoice status; GSTR-1 pushed.</li>
+      <li><strong>By the 14th:</strong> GSTR-2B fetched and reconciled; vendors who have not filed are chased, ITC on their invoices parked.</li>
+      <li><strong>By the 18th:</strong> GSTR-3B prepared from the ledger and filed after the client approves the payment.</li>
+      <li><strong>By the 20th:</strong> month locked in Zoho Books, MIS pack issued: P&amp;L against budget, receivables and payables ageing, cash position, GST and TDS status, open queries.</li>
+    </ol>
+    <p>The transaction lock at step 7 is the feature that makes the arrangement auditable. Once the month is locked, neither side can back-date an entry into it without the log showing the unlock. The detailed close is described on our <a href="/outsourced-accounting-services">outsourced accounting services</a> page.</p>
 
-    <h2 id="reconciliation">Where the Numbers Actually Break: Reconciliation</h2>
-    <p>Getting data <em>into</em> Zoho Books is only half the job. A migration is finished only when Zoho's Trial Balance, Profit &amp; Loss and Balance Sheet tie back to Tally - to the rupee. This is the phase that separates a real migration from a data dump, and it is where the most stubborn differences surface. In practice, three patterns account for almost all of them.</p>
-
-    <h3>Balance-sheet gaps: gross-vs-net receivables and payables</h3>
-    <p>The most common Balance Sheet mismatch is not missing data - it is <strong>gross-vs-net presentation</strong>. When a customer receipt or vendor payment imports before it can be matched to its invoice or bill, Zoho parks it as an unapplied amount: unapplied customer receipts inflate <em>Unearned Revenue</em>, and unapplied vendor payments sit as <em>vendor advances</em>. Your receivables and payables then read gross where Tally reads net. Nothing is lost - it simply needs to be applied. We resolve this with <strong>FIFO application</strong>, party by party: the oldest advance is knocked off against the oldest open invoice or bill, exactly as the ledger would have settled it, until the net position matches Tally.</p>
-
-    <h3>Statutory clearing ledgers become phantom advances</h3>
-    <p>Businesses often route TDS, service tax or salary through a single "clearing" person-ledger. In migration, only the bank leg of these entries tends to carry across, leaving a phantom advance sitting against that ledger - a balance that never really existed. We identify each clearing ledger, trace the missing leg back to the correct statutory or expense account, and post an adjustment journal so the clearing account nets to nil, the way it stood in Tally.</p>
-
-    <h3>P&amp;L differences: misclassified credit notes and TDS</h3>
-    <p>Profit &amp; Loss gaps usually trace to vendor credits or credit notes that were, in substance, TDS entries, or to a system account that could not be reclassified during import. Each is corrected with a targeted adjustment journal rather than a blanket re-import - so the record of what changed, and why, stays intact and auditable.</p>
-
-    <div class="phase-card">
-      <h3 style="margin-bottom:8px"><i class="fa-solid fa-calendar-check" style="color:var(--brand-saffron);margin-right:8px"></i>One financial year at a time</h3>
-      <p style="margin-bottom:0">We never import a decade at once. Each year is imported, reconciled to Tally, and signed off before the next begins. If a difference appears, it is always traceable to a single, contained period - not hiding somewhere across ten years of data.</p>
-    </div>
-
-    <h2 id="outcome">What You Get at the End</h2>
-    <p>A fully migrated Zoho Books organisation with:</p>
-    <ul>
-      <li>Complete historical transaction data from Tally - bills, invoices, payments, credit notes, journals</li>
-      <li>Correctly classified contacts with customer and vendor roles preserved</li>
-      <li>GST-compliant transaction records, correctly treated for both pre-GST and post-GST periods</li>
-      <li>Cost centre and reporting tag data (COMPANY, EVENT) carried through to Zoho's reporting tags</li>
-      <li>Receivables and payables reconciled net - unapplied receipts and vendor advances applied by FIFO so balances match Tally, not gross</li>
-      <li>Zero Total Difference across all migrated transactions - Trial Balance, P&amp;L and Balance Sheet tie to Tally, every rupee reconciled</li>
-      <li>A clean opening position from which your team can continue operations without disruption</li>
+    <h2 id="setup">Setting up a client organisation for outsourced work</h2>
+    <p>A Zoho Books organisation that will be run by a firm is configured differently from one the owner runs alone. The settings that matter:</p>
+    <ul class="plain">
+      <li><strong>Chart of accounts designed for reporting, not copied from the old software.</strong> Group accounts the way the MIS needs them; do not carry over a hundred Tally ledgers named after individual vendors.</li>
+      <li><strong>Custom roles.</strong> The default "Staff" role can do more than a client's sales team should. We create an "Invoicing" role with invoice and customer access only, and a "Submitter" role that can upload bills but not post them.</li>
+      <li><strong>Approval workflows.</strong> Bills above a threshold need client approval before payment; that is a workflow, not a memo.</li>
+      <li><strong>Custom fields.</strong> TDS section on vendors, MSME registration number and status, cost centre or project where the MIS is segmented.</li>
+      <li><strong>Transaction locking and the closing date.</strong> Set from the first month, not the first audit.</li>
+      <li><strong>Client portal.</strong> Customers can see their invoices and statements and pay online, which reduces the "please resend the invoice" traffic that lands on the firm.</li>
+      <li><strong>Email-in for bills.</strong> Each organisation gets an inbound address; the client forwards vendor invoices and they appear as drafts for the firm to complete.</li>
     </ul>
+    <p>This configuration is the bulk of our <a href="/zoho-books-implementation">Zoho Books implementation</a> work. When a client is coming from Tally, the <a href="/tally-to-zoho-migration">migration framework</a> runs first and the configuration is done on the migrated data.</p>
 
-    <p>To ensure your team hits the ground running post-migration, we recommend having them complete our <a href="zoho-books-training">Zoho Books Academy</a> training track.</p>
+    <h2 id="multi">Multiple GSTINs and group companies</h2>
+    <p>Zoho Books treats each organisation as one set of books, and a GST return is filed per GSTIN, so a client registered in Maharashtra and Gujarat runs as two organisations under one Zoho account. The firm is invited as accountant on both. Inter-branch supplies between the two registrations are taxable and need invoices, not journals; this is the single most common error in multi-GSTIN books we inherit. Group consolidation for management purposes happens outside the ledger, usually in Zoho Analytics or a spreadsheet fed by scheduled report exports.</p>
 
-    <h2 id="who-for">Who This Is For</h2>
-    <ul>
-      <li><strong>SMEs and growing businesses</strong> on Tally Prime or Tally ERP 9, looking to move to a cloud-based accounting system</li>
-      <li><strong>Businesses with complex transaction histories</strong> - multiple cost centres, event-based accounting, pre-GST and post-GST periods</li>
-      <li><strong>Businesses that must keep a Tally copy for an auditor or lender</strong> after the move; the reverse direction, and how to run both without drift, is covered in <a href="/blog-zoho-books-to-tally-migration">Zoho Books to Tally: reverse migration and running both</a></li>
-      <li><strong>Companies that have attempted migration before</strong> and hit errors, mismatched balances or incomplete data</li>
-      <li><strong>Finance teams and CFOs</strong> who need a trusted partner to own the migration end-to-end, from data extraction to live system handover</li>
-    </ul>
+    <h2 id="limits">Where Zoho Books stops, and what the firm does outside it</h2>
+    <p>A client asking to outsource "everything" on Zoho Books should know which parts of everything happen elsewhere.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Work</th><th>In Zoho Books?</th><th>How the firm handles it</th></tr></thead>
+      <tbody>
+        <tr><td>Bookkeeping, bank reconciliation, receivables and payables</td><td>Yes</td><td>Entirely inside the ledger</td></tr>
+        <tr><td>GSTR-1, GSTR-3B, GSTR-2B reconciliation, e-invoicing, e-way bills</td><td>Yes</td><td>Filed from Zoho Books through the GSTN API</td></tr>
+        <tr><td>GSTR-9 annual return</td><td>Partly</td><td>Reports pulled from Zoho Books, return prepared on the portal</td></tr>
+        <tr><td>TDS deduction and challans</td><td>Deduction yes, challan preparation yes</td><td>Quarterly TDS statements prepared in return-filing software from the Zoho Books TDS report</td></tr>
+        <tr><td>Payroll</td><td>No (Zoho Payroll is a separate product)</td><td>Salary journal posted into Zoho Books from the payroll system</td></tr>
+        <tr><td>Income-tax return, advance tax, tax audit report</td><td>No</td><td>Prepared from the locked Zoho Books trial balance</td></tr>
+        <tr><td>Schedule III financial statements and audit</td><td>No</td><td>Trial balance and ledgers exported; statements prepared and audited in the firm's tools</td></tr>
+        <tr><td>Inventory with batches, serials and manufacturing</td><td>Basic only</td><td>Zoho Inventory linked to Zoho Books where needed</td></tr>
+        <tr><td>FEMA and ROC filings</td><td>No</td><td>Separate compliance calendar, fed by the ledger</td></tr>
+      </tbody>
+    </table></div>
 
-    <h2 id="why-us">Why Work With Us</h2>
-    <p>We are Chartered Accountants and Zoho-certified experts in financial process consulting, working within the Zoho ecosystem - implementing, customising and optimising Zoho Books for businesses across manufacturing, services, events, retail and project-based industries. Every migration we undertake is reviewed at the transaction level, validated against source data, and handed over with full documentation of decisions made, contacts created and accounts mapped. This work pairs naturally with our <a href="zoho-books-implementation">Zoho Books implementation</a>, <a href="outsourced-accounting-services">outsourced accounting</a> and <a href="virtual-cfo">Virtual CFO</a> services.</p>
+    <h2 id="fees">What it costs the client</h2>
+    <p>Two lines, kept separate. The Zoho Books subscription is paid by the client to Zoho, on the plan its volume requires; most outsourced clients sit on Standard or Professional. The firm's fee is driven by transaction volume, number of GSTINs, whether inventory is involved and how clean the inputs arrive, and we quote it as a fixed monthly retainer. The Zoho accountant seat itself costs nothing. Our <a href="/blog-cost-of-accounting-outsourcing">guide to the cost of accounting outsourcing</a> sets out the fee drivers in detail.</p>
 
-    <div style="background:linear-gradient(135deg, var(--brand-blue-deep), #1a2942);padding:40px;border-radius:12px;margin:40px 0;color:white;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.15)">
-      <i class="fa-solid fa-arrow-right-arrow-left" style="font-size:2.5rem;color:var(--brand-saffron);margin-bottom:16px"></i>
-      <h3 style="margin-top:0;color:white">Ready to Move from Tally to Zoho Books?</h3>
-      <p style="margin-bottom:24px;color:rgba(255,255,255,0.8)">If you are evaluating a migration - or have been stuck on one - we'll assess your data and walk you through exactly what a structured migration looks like for your organisation.</p>
-      <a href="contact" class="btn btn-primary">Request a Migration Assessment</a>
-    </div>
+    <h2 id="for-firms">A note for other CA firms</h2>
+    <p>If you are a practitioner considering the move, three things from our experience. Standardise the chart of accounts template across clients before you migrate the first one; every hour spent there is repaid forty times. Decide the role matrix once and apply it to every organisation, because exceptions are where data gets edited by the wrong person. And keep the client on their own subscription rather than reselling seats under yours; the ownership clarity is worth more than the margin. Our <a href="/zoho-books-training">free Zoho Books training course</a> is built around the way we run client books and is open to other firms.</p>
 
-    <h2 id="faq">Frequently Asked Questions</h2>
-    <div class="faq-item"><div class="faq-question">Can I migrate from Tally to Zoho Books without losing data? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Yes, with the right process. A clean migration extracts all Tally ledgers, groups, transactions and balances, reconciles masters first, validates every transaction file, and follows the import sequence Zoho Books requires - so your complete history carries over with zero total difference. Most data-loss stories come from a raw export-and-import with no validation layer in between.</p></div></div>
-    <div class="faq-item"><div class="faq-question">Why do Tally to Zoho Books migrations fail? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Failures usually happen between export and import: dual debtor/creditor ledgers for one party, column-shift anomalies from cost-centre or event data, split cost-centre bills mistaken for duplicates, pre-GST transactions handled incorrectly, embedded line breaks or NUL bytes corrupting the parser, and TDS-routed payments not mapping to Zoho's structure. A pre-import validation layer catches and corrects each of these.</p></div></div>
-    <div class="faq-item"><div class="faq-question">How is data validated before import to Zoho Books? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Every transaction CSV - Purchases, Sales and Journals - is checked for field-count consistency, valid customer/vendor linkage, account existence, exchange-rate completeness, GST treatment consistency across pre- and post-GST periods, total-difference reconciliation to zero, and duplicate detection that preserves genuine split cost-centre bills. Nothing imports until these pass.</p></div></div>
-    <div class="faq-item"><div class="faq-question">In what order should data be imported into Zoho Books? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Because Zoho Books enforces referential integrity, import follows a fixed sequence: Masters (Contacts, Chart of Accounts, Items, Taxes), then Purchases (vendor bills, journal bills, expense bills, vendor credits, vendor payments), then Sales (invoices, journal invoices, credit notes, customer payments), then Journals. This ensures a payment never imports before the bill it settles.</p></div></div>
-    <div class="faq-item"><div class="faq-question">How do you make sure the Balance Sheet matches Tally after migration? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Import is only half the job - the migration is complete only when Zoho's Trial Balance, P&amp;L and Balance Sheet tie back to Tally to the rupee. Most Balance Sheet gaps are gross-vs-net: unapplied customer receipts sit in Unearned Revenue and unapplied vendor payments as advances, so we net them down with FIFO application - oldest advance against oldest open invoice or bill, party by party. Statutory clearing ledgers that migrated with only their bank leg are traced back to the correct account and cleared with adjustment journals. Each financial year is reconciled and signed off before the next is imported.</p></div></div>
+    <section class="faq-section">
+      <h2 id="faq">Frequently Asked Questions</h2>
 
+      <div class="faq-item"><div class="faq-question">Can I outsource my accounting on Zoho Books? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Yes. Every Zoho Books organisation includes a free accountant user, so your CA firm works inside your own books with its own login. You keep ownership of the subscription and the data; the firm does the categorisation, reconciliation, GST and TDS work and the month-end close.</p></div></div>
 
-    <p>Need this configured properly from day one? We work as a <a href="/zoho-books-implementation">Zoho Books implementation</a> for Indian businesses.</p>
-    <!-- Sources Section -->
+      <div class="faq-item"><div class="faq-question">Does the CA firm need its own Zoho Books subscription? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>No. The client owns the subscription on the plan that fits its transaction volume. The firm is invited as the accountant on each client organisation and manages all of them from one login. Firms that are Zoho partners can also use Zoho Practice as a console across clients.</p></div></div>
+
+      <div class="faq-item"><div class="faq-question">Is Zoho Books good for chartered accountants? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>For bookkeeping, GST and management reporting across many small clients, yes. Browser access, per-organisation roles, a permanent audit trail, direct GSTN filing and bank feeds make it easier to run at scale than desktop software. It does not prepare income-tax returns, TDS returns or Schedule III statements, so those stay in the firm's own tools.</p></div></div>
+
+      <div class="faq-item"><div class="faq-question">What does the client still have to do? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Raise sales invoices, capture expense bills and receipts, approve vendor payments and answer queries within a few days. Everything else, from bank matching to the GSTR-3B, is the firm's work. The division is agreed at onboarding and enforced through Zoho Books roles.</p></div></div>
+
+      <div class="faq-item"><div class="faq-question">How does the firm handle multiple GSTINs for one client? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Each GSTIN is a separate Zoho Books organisation under one account. The firm is the accountant on each, files each GSTIN's returns separately, treats inter-branch supplies as taxable invoices, and consolidates management reports outside the ledger.</p></div></div>
+    </section>
+
     <section class="sources-section">
-      <h3><i class="fa-solid fa-book-open"></i> Sources & References</h3>
-      <ul>
-        <li><strong>Authority:</strong> Zoho Corporation. <strong>Title:</strong> Zoho Books - Data Migration &amp; Import Help. <a href="https://www.zoho.com/in/books/" target="_blank" rel="nofollow">View Source</a>. Accessed: June 2026.</li>
-        <li><strong>Authority:</strong> KC Shah &amp; Associates. <strong>Title:</strong> Internal Tally-to-Zoho Migration Framework (project experience). Accessed: June 2026.</li>
+      <h3 style="font-size:1.15rem;margin-bottom:14px">Sources</h3>
+      <ul style="font-size:0.85rem;line-height:1.8">
+        <li><strong>Authority:</strong> Zoho Corporation. <strong>Title:</strong> Zoho Books India help centre: users and roles, accountant access, transaction locking, GST filing. <a href="https://www.zoho.com/in/books/help/" target="_blank" rel="nofollow">View Source</a>. Accessed: September 2026.</li>
+        <li><strong>Authority:</strong> Zoho Corporation. <strong>Title:</strong> Zoho Books India pricing and plan comparison. <a href="https://www.zoho.com/in/books/pricing/" target="_blank" rel="nofollow">View Source</a>. Verified June 2026.</li>
+        <li><strong>Authority:</strong> Goods and Services Tax Network. <strong>Title:</strong> GSTR-2B and Invoice Management System advisories. <a href="https://www.gst.gov.in/" target="_blank" rel="nofollow">View Source</a>. Accessed: September 2026.</li>
       </ul>
     </section>
 
-    <div class="what-changed" style="margin-top:36px">
-      <strong><i class="fa-solid fa-graduation-cap"></i> Learn it hands-on:</strong> The cut-over and opening-balance steps in this framework are a reading lesson in the Academy: <a href="/zoho-books-training-configuration-settings">Configuration: opening balances, migration and cut-over</a> &middot; <a href="/zoho-books-training-expenses-journals">Expenses, journals, fixed assets and year-end</a> &middot; <a href="/zoho-books-training-sales-purchases-banking">Sales, purchases and banking</a> &mdash; all free, official Zoho videos with our practice notes, in the <a href="/zoho-books-training">Zoho Books Training Course</a>.
+    <div class="cta-box">
+      <h3 style="color:var(--brand-blue-deep);margin-bottom:10px">Want your books run this way?</h3>
+      <p style="margin-bottom:18px">We onboard outsourced accounting clients onto Zoho Books with the role matrix, close calendar and MIS pack described above, and we are a Zoho partner as well as a CA firm. Send us your current software and rough monthly transaction count for a fixed monthly quote.</p>
+      <a href="/outsourced-accounting-services" class="btn btn-primary">See outsourced accounting scope</a>
     </div>
 
     <div class="share-bar">
@@ -267,7 +255,7 @@
       <img loading="lazy" src="headshot-100.webp?v=2" width="200" height="200" alt="CA Karan Shah" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--brand-saffron);box-shadow:0 4px 15px rgba(217,94,11,0.3)">
       <div>
         <h4 style="margin:0 0 8px 0;font-size:1.2rem;color:var(--brand-blue-deep)">Written by CA Karan Shah</h4>
-        <p style="margin:0;font-size:0.95rem;line-height:1.6">Founder of KC Shah & Associates and a Zoho-certified expert. Specialises in Zoho Books implementation, Tally-to-Zoho migration and Virtual CFO services - building accounting systems that are accurate, automated and audit-ready.</p>
+        <p style="margin:0;font-size:0.95rem;line-height:1.6">Founder of KC Shah & Associates, a Zoho partner CA firm in Mumbai. Runs outsourced accounting for startups and SMEs on Zoho Books, and provides Zoho Books implementation, Tally migration and Virtual CFO services across India.</p>
       </div>
     </div>
 
@@ -284,23 +272,22 @@
     <div class="grid grid-3">
       <div class="card">
         <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Zoho Books</span></div>
-        <h4 style="font-size:1rem;margin:0 0 12px">Zoho Books vs Tally Prime: Which Is Better for Indian SMEs?</h4>
+        <h4 style="font-size:1rem;margin:0 0 12px">Zoho GST Filing: GSTR-1, GSTR-3B and the GSTR-2B Reconciliation</h4>
+        <a href="blog-zoho-books-gst-filing" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="card">
+        <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Zoho Books</span></div>
+        <h4 style="font-size:1rem;margin:0 0 12px">Zoho Books vs Tally Prime for Indian SMEs</h4>
         <a href="blog-zoho-books-vs-tally" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
       </div>
       <div class="card">
-        <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Zoho Books</span></div>
-        <h4 style="font-size:1rem;margin:0 0 12px">Zoho Books Setup for GST: Chart of Accounts &amp; HSN Checklist</h4>
-        <a href="blog-zoho-books-gst-setup" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      <div class="card">
-        <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Zoho Books</span></div>
-        <h4 style="font-size:1rem;margin:0 0 12px">Zoho Books for Indian Businesses: Complete Guide</h4>
-        <a href="blog-zoho-books-india-guide" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
+        <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Startup Tips</span></div>
+        <h4 style="font-size:1rem;margin:0 0 12px">In-House vs Outsourced Accounting: What It Really Costs</h4>
+        <a href="blog-in-house-vs-outsourced-accounting-services" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
 </section>
-
 </main>
 <footer style="background: var(--brand-blue-deep); color: rgba(255,255,255,0.92); padding: 80px 0 0;">
   <div class="container">
@@ -352,7 +339,7 @@
         </div>
       </div>
     </div>
-
+    
     <div style="border-top: 1px solid var(--brand-saffron); margin-top: 40px; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
       <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">&copy; 2026 KC Shah & Associates. All rights reserved. | ICAI Membership No. 190724 &middot; IBBI Registered Valuer Reg. No. IBBI/RV/06/2024/15561 | <a href="/disclaimer" style="color: rgba(255,255,255,0.8); text-decoration: underline;">Disclaimer</a></div>
       <div class="footer-social" style="margin: 0;">

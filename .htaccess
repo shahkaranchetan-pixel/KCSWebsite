@@ -49,7 +49,9 @@ RewriteRule ^index\.html$ https://kcshah.com/ [R=301,L]
 # 2. Redirect .html extensions to extensionless URLs.
 #    Deliberately kept ABOVE the host/scheme rules: www + .html and http + .html
 #    now resolve in a SINGLE 301 instead of chaining through two redirects.
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.html\ HTTP/
+#    The condition tolerates a query string (?utm=..., ?cb=...) so those variants
+#    also 301 instead of serving a duplicate 200 at the .html URL.
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.?\ ]+)\.html(\?[^\ ]*)?\ HTTP/
 RewriteRule ^(.*)\.html$ https://kcshah.com/$1 [R=301,L]
 
 # 2b. Redirect extensionless /index and <dir>/index to the canonical directory URL.
@@ -267,13 +269,13 @@ Redirect 301 /services/valuations/bandra /business-valuation
 Redirect 301 /services/valuations/bkc /business-valuation
 Redirect 301 /services/valuations/fort /business-valuation
 Redirect 301 /services/valuations/mumbai /business-valuation
-Redirect 301 /services/zoho-accounting/andheri-east /zoho-books-implementation
-Redirect 301 /services/zoho-accounting/andheri-west /zoho-books-implementation
+Redirect 301 /services/zoho-accounting/andheri-east /ca-in/andheri-east
+Redirect 301 /services/zoho-accounting/andheri-west /ca-in/andheri-west
 Redirect 301 /services/zoho-accounting/andheri /zoho-books-implementation
 Redirect 301 /services/zoho-accounting/bandra /zoho-books-implementation
 Redirect 301 /services/zoho-accounting/bkc /zoho-books-implementation
-Redirect 301 /services/zoho-accounting/fort /zoho-books-implementation
-Redirect 301 /services/zoho-accounting/mumbai /zoho-books-implementation
+Redirect 301 /services/zoho-accounting/fort /ca-in/fort
+Redirect 301 /services/zoho-accounting/mumbai /blog-zoho-books-for-ca-firms-outsourced-bookkeeping
 Redirect 301 /services/zoho-books-implementation/andheri-east /zoho-books-implementation
 Redirect 301 /services/zoho-books-implementation/andheri-west /zoho-books-implementation
 Redirect 301 /services/zoho-books-implementation/andheri /zoho-books-implementation
