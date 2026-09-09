@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rule 57 Replaces Rule 11UA: FMV of Unquoted Shares | KC Shah</title>
+<meta name="description" content="Rule 57 of Income-tax Rules 2026 replaces Rule 11UA: the NAV formula defined correctly, both sides of a share transfer, and where DCF still applies in India.">
+<link rel="canonical" href="https://kcshah.com/blog-rule-57-fmv-unquoted-shares-income-tax-rules-2026">
+<meta property="og:title" content="Rule 57 Replaces Rule 11UA: How Unquoted Share FMV Works Under the Income-tax Rules, 2026 | KC Shah &amp; Associates">
+<meta property="og:description" content="The net-asset formula as notified, with the adjustments commentaries miss. Why the buyer and the seller are both taxed on one shortfall. Why DCF has left the income-tax rules but not the Companies Act or FEMA. A full worked example from an audited balance sheet.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kcshah.com/blog-rule-57-fmv-unquoted-shares-income-tax-rules-2026">
+<meta property="og:image" content="https://kcshah.com/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1024">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rule 57 Replaces Rule 11UA: How Unquoted Share FMV Works Under the Income-tax Rules, 2026 | KC Shah &amp; Associates">
+<meta name="twitter:description" content="The net-asset formula as notified, with the adjustments commentaries miss. Why the buyer and the seller are both taxed on one shortfall. Why DCF has left the income-tax rules but not the Companies Act or FEMA. A full worked example from an audited balance sheet.">
+<meta name="twitter:image" content="https://kcshah.com/og-image.jpg">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta property="article:published_time" content="2026-09-09T00:00:00+05:30">
+<meta property="article:modified_time" content="2026-09-09T00:00:00+05:30">
+<meta property="article:author" content="https://www.linkedin.com/in/cakaranshah/">
+<meta property="article:section" content="Valuation">
+<meta property="article:tag" content="Rule 57, Rule 11UA, fair market value, unquoted shares, Income-tax Rules 2026, Income-tax Act 2025, section 92, section 79, share transfer, valuation, India">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#152A52">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<style>@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/fraunces-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/fraunces-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/fraunces-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Fraunces'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 900; font-display: swap; src: url(/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }@font-face{ font-family: 'Inter'; font-style: normal; font-weight: 900; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }:root{--brand-blue:#1F3A6E;--brand-blue-deep:#152A52;--brand-blue-light:#2A4F9A;--brand-saffron:#d95e0b;--brand-saffron-text:#b34d09;--brand-saffron-dark:#C85A0A;--surface:#FFFFFF;--surface-muted:#F5F7FB;--text-primary:#0F1B36;--text-body:#4B5563;--border:#E5E8EF;--shadow-md:0 4px 20px rgba(31,58,110,.1);--shadow-lg:0 10px 40px rgba(31,58,110,.15);--radius-sm:6px;--radius-md:12px;--transition:all .35s cubic-bezier(.4,0,.2,1);--max-width:1240px}*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden}body{font-family:'Inter',sans-serif;color:var(--text-primary);background:var(--surface);line-height:1.7;overflow-x:hidden;width:100%}h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:700;color:var(--brand-blue);line-height:1.2;letter-spacing:-.01em}h1{font-size:clamp(1.8rem,4vw,2.75rem)}h2{font-size:clamp(1.5rem,3vw,2.1rem)}h3{font-size:clamp(1.1rem,2vw,1.3rem)}p{color:var(--text-body);margin-bottom:1rem}a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;display:block}.skip-link{position:absolute;top:-100%;left:0;z-index:9999;padding:12px 24px;background:var(--brand-saffron);color:var(--brand-blue);font-weight:600;text-decoration:none}.skip-link:focus{top:0}.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 24px}.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;border:2px solid transparent;white-space:nowrap}.btn-primary{background:var(--brand-saffron-text);color:var(--surface);border-color:var(--brand-saffron-text)}.btn-secondary{background:transparent;color:var(--surface);border-color:rgba(255,255,255,.6)}.btn-outline{background:transparent;color:var(--brand-blue);border-color:var(--brand-blue)}.btn-sm{padding:10px 22px;font-size:.85rem}.top-bar{background:var(--brand-blue-deep);color:rgba(255,255,255,.85);padding:10px 0;font-size:.8rem}.top-bar .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}.top-bar a{color:rgba(255,255,255,.85)}.top-bar-left,.top-bar-right{display:flex;align-items:center;gap:20px}.top-bar i{margin-right:6px;color:var(--brand-saffron-text)}header{background:rgba(255,255,255,.95);position:sticky;top:0;z-index:1000}.nav-wrapper{display:flex;justify-content:space-between;align-items:center;padding:18px 0}.logo{display:flex;align-items:center;gap:10px}.logo-text{font-family:'Inter',sans-serif;font-weight:800;font-size:1.2rem;color:var(--brand-blue);letter-spacing:-.5px}.logo-text span{color:var(--brand-saffron-text)}.logo-sub{font-size:.65rem;color:var(--text-body);text-transform:uppercase;letter-spacing:2px;display:block;font-family:'Inter',sans-serif}.nav-links{display:flex;align-items:center;gap:32px}.nav-links>li{position:relative}.nav-links>li>a{font-family:'Inter',sans-serif;font-weight:500;font-size:.9rem;color:var(--text-primary);padding:8px 0}.dropdown-menu{position:absolute;top:100%;left:-20px;background:var(--surface);min-width:280px;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);padding:16px 0;opacity:0;visibility:hidden;transform:translateY(10px)}.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}.hamburger span{display:block;width:24px;height:2px;background:var(--brand-blue)}.nav-cta{margin-left:16px}.hero{background:linear-gradient(135deg,var(--brand-blue-deep) 0%,var(--brand-blue) 55%,var(--brand-blue-light) 100%);color:var(--surface);padding:80px 0 100px;position:relative;overflow:hidden}.hero .container{position:relative;z-index:2}.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(217,94,11,.15);color:var(--brand-saffron-text);padding:8px 18px;border-radius:50px;font-size:.8rem;font-weight:600;margin-bottom:24px;border:1px solid rgba(217,94,11,.3)}.hero h1{color:var(--surface);margin-bottom:20px;font-weight:900}.hero h1 .highlight{color:var(--brand-saffron-text)}.hero p{color:rgba(255,255,255,.75);font-size:1.1rem;margin-bottom:36px;max-width:580px}.hero-btns{display:flex;gap:16px;flex-wrap:wrap}.hero-stats{display:flex;gap:32px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}.hero-stat h3{color:var(--brand-saffron-text);font-size:2rem;margin-bottom:4px}.hero-stat p{color:rgba(255,255,255,.6);font-size:.85rem;margin:0}.page-header{background:linear-gradient(135deg,var(--brand-blue-deep) 0%,var(--brand-blue) 60%,var(--brand-blue-light) 100%);color:var(--surface);padding:80px 0 60px;text-align:center;position:relative;overflow:hidden}.page-header h1{color:var(--surface);margin-bottom:16px}.page-header p{color:rgba(255,255,255,.75);max-width:600px;margin:0 auto;font-size:1.05rem}.breadcrumb{display:flex;justify-content:center;gap:8px;margin-bottom:20px;font-size:.85rem}.breadcrumb a{color:var(--brand-saffron-text)}.breadcrumb span{color:rgba(255,255,255,.5)}@media (max-width:768px){h1{font-size:clamp(1.75rem,6vw,2.25rem)}.nav-links{display:none}.hamburger{display:flex}.nav-cta{display:none}.top-bar{display:none}.hero{padding:60px 0 80px}.page-header{padding:48px 0 36px}}</style>
+    <link rel="preload" href="style.min.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="style.min.css?v=16"></noscript>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Rule 57 Replaces Rule 11UA: How Unquoted Share FMV Works Under the Income-tax Rules, 2026","description":"The net-asset formula as notified, with the adjustments commentaries miss. Why the buyer and the seller are both taxed on one shortfall. Why DCF has left the income-tax rules but not the Companies Act or FEMA. A full worked example from an audited balance sheet.","author":{"@type":"Person","name":"CA Karan Shah"},"publisher":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com","logo":{"@type":"ImageObject","url":"https://kcshah.com/ca-india-logo.png"}},"datePublished":"2026-09-09","dateModified":"2026-09-09","mainEntityOfPage":"https://kcshah.com/blog-rule-57-fmv-unquoted-shares-income-tax-rules-2026","image":"https://kcshah.com/og-image.jpg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Rule 11UA still applicable in 2026?","acceptedAnswer":{"@type":"Answer","text":"For any receipt or transfer dated up to 31 March 2026, yes. The Income-tax Act, 1961 and Rule 11UA govern the tax year 2025-26 and earlier, and those returns and assessments continue on the old law. For anything dated 1 April 2026 onwards, Rule 57 of the Income-tax Rules, 2026 applies, read with sections 26(2)(j), 79 and 92 of the Income-tax Act, 2025."}},{"@type":"Question","name":"Can I use a DCF valuation to fix the income-tax fair market value of unquoted equity shares?","acceptedAnswer":{"@type":"Answer","text":"No. Rule 57 prescribes the net-asset formula as the only method for unquoted equity shares. The DCF option in the old Rule 11UA(2) existed for section 56(2)(viib), the angel-tax provision, which was abolished from 1 April 2025 and was not re-enacted in the 2025 Act. A DCF report remains the normal basis for a Companies Act registered valuer report and a FEMA pricing certificate, but it does not replace the formula for sections 79 and 92."}},{"@type":"Question","name":"Do I need an IBBI registered valuer for a Rule 57 valuation?","acceptedAnswer":{"@type":"Answer","text":"No. The formula is arithmetic on an audited balance sheet and Rule 57 prescribes no signatory for unquoted equity shares. An IBBI registered valuer is required by the Companies Act for a preferential allotment, a scheme or sweat equity, which is a separate obligation. The registered valuer mentioned in Rule 57 is one registered with the income-tax department under section 513 of the Income-tax Act, 2025, and is relevant only to jewellery and artistic work."}},{"@type":"Question","name":"Which balance sheet is used for the Rule 57 formula?","acceptedAnswer":{"@type":"Answer","text":"Rule 56 defines it as the balance sheet, with its notes, drawn up on the valuation date and audited by the company's statutory auditor. The valuation date is the date of receipt for section 92, the date of transfer for section 79, and the date of conversion for section 26(2)(j). For a transfer in the middle of the year that means special-purpose audited accounts as at that date. The previous year-end accounts do not qualify."}},{"@type":"Question","name":"What happens if I gift or sell shares to a family member below the formula value?","acceptedAnswer":{"@type":"Answer","text":"A gift to a relative as defined in section 92(5)(g) is outside both sections. The relative is exempt under section 92(3)(a), and a gift is not a transfer for capital gains under section 70(1)(b), so the relative inherits your cost and holding period. A sale to a relative below the formula value is different. The relative is still exempt on the shortfall, but section 79 has no relative exemption, so your capital gain is computed on the formula value regardless of the price you actually received."}},{"@type":"Question","name":"Does Rule 57 apply when a company issues fresh shares?","acceptedAnswer":{"@type":"Answer","text":"Not to the company. The provision that taxed a company on shares issued above fair market value, section 56(2)(viib) of the 1961 Act, was abolished from 1 April 2025 and has no counterpart in the 2025 Act. The subscriber is a separate question. Section 92(2)(m) taxes any property received for inadequate consideration, and whether a fresh allotment below the formula value is such a receipt was litigated under the identical wording of the 1961 Act, with proportionate rights issues generally held outside it and disproportionate discounted allotments not always. Take advice before allotting to one investor at a steep discount to the formula value."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://kcshah.com/blog"},{"@type":"ListItem","position":3,"name":"Rule 57 Replaces Rule 11UA","item":"https://kcshah.com/blog-rule-57-fmv-unquoted-shares-income-tax-rules-2026"}]}</script>
+
+<style>
+  .deadline-table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:0.95rem}
+  .deadline-table th{background:var(--brand-blue-deep);color:white;padding:14px 16px;text-align:left;font-size:0.88rem;letter-spacing:0.4px}
+  .deadline-table td{padding:12px 16px;border-bottom:1px solid var(--light-grey);vertical-align:top}
+  .deadline-table tr:nth-child(even) td{background:var(--off-white)}
+  .deadline-table td strong{color:var(--brand-blue-deep)}
+  .table-note{font-size:0.82rem;color:var(--text-grey);margin:0 0 32px}
+  .direct-answer{font-size:1.05rem;font-weight:500;color:var(--brand-blue-deep);background:var(--off-white);border-left:4px solid var(--brand-saffron);padding:16px 20px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:0 0 28px}
+  .what-changed{background:rgba(31,58,110,0.05);border:1px solid rgba(31,58,110,0.15);border-radius:var(--radius-md);padding:16px 20px;font-size:0.92rem;margin:0 0 28px}
+  .what-changed strong:first-child{color:var(--brand-saffron-text)}
+  .rates-checked{background:rgba(217,94,11,0.07);border:1px solid rgba(217,94,11,0.25);border-radius:var(--radius-md);padding:14px 18px;font-size:0.86rem;margin:0 0 32px}
+  .rates-checked strong{color:var(--brand-blue-deep)}
+  .key-takeaways{background:var(--off-white);border-radius:var(--radius-md);padding:22px 26px;margin:0 0 36px}
+  .key-takeaways h3{font-size:1.1rem;margin:0 0 14px;color:var(--brand-blue-deep)}
+  .key-takeaways ul{list-style:none;padding:0;margin:0}
+  .key-takeaways li{position:relative;padding-left:22px;margin-bottom:10px;font-size:0.93rem;color:var(--text-body)}
+  .key-takeaways li::before{content:"\203A";position:absolute;left:6px;top:-1px;color:var(--brand-saffron);font-weight:700}
+  .faq-section{margin:40px 0 8px}
+  .sources-section{border-top:1px solid var(--light-grey);padding-top:24px;margin-top:40px;color:var(--text-grey)}
+  .sources-section h3{color:var(--brand-blue-deep)}
+  .sources-section ul{list-style:none;padding:0}
+  .sources-section li{margin-bottom:10px}
+  .cta-box{background:var(--off-white);border-radius:var(--radius-md);padding:28px 30px;margin:40px 0 8px;text-align:center}
+  .blog-content ol{padding-left:22px;margin:0 0 20px}
+  .blog-content ol li{margin-bottom:10px;color:var(--text-body)}
+  .blog-content ul.plain{padding-left:22px;list-style:disc;margin:0 0 20px}
+  .blog-content ul.plain li{margin-bottom:8px;color:var(--text-body)}
+  .reject-card{border-left:4px solid #8A2B2B;background:#FBEAEA;padding:12px 16px;margin:0 0 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:0.93rem}
+  .reject-card strong{color:#8A2B2B}
+  .formula{background:var(--brand-blue-deep);color:white;padding:18px 22px;border-radius:var(--radius-md);font-size:1.15rem;text-align:center;margin:0 0 20px;letter-spacing:0.3px}
+  .formula span{color:var(--brand-saffron)}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-2XB5VRL6X7');</script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="top-bar"><div class="container"><div class="top-bar-left"><a href="mailto:karan@kcshah.com" aria-label="Email karan@kcshah.com"><i class="fa-solid fa-envelope"></i> karan@kcshah.com</a><a href="tel:+917666638995"><i class="fa-solid fa-phone"></i> +91 7666638995</a></div><div class="top-bar-right"><a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><svg class="brand-icon brand-icon-linkedin-in" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg> LinkedIn</a><a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20visited%20kcshah.com%20and%20would%20like%20to%20discuss%20your%20services." target="_blank" rel="noopener noreferrer"><svg class="brand-icon brand-icon-whatsapp" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg> WhatsApp</a></div></div></div>
+<header><div class="container nav-wrapper"><a href="/" class="logo" style="display: flex; align-items: center; gap: 12px;">
+      <img src="ca-india-logo.png?v=2" width="194" height="144" alt="CA India Logo" style="height: 48px; width: auto;"><div><div class="logo-text">KC Shah <span>& Associates</span></div><span class="logo-sub">Chartered Accountants</span></div></a><ul class="nav-links"><li><a href="/">Home</a></li><li><a href="#">Services <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;margin-left:4px"></i></a><div class="dropdown-menu"><a href="outsourced-accounting-services"><i class="fa-solid fa-cloud"></i> Outsourced Accounting</a><a href="zoho-books-implementation"><i class="fa-solid fa-gear"></i> Zoho Books Implementation</a><a href="business-valuation"><i class="fa-solid fa-chart-line"></i> Business Valuation</a><a href="virtual-cfo"><i class="fa-solid fa-user-tie"></i> Virtual CFO</a><a href="company-incorporation"><i class="fa-solid fa-building"></i> Company Incorporation</a><a href="gst-filing"><i class="fa-solid fa-file-invoice"></i> GST Filing</a><a href="income-tax"><i class="fa-solid fa-calculator"></i> Income Tax</a><a href="audit-assurance"><i class="fa-solid fa-magnifying-glass-chart"></i> Audit & Assurance</a><a href="corporate-finance"><i class="fa-solid fa-hand-holding-dollar"></i> Corporate Finance</a><a href="fema-compliance"><i class="fa-solid fa-globe"></i> FEMA Compliance</a></div></li><li>
+        <a href="tools/">Free Tools <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;margin-left:4px"></i></a>
+        <div class="dropdown-menu">
+<a href="tools/income-tax-calculator"><i class="fa-solid fa-calculator"></i> Income Tax Calculator</a>
+          <a href="tools/advance-tax-calculator"><i class="fa-solid fa-calendar-check"></i> Advance Tax</a>
+          <a href="tools/capital-gain-calculator"><i class="fa-solid fa-chart-line"></i> Capital Gains</a>
+          <a href="tools/emi-calculator"><i class="fa-solid fa-landmark"></i> EMI Calculator</a>
+          <a href="tools/loan-eligibility-calculator"><i class="fa-solid fa-percent"></i> Loan Eligibility</a>
+          <a href="tools/loan-tenure-calculator"><i class="fa-solid fa-hourglass"></i> Loan Tenure</a>
+          <a href="tools/tds-rate-chart"><i class="fa-solid fa-table"></i> TDS Rate Chart</a>
+          <a href="tools/compliance-calendar"><i class="fa-solid fa-calendar-days"></i> Compliance Calendar</a>
+          <a href="tools/sign-stamp-tool"><i class="fa-solid fa-file-signature"></i> PDF Sign & Stamp</a>
+          <a href="tools/" style="border-top: 1px solid var(--border); margin-top: 5px; padding-top: 10px;"><i class="fa-solid fa-table-cells-large"></i> View All Tools</a>
+</div>
+      </li>      
+      <li><a href="/zoho-books-training">Zoho Books Training</a></li><li><a href="about">About</a></li><li><a href="blog" class="active">Insights</a></li><li><a href="contact">Contact</a></li></ul><a href="contact" class="btn btn-primary btn-sm nav-cta">Book Free Consultation</a><div class="hamburger" aria-label="Toggle navigation" role="button" tabindex="0"><span></span><span></span><span></span></div></div></header>
+<main id="main-content">
+<div style="background:var(--off-white);padding:10px 0;border-bottom:1px solid var(--light-grey)"><div class="container"><div class="breadcrumb"><a href="/">Home</a> <span>/</span> <a href="blog">Insights</a> <span>/</span> <span>Rule 57 Replaces Rule 11UA</span></div></div></div>
+
+<section class="section" style="padding-top: 40px;">
+  <div class="container blog-content" style="max-width:850px;margin:0 auto">
+
+    <div class="blog-hero">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" srcset="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=480&amp;q=80 480w, https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=800&amp;q=80 800w, https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80 1000w" sizes="(max-width: 768px) 100vw, 800px" width="1000" height="400" alt="Audited balance sheet and calculator used to compute the fair market value of unquoted shares under Rule 57">
+      <div class="blog-hero-overlay">
+        <span class="blog-category-badge">Valuation</span>
+        <h1 style="margin:0;font-size:2.3rem;line-height:1.2;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.9)">Rule 57 Replaces Rule 11UA: How Unquoted Share FMV Works Under the Income-tax Rules, 2026</h1>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;color:var(--text-grey);font-size:0.95rem;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <span><i class="fa-regular fa-calendar" style="color:var(--brand-saffron)"></i> Published: September 9, 2026</span>
+        <span><i class="fa-solid fa-clock-rotate-left" style="color:var(--brand-saffron)"></i> Last Updated: September 9, 2026</span>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <span><i class="fa-solid fa-pen-nib" style="color:var(--brand-saffron)"></i> Author: CA Karan Shah</span>
+        <span><i class="fa-solid fa-user-check" style="color:var(--brand-saffron)"></i> Reviewer: CA Karan Shah</span>
+      </div>
+    </div>
+
+    <p class="drop-cap">Every transfer of shares in a private company is tested against a number nobody negotiated. For three decades that number came from Rule 11UA of the Income-tax Rules, 1962. From 1 April 2026 it comes from Rule 57 of the Income-tax Rules, 2026, notified alongside the Income-tax Act, 2025. The formula is largely the one practitioners know, but the sections it serves have new numbers, one of the old routes has disappeared entirely, and the commonest mistakes have not changed at all. This is what the rule says, who it catches, and how to compute it from a real balance sheet.</p>
+
+    <p class="direct-answer">Rule 57 fixes the income-tax fair market value of an unquoted equity share by a single net-asset formula, (A + B + C + D &minus; L) &times; PV &divide; PE, computed from an audited balance sheet drawn up on the valuation date, with immovable property at stamp-duty value and investments at their own Rule 57 value. That figure is a floor on both sides of a transfer. The buyer is taxed on any shortfall above &#8377;50,000 under section 92(2)(m), and the seller's capital gain is computed on it under section 79. No valuer is prescribed for the equity formula, and no discounted cash flow alternative exists for income-tax purposes.</p>
+
+    <div class="what-changed">
+      <strong><i class="fa-solid fa-bell"></i> What changed on 1 April 2026:</strong> The Income-tax Rules, 2026 (Notification No. 22/2026, G.S.R. 198(E) of 20 March 2026) replaced the 1962 Rules in full. Rules 11U, 11UA, 11UAA and 11UAB became Rules 56 and 57; Rules 11UAC and 11UAD became Rule 58. The optional discounted cash flow valuation that Rule 11UA(2) allowed for share issues was tied to section 56(2)(viib), the angel-tax provision, which was abolished from 1 April 2025 and has no counterpart in the 2025 Act. It has not been carried into Rule 57. Transactions dated on or before 31 March 2026 are still assessed under the 1961 Act and Rule 11UA.
+    </div>
+
+    <div class="rates-checked">
+      <strong><i class="fa-solid fa-file-shield"></i> Verified against the Gazette:</strong> We read Rules 56 to 58 in the notified text of the Income-tax Rules, 2026 and the corrigendum of 16 April 2026 (G.S.R. 286(E)) on 9 September 2026. One widely circulated commentary states the jewellery and art valuer threshold as &#8377;5,00,000 and swaps the definitions of A and D in the formula; the notified rule keeps the threshold at &#8377;50,000 and defines the components as set out below. Section references are to the Income-tax Act, 2025 unless stated.
+    </div>
+
+    <aside class="key-takeaways">
+      <h3><i class="fa-solid fa-list-check"></i> Key Takeaways</h3>
+      <ul>
+        <li><strong>Same formula, new home.</strong> Rule 57 carries the Rule 11UA net-asset formula forward for unquoted equity shares. The definitions of A, B, C, D and L are unchanged.</li>
+        <li><strong>Three sections, one rule.</strong> Rule 57 serves section 92(2)(m) (the recipient's deemed income), section 79 (the transferor's deemed consideration) and section 26(2)(j) (inventory converted into a capital asset).</li>
+        <li><strong>Both sides pay.</strong> A below-value transfer taxes the buyer on the shortfall and the seller on the full formula value. One valuation, two assessments.</li>
+        <li><strong>No DCF and no valuer for equity.</strong> The income-tax number is arithmetic on an audited balance sheet. The IBBI report and the FEMA certificate are separate obligations that still apply.</li>
+        <li><strong>The balance sheet is the trap.</strong> Rule 56 requires one audited as drawn up on the valuation date, not the last 31 March one.</li>
+      </ul>
+    </aside>
+
+    <h2 id="what-changed-and-what-did-not">What changed, and what did not</h2>
+    <p>The Income-tax Act, 2025 is a recodification. Most of what it does to the valuation of unquoted shares is renumbering, and the table below is the map. Read it once and the rest of this article, and every notice you receive from April 2026, becomes easier to follow.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Old provision</th><th>New provision</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Section 56(2)(x)</strong></td><td>Section 92(2)(m)</td><td>Taxes the recipient of shares or other property received for less than fair market value, where the shortfall exceeds &#8377;50,000</td></tr>
+        <tr><td><strong>Section 50CA</strong></td><td>Section 79</td><td>Deems the fair market value to be the transferor's full value of consideration for unquoted shares sold below it, for the purposes of section 72</td></tr>
+        <tr><td><strong>Section 28(via)</strong></td><td>Section 26(2)(j)</td><td>Taxes inventory converted into a capital asset at its fair market value on the date of conversion</td></tr>
+        <tr><td><strong>Section 56(2)(viib)</strong></td><td>Omitted</td><td>Angel tax on shares issued above fair market value. Abolished from 1 April 2025 by the Finance (No. 2) Act, 2024; not re-enacted</td></tr>
+        <tr><td><strong>Section 49(4)</strong></td><td>Section 73(1), Table Sl. No. 17</td><td>The value taxed in the recipient's hands becomes their cost of acquisition, so it is not taxed twice</td></tr>
+        <tr><td><strong>Rule 11U</strong></td><td>Rule 56</td><td>Definitions: balance sheet, valuation date, registered valuer, merchant banker, quoted and unquoted</td></tr>
+        <tr><td><strong>Rules 11UA, 11UAA, 11UAB</strong></td><td>Rule 57</td><td>One table of fair market value methods for every asset class and all three sections</td></tr>
+        <tr><td><strong>Rules 11UAC, 11UAD</strong></td><td>Rule 58</td><td>Prescribed classes of persons exempt from section 92(2)(m) and section 79</td></tr>
+      </tbody>
+    </table></div>
+    <p class="table-note">Sources: Income-tax Act, 2025 as amended by the Finance Act, 2026; Income-tax Rules, 2026, Rules 56 to 58. The 1961 Act and the 1962 Rules continue to govern tax years up to 2025-26.</p>
+    <p>The consolidation is real, but it is housekeeping. What matters more is the omission. Rule 11UA had two halves. Sub-rule (1) gave the net-asset formula for transfers and receipts. Sub-rule (2) gave a company issuing shares a choice between that formula and a discounted cash flow valuation by a merchant banker, plus five further methods for issues to non-residents, all for the purpose of section 56(2)(viib). That section was deleted with effect from 1 April 2025. With nothing left to serve, sub-rule (2) was not carried into Rule 57. The word "discounted" does not appear in the valuation rules at all. For income-tax purposes an unquoted equity share now has exactly one fair market value, and it is the formula.</p>
+
+    <h2 id="scope">What Rule 57 covers</h2>
+    <p>Rule 57 is a single table with seven rows. Each row names the sections it serves, the asset, and the method. The first five rows apply to receipts under section 92 and to inventory conversions under section 26(2)(j); row 4 and row 5 also serve section 79. Rows 6 and 7 apply only to inventory conversions, because section 92 handles immovable property on its own terms, at stamp-duty value, without needing the rule.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Asset</th><th>Method</th><th>Who signs</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Jewellery</strong></td><td>Open-market price on the valuation date; invoice value if bought from a registered dealer on that date</td><td>A registered valuer's report may be obtained where the value exceeds &#8377;50,000 and it was not purchased</td></tr>
+        <tr><td><strong>2. Artistic work</strong> (archaeological collections, drawings, paintings, sculptures, any work of art)</td><td>The same three-step test as jewellery</td><td>Same as jewellery</td></tr>
+        <tr><td><strong>3. Quoted shares and securities</strong></td><td>The exchange transaction price if traded through the exchange; otherwise the lowest quoted price on the valuation date, or on the last day before it on which the share traded</td><td>Nobody. The exchange record is the evidence</td></tr>
+        <tr><td><strong>4. Unquoted equity shares</strong></td><td>The net-asset formula set out in the next section</td><td>Nobody is prescribed. A registered valuer's report feeds in only for any jewellery or art the company holds</td></tr>
+        <tr><td><strong>5. Unquoted securities other than equity</strong> (preference shares, debentures, units, warrants)</td><td>Open-market price on the valuation date</td><td>A merchant banker or an accountant, at the assessee's option</td></tr>
+        <tr><td><strong>6. Immovable property</strong></td><td>Stamp-duty value on the valuation date</td><td>Nobody</td></tr>
+        <tr><td><strong>7. Any other property</strong></td><td>Open-market price on the valuation date</td><td>Nobody</td></tr>
+      </tbody>
+    </table></div>
+    <p class="table-note">Source: Income-tax Rules, 2026, Rule 57, Table. "Accountant" carries the meaning in section 515(3)(b), a chartered accountant in practice. "Merchant banker" means a SEBI category I merchant banker (Rule 56(b)).</p>
+    <p>Two different registers are in play, and the word "registered valuer" does not mean what most founders assume. The registered valuer in Rule 57 is a person registered with the income-tax department under section 513 of the 2025 Act. The registered valuer who signs a Companies Act report is a person registered with the IBBI under section 247 of the Companies Act, 2013. One professional may hold both registrations, as we do, but a report under one regime does not discharge an obligation under the other.</p>
+
+    <h2 id="formula">The formula, defined correctly</h2>
+    <div class="formula">Fair market value per share = <span>(A + B + C + D &minus; L)</span> &times; PV &divide; PE</div>
+    <p>The formula is a corrected net worth. It takes the balance sheet, replaces the two asset classes whose book values are habitually stale, strips out the items that are not really assets or not really liabilities, and spreads what remains across the paid-up capital. Every component has a definition, and the definitions are where the mistakes live.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Component</th><th>What the notified rule says</th><th>What goes wrong in practice</th></tr></thead>
+      <tbody>
+        <tr><td><strong>A</strong></td><td>Book value of all assets <em>other than</em> jewellery, artistic work, shares, securities and immovable property, reduced by (a) income-tax paid net of any refund claimed and (b) anything shown as an asset that does not represent value, including unamortised deferred expenditure</td><td>Advance tax and TDS receivable are left in. Preliminary expenses and a debit balance in the profit and loss account are left in</td></tr>
+        <tr><td><strong>B</strong></td><td>Open-market value of jewellery and artistic work the company holds, on a registered valuer's report</td><td>Rarely relevant to an operating company; usually nil</td></tr>
+        <tr><td><strong>C</strong></td><td>Fair market value of shares and securities the company holds, itself computed under Rule 57, which means running the formula again for every unquoted subsidiary</td><td>Investments taken at cost. A holding company is understated by the whole unrealised gain in its subsidiaries</td></tr>
+        <tr><td><strong>D</strong></td><td>The value adopted, assessed or assessable by the stamp-duty authority for the company's immovable property</td><td>Property taken at depreciated book value. This is the single largest source of understatement</td></tr>
+        <tr><td><strong>L</strong></td><td>Book value of liabilities, excluding equity share capital; reserves and surplus, even if negative; dividends set apart but not declared at a general meeting; the excess of the tax provision over the tax payable on book profits; provisions for unascertained liabilities; and contingent liabilities other than arrears of cumulative preference dividend</td><td>Proposed dividend and general provisions deducted as if they were debts</td></tr>
+        <tr><td><strong>PV, PE</strong></td><td>Paid-up value of the share being valued, and total paid-up equity capital per the balance sheet</td><td>Partly paid shares valued as if fully paid</td></tr>
+      </tbody>
+    </table></div>
+    <p class="table-note">Source: Income-tax Rules, 2026, Rule 57, Table Sl. No. 4. One widely shared commentary lists A as immovable property and D as other assets. The notified text is the reverse, and only the notified text carries the two adjustments to A.</p>
+    <h3>Which balance sheet, and which date</h3>
+    <p>Rule 56(a) defines the balance sheet as the one drawn up on the valuation date, with its notes, and audited by the company's statutory auditor. Rule 56(i) fixes the valuation date as the date the property is received for section 92, the date of transfer for section 79, and the date of conversion for section 26(2)(j). There is no fallback to the last adopted annual accounts. The pre-2017 version of Rule 11U had one; it was removed then, and Rule 56 does not bring it back.</p>
+    <p>In practice this means a transfer on 15 July needs a balance sheet as at 15 July, audited. The statutory auditor can audit special-purpose accounts to that date, and the working papers are shorter than an annual audit, but the engagement has to be planned. Where the date is flexible, moving the transfer to 31 March lets the annual accounts serve. Where it is not, budget two to three weeks for the accounts before the share transfer form is signed, because the number on that form is what both sides will be assessed against.</p>
+
+    <h2 id="worked-example">Worked example: one balance sheet, two assessments</h2>
+    <p>Meridian Components Private Limited has 2,00,000 equity shares of &#8377;10 each, fully paid, so PE is &#8377;20,00,000. On 15 July 2026 its founder, Mr. Desai, sells 50,000 of his shares to Ms. Iyer, an unrelated incoming partner, at &#8377;35 per share, a total of &#8377;17,50,000. He subscribed for them at par in 2018. The company's audited balance sheet as at 15 July 2026 shows the following.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Balance sheet as at 15 July 2026</th><th>Book value (&#8377;)</th><th>Rule 57 input (&#8377;)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Land and building</strong></td><td>40,00,000</td><td>75,00,000 stamp-duty value (D)</td></tr>
+        <tr><td><strong>Investment in an unquoted subsidiary</strong></td><td>10,00,000</td><td>18,00,000 by running the formula on the subsidiary (C)</td></tr>
+        <tr><td><strong>Plant, receivables, inventory, cash</strong></td><td>57,50,000</td><td>57,50,000 (A)</td></tr>
+        <tr><td><strong>Advance tax and TDS receivable</strong> (refund of 1,00,000 claimed)</td><td>4,00,000</td><td>Reduced from A: 4,00,000 less 1,00,000 = 3,00,000 out</td></tr>
+        <tr><td><strong>Preliminary expenses not written off</strong></td><td>1,00,000</td><td>Reduced from A in full</td></tr>
+        <tr><td><strong>Total assets</strong></td><td><strong>1,12,50,000</strong></td><td></td></tr>
+        <tr><td><strong>Equity share capital</strong></td><td>20,00,000</td><td>Excluded from L</td></tr>
+        <tr><td><strong>Reserves and surplus</strong></td><td>45,00,000</td><td>Excluded from L</td></tr>
+        <tr><td><strong>Term loan</strong></td><td>30,00,000</td><td>30,00,000 (L)</td></tr>
+        <tr><td><strong>Trade payables</strong></td><td>12,00,000</td><td>12,00,000 (L)</td></tr>
+        <tr><td><strong>Provision for tax</strong> (tax on book profit is 3,00,000)</td><td>3,50,000</td><td>3,00,000 (L); the 50,000 excess is excluded</td></tr>
+        <tr><td><strong>Proposed dividend</strong> (not yet declared at a general meeting)</td><td>2,00,000</td><td>Excluded from L</td></tr>
+        <tr><td><strong>Total liabilities</strong></td><td><strong>1,12,50,000</strong></td><td></td></tr>
+      </tbody>
+    </table></div>
+    <p class="table-note">Figures are illustrative. The subsidiary's value of 18,00,000 is itself the output of Rule 57 applied to the subsidiary's audited balance sheet on the same date.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Computation</th><th>&#8377;</th></tr></thead>
+      <tbody>
+        <tr><td><strong>A</strong> = 57,50,000 + 4,00,000 + 1,00,000 &minus; 3,00,000 &minus; 1,00,000</td><td>58,50,000</td></tr>
+        <tr><td><strong>B</strong> (no jewellery or art)</td><td>nil</td></tr>
+        <tr><td><strong>C</strong></td><td>18,00,000</td></tr>
+        <tr><td><strong>D</strong></td><td>75,00,000</td></tr>
+        <tr><td><strong>L</strong> = 30,00,000 + 12,00,000 + 3,00,000</td><td>45,00,000</td></tr>
+        <tr><td><strong>A + B + C + D &minus; L</strong></td><td><strong>1,06,50,000</strong></td></tr>
+        <tr><td><strong>Fair market value per share</strong> = 1,06,50,000 &times; 10 &divide; 20,00,000</td><td><strong>53.25</strong></td></tr>
+        <tr><td>Book net worth per share, for comparison = (20,00,000 + 45,00,000) &divide; 2,00,000</td><td>32.50</td></tr>
+      </tbody>
+    </table></div>
+    <p>The agreed price of &#8377;35 looked generous against book net worth of &#8377;32.50. Against the rule it is a discount of &#8377;18.25 a share, and the rule is what both returns are measured against.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th>Side</th><th>Provision</th><th>Computation (&#8377;)</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ms. Iyer, buyer</strong></td><td>Section 92(2)(m)(iii)(B)</td><td>Fair market value 50,000 &times; 53.25 = 26,62,500. Paid 17,50,000. Shortfall 9,12,500, which exceeds 50,000</td><td>The whole 9,12,500 is income from other sources at her slab rate. At 30 per cent, about 2,73,750 plus cess. Her cost of acquisition becomes 26,62,500 under section 73(1)</td></tr>
+        <tr><td><strong>Mr. Desai, seller</strong></td><td>Section 79</td><td>Deemed consideration 26,62,500. Cost 5,00,000. Long-term gain 21,62,500 on unlisted shares held over 24 months</td><td>At the 12.5 per cent long-term rate, 2,70,313 plus cess. On the actual price the gain would have been 12,50,000 and the tax 1,56,250. Extra tax: 1,14,063</td></tr>
+      </tbody>
+    </table></div>
+    <p class="table-note">Combined additional tax on a &#8377;17.5 lakh transaction: about &#8377;3.88 lakh, plus interest if either return is filed on the contract price and corrected later. The long-term rate assumes a transfer after 23 July 2024 with no indexation.</p>
+    <p>Notice what section 79 does not have. Section 92(2)(m) has a &#8377;50,000 threshold and a list of exempt recipients. Section 79 has neither. Any shortfall, however small, re-prices the seller's gain, and it does so whether the buyer is a stranger, a business partner or a son.</p>
+
+    <h2 id="three-regimes">Three valuation regimes, one transaction</h2>
+    <p>The same shares are often valued three times in one year, and founders regularly present one number as the answer to a question it was never computing. The three regimes do not reconcile, and they are not meant to.</p>
+    <div class="table-scroll"><table class="deadline-table">
+      <thead><tr><th></th><th>Income-tax: Rule 57</th><th>Companies Act, 2013</th><th>FEMA: NDI Rules, 2019</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Triggered by</strong></td><td>A transfer or receipt of unquoted shares below the formula value; conversion of inventory into a capital asset</td><td>Preferential allotment under section 62(1)(c); sweat equity; schemes under sections 230 to 232; the other events listed in section 247</td><td>An issue or transfer of shares between a resident and a non-resident</td></tr>
+        <tr><td><strong>Method</strong></td><td>The net-asset formula, and nothing else</td><td>Any recognised method chosen and defended by the valuer; discounted cash flow is usual for a going concern</td><td>Any internationally accepted pricing methodology on an arm's-length basis</td></tr>
+        <tr><td><strong>Who signs</strong></td><td>Nobody for the equity formula; a merchant banker or accountant for non-equity securities</td><td>An IBBI Registered Valuer for securities or financial assets, under section 247</td><td>A chartered accountant, a SEBI-registered merchant banker or a practising cost accountant</td></tr>
+        <tr><td><strong>What it fixes</strong></td><td>A floor. The buyer is taxed on the shortfall, the seller on the formula value</td><td>The minimum price of a preferential issue; the fairness of a scheme</td><td>A floor when a non-resident subscribes or buys; a ceiling when a non-resident sells to a resident</td></tr>
+        <tr><td><strong>If ignored</strong></td><td>Additions under sections 92 and 79, with interest and penalty</td><td>The allotment is open to challenge; the scheme is not sanctioned</td><td>A FEMA contravention, regularised only by compounding</td></tr>
+      </tbody>
+    </table></div>
+    <p class="table-note">Sources: Income-tax Rules, 2026, Rule 57; Companies Act, 2013, sections 62 and 247, and Rule 13 of the Companies (Share Capital and Debentures) Rules, 2014; Foreign Exchange Management (Non-debt Instruments) Rules, 2019, Rule 21.</p>
+    <p>A discounted cash flow report supporting a Series A at &#8377;400 a share and a Rule 57 computation of &#8377;53 for the same company on the same day are both correct. Each answers a different question. The error is to hand the assessing officer the first as if it settled the second, or to tell the investor's lawyers that the second is the price.</p>
+
+    <h2 id="funding-rounds">Funding rounds after angel tax</h2>
+    <p>Until 31 March 2025 a closely held company issuing shares above fair market value paid tax on the excess, and Rule 11UA(2) let it defend the premium with a merchant banker's discounted cash flow. Both are gone. A private company may now issue shares at any premium to any investor, resident or not, without an income-tax valuation of any kind. Three things did not change.</p>
+    <ol>
+      <li><strong>The Companies Act report.</strong> Section 62(1)(c), read with Rule 13 of the Share Capital and Debentures Rules, still requires a registered valuer's report before a preferential allotment. The board resolution and the explanatory statement to members must refer to it. When you need one, and when a chartered accountant's opinion is enough, is covered in <a href="/blog-registered-valuer-vs-ca">Registered Valuer vs CA</a>.</li>
+      <li><strong>The FEMA pricing certificate.</strong> An issue to a non-resident cannot be priced below the certified fair value, and a transfer from a non-resident to a resident cannot be priced above it. The certificate is filed with Form FC-GPR or FC-TRS and the authorised dealer bank checks it.</li>
+      <li><strong>The subscriber's side.</strong> Section 92(2)(m) taxes any property received for inadequate consideration. Whether a fresh allotment is a receipt of property was litigated under the identical wording of the 1961 Act. Proportionate rights issues were generally held outside it; disproportionate allotments at a discount were not always. The 2025 Act reproduces the wording, and the case law travels with it. An allotment at a steep discount to the formula value, to one investor and not to the rest, deserves a second look before the board meets.</li>
+    </ol>
+
+    <h2 id="mistakes">Five mistakes that produce the wrong number</h2>
+    <div class="reject-card"><strong>1. Property at book value.</strong> The factory was bought in 2009 and is carried at &#8377;40 lakh after depreciation. The ready-reckoner value is &#8377;75 lakh. D is &#8377;75 lakh, and in a company that owns its premises this single line usually moves the share value more than every other adjustment combined.</div>
+    <div class="reject-card"><strong>2. The wrong balance sheet.</strong> The last audited accounts are as at 31 March; the transfer is in October. Rule 56 wants a balance sheet drawn up on the valuation date and audited. Using the March accounts produces a number the assessing officer is entitled to discard.</div>
+    <div class="reject-card"><strong>3. Treating the IBBI report as the income-tax value.</strong> A registered valuer's discounted cash flow at &#8377;400 does not displace the formula at &#8377;53 for sections 79 and 92, and the formula does not displace the report for the ROC. Both are computed. Each goes to its own filing.</div>
+    <div class="reject-card"><strong>4. Forgetting the seller.</strong> Advisers price the transaction to keep the buyer's shortfall under &#8377;50,000 and stop there. Section 79 has no threshold. Any shortfall re-prices the seller's capital gain, and the seller is usually the client.</div>
+    <div class="reject-card"><strong>5. Assuming the relative exemption covers everything.</strong> A gift of shares to a relative is outside both sections: section 92(3)(a) exempts the recipient and section 70(1)(b) says a gift is not a transfer for capital gains. A sale to a relative at par is not a gift. The relative is still exempt on the shortfall; the seller is fully exposed under section 79, which has no relative exemption at all.</div>
+
+    <h2 id="before-you-sign">What to do before the share transfer form is signed</h2>
+    <ol>
+      <li><strong>Fix the valuation date</strong> and plan an audited balance sheet as at that date. If the date can move to 31 March, move it.</li>
+      <li><strong>Collect the inputs the balance sheet does not contain:</strong> the stamp-duty valuation of every property, and a Rule 57 computation for every unquoted investment, which may mean the subsidiary's accounts to the same date.</li>
+      <li><strong>Run the formula</strong> and compare it with the proposed price from both sides: the buyer's shortfall against &#8377;50,000, and the seller's gain on the formula value against the gain on the contract price.</li>
+      <li><strong>Decide.</strong> Either move the price to the formula value, or accept the price and provide for the tax on both sides in the deal economics. What does not work is signing at the contract price and discovering the difference in the year of assessment.</li>
+      <li><strong>Commission the other reports separately</strong> if the counterparty is a non-resident or the shares are being issued rather than transferred: the FEMA pricing certificate and, for an allotment, the registered valuer's report under the Companies Act.</li>
+      <li><strong>Keep the working papers with the share transfer form.</strong> The assessing officer will ask for them in the year of transfer, and the buyer will need them again when she sells, because the taxed value is now her cost.</li>
+    </ol>
+    <p>The methods a registered valuer uses for the Companies Act and FEMA reports, and when each is appropriate, are set out in <a href="/blog-business-valuation-india">Business Valuation in India: Methods, Use Cases and Process</a>. Capital gains rates and the holding-period rules that apply to the seller's side are in <a href="/blog-capital-gains-tax-ay2627">our capital gains filing guide</a>.</p>
+
+    <section class="faq-section">
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="faq-item"><div class="faq-question">Is Rule 11UA still applicable in 2026? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>For any receipt or transfer dated up to 31 March 2026, yes. The Income-tax Act, 1961 and Rule 11UA govern the tax year 2025-26 and earlier, and those returns and assessments continue on the old law. For anything dated 1 April 2026 onwards, Rule 57 of the Income-tax Rules, 2026 applies, read with sections 26(2)(j), 79 and 92 of the Income-tax Act, 2025.</p></div></div>
+      <div class="faq-item"><div class="faq-question">Can I use a DCF valuation to fix the income-tax fair market value of unquoted equity shares? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>No. Rule 57 prescribes the net-asset formula as the only method for unquoted equity shares. The DCF option in the old Rule 11UA(2) existed for section 56(2)(viib), the angel-tax provision, which was abolished from 1 April 2025 and was not re-enacted in the 2025 Act. A DCF report remains the normal basis for a Companies Act registered valuer report and a FEMA pricing certificate, but it does not replace the formula for sections 79 and 92.</p></div></div>
+      <div class="faq-item"><div class="faq-question">Do I need an IBBI registered valuer for a Rule 57 valuation? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>No. The formula is arithmetic on an audited balance sheet and Rule 57 prescribes no signatory for unquoted equity shares. An IBBI registered valuer is required by the Companies Act for a preferential allotment, a scheme or sweat equity, which is a separate obligation. The registered valuer mentioned in Rule 57 is one registered with the income-tax department under section 513 of the Income-tax Act, 2025, and is relevant only to jewellery and artistic work.</p></div></div>
+      <div class="faq-item"><div class="faq-question">Which balance sheet is used for the Rule 57 formula? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Rule 56 defines it as the balance sheet, with its notes, drawn up on the valuation date and audited by the company's statutory auditor. The valuation date is the date of receipt for section 92, the date of transfer for section 79, and the date of conversion for section 26(2)(j). For a transfer in the middle of the year that means special-purpose audited accounts as at that date. The previous year-end accounts do not qualify.</p></div></div>
+      <div class="faq-item"><div class="faq-question">What happens if I gift or sell shares to a family member below the formula value? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>A gift to a relative as defined in section 92(5)(g) is outside both sections. The relative is exempt under section 92(3)(a), and a gift is not a transfer for capital gains under section 70(1)(b), so the relative inherits your cost and holding period. A sale to a relative below the formula value is different. The relative is still exempt on the shortfall, but section 79 has no relative exemption, so your capital gain is computed on the formula value regardless of the price you actually received.</p></div></div>
+      <div class="faq-item"><div class="faq-question">Does Rule 57 apply when a company issues fresh shares? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Not to the company. The provision that taxed a company on shares issued above fair market value, section 56(2)(viib) of the 1961 Act, was abolished from 1 April 2025 and has no counterpart in the 2025 Act. The subscriber is a separate question. Section 92(2)(m) taxes any property received for inadequate consideration, and whether a fresh allotment below the formula value is such a receipt was litigated under the identical wording of the 1961 Act, with proportionate rights issues generally held outside it and disproportionate discounted allotments not always. Take advice before allotting to one investor at a steep discount to the formula value.</p></div></div>
+    </section>
+
+    <section class="sources-section">
+      <h3 style="font-size:1.15rem;margin-bottom:14px">Sources</h3>
+      <ul style="font-size:0.85rem;line-height:1.8">
+        <li><strong>Authority:</strong> Central Board of Direct Taxes, Ministry of Finance. <strong>Title:</strong> Notification No. 22/2026 [F. No. 370142/41/2025-TPL], G.S.R. 198(E) dated 20 March 2026, notifying the Income-tax Rules, 2026 with effect from 1 April 2026; Rules 56 to 58. Corrigendum G.S.R. 286(E) dated 16 April 2026. <a href="https://www.incometaxindia.gov.in/w/notification-no.-22/2026-f.-no.-370142/41/2025-tpl-/-g.s.r.-198-e-" target="_blank" rel="nofollow">View Source</a>. Accessed: September 2026.</li>
+        <li><strong>Authority:</strong> Ministry of Law and Justice. <strong>Title:</strong> Income-tax Act, 2025 (30 of 2025) as amended by the Finance Act, 2026: sections 26(2)(j), 70(1), 73(1), 79, 92, 513 and 515. <a href="https://www.incometaxindia.gov.in/" target="_blank" rel="nofollow">View Source</a>. Accessed: September 2026.</li>
+        <li><strong>Authority:</strong> Ministry of Finance. <strong>Title:</strong> Finance (No. 2) Act, 2024, omission of section 56(2)(viib) of the Income-tax Act, 1961 with effect from 1 April 2025. <a href="https://www.incometaxindia.gov.in/" target="_blank" rel="nofollow">View Source</a>. Accessed: September 2026.</li>
+        <li><strong>Authority:</strong> Ministry of Corporate Affairs. <strong>Title:</strong> Companies Act, 2013, sections 62(1)(c) and 247; Companies (Share Capital and Debentures) Rules, 2014, Rule 13; Companies (Registered Valuers and Valuation) Rules, 2017. <a href="https://www.mca.gov.in/" target="_blank" rel="nofollow">View Source</a>. Accessed: September 2026.</li>
+        <li><strong>Authority:</strong> Reserve Bank of India and Ministry of Finance. <strong>Title:</strong> Foreign Exchange Management (Non-debt Instruments) Rules, 2019, Rule 21, pricing guidelines. <a href="https://www.rbi.org.in/" target="_blank" rel="nofollow">View Source</a>. Accessed: September 2026.</li>
+      </ul>
+    </section>
+    <div class="cta-box">
+      <h3 style="color:var(--brand-blue-deep);margin-bottom:10px">Transferring or issuing shares in a private company?</h3>
+      <p style="margin-bottom:18px">We compute the Rule 57 value from your audited balance sheet, show you what each side will pay at the proposed price, and, where the Companies Act or FEMA also applies, issue the <a href="/business-valuation">IBBI registered valuer report</a> and the pricing certificate from the same desk.</p>
+      <a href="/contact" class="btn btn-primary">Talk to us</a>
+    </div>
+    <div class="share-bar">
+      <strong style="color:var(--brand-blue-deep)">Share this article:</strong>
+      <a href="#" class="share-btn share-linkedin" target="_blank" rel="noopener"><svg class="brand-icon brand-icon-linkedin-in" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg></a>
+      <a href="#" class="share-btn share-whatsapp" target="_blank" rel="noopener"><svg class="brand-icon brand-icon-whatsapp" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+      <a href="#" class="share-btn share-twitter" target="_blank" rel="noopener"><svg class="brand-icon brand-icon-x-twitter" viewBox="0 0 512 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a>
+    </div>
+    <div class="author-box">
+      <img loading="lazy" src="headshot-100.webp?v=2" width="200" height="200" alt="CA Karan Shah" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--brand-saffron);box-shadow:0 4px 15px rgba(217,94,11,0.3)">
+      <div>
+        <h4 style="margin:0 0 8px 0;font-size:1.2rem;color:var(--brand-blue-deep)">Written by CA Karan Shah</h4>
+        <p style="margin:0;font-size:0.95rem;line-height:1.6">Founder of KC Shah & Associates and an IBBI Registered Valuer (Securities and Financial Assets). Values private companies for share transfers, funding rounds, ESOPs and schemes, and provides outsourced accounting, Zoho Books implementation and Virtual CFO services to startups and SMEs across India.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px">
+      <a href="blog" class="btn btn-outline"><i class="fa-solid fa-arrow-left" style="margin-right:8px"></i> Back to Insights</a>
+    </div>
+  </div>
+</section>
+<section class="section" style="padding-top:0">
+  <div class="container" style="max-width:850px;margin:0 auto">
+    <h3 style="font-size:1.4rem;margin-bottom:24px;color:var(--brand-blue-deep);border-bottom:2px solid var(--off-white);padding-bottom:12px">Related Articles</h3>
+    <div class="grid grid-3">
+      <div class="card">
+        <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Valuation</span></div>
+        <h4 style="font-size:1rem;margin:0 0 12px">Registered Valuer vs. Standard CA: When Do You Legally Need an IBBI Valuer?</h4>
+        <a href="blog-registered-valuer-vs-ca" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="card">
+        <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Valuation</span></div>
+        <h4 style="font-size:1rem;margin:0 0 12px">Business Valuation in India: Methods, Use Cases and What Every Owner Must Know</h4>
+        <a href="blog-business-valuation-india" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="card">
+        <div style="background:var(--off-white);padding:8px 14px;border-radius:var(--radius-sm);margin-bottom:14px;display:inline-block"><span style="font-size:0.75rem;font-weight:600;color:var(--brand-saffron);text-transform:uppercase;letter-spacing:1px">Tax Updates</span></div>
+        <h4 style="font-size:1rem;margin:0 0 12px">Capital Gains Tax Filing for AY 2026-27: LTCG, STCG, Mutual Funds and Real Estate</h4>
+        <a href="blog-capital-gains-tax-ay2627" class="card-link" style="margin:0;font-size:0.9rem">Read More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer style="background: var(--brand-blue-deep); color: rgba(255,255,255,0.92); padding: 80px 0 0;">
+  <div class="container">
+    <div class="footer-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px;">
+      <div class="footer-widget">
+        <img src="ca-india-logo.png?v=2" width="194" height="144" alt="CA India Logo" style="height: 60px; width: auto; margin-bottom: 24px; filter: brightness(0) invert(1);">
+        <p style="margin-bottom: 24px;">A premium Chartered Accountancy firm in Mumbai delivering accounting, valuation, and advisory services for modern businesses.</p>
+        <div style="display: flex; gap: 16px;">
+          <i class="fa-solid fa-location-dot" style="color:var(--brand-saffron); font-size: 1.2rem; margin-top: 4px;"></i>
+          <p style="font-size: 0.9rem;"><strong>Andheri Office:</strong><br>91 Springboard, Marol MIDC<br>Andheri East, Mumbai 400069</p>
+        </div>
+      </div>
+      <div class="footer-widget" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 40px;">
+        <div>
+          <h4 style="color: white; margin-bottom: 24px; font-size: 1.1rem;">Services</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 12px;"><a href="outsourced-accounting-services" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Outsourced Accounting Services</a></li>
+            <li style="margin-bottom: 12px;"><a href="business-valuation" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Business Valuation</a></li>
+            <li style="margin-bottom: 12px;"><a href="company-incorporation" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Company Incorporation</a></li>
+            <li style="margin-bottom: 12px;"><a href="gst-filing" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">GST Filing</a></li>
+            <li style="margin-bottom: 12px;"><a href="virtual-cfo" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Virtual CFO</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: white; margin-bottom: 24px; font-size: 1.1rem; visibility: hidden;">More</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 12px;"><a href="income-tax" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Income Tax Filing</a></li>
+            <li style="margin-bottom: 12px;"><a href="audit-assurance" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Audit & Assurance</a></li>
+            <li style="margin-bottom: 12px;"><a href="corporate-finance" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">Corporate Finance</a></li>
+            <li style="margin-bottom: 12px;"><a href="fema-compliance" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">FEMA Compliance</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-widget">
+        <h4 style="color: white; margin-bottom: 24px; font-size: 1.1rem;">CA Near You</h4>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 12px;"><a href="/ca-in/mumbai" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">CA in Mumbai</a></li>
+          <li style="margin-bottom: 12px;"><a href="/ca-in/andheri-east" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">CA in Andheri East</a></li>
+          <li style="margin-bottom: 12px;"><a href="/ca-in/andheri-west" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">CA in Andheri West</a></li>
+          <li style="margin-bottom: 12px;"><a href="/ca-in/bkc" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">CA in BKC</a></li>
+          <li style="margin-bottom: 12px;"><a href="/ca-in/fort" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s;">CA in Fort</a></li>
+        </ul>
+      </div>
+      <div class="footer-widget">
+        <h4 style="color: white; margin-bottom: 24px; font-size: 1.1rem;">Locations</h4>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <a href="https://maps.google.com/?cid=14770658922893348207" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fa-solid fa-map-location-dot"></i> View Andheri Office</a>
+          <a href="https://maps.google.com/?cid=11081371047238055740" target="_blank" class="btn btn-outline" style="width: 100%; justify-content: center; border-color: rgba(255,255,255,0.2); color: white;"><i class="fa-solid fa-map-location-dot"></i> View Fort Office</a>
+        </div>
+      </div>
+    </div>
+    
+    <div style="border-top: 1px solid var(--brand-saffron); margin-top: 40px; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">&copy; 2026 KC Shah & Associates. All rights reserved. | ICAI Membership No. 190724 &middot; IBBI Registered Valuer Reg. No. IBBI/RV/06/2024/15561 | <a href="/disclaimer" style="color: rgba(255,255,255,0.8); text-decoration: underline;">Disclaimer</a></div>
+      <div class="footer-social" style="margin: 0;">
+        <a href="https://www.linkedin.com/in/cakaranshah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><svg class="brand-icon brand-icon-linkedin-in" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg></a>
+        <a href="https://api.whatsapp.com/send/?phone=917666638995" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><svg class="brand-icon brand-icon-whatsapp" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+        <a href="mailto:karan@kcshah.com" aria-label="Email karan@kcshah.com"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20visited%20kcshah.com%20and%20would%20like%20to%20discuss%20your%20services." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp"><svg class="brand-icon brand-icon-whatsapp" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+<div class="mobile-sticky-cta"><a href="tel:+917666638995" class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><i class="fa-solid fa-phone"></i> Call Now</a><a href="https://api.whatsapp.com/send/?phone=917666638995&text=Hi%2C%20I%20visited%20kcshah.com%20and%20would%20like%20to%20discuss%20your%20services." class="btn btn-sm" style="flex:1;justify-content:center;background:#25D366;color:white;border-color:#25D366"><svg class="brand-icon brand-icon-whatsapp" viewBox="0 0 448 512" style="display:inline-block;width:1em;height:1em;vertical-align:-.125em;fill:currentColor" role="img" aria-hidden="true" focusable="false"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg> WhatsApp</a></div>
+<script src="scripts.min.js?v=7" defer></script>
+<script>(function(){var url=encodeURIComponent(window.location.href);var title=encodeURIComponent(document.title);document.querySelector('.share-linkedin').href='https://www.linkedin.com/sharing/share-offsite/?url='+url;document.querySelector('.share-whatsapp').href='https://api.whatsapp.com/send?text='+title+'%20'+url;document.querySelector('.share-twitter').href='https://twitter.com/intent/tweet?url='+url+'&text='+title;})();</script>
+</body></html>
