@@ -52,7 +52,7 @@ const RAW_COMPLIANCES = [
   { month:'jun_26', day:15, cat:'tds', period:'FY 2025-26', title:'Form 16 (Salary TDS Certificate)', tag:'Employers' },
   { month:'jun_26', day:25, cat:'gst', sub:'qrmp', period:'May 2026', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
   { month:'jun_26', day:30, cat:'roc', period:'FY 2025-26', title:'DPT-3 (Return of Deposits)', tag:'Companies' },
-  { month:'jun_26', day:30, cat:'pay', act:'Profession Tax', period:'FY 2025-26', title:'Maharashtra PT Annual Return (Form III-B)', tag:'MH Employers' },
+  { month:'jun_26', day:30, cat:'pay', act:'PT (Maharashtra)', period:'FY 2026-27', title:'Maharashtra PTEC (Annual Payment)', tag:'MH Enrolled Persons' },
 
   // -------- JULY 2025 --------
   { month:'jul_26', day:13, cat:'gst', sub:'qrmp', period:'Q1 FY 26-27 (Apr-Jun)', title:'GSTR-1 / IFF (QRMP)', tag:'QRMP Taxpayers' },
@@ -116,9 +116,9 @@ const RAW_COMPLIANCES = [
 
   // -------- MARCH 2026 --------
   { month:'mar_27', day:15, cat:'it',  period:'FY 2026-27', title:'Advance Tax - Q4 (100% cumulative)', tag:'All Assessees' },
+  { month:'mar_27', day:15, cat:'pay', act:'PT (Maharashtra)', period:'Salary paid Mar 26 - Feb 27', title:'Maharashtra PT (PTRC) Annual Return', tag:'MH Employers (PY liability < 1 lakh)' },
   { month:'mar_27', day:25, cat:'gst', sub:'qrmp', period:'Feb 2027', title:'PMT-06 (QRMP Tax Payment)', tag:'QRMP Taxpayers' },
   { month:'mar_27', day:31, cat:'it',  period:'Multiple AYs', title:'Updated Return (ITR-U) / Form 67', tag:'All Assessees' },
-  { month:'mar_27', day:31, cat:'pay', act:'Profession Tax', period:'FY 2026-27', title:'Maharashtra PTEC (Annual)', tag:'MH Self-Employed' },
 
   // -------- APRIL 2026 (FY 26-27 trailing) --------
   { month:'apr_27', day:7,  cat:'tds', period:'Mar 2027', title:'TCS Payment', tag:'TCS Collectors' },
@@ -139,7 +139,7 @@ const MONTHLY_RECURRING = [
   { day:15,     cat:'pay', title:'EPF / ECR Payment',                  tag:'Employers (>=20)' },
   { day:15,     cat:'pay', title:'ESIC Contribution',                  tag:'Employers (>=10)' },
   { day:20,     cat:'gst', sub:'regular', title:'GSTR-3B (Monthly) / GSTR-5A', tag:'Regular / OIDAR' },
-  { day:'last', cat:'pay', act:'Profession Tax', title:'Maharashtra Profession Tax (PTRC)', tag:'MH Employers' }
+  { day:15,     cat:'pay', act:'PT (Maharashtra)', periodPrefix:'Salary paid ', title:'Maharashtra PT (PTRC) Monthly Return & Payment', tag:'MH Employers (PY liability >= 1 lakh)' }
 ];
 
 const ACT_DISPLAY = {
@@ -163,7 +163,7 @@ function expandMonthly() {
         cat: r.cat,
         act: r.act,
         sub: r.sub,
-        period: PREV_MONTH_NAME[m],
+        period: (r.periodPrefix || '') + PREV_MONTH_NAME[m],
         title: r.title,
         tag: r.tag
       });

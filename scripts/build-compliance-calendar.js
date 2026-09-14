@@ -200,7 +200,11 @@ function readShell(html) {
     pageCss: between('/* -- Sticky filter bar -- */', '</style>').replace(/^/, '<style>\n'),
     header: between('<a href="#main-content" class="skip-link">', '<main id="main-content">'),
     footer: between('</main>', '<script src="../scripts.min.js')
-      .replace(/<script src="\.\.\/scripts\.min\.js$/, '')
+      .replace(/<script src="\.\.\/scripts\.min\.js$/, ''),
+    // GA4 must stay inline in <head> on every page; take it and the versioned
+    // scripts.min.js tag from the main page so both live in one place.
+    ga4: (html.match(/<script async src="https:\/\/www\.googletagmanager\.com[^\n]*\n<script>[^\n]*<\/script>/) || [''])[0],
+    scriptTag: (html.match(/<script src="\.\.\/scripts\.min\.js[^>]*><\/script>/) || ['<script src="../scripts.min.js" defer><\/script>'])[0]
   };
 }
 
@@ -214,7 +218,7 @@ function monthPageHTML(key, shell) {
   const prev = monthKeys[idx - 1];
   const next = monthKeys[idx + 1];
 
-  const title = `${info.name} Compliance Calendar | GST, TDS, PF & ESIC Due Dates`;
+  const title = `${info.name} Compliance Calendar | GST, TDS & PF Due Dates`;
   const desc = `All ${items.length} statutory due dates in ${info.name} - GST returns, TDS deposit, PF, ESIC, profession tax and ROC filings, with the forms and who each applies to.`;
   const canonical = urlOf(key);
 
@@ -227,6 +231,19 @@ function monthPageHTML(key, shell) {
       { '@type': 'ListItem', position: 3, name: 'Compliance Calendar', item: `${SITE}/tools/compliance-calendar` },
       { '@type': 'ListItem', position: 4, name: info.name, item: canonical }
     ]
+  };
+
+  const webApp = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: `${info.name} Compliance Calendar`,
+    url: canonical,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web browser',
+    browserRequirements: 'Requires JavaScript',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+    publisher: { '@id': `${SITE}/#organization` },
+    isPartOf: { '@type': 'WebApplication', name: 'Compliance Calendar FY 2026-27', url: `${SITE}/tools/compliance-calendar` }
   };
 
   const otherMonths = monthKeys.filter(k => k !== key)
@@ -277,6 +294,8 @@ ${shell.pageCss}
 .month-cta-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 0 24px 20px; padding: 14px 18px; background: rgba(217,94,11,.07); border: 1px solid rgba(217,94,11,.25); border-radius: var(--radius-md); }
 .month-cta-strip p { margin: 0; font-size: .85rem; color: var(--text-primary); font-weight: 600; }
 </style>
+<script type="application/ld+json">${JSON.stringify(webApp)}</script>
+${shell.ga4}
 </head>
 <body>
 ${shell.header}
@@ -331,13 +350,13 @@ ${monthSectionHTML(key, items)}
 </div>
 
 <div style="padding:0 24px 24px">
-  <div class="tool-info-box"><i class="fa-solid fa-info-circle"></i><p><strong>Notes:</strong> AOC-4, MGT-7 &amp; ADT-1 dates assume the AGM is held on 30 Sep 2026 (the last permissible date - adjust if your AGM is earlier). PT &amp; LWF deadlines are for <strong>Maharashtra only</strong>; other states differ. Monthly TDS deposit is due the 7th of the following month, except TDS on March deductions which is due 30 April. All dates are indicative and subject to extension circulars by CBDT, GSTN, MCA, EPFO &amp; ESIC.</p></div>
+  <div class="tool-info-box"><i class="fa-solid fa-info-circle"></i><p><strong>Notes:</strong> AOC-4, MGT-7 &amp; ADT-1 dates assume the AGM is held on 30 Sep 2026 (the last permissible date - adjust if your AGM is earlier). PT &amp; LWF deadlines are for <strong>Maharashtra only</strong>; other states differ. Maharashtra PTRC monthly return and payment fall due on the 15th of the month following the month in which salary is paid (Rule 11(3), amended by notification dated 28 Feb 2026); the PTRC annual return is due 15 March and PTEC payment 30 June. Monthly TDS deposit is due the 7th of the following month, except TDS on March deductions which is due 30 April. All dates are indicative and subject to extension circulars by CBDT, GSTN, MCA, EPFO &amp; ESIC.</p></div>
 </div>
 
 </div><!-- /tool-card -->
 </div><!-- /tool-container -->
 ${shell.footer}
-<script src="../scripts.min.js?v=6" defer></script>
+${shell.scriptTag}
 <script src="../tools-shared.min.js?v=6" defer></script>
 </body>
 </html>
