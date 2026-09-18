@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Capital Gains Calculator FY 2026-27 | 54 54F 54EC | KC Shah</title>
-<meta name="description" content="Free Capital Gains Calculator India for FY 2026-27 / AY 2027-28. Calculate STCG, LTCG, Section 54, 54F, 54EC exemptions, cess and post-Budget 2024 rates.">
+<title>Capital Gains Tax Calculator FY 2026-27 (AY 2027-28) | Free PDF</title>
+<meta name="description" content="Free capital gains calculator for FY 2026-27 (AY 2027-28) and earlier years. Shares, mutual funds, property, gold: STCG, LTCG, indexation, 54/54F/54EC and a PDF report.">
 <link rel="canonical" href="https://kcshah.com/tools/capital-gain-calculator">
 <meta property="og:title" content="Capital Gains Calculator FY 2026-27 AY 2027-28 | 54 54F 54EC">
 <meta property="og:description" content="Calculate STCG, LTCG, Section 54, 54F, 54EC exemptions, cess and post-Budget 2024 rates.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://kcshah.com/tools/capital-gain-calculator.html">
+<meta property="og:url" content="https://kcshah.com/tools/capital-gain-calculator">
 <meta property="og:image" content="https://kcshah.com/og-image.jpg">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="1024">
@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Capital Gains Calculator India FY 2026-27","url":"https://kcshah.com/tools/capital-gain-calculator.html","description":"Calculate STCG, LTCG and exemptions for equity, property, gold and mutual funds.","applicationCategory":"FinanceApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"provider":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Capital Gains Calculator India FY 2026-27","url":"https://kcshah.com/tools/capital-gain-calculator","description":"Calculate STCG, LTCG and exemptions for equity, property, gold and mutual funds.","applicationCategory":"FinanceApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"provider":{"@type":"Organization","name":"KC Shah & Associates","url":"https://kcshah.com"}}</script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kcshah.com/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://kcshah.com/tools/"},{"@type":"ListItem","position":3,"name":"Capital Gains Calculator","item":"https://kcshah.com/tools/capital-gain-calculator"}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XB5VRL6X7"></script>
@@ -86,8 +86,8 @@
 <section class="tool-page-header">
 <div class="container" style="position:relative;z-index:2">
 <div class="breadcrumb"><a href="../index">Home</a><span>-</span><a href="/tools/">Free Tools</a><span>-</span><span style="color:rgba(255,255,255,.7)">Capital Gains</span></div>
-<h1>Capital Gains Calculator</h1>
-<p>Calculate STCG & LTCG post Budget 2024 changes (12.5% rate without indexation for long term).</p>
+<h1>Capital Gains Tax Calculator: FY 2026-27 and Earlier Years</h1>
+<p>Pick the year of sale, enter your dates and amounts, and get STCG or LTCG tax with indexation, exemptions, surcharge and cess, plus a PDF computation.</p>
 </div>
 </section>
 
@@ -95,26 +95,29 @@
       <div id="capital-pdf-area">
         <div class="tool-card" style="margin-bottom:20px">
           <div class="tool-card-title"><i class="fa-solid fa-house"></i> Asset Details</div>
+          <div class="tool-input-group"><label for="cg-year">Year of Sale <span>Sets the rates and sections</span></label><select id="cg-year" class="tool-select" onchange="calculate('year')"><option value="2026" selected>FY 2026-27 (AY 2027-28)</option><option value="2025">FY 2025-26 (AY 2026-27)</option><option value="2024">FY 2024-25 (AY 2025-26)</option><option value="2023">FY 2023-24 (AY 2024-25)</option></select></div>
           <div class="tool-input-group"><label>Asset Type</label><select id="asset" class="tool-select" onchange="calculate()"><option value="eq_listed">Listed Equity / Equity MF</option><option value="property">Residential House Property</option><option value="land_building">Land / Building</option><option value="gold">Gold / Jewelry</option><option value="eq_unlisted">Unlisted Equity</option><option value="debt">Debt Mutual Fund</option></select></div>
-          <div class="grid grid-2" style="margin-bottom:12px"><div class="tool-input-group"><label>Purchase Date</label><input type="date" id="pdate" class="tool-input" value="2020-04-01" onchange="calculate()"></div><div class="tool-input-group"><label>Sale Date</label><input type="date" id="sdate" class="tool-input" value="2025-04-01" onchange="calculate()"></div></div>
-          <div class="tool-input-group"><label>Purchase Price</label><div class="tool-input-prefix"><input type="number" id="pprice" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Indexed Cost <span>Auto-calculated from CII for eligible land/building; enter a value to override</span></label><div class="tool-input-prefix"><input type="number" id="indexed-cost" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+          <div class="grid grid-2" style="margin-bottom:12px"><div class="tool-input-group"><label>Purchase Date</label><input type="date" id="pdate" class="tool-input" value="2020-04-01" onchange="calculate()"></div><div class="tool-input-group"><label>Sale Date</label><input type="date" id="sdate" class="tool-input" value="2026-09-01" min="2023-04-01" max="2027-03-31" onchange="calculate('date')"></div></div>
+          <div class="tool-input-group"><label>Purchase Price <span>For assets bought before 1 April 2001 you may enter the fair market value on that date</span></label><div class="tool-input-prefix"><input type="number" id="pprice" class="tool-input" value="100000" min="0" oninput="calculate()"></div></div>
+          <div class="tool-input-group" id="fmv2018-group" style="display:none"><label>Fair Market Value on 31 January 2018 <span>Highest quoted price that day (or NAV for funds); used for grandfathering</span></label><div class="tool-input-prefix"><input type="number" id="fmv2018" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+          <div class="tool-input-group" id="indexed-cost-group"><label>Indexed Cost <span>Auto-calculated from the Cost Inflation Index; enter a value only to override</span></label><div class="tool-input-prefix"><input type="number" id="indexed-cost" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
           <div class="tool-input-group"><label>Sale Price / Full Value of Consideration</label><div class="tool-input-prefix"><input type="number" id="sprice" class="tool-input" value="250000" min="0" oninput="calculate()"></div></div>
           <div class="tool-input-group"><label>Transfer Expenses</label><div class="tool-input-prefix"><input type="number" id="exp" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Taxpayer Type</label><select id="taxpayer-type" class="tool-select" onchange="calculate()"><option value="resident">Resident individual / HUF</option><option value="other">Other taxpayer</option></select></div>
-          <div class="tool-input-group"><label>Surcharge Rate <span>Surcharge on capital gains is capped at 15%</span></label><select id="cg-surcharge-rate" class="tool-select" onchange="calculate()"><option value="0">No surcharge</option><option value="0.1">10%</option><option value="0.15">15%</option></select></div>
+          <div class="tool-input-group"><label>Taxpayer Type</label><select id="taxpayer-type" class="tool-select" onchange="calculate()"><option value="resident">Resident individual / HUF</option><option value="nri">Non-resident individual / HUF</option><option value="other">Company / firm / other</option></select></div>
+          <div class="tool-input-group"><label>Your Slab Rate <span>Used only for short-term gains taxed at slab rates</span></label><select id="cg-slab-rate" class="tool-select" onchange="calculate()"><option value="0.05">5%</option><option value="0.1">10%</option><option value="0.15">15%</option><option value="0.2">20%</option><option value="0.25">25%</option><option value="0.3" selected>30%</option></select></div>
+          <div class="tool-input-group"><label>Surcharge Rate <span>Total income above ₹50 lakh; capped at 15% on LTCG and listed-equity STCG</span></label><select id="cg-surcharge-rate" class="tool-select" onchange="calculate()"><option value="0">No surcharge</option><option value="0.1">10%</option><option value="0.15">15%</option><option value="0.25">25%</option></select></div>
         </div>
         <div class="tool-card" style="margin-bottom:20px">
           <div class="tool-card-title"><i class="fa-solid fa-key"></i> Exemptions</div>
-          <div class="tool-input-group"><label>Section 54 Investment <span>Residential house sold, max eligible investment ₹10 crore</span></label><div class="tool-input-prefix"><input type="number" id="sec54" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Section 54F Investment <span>Other long-term asset into residential house</span></label><div class="tool-input-prefix"><input type="number" id="sec54f" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
-          <div class="tool-input-group"><label>Section 54EC Bonds <span>Land/building LTCG, cap ₹50 lakh</span></label><div class="tool-input-prefix"><input type="number" id="sec54ec" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+          <div class="tool-input-group"><label>Section 54 Investment <span>Section 82 from FY 2026-27. Residential house sold, max eligible investment ₹10 crore</span></label><div class="tool-input-prefix"><input type="number" id="sec54" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+          <div class="tool-input-group"><label>Section 54F Investment <span>Section 86 from FY 2026-27. Any other long-term asset, including shares, into a residential house</span></label><div class="tool-input-prefix"><input type="number" id="sec54f" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
+          <div class="tool-input-group"><label>Section 54EC Bonds <span>Section 85 from FY 2026-27. Land/building LTCG, cap ₹50 lakh, within 6 months</span></label><div class="tool-input-prefix"><input type="number" id="sec54ec" class="tool-input" value="0" min="0" oninput="calculate()"></div></div>
         </div>
       </div>
       <div>
         <div id="result-card" class="tool-card" style="margin-bottom:20px">
           <div class="tool-card-title"><i class="fa-solid fa-chart-pie"></i> Capital Gains Result</div>
-          <div class="tool-result" style="text-align:center;margin-bottom:16px"><div class="tool-result-label" id="gain-type">Long Term Capital Gain</div><div class="tool-result-value" id="gain-amount">₹0</div><div class="tool-result-sub" id="tax-method">Post Budget 2024 method</div></div>
+          <div class="tool-result" style="text-align:center;margin-bottom:16px"><div class="tool-result-label" id="gain-type">Long Term Capital Gain</div><div class="tool-result-value" id="gain-amount" style="white-space:nowrap;font-size:clamp(1.5rem,3.2vw,2.4rem)">₹0</div><div class="tool-result-sub" id="tax-method">Post Budget 2024 method</div><div class="tool-result-sub" id="cg-year-label" style="margin-top:4px;opacity:.8"></div></div>
           <div class="tool-result-grid"><div class="tool-result-item"><div class="label">Holding Period</div><div class="value" id="hold-period">0 Months</div></div><div class="tool-result-item"><div class="label">Tax Rate</div><div class="value" id="tax-rate">12.5%</div></div><div class="tool-result-item"><div class="label">Exemption Claimed</div><div class="value" id="cg-exemption">₹0</div></div><div class="tool-result-item highlight"><div class="label">Total Tax incl. Cess</div><div class="value" id="tax-amount">₹0</div></div></div>
           <div id="cg-methods" style="margin-top:16px"></div>
           <div class="tool-info-box" style="margin-top:16px"><i class="fa-solid fa-info-circle"></i><p id="cg-eligibility">Exemptions are indicative and subject to investment timing, ownership, lock-in and CGAS conditions.</p></div>
@@ -124,6 +127,32 @@
       </div>
 </div></div>
 
+<section class="section" style="padding:40px 0 10px">
+<div class="container" style="max-width:900px">
+<h2>Capital Gains Tax Rates for FY 2026-27 (AY 2027-28)</h2>
+<p>Sales on or after 1 April 2026 are taxed under the Income-tax Act, 2025, which calls the period "Tax Year 2026-27". The rates are the ones introduced on 23 July 2024; only the section numbers have changed. The calculator switches to the older rules automatically when you choose an earlier year.</p>
+<div class="table-scroll" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="tool-comparison">
+<thead><tr><th>Asset</th><th>Long-term if held</th><th>STCG</th><th>LTCG</th></tr></thead>
+<tbody>
+<tr><td>Listed shares, equity mutual funds</td><td>More than 12 months</td><td>20% (section 196)</td><td>12.5% above ₹1.25 lakh a year (section 198)</td></tr>
+<tr><td>House, land, building</td><td>More than 24 months</td><td>Slab rate</td><td>12.5% without indexation; residents who bought before 23 July 2024 may pay 20% with indexation if lower</td></tr>
+<tr><td>Gold, jewellery, unlisted shares</td><td>More than 24 months</td><td>Slab rate</td><td>12.5% without indexation (section 197)</td></tr>
+<tr><td>Debt mutual funds bought on or after 1 April 2023</td><td>Never</td><td>Slab rate</td><td>Not applicable</td></tr>
+</tbody></table></div>
+<p style="margin-top:16px">The Cost Inflation Index for FY 2026-27 is 384 (376 for FY 2025-26). Surcharge on these gains is capped at 15%, and 4% health and education cess applies on top. For worked examples and the exemption conditions, read our <a href="/blog-capital-gains-tax-ay2728" style="color:var(--brand-saffron-text);font-weight:600">capital gains tax guide for AY 2027-28</a>.</p>
+</div>
+</section>
+
+<section class="section" style="padding:30px 0 40px">
+<div class="section-header"><span class="label">FAQ</span>
+<h2>Frequently Asked Questions</h2></div>
+<div style="max-width:800px;margin:0 auto;padding:0 24px">
+<div class="faq-item"><div class="faq-question">Which years does this capital gains calculator cover? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Sales from FY 2023-24 to FY 2026-27. Choose the year from the dropdown, or simply enter the sale date and the year is picked for you. Sales before 23 July 2024 use the old rates (10%/15%/20% with indexation); later sales use the current ones.</p></div></div>
+<div class="faq-item"><div class="faq-question">How is the 31 January 2018 grandfathering applied? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>If listed shares or equity fund units were bought before 1 February 2018 and are long-term, a field appears for the fair market value on 31 January 2018. The cost is then taken as the higher of your actual cost and the lower of that value and the sale price.</p></div></div>
+<div class="faq-item"><div class="faq-question">Can I claim Section 54F on sale of shares? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>Yes. Section 54F (section 86 from FY 2026-27) covers any long-term asset other than a residential house, including listed and unlisted shares, gold and land. The exemption is proportionate to the net sale consideration invested in one residential house, and the investment counted is capped at ₹10 crore.</p></div></div>
+<div class="faq-item"><div class="faq-question">What does the PDF report contain? <i class="fa-solid fa-chevron-down"></i></div><div class="faq-answer"><p>The year and the law applied, your transaction details, a line-by-line computation, the indexation comparison where it applies, and the assumptions used. It is a working paper for discussion with your CA, not a filed computation.</p></div></div>
+</div>
+</section>
 
 <section class="cta-banner">
 <div class="container">
@@ -155,6 +184,6 @@
 
 <script src="../scripts.min.js?v=7" defer></script>
 <script src="../tools-shared.min.js?v=6" defer></script>
-<script src="law-updates.min.js?v=6" defer></script>
+<script src="law-updates.min.js?v=7" defer></script>
 
 </body></html>

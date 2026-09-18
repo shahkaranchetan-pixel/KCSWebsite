@@ -15,6 +15,11 @@ RewriteRule ^blog-outsourced-accounting-gst-compliance(\.html)?/?$ https://kcsha
 RewriteRule ^blog-registered-valuer-ma-india(\.html)?/?$ https://kcshah.com/blog-registered-valuer-vs-ca [R=301,L]
 RewriteRule ^blog-ibbi-registered-valuer-startup-funding(\.html)?/?$ https://kcshah.com/blog-registered-valuer-vs-ca [R=301,L]
 RewriteRule ^blog-zoho-books-gst-maharashtra(\.html)?/?$ https://kcshah.com/blog-zoho-books-gst-filing [R=301,L]
+# Capital gains guide rolled forward to AY 2027-28 (Sep 2026).
+RewriteRule ^blog-capital-gains-tax-ay2627(\.html)?/?$ https://kcshah.com/blog-capital-gains-tax-ay2728 [R=301,L]
+# Retired matrix URLs that still earn search clicks (placed here so they win over the mod_alias block below).
+RewriteRule ^services/capital-gains-tax/[a-z-]+/?$ https://kcshah.com/blog-capital-gains-tax-ay2728 [R=301,L]
+RewriteRule ^services/tds-return-filing/andheri-west/?$ https://kcshah.com/ca-in/andheri-west [R=301,L]
 
 # 0b-2. Legacy sections removed from the site.
 #       Placed above the .html rule so both URL forms resolve in ONE hop.
@@ -143,13 +148,6 @@ Redirect 301 /services/gst-registration-returns-in-thane.html /gst-filing
 Redirect 301 /services/income-tax-filing-in-thane.html /income-tax
 
 # 9. Consolidated location/service-matrix pages -> canonical service pages (SEO consolidation)
-Redirect 301 /services/capital-gains-tax/andheri-east /income-tax
-Redirect 301 /services/capital-gains-tax/andheri-west /income-tax
-Redirect 301 /services/capital-gains-tax/andheri /income-tax
-Redirect 301 /services/capital-gains-tax/bandra /income-tax
-Redirect 301 /services/capital-gains-tax/bkc /income-tax
-Redirect 301 /services/capital-gains-tax/fort /income-tax
-Redirect 301 /services/capital-gains-tax/mumbai /income-tax
 Redirect 301 /services/corporate-governance/andheri-east /audit-assurance
 Redirect 301 /services/corporate-governance/andheri-west /audit-assurance
 Redirect 301 /services/corporate-governance/andheri /audit-assurance

@@ -1,5 +1,5 @@
 ﻿(function () {
-  const INR = (n) => (window.formatINRFull ? window.formatINRFull(n) : "â‚¹" + Math.round(n || 0).toLocaleString("en-IN"));
+  const INR = (n) => (window.formatINRFull ? window.formatINRFull(n) : "₹" + Math.round(n || 0).toLocaleString("en-IN"));
   const num = (id) => {
     const el = document.getElementById(id);
     return el ? Math.max(0, Number(el.value) || 0) : 0;
@@ -21,7 +21,7 @@
   // Cost Inflation Index (base FY 2001-02 = 100), keyed by financial-year start year.
   // Government-notified values through the current year; used to auto-compute indexed cost
   // for the section 197(3) LTCG comparison on land/building.
-  const CII = { 2001: 100, 2002: 105, 2003: 109, 2004: 113, 2005: 117, 2006: 122, 2007: 129, 2008: 137, 2009: 148, 2010: 167, 2011: 184, 2012: 200, 2013: 220, 2014: 240, 2015: 254, 2016: 264, 2017: 272, 2018: 280, 2019: 289, 2020: 301, 2021: 317, 2022: 331, 2023: 348, 2024: 363, 2025: 376 };
+  const CII = { 2001: 100, 2002: 105, 2003: 109, 2004: 113, 2005: 117, 2006: 122, 2007: 129, 2008: 137, 2009: 148, 2010: 167, 2011: 184, 2012: 200, 2013: 220, 2014: 240, 2015: 254, 2016: 264, 2017: 272, 2018: 280, 2019: 289, 2020: 301, 2021: 317, 2022: 331, 2023: 348, 2024: 363, 2025: 376, 2026: 384 };
   const finYearStart = (date) => (date.getMonth() >= 3 ? date.getFullYear() : date.getFullYear() - 1);
   const ciiFor = (fyStart) => {
     const years = Object.keys(CII).map(Number);
@@ -244,128 +244,264 @@
     return Math.max(0, months);
   }
 
-  
+  // Date inputs give yyyy-mm-dd; build a local date so the day never shifts with the timezone.
+  function parseLocalDate(value) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+    return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : null;
+  }
+  const isoDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const displayDate = (d) => d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  function addMonths(date, n) {
+    const d = new Date(date.getTime());
+    d.setMonth(d.getMonth() + n);
+    return d;
+  }
 
-  function runCapitalGainsCalculator() {
-    const asset = document.getElementById("asset")?.value;
-    const pdate = new Date(document.getElementById("pdate")?.value);
-    const sdate = new Date(document.getElementById("sdate")?.value);
-    if (!asset || Number.isNaN(pdate.getTime()) || Number.isNaN(sdate.getTime()) || sdate < pdate) {
-      setText("hold-period", "Invalid Dates");
+  // Years the capital gains calculator supports, keyed by financial-year start year.
+  // Sales from 1 Apr 2026 fall under the Income-tax Act, 2025 ("tax year"); earlier sales under the 1961 Act.
+  const CG_YEARS = {
+    2023: { fy: "2023-24", label: "Financial Year 2023-24 | Assessment Year 2024-25", act: 1961 },
+    2024: { fy: "2024-25", label: "Financial Year 2024-25 | Assessment Year 2025-26", act: 1961 },
+    2025: { fy: "2025-26", label: "Financial Year 2025-26 | Assessment Year 2026-27", act: 1961 },
+    2026: { fy: "2026-27", label: "Tax Year 2026-27 (FY 2026-27) | Income-tax Act, 2025", act: 2025 },
+  };
+  const CG_SECTIONS = {
+    1961: { name: "Income-tax Act, 1961", stcgEq: "111A", ltcgEq: "112A", ltcg: "112", house: "54", bonds: "54EC", other: "54F", compare: "112" },
+    2025: { name: "Income-tax Act, 2025", stcgEq: "196", ltcgEq: "198", ltcg: "197", house: "82", bonds: "85", other: "86", compare: "197(3)" },
+  };
+  const CG_MIN_YEAR = Math.min(...Object.keys(CG_YEARS).map(Number));
+  const CG_MAX_YEAR = Math.max(...Object.keys(CG_YEARS).map(Number));
+
+  // Keep the year dropdown and the sale date pointing at the same financial year.
+  function syncCapitalGainsYear(source) {
+    const yearEl = document.getElementById("cg-year");
+    const saleEl = document.getElementById("sdate");
+    if (!yearEl || !saleEl) return;
+    if (source === "year") {
+      const fy = Number(yearEl.value);
+      const current = parseLocalDate(saleEl.value) || new Date(fy, 3, 1);
+      const month = current.getMonth();
+      saleEl.value = isoDate(new Date(month >= 3 ? fy : fy + 1, month, current.getDate()));
       return;
     }
+    const sale = parseLocalDate(saleEl.value);
+    if (sale && CG_YEARS[finYearStart(sale)]) yearEl.value = String(finYearStart(sale));
+  }
+
+  function toggleGroup(inputId, enabled) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.disabled = !enabled;
+    const group = input.closest(".tool-input-group");
+    if (group) group.style.opacity = enabled ? "" : "0.45";
+  }
+  function showGroup(groupId, visible) {
+    const group = document.getElementById(groupId);
+    if (group) group.style.display = visible ? "" : "none";
+  }
+
+  function runCapitalGainsCalculator(source) {
+    syncCapitalGainsYear(source);
+    const asset = document.getElementById("asset")?.value;
+    const pdate = parseLocalDate(document.getElementById("pdate")?.value);
+    const sdate = parseLocalDate(document.getElementById("sdate")?.value);
+    window.__cgReport = null;
+    if (!asset || !pdate || !sdate || sdate < pdate) {
+      setText("hold-period", "Invalid Dates");
+      setText("cg-eligibility", "Enter a purchase date that is on or before the sale date.");
+      return;
+    }
+    const fyStart = finYearStart(sdate);
+    const year = CG_YEARS[fyStart];
+    if (!year) {
+      setText("hold-period", "Year not covered");
+      setText("cg-eligibility", `This calculator covers sales between 1 April ${CG_MIN_YEAR} and 31 March ${CG_MAX_YEAR + 1}. Pick a sale date in that range.`);
+      return;
+    }
+    const sec = CG_SECTIONS[year.act];
+
+    const taxpayer = document.getElementById("taxpayer-type")?.value || "resident";
+    const isIndHuf = taxpayer === "resident" || taxpayer === "nri";
+    const isResidentIndHuf = taxpayer === "resident";
+    const isListed = asset === "eq_listed";
+    const isLandBuilding = asset === "property" || asset === "land_building";
+
+    // Finance (No. 2) Act, 2024: rates and holding periods changed for transfers on or after 23 Jul 2024.
+    const budgetCutoff = new Date(2024, 6, 23);
+    const postBudget = sdate >= budgetCutoff;
+    // Debt (specified) mutual fund units bought on or after 1 Apr 2023 are always short-term.
+    const deemedShortTerm = asset === "debt" && pdate >= new Date(2023, 3, 1);
+    const threshold = isListed ? 12 : postBudget ? 24 : (asset === "gold" || asset === "debt") ? 36 : 24;
+    // "More than" 12/24/36 months: the sale date must fall after the month-anniversary of purchase.
+    const isLong = !deemedShortTerm && sdate > addMonths(pdate, threshold);
     const months = holdingMonths(pdate, sdate);
-    const thresholds = { eq_listed: 12, property: 24, land_building: 24, gold: 24, eq_unlisted: 24, debt: 36 };
-    const threshold = thresholds[asset] || 24;
-    const isLong = months >= threshold;
+
     const sale = num("sprice");
-    const cost = num("pprice");
+    const actualCost = num("pprice");
     const expenses = num("exp");
     const netConsideration = Math.max(0, sale - expenses);
-    const grossGain = Math.max(0, netConsideration - cost);
-    const budgetCutoff = new Date("2024-07-23");
-    const postBudget = sdate >= budgetCutoff;
-    let rate = 0.3;
-    let method = isLong ? "Long-term capital gain" : "Short-term capital gain";
-    let taxableBeforeExemption = grossGain;
-    let eligibility = "STCG is generally taxed at applicable slab rates except listed equity/equity MF under Section 111A.";
 
-    // Section 197(3), ITA 2025: a resident individual/HUF transferring land or building acquired
-    // before 23 Jul 2024 pays the LOWER of 12.5% without indexation vs 20% with indexation.
-    const isResidentIndHuf = document.getElementById("taxpayer-type")?.value === "resident";
-    const acquiredBeforeCutoff = pdate < budgetCutoff;
-    const indexationEligible = isLong && postBudget && isResidentIndHuf && acquiredBeforeCutoff && (asset === "property" || asset === "land_building");
+    // Listed equity bought before 1 Feb 2018: cost is the higher of actual cost and
+    // the lower of (FMV on 31 Jan 2018, sale value).
+    const grandfatherEligible = isListed && isLong && pdate < new Date(2018, 1, 1);
+    const fmv2018 = num("fmv2018");
+    const cost = grandfatherEligible && fmv2018 > 0 ? Math.max(actualCost, Math.min(fmv2018, sale)) : actualCost;
+    const grandfathered = cost !== actualCost;
+
     const overrideIndexedCost = num("indexed-cost");
-    const autoIndexedCost = indexedCostFrom(cost, pdate, sdate);
-    const indexedCost = overrideIndexedCost > 0 ? overrideIndexedCost : autoIndexedCost;
+    const indexedCost = overrideIndexedCost > 0 ? overrideIndexedCost : indexedCostFrom(cost, pdate, sdate);
+    const indexationOnly = isLong && !isListed && !postBudget;
+    const indexationCompare = isLong && postBudget && isLandBuilding && isResidentIndHuf && pdate < budgetCutoff;
 
-    if (asset === "eq_listed") {
-      rate = isLong ? (postBudget ? 0.125 : 0.1) : (postBudget ? 0.2 : 0.15);
-      taxableBeforeExemption = isLong ? Math.max(0, grossGain - (postBudget ? 125000 : 100000)) : grossGain;
-      eligibility = isLong ? "Listed equity/equity MF LTCG exemption threshold applied before tax." : "Listed equity/equity MF STCG uses the special Section 111A rate.";
-    } else if (isLong) {
-      rate = postBudget ? 0.125 : 0.2;
-      eligibility = "LTCG exemption depends on asset type, investment timing, ownership and lock-in conditions.";
-      if (asset === "debt") {
-        eligibility = "Debt mutual fund taxation depends on acquisition date, holding mix and statutory classification. Treat this as an estimate and review before filing.";
-      }
+    const plainGain = netConsideration - cost;
+    const indexedGain = netConsideration - indexedCost;
+
+    const inv54 = num("sec54");
+    const inv54f = num("sec54f");
+    const inv54ec = num("sec54ec");
+    const can54 = isLong && isIndHuf && asset === "property";
+    const can54f = isLong && isIndHuf && asset !== "property";
+    const can54ec = isLong && isLandBuilding;
+    function exemptionsFor(gain) {
+      const out = { e54: 0, e54f: 0, e54ec: 0, total: 0 };
+      if (gain <= 0) return out;
+      if (can54) out.e54 = Math.min(gain, cap(inv54, 100000000));
+      let remaining = gain - out.e54;
+      if (can54f && netConsideration > 0) out.e54f = Math.min(remaining, gain * cap(inv54f, 100000000) / netConsideration);
+      remaining -= out.e54f;
+      if (can54ec) out.e54ec = Math.min(remaining, cap(inv54ec, 5000000));
+      out.total = out.e54 + out.e54f + out.e54ec;
+      return out;
     }
 
-    let exemption54 = 0;
-    let exemption54f = 0;
-    let exemption54ec = 0;
-    if (isLong) {
-      if (asset === "property") exemption54 = Math.min(taxableBeforeExemption, cap(num("sec54"), 100000000));
-      if (asset !== "property" && asset !== "eq_listed") exemption54f = Math.min(taxableBeforeExemption, netConsideration ? cap(num("sec54f"), 100000000) * taxableBeforeExemption / netConsideration : 0);
-      if (asset === "property" || asset === "land_building") exemption54ec = Math.min(taxableBeforeExemption - exemption54 - exemption54f, cap(num("sec54ec"), 5000000));
+    // The ₹1.25 lakh listed-equity threshold applies to the whole of FY 2024-25 onwards (₹1 lakh before).
+    const equityThreshold = isListed && isLong ? (fyStart >= 2024 ? 125000 : 100000) : 0;
+    function taxFor(gain, rate) {
+      const ex = exemptionsFor(gain);
+      const afterExemption = Math.max(0, gain - ex.total);
+      const thresholdUsed = Math.min(afterExemption, equityThreshold);
+      const taxable = afterExemption - thresholdUsed;
+      return { gain, rate, ex, thresholdUsed, taxable, tax: taxable * rate };
     }
-    const exemption = Math.max(0, exemption54 + exemption54f + exemption54ec);
-    const taxableGain = Math.max(0, taxableBeforeExemption - exemption);
 
-    // Default single-method result; overridden below for the section 197(3) comparison.
-    let displayTaxableGain = taxableGain;
-    let baseTax = taxableGain * rate;
+    const slabRate = Number(document.getElementById("cg-slab-rate")?.value) || 0.3;
+    let result;
+    let method;
+    let basis;
+    let specialRate = true;
     let methodsHtml = "";
-
-    if (indexationEligible) {
-      const taxableNoIndex = taxableGain;                                       // 12.5% base (non-indexed)
-      const taxableIndexed = Math.max(0, Math.max(0, netConsideration - indexedCost) - exemption); // 20% base
-      const taxNoIndex = taxableNoIndex * 0.125;                                // A: s.197(1)(b)
-      const taxIndexed = taxableIndexed * 0.2;                                  // B: 20% on indexed gain
-      const indexWins = taxIndexed < taxNoIndex;                               // pay the lower (s.197(3))
-      if (indexWins) {
-        rate = 0.2;
-        displayTaxableGain = taxableIndexed;
-        baseTax = taxIndexed;
-        method = "LTCG Â· 20% with indexation (payable)";
+    let compare = null;
+    if (!isLong) {
+      if (isListed) {
+        result = taxFor(plainGain, postBudget ? 0.2 : 0.15);
+        method = `STCG · ${postBudget ? "20" : "15"}% under section ${sec.stcgEq}`;
+        basis = `Listed equity shares and equity-oriented funds held for 12 months or less are taxed at the special rate in section ${sec.stcgEq} (STT paid).`;
       } else {
-        rate = 0.125;
-        displayTaxableGain = taxableNoIndex;
-        baseTax = taxNoIndex;
-        method = "LTCG Â· 12.5% without indexation (payable)";
+        specialRate = false;
+        result = taxFor(plainGain, slabRate);
+        method = `STCG · taxed at your slab rate (${Math.round(slabRate * 100)}% selected)`;
+        basis = deemedShortTerm
+          ? "Debt (specified) mutual fund units acquired on or after 1 April 2023 are always treated as short-term, whatever the holding period, and taxed at your slab rate."
+          : "Short-term gains on this asset are added to your income and taxed at your slab rate. Change the slab rate field to match your income.";
       }
-      eligibility = "Resident individual/HUF, land/building acquired before 23 Jul 2024: under section 197(3) you pay the lower of the two methods below. Indexed cost is auto-calculated from the Cost Inflation Index (override optional).";
-      const tag = (lower) => (lower ? '<span style="color:#0a7d33;font-weight:600"> (lower â€” payable)</span>' : '<span style="color:#888"> (higher â€” ignored)</span>');
-      methodsHtml = `<div class="tool-card-title" style="font-size:0.95rem;margin-bottom:8px"><i class="fa-solid fa-scale-balanced"></i> Both methods compared â€” s.197(3)</div>` +
+    } else if (isListed) {
+      result = taxFor(plainGain, postBudget ? 0.125 : 0.1);
+      method = `LTCG · ${postBudget ? "12.5" : "10"}% under section ${sec.ltcgEq}`;
+      basis = `Listed equity LTCG is taxed under section ${sec.ltcgEq} on the amount above ${INR(equityThreshold)} a year. The threshold is shared across all your listed-equity gains for the year.`;
+    } else if (indexationCompare) {
+      const a = taxFor(plainGain, 0.125);
+      const b = taxFor(indexedGain, 0.2);
+      const indexWins = b.tax < a.tax;
+      result = indexWins ? b : a;
+      compare = { a, b, indexWins };
+      method = indexWins ? "LTCG · 20% with indexation (lower, payable)" : "LTCG · 12.5% without indexation (lower, payable)";
+      basis = `Resident individual/HUF selling land or building acquired before 23 July 2024: section ${sec.compare} lets you pay the lower of 12.5% without indexation and 20% with indexation. Indexed cost uses CII ${ciiFor(Math.max(finYearStart(pdate), 2001))} (purchase year) and ${ciiFor(fyStart)} (sale year).`;
+      const tag = (lower) => (lower ? '<span style="color:#0a7d33;font-weight:600"> (lower, payable)</span>' : '<span style="color:#888"> (higher, ignored)</span>');
+      methodsHtml = `<div class="tool-card-title" style="font-size:0.95rem;margin-bottom:8px"><i class="fa-solid fa-scale-balanced"></i> Both methods compared · section ${sec.compare}</div>` +
         `<table class="tool-comparison"><thead><tr><th>Method</th><th>Taxable gain</th><th>Tax*</th></tr></thead><tbody>` +
-        `<tr class="${indexWins ? "" : "highlight-row"}"><td>12.5% without indexation${tag(!indexWins)}</td><td>${INR(taxableNoIndex)}</td><td>${INR(taxNoIndex)}</td></tr>` +
-        `<tr class="${indexWins ? "highlight-row" : ""}"><td>20% with indexation${tag(indexWins)}</td><td>${INR(taxableIndexed)}</td><td>${INR(taxIndexed)}</td></tr>` +
-        `</tbody></table><p style="font-size:0.75rem;color:#888;margin-top:6px">*Tax before surcharge & cess. Indexed cost used: ${INR(indexedCost)}.</p>`;
+        `<tr class="${indexWins ? "" : "highlight-row"}"><td>12.5% without indexation${tag(!indexWins)}</td><td>${INR(a.taxable)}</td><td>${INR(a.tax)}</td></tr>` +
+        `<tr class="${indexWins ? "highlight-row" : ""}"><td>20% with indexation${tag(indexWins)}</td><td>${INR(b.taxable)}</td><td>${INR(b.tax)}</td></tr>` +
+        `</tbody></table><p style="font-size:0.75rem;color:#888;margin-top:6px">*Tax before surcharge and cess. Indexed cost used: ${INR(indexedCost)}.</p>`;
+    } else if (indexationOnly) {
+      result = taxFor(indexedGain, 0.2);
+      method = `LTCG · 20% with indexation under section ${sec.ltcg}`;
+      basis = "Transfers before 23 July 2024 are taxed at 20% after indexing the cost with the Cost Inflation Index.";
+    } else {
+      result = taxFor(plainGain, 0.125);
+      method = `LTCG · 12.5% without indexation under section ${sec.ltcg}`;
+      basis = `Long-term gains on transfers on or after 23 July 2024 are taxed at 12.5% under section ${sec.ltcg} without indexation.`;
     }
+    const usedIndexation = result.gain === indexedGain && (indexationOnly || (compare && compare.indexWins));
+    const isLoss = result.gain < 0;
 
-    // Surcharge on capital gains is capped at 15% (section 197 / Finance Act rate schedule).
-    const surchargeRate = Math.min(Number(document.getElementById("cg-surcharge-rate")?.value) || 0, 0.15);
-    const surchargeAmount = baseTax * surchargeRate;
-    const cess = (baseTax + surchargeAmount) * 0.04;
-    const totalTax = Math.round(baseTax + surchargeAmount + cess);
+    // Surcharge on special-rate capital gains (listed-equity STCG and all LTCG) is capped at 15%.
+    const surchargeChosen = Number(document.getElementById("cg-surcharge-rate")?.value) || 0;
+    const surchargeRate = specialRate ? Math.min(surchargeChosen, 0.15) : surchargeChosen;
+    const surchargeAmount = result.tax * surchargeRate;
+    const cess = (result.tax + surchargeAmount) * 0.04;
+    const totalTax = Math.round(result.tax + surchargeAmount + cess);
 
-    setText("gain-type", isLong ? "Long Term Capital Gain" : "Short Term Capital Gain");
-    setText("gain-amount", INR(grossGain));
-    setText("hold-period", `${months} Months (${threshold}+ months for LTCG)`);
-    setText("tax-rate", `${(rate * 100).toFixed(rate === 0.125 ? 1 : 0)}%`);
+    const notes = [basis];
+    if (grandfathered) notes.push("Cost has been stepped up using the 31 January 2018 fair market value (grandfathering for listed equity bought before 1 February 2018).");
+    if (grandfatherEligible && !fmv2018) notes.push("These shares were bought before 1 February 2018. Enter the 31 January 2018 fair market value to apply grandfathering.");
+    if (isLoss) notes.push("This is a capital loss. No tax is payable; a long-term loss can be set off only against long-term gains, a short-term loss against any capital gain, and the balance carried forward for 8 years if the return is filed on time.");
+    if (specialRate && surchargeChosen > 0.15) notes.push("Surcharge on this gain is capped at 15%, so 15% has been applied.");
+    if (result.ex.total > 0) notes.push(`Exemptions under sections ${sec.house}/${sec.other}/${sec.bonds} require reinvestment within the prescribed time, a Capital Gains Account Scheme deposit where the money is not yet used, and lock-in compliance.`);
+    if (!isIndHuf && (inv54 > 0 || inv54f > 0)) notes.push(`Sections ${sec.house} and ${sec.other} are available only to individuals and HUFs, so those investments have been ignored.`);
+    notes.push("The basic exemption limit, the section 87A rebate and set-off of other losses are not considered here.");
+
+    showGroup("fmv2018-group", grandfatherEligible);
+    showGroup("indexed-cost-group", indexationOnly || indexationCompare);
+    toggleGroup("sec54", can54);
+    toggleGroup("sec54f", can54f);
+    toggleGroup("sec54ec", can54ec);
+    toggleGroup("cg-slab-rate", !isLong && !isListed);
+
+    const holdingText = `${months} months (${deemedShortTerm ? "always short-term" : `more than ${threshold} months for LTCG`})`;
+    const rateText = `${(result.rate * 100).toFixed(result.rate === 0.125 ? 1 : 0)}%`;
+    setText("cg-year-label", year.label);
+    setText("gain-type", isLoss ? (isLong ? "Long Term Capital Loss" : "Short Term Capital Loss") : (isLong ? "Long Term Capital Gain" : "Short Term Capital Gain"));
+    setText("gain-amount", (isLoss ? "-" : "") + INR(Math.abs(result.gain)));
+    setText("hold-period", holdingText);
+    setText("tax-rate", rateText);
     setText("tax-method", method);
-    setText("cg-exemption", INR(exemption));
+    setText("cg-exemption", INR(result.ex.total));
     setText("tax-amount", INR(totalTax));
     setHtml("cg-methods", methodsHtml);
-    setText("cg-eligibility", `${eligibility} Section 54/54F/54EC benefits require prescribed reinvestment timelines, CGAS deposit where applicable, and lock-in compliance.`);
+    setText("cg-eligibility", notes.join(" "));
+
+    const signed = (value) => (value < 0 ? "-" + INR(Math.abs(value)) : INR(value));
     const rows = [
-      ["Sale consideration", sale],
-      ["Less: transfer expenses", expenses],
-      ["Net consideration", netConsideration],
-      ["Cost of acquisition", cost],
-      ["Indexed cost used", indexationEligible && rate === 0.2 ? indexedCost : 0],
-      ["Gross capital gain", grossGain],
-      ["Section 54 exemption", exemption54],
-      ["Section 54F exemption", exemption54f],
-      ["Section 54EC exemption", exemption54ec],
-      ["Taxable capital gain", displayTaxableGain],
-      ["Tax before surcharge/cess", baseTax],
-      ["Surcharge", surchargeAmount],
-      ["Health & Education Cess", cess],
-      ["Total tax", totalTax],
-    ];
+      ["Sale price / full value of consideration", INR(sale)],
+      ["Less: transfer expenses", INR(expenses)],
+      ["Net consideration", INR(netConsideration)],
+      grandfathered ? ["Actual cost of acquisition", INR(actualCost)] : null,
+      grandfathered ? ["FMV on 31 January 2018", INR(fmv2018)] : null,
+      [grandfathered ? "Cost of acquisition (grandfathered)" : "Cost of acquisition", INR(cost)],
+      usedIndexation ? [`Indexed cost of acquisition (CII ${ciiFor(fyStart)} / ${ciiFor(Math.max(finYearStart(pdate), 2001))})`, INR(indexedCost)] : null,
+      [isLoss ? "Capital loss" : (usedIndexation ? "Capital gain after indexation" : "Capital gain"), signed(result.gain)],
+      result.ex.e54 ? [`Less: section ${sec.house} exemption (new residential house)`, INR(result.ex.e54)] : null,
+      result.ex.e54f ? [`Less: section ${sec.other} exemption (proportionate)`, INR(result.ex.e54f)] : null,
+      result.ex.e54ec ? [`Less: section ${sec.bonds} exemption (bonds)`, INR(result.ex.e54ec)] : null,
+      result.thresholdUsed ? [`Less: section ${sec.ltcgEq} threshold`, INR(result.thresholdUsed)] : null,
+      ["Taxable capital gain", INR(result.taxable)],
+      [`Tax at ${rateText}`, INR(result.tax)],
+      [`Surcharge at ${Math.round(surchargeRate * 100)}%`, INR(surchargeAmount)],
+      ["Health and education cess at 4%", INR(cess)],
+      ["Total tax payable", INR(totalTax)],
+    ].filter(Boolean);
     const body = document.getElementById("cg-breakdown");
-    if (body) body.innerHTML = rows.map(([label, value], index) => `<tr${index === rows.length - 1 ? ' class="highlight-row"' : ""}><td>${label}</td><td>${INR(value)}</td></tr>`).join("");
+    if (body) body.innerHTML = rows.map(([label, value], index) => `<tr${index === rows.length - 1 ? ' class="highlight-row"' : ""}><td>${label}</td><td>${value}</td></tr>`).join("");
+
+    // Snapshot for the PDF report, so the report always matches what is on screen.
+    const selectText = (id) => { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? el.options[el.selectedIndex].text : "-"; };
+    window.__cgReport = {
+      year, actName: sec.name, assetText: selectText("asset"), taxpayerText: selectText("taxpayer-type"),
+      purchaseDate: displayDate(pdate), saleDate: displayDate(sdate), holdingText, rateText, method,
+      gainType: document.getElementById("gain-type")?.textContent || "", totalTax: INR(totalTax), rows, notes,
+      invested: [can54 && inv54 ? [`Section ${sec.house} investment`, INR(inv54)] : null, can54f && inv54f ? [`Section ${sec.other} investment`, INR(inv54f)] : null, can54ec && inv54ec ? [`Section ${sec.bonds} bonds`, INR(inv54ec)] : null].filter(Boolean),
+      compare: compare ? [["12.5% without indexation", INR(compare.a.taxable), INR(compare.a.tax), !compare.indexWins], ["20% with indexation", INR(compare.b.taxable), INR(compare.b.tax), compare.indexWins]] : null,
+    };
   }
 
   const path = location.pathname.replace(/\.html$/, "");
@@ -404,7 +540,7 @@ async function generateTaxReportPDF() {
   const winner        = document.getElementById('winner-text').textContent;
   const savings       = Math.abs(oldTotal - newTotal);
 
-  const f = n => 'â‚¹' + Math.round(n).toLocaleString('en-IN');
+  const f = n => '₹' + Math.round(n).toLocaleString('en-IN');
   const pct = n => (n*100).toFixed(2)+'%';
   const gross = sal + other + stcg + ltcg;
 
@@ -473,7 +609,7 @@ async function generateTaxReportPDF() {
         <thead>
           <tr style="background:${navy}">
             <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Particulars</th>
-            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (â‚¹)</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (₹)</th>
           </tr>
         </thead>
         <tbody>
@@ -496,7 +632,7 @@ async function generateTaxReportPDF() {
         <thead>
           <tr style="background:${navy}">
             <th style="text-align:left;padding:9px 14px;color:white;font-weight:600;width:60%">Deduction</th>
-            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (â‚¹)</th>
+            <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Amount (₹)</th>
           </tr>
         </thead>
         <tbody>
@@ -611,22 +747,22 @@ async function generateTaxReportPDF() {
         <table style="width:50%;border-collapse:collapse;font-size:11.5px">
           <thead><tr style="background:#334E78"><th style="text-align:left;padding:7px 10px;color:white;font-weight:600">New Regime Slab</th><th style="text-align:right;padding:7px 10px;color:white;font-weight:600">Rate</th></tr></thead>
           <tbody>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to â‚¹4,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹4,00,001 - â‚¹8,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹8,00,001 - â‚¹12,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">10%</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹12,00,001 - â‚¹16,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">15%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹16,00,001 - â‚¹20,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹20,00,001 - â‚¹24,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">25%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px">Above â‚¹24,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to ₹4,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹4,00,001 - ₹8,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹8,00,001 - ₹12,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">10%</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹12,00,001 - ₹16,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">15%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹16,00,001 - ₹20,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹20,00,001 - ₹24,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">25%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px">Above ₹24,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
           </tbody>
         </table>
         <table style="width:50%;border-collapse:collapse;font-size:11.5px">
           <thead><tr style="background:#334E78"><th style="text-align:left;padding:7px 10px;color:white;font-weight:600">Old Regime Slab (Below 60)</th><th style="text-align:right;padding:7px 10px;color:white;font-weight:600">Rate</th></tr></thead>
           <tbody>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to â‚¹2,50,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
-            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹2,50,001 - â‚¹5,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
-            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">â‚¹5,00,001 - â‚¹10,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
-            <tr><td style="padding:6px 10px">Above â‚¹10,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">Up to ₹2,50,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">NIL</td></tr>
+            <tr><td style="padding:6px 10px;border-bottom:1px solid #eee">₹2,50,001 - ₹5,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">5%</td></tr>
+            <tr style="background:#F9FAFB"><td style="padding:6px 10px;border-bottom:1px solid #eee">₹5,00,001 - ₹10,00,000</td><td style="text-align:right;padding:6px 10px;border-bottom:1px solid #eee">20%</td></tr>
+            <tr><td style="padding:6px 10px">Above ₹10,00,000</td><td style="text-align:right;padding:6px 10px">30%</td></tr>
           </tbody>
         </table>
       </div>
@@ -795,7 +931,7 @@ async function generateAdvanceTaxReportPDF() {
       </div>
       <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid #c62828">
         <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Estimated Interest (234B & 234C)</div>
-        <div style="font-size:16px;font-weight:700;color:#c62828;margin-top:4px">â‚¹${(parseFloat(int234c.replace(/[^0-9.]/g,'')) || 0) + (parseFloat(int234b.replace(/[^0-9.]/g,'')) || 0)}</div>
+        <div style="font-size:16px;font-weight:700;color:#c62828;margin-top:4px">₹${(parseFloat(int234c.replace(/[^0-9.]/g,'')) || 0) + (parseFloat(int234b.replace(/[^0-9.]/g,'')) || 0)}</div>
       </div>
       <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${gold}">
         <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Balance Tax / Shortfall</div>
@@ -808,11 +944,11 @@ async function generateAdvanceTaxReportPDF() {
       <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:12px">A. Tax Assessment Details</div>
       <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:12px">
         <div style="flex:1;min-width:45%">
-          <div style="margin-bottom:8px"><span style="color:#666">Estimated Tax Before Credits:</span> <strong>â‚¹${Number(grossTax).toLocaleString('en-IN')}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">TDS/TCS Credits:</span> <strong>â‚¹${Number(credits).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Estimated Tax Before Credits:</span> <strong>₹${Number(grossTax).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">TDS/TCS Credits:</span> <strong>₹${Number(credits).toLocaleString('en-IN')}</strong></div>
         </div>
         <div style="flex:1;min-width:45%">
-          <div style="margin-bottom:8px"><span style="color:#666">Self-Assessment Tax Paid:</span> <strong>â‚¹${Number(selfAssPaid).toLocaleString('en-IN')}</strong></div>
+          <div style="margin-bottom:8px"><span style="color:#666">Self-Assessment Tax Paid:</span> <strong>₹${Number(selfAssPaid).toLocaleString('en-IN')}</strong></div>
           <div style="margin-bottom:8px"><span style="color:#666">Result:</span> <strong>${advice}</strong></div>
         </div>
       </div>
@@ -902,34 +1038,25 @@ async function generateAdvanceTaxReportPDF() {
     runAdvanceTaxCalculator();
   }
   if (path.endsWith("/tools/capital-gain-calculator")) {
-    addCommonTaxSchema("Capital Gains Calculator", "https://kcshah.com/tools/capital-gain-calculator.html", [
+    addCommonTaxSchema("Capital Gains Calculator", "https://kcshah.com/tools/capital-gain-calculator", [
       { q: "Does the calculator include Sections 54, 54F and 54EC?", a: "Yes. It includes indicative exemption inputs for Section 54, Section 54F and Section 54EC, subject to statutory conditions." },
+      { q: "Which years does the calculator cover?", a: "Sales from FY 2023-24 to FY 2026-27 (Tax Year 2026-27 under the Income-tax Act, 2025). Pick the year from the dropdown or enter the sale date and the correct rates, holding periods and section numbers are applied." },
       { q: "Does it handle post-Budget 2024 capital gains rates?", a: "Yes. It separates listed equity, land/building and other asset classes and applies post-Budget 2024 rates where relevant." },
-      { q: "Can it compare indexed and non-indexed land or building tax?", a: "Yes. For eligible resident individuals or HUFs (land/building acquired before 23 July 2024), it shows both 12.5% without indexation and 20% with indexation and applies the lower under Section 197(3). Indexed cost is auto-calculated from the Cost Inflation Index." },
+      { q: "Can it compare indexed and non-indexed land or building tax?", a: "Yes. For eligible resident individuals or HUFs (land/building acquired before 23 July 2024), it shows both 12.5% without indexation and 20% with indexation and applies the lower. Indexed cost is auto-calculated from the Cost Inflation Index, including 384 for FY 2026-27." },
     ]);
     
     
 async function generateCapitalGainsReportPDF() {
-  showToast('Preparing professional report-', 'info');
-  try { await ensurePdfLibs(); } catch (e) { showToast('Could not load PDF library.', 'error'); return; }
-
-  // Read inputs
-  const assetType = document.getElementById('asset').options[document.getElementById('asset').selectedIndex].text;
-  const pdate = document.getElementById('pdate').value;
-  const sdate = document.getElementById('sdate').value;
-  const pprice = document.getElementById('pprice').value || "0";
-  const sprice = document.getElementById('sprice').value || "0";
-  const indexedCost = document.getElementById('indexed-cost').value || "0";
-  const exp = document.getElementById('exp').value || "0";
-  
-  // Read outputs
-  const gainType = document.getElementById('gain-type')?.textContent || '-';
-  const gainAmount = document.getElementById('gain-amount')?.textContent || '0';
-  const holdPeriod = document.getElementById('hold-period')?.textContent || '-';
-  const taxRate = document.getElementById('tax-rate')?.textContent || '-';
-  const taxMethod = document.getElementById('tax-method')?.textContent || '-';
-  const cgExemption = document.getElementById('cg-exemption')?.textContent || '0';
-  const taxAmount = document.getElementById('tax-amount')?.textContent || '0';
+  const report = window.__cgReport;
+  if (!report) { showToast('Enter valid dates and amounts first.', 'error'); return; }
+  showToast('Preparing report...', 'info');
+  // html-to-image, not html2canvas: html2canvas 1.4.1 draws text about half an em too low.
+  try {
+    await Promise.all([
+      loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js'),
+      loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+    ]);
+  } catch (e) { showToast('Could not load PDF library.', 'error'); return; }
 
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
@@ -938,23 +1065,35 @@ async function generateCapitalGainsReportPDF() {
   const navy = '#1F3A6E';
   const gold = '#d95e0b';
   const lightBlue = '#E8EDF5';
-  
-  // Create table rows for the computation section from the cg-breakdown table
-  const breakdownRows = Array.from(document.querySelectorAll('#cg-breakdown tr')).map(tr => {
-    const tds = tr.querySelectorAll('td');
-    if (tds.length === 2) return [tds[0].textContent, tds[1].textContent, tr.classList.contains('highlight-row')];
-    return null;
-  }).filter(Boolean);
-  
-  let computationHtml = '';
-  breakdownRows.forEach((row, i) => {
-    let bg = i % 2 === 0 ? '#F9FAFB' : '#fff';
-    if (row[2]) bg = lightBlue;
-    computationHtml += `<tr style="background:${bg}">
-      <td style="padding:8px 14px;border-bottom:1px solid #eee;${row[2]?'font-weight:700;color:'+navy:''} ">${row[0]}</td>
-      <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;${row[2]?'font-weight:700;color:'+navy:''} ">${row[1]}</td>
+  const heading = (text) => `<div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:12px">${text}</div>`;
+  const detail = (label, value) => `<div style="margin-bottom:8px"><span style="color:#666">${label}:</span> <strong>${value}</strong></div>`;
+
+  const computationHtml = report.rows.map((row, i) => {
+    const last = i === report.rows.length - 1;
+    const bg = last ? lightBlue : (i % 2 === 0 ? '#F9FAFB' : '#fff');
+    const strong = last ? 'font-weight:700;color:' + navy : '';
+    return `<tr style="background:${bg}">
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;${strong}">${row[0]}</td>
+      <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;${strong}">${row[1]}</td>
     </tr>`;
-  });
+  }).join('');
+
+  const compareHtml = report.compare ? `
+    <div style="margin-bottom:22px">
+      ${heading('C. Both Methods Compared')}
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+        <thead><tr style="background:${navy}">
+          <th style="text-align:left;padding:9px 14px;color:white;font-weight:600">Method</th>
+          <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Taxable gain</th>
+          <th style="text-align:right;padding:9px 14px;color:white;font-weight:600">Tax before surcharge and cess</th>
+        </tr></thead>
+        <tbody>${report.compare.map((row) => `<tr style="background:${row[3] ? lightBlue : '#fff'}">
+          <td style="padding:8px 14px;border-bottom:1px solid #eee;${row[3] ? 'font-weight:700;color:' + navy : ''}">${row[0]}${row[3] ? ' (lower, payable)' : ''}</td>
+          <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${row[1]}</td>
+          <td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right">${row[2]}</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>` : '';
 
   const html = `
 <div style="width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#222;font-size:13px;line-height:1.5">
@@ -962,7 +1101,7 @@ async function generateCapitalGainsReportPDF() {
   <!-- LETTERHEAD -->
   <div style="background:${navy};padding:22px 32px 18px;display:flex;justify-content:space-between;align-items:center">
     <div>
-      <div style="color:${gold};font-size:22px;font-weight:700;letter-spacing:0.5px">KC Shah & Associates</div>
+      <div style="color:${gold};font-size:22px;font-weight:700;letter-spacing:0.5px">KC Shah &amp; Associates</div>
       <div style="color:rgba(255,255,255,0.8);font-size:11px;margin-top:3px">Chartered Accountants | Mumbai</div>
     </div>
     <div style="text-align:right;color:rgba(255,255,255,0.75);font-size:10.5px;line-height:1.8">
@@ -978,50 +1117,50 @@ async function generateCapitalGainsReportPDF() {
   <!-- DOCUMENT TITLE -->
   <div style="background:#F4F6FA;padding:18px 32px;border-bottom:1px solid #dde3ef">
     <div style="font-size:17px;font-weight:700;color:${navy};letter-spacing:0.3px">CAPITAL GAINS COMPUTATION STATEMENT</div>
-    <div style="font-size:11.5px;color:#555;margin-top:4px">Financial Year 2026-27 &nbsp;|&nbsp; Assessment Year 2027-28</div>
+    <div style="font-size:11.5px;color:#555;margin-top:4px">${report.year.label}</div>
   </div>
 
   <!-- META ROW -->
   <div style="display:flex;justify-content:space-between;padding:12px 32px;background:#fff;border-bottom:1px solid #eee;font-size:11px;color:#555">
     <div><span style="font-weight:600;color:${navy}">Report No:</span> ${reportNo}</div>
     <div><span style="font-weight:600;color:${navy}">Generated:</span> ${dateStr}</div>
-    <div><span style="font-weight:600;color:${navy}">Asset Type:</span> ${assetType}</div>
+    <div><span style="font-weight:600;color:${navy}">Law applied:</span> ${report.actName}</div>
   </div>
 
   <div style="padding:24px 32px">
-  
+
     <!-- SUMMARY CARDS -->
     <div style="display:flex;gap:16px;margin-bottom:24px">
       <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${navy}">
-        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Gain Classification</div>
-        <div style="font-size:16px;font-weight:700;color:${navy};margin-top:4px">${gainType}</div>
+        <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Classification</div>
+        <div style="font-size:16px;font-weight:700;color:${navy};margin-top:4px">${report.gainType}</div>
       </div>
       <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${navy}">
         <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Holding Period</div>
-        <div style="font-size:16px;font-weight:700;color:${navy};margin-top:4px">${holdPeriod}</div>
+        <div style="font-size:14px;font-weight:700;color:${navy};margin-top:4px">${report.holdingText}</div>
       </div>
       <div style="flex:1;background:${lightBlue};padding:16px;border-radius:8px;border-left:4px solid ${gold}">
         <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.5px">Total Tax Payable</div>
-        <div style="font-size:16px;font-weight:700;color:${gold};margin-top:4px">${taxAmount}</div>
+        <div style="font-size:16px;font-weight:700;color:${gold};margin-top:4px">${report.totalTax}</div>
       </div>
     </div>
 
     <!-- TRANSACTION DETAILS -->
     <div style="margin-bottom:22px">
-      <div style="font-size:12px;font-weight:700;color:${navy};text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid ${navy};padding-bottom:6px;margin-bottom:12px">A. Transaction Details</div>
+      ${heading('A. Transaction Details')}
       <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:12px">
         <div style="flex:1;min-width:45%">
-          <div style="margin-bottom:8px"><span style="color:#666">Purchase Date:</span> <strong>${pdate}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">Purchase Price:</span> <strong>â‚¹${Number(pprice).toLocaleString('en-IN')}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">Transfer Expenses:</span> <strong>â‚¹${Number(exp).toLocaleString('en-IN')}</strong></div>
+          ${detail('Asset type', report.assetText)}
+          ${detail('Purchase date', report.purchaseDate)}
+          ${detail('Sale date', report.saleDate)}
         </div>
         <div style="flex:1;min-width:45%">
-          <div style="margin-bottom:8px"><span style="color:#666">Sale Date:</span> <strong>${sdate}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">Sale Price:</span> <strong>â‚¹${Number(sprice).toLocaleString('en-IN')}</strong></div>
-          <div style="margin-bottom:8px"><span style="color:#666">Applicable Tax Rate:</span> <strong>${taxRate}</strong></div>
+          ${detail('Taxpayer', report.taxpayerText)}
+          ${detail('Applicable tax rate', report.rateText)}
+          ${report.invested.map((row) => detail(row[0], row[1])).join('')}
         </div>
       </div>
-      <div style="margin-top:8px;font-size:11px;color:#666"><em>Note: ${taxMethod}</em></div>
+      <div style="margin-top:8px;font-size:11px;color:#666"><em>Method: ${report.method}</em></div>
     </div>
 
     <!-- COMPUTATION TABLE -->
@@ -1040,9 +1179,19 @@ async function generateCapitalGainsReportPDF() {
       </table>
     </div>
 
+    ${compareHtml}
+
+    <!-- BASIS -->
+    <div style="margin-bottom:22px">
+      ${heading((report.compare ? 'D' : 'C') + '. Basis and Assumptions')}
+      <ul style="margin:0;padding-left:18px;font-size:11.5px;color:#444;list-style:disc">
+        ${report.notes.map((note) => `<li style="margin-bottom:5px">${note}</li>`).join('')}
+      </ul>
+    </div>
+
     <!-- DISCLAIMER -->
-    <div style="background:#FDF2E9;border-left:3px solid ${gold};padding:12px 16px;font-size:10.5px;color:#703f16;margin-top:40px">
-      <strong>Disclaimer:</strong> This computation is an estimate generated based on user inputs and current tax laws (including Budget 2024 changes). It should not be construed as professional tax advice. Exemptions (Sec 54/54F/54EC) are subject to statutory conditions. Please consult your Chartered Accountant before filing your income tax return.
+    <div style="background:#FDF2E9;border-left:3px solid ${gold};padding:12px 16px;font-size:10.5px;color:#703f16;margin-top:28px">
+      <strong>Disclaimer:</strong> This computation is an estimate based on the figures entered and the law in force for the year shown above. It is not professional tax advice. Please consult your Chartered Accountant before paying advance tax or filing your income tax return.
     </div>
 
   </div>
@@ -1050,55 +1199,42 @@ async function generateCapitalGainsReportPDF() {
   `;
 
   const wrapper = document.createElement('div');
-  wrapper.style.position = 'absolute';
-  wrapper.style.top = '-9999px';
-  wrapper.style.left = '-9999px';
-  wrapper.style.zIndex = '-1';
+  wrapper.style.cssText = 'position:fixed;left:-99999px;top:0;z-index:-1;pointer-events:none';
   wrapper.innerHTML = html;
   document.body.appendChild(wrapper);
+  const target = wrapper.firstElementChild;
 
-  html2canvas(wrapper.firstElementChild, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: '#ffffff',
-    width: 794,
-    windowWidth: 794
-  }).then(canvas => {
-    document.body.removeChild(wrapper);
+  try {
+    const imgData = await htmlToImage.toJpeg(target, {
+      pixelRatio: 2,
+      quality: 0.97,
+      backgroundColor: '#ffffff',
+      width: 794,
+      height: target.offsetHeight,
+      skipFonts: true
+    });
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-    const pdfW = pdf.internal.pageSize.getWidth();
-    const pdfH = pdf.internal.pageSize.getHeight();
-    const imgData = canvas.toDataURL('image/jpeg', 0.97);
-    const imgH = (canvas.height * pdfW) / canvas.width;
-
-    if (imgH <= pdfH) {
-      pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, imgH);
-    } else {
-      let yOffset = 0;
-      let remaining = imgH;
-      let page = 0;
-      while (remaining > 0) {
-        if (page > 0) pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, -yOffset, pdfW, imgH);
-        yOffset += pdfH;
-        remaining -= pdfH;
-        page++;
-      }
-    }
-    pdf.save('KC-Shah-Capital-Gains-FY2627.pdf');
-    showToast('Professional PDF downloaded!', 'success');
-  }).catch(err => {
-    document.body.removeChild(wrapper);
+    // A4 width; a longer statement gets one taller page so no table row is cut across pages.
+    const pdfW = 210;
+    const imgH = (target.offsetHeight * pdfW) / 794;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [pdfW, Math.max(297, imgH)] });
+    pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, imgH);
+    pdf.save(`KC-Shah-Capital-Gains-FY${report.year.fy}.pdf`);
+    showToast('PDF downloaded.', 'success');
+  } catch (err) {
     console.error(err);
     showToast('PDF generation failed. Please try again.', 'error');
-  });
+  } finally {
+    document.body.removeChild(wrapper);
+  }
 }
 
     window.generateCapitalGainsReportPDF = generateCapitalGainsReportPDF;
     window.calculate = runCapitalGainsCalculator;
-    document.addEventListener("DOMContentLoaded", runCapitalGainsCalculator);
-    runCapitalGainsCalculator();
+    // Open on today's date when it falls in a supported year.
+    const cgSaleInput = document.getElementById("sdate");
+    if (cgSaleInput && CG_YEARS[finYearStart(new Date())]) cgSaleInput.value = isoDate(new Date());
+    runCapitalGainsCalculator("date");
+    document.addEventListener("DOMContentLoaded", () => runCapitalGainsCalculator("date"));
   }
 })();
-
